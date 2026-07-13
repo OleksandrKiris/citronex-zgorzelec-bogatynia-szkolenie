@@ -242,6 +242,16 @@
     });
   }
 
+  function focusActiveTopNav() {
+    const nav = document.querySelector(".top-nav-scroll");
+    const active = nav?.querySelector(".top-nav-link.is-active");
+    if (!nav || !active) return;
+    requestAnimationFrame(() => {
+      const target = active.offsetLeft - ((nav.clientWidth - active.clientWidth) / 2);
+      nav.scrollTo({ left: Math.max(0, target), behavior: "auto" });
+    });
+  }
+
   function pageHero(pageName = page) {
     const info = DATA.pages[pageName] || DATA.pages.home;
     const appTitle = DATA.meta && DATA.meta.appTitle ? DATA.meta.appTitle : "Citronex";
@@ -1663,6 +1673,7 @@
 
   function renderPage() {
     renderHeader();
+    focusActiveTopNav();
     const renderers = {
       home: renderHome,
       mapa: renderMap,

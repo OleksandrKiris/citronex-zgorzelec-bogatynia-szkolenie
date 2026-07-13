@@ -3245,8 +3245,12 @@ details.card,
   margin-top: 12px;
 }
 
-.greenhouse-steps .step-card > div > .btn-row {
+.greenhouse-steps .step-card > div > .nave-guide-panel {
   order: 4;
+}
+
+.greenhouse-steps .step-card > div > .btn-row {
+  order: 5;
 }
 
 .orientation-badge {
