@@ -663,12 +663,52 @@
   function renderCity() {
     const cityItems = [...DATA.city, ...(DATA.cityExtras || [])];
     const cityLinks = (item) => {
-      const links = item.links || (item.url ? [{ url: item.url, label: item.button || DATA.ui.openMap, tone: item.tone }] : []);
+      const links = item.links || item.buttons || (item.url ? [{ url: item.url, label: item.button || DATA.ui.openMap, tone: item.tone }] : []);
       const buttons = links.map((link) => action(link.url, text(link.label), link.tone || item.tone)).join("");
       const phone = item.phone ? `<a class="btn secondary" href="${esc(telHref(item.phone))}">${esc(ui("call"))} ${esc(formatPhone(item.phone))}</a>` : "";
       return buttons || phone ? `<div class="btn-row city-links">${buttons}${phone}</div>` : "";
     };
     const cityList = (items) => items && items.length ? `<ul class="list city-rule-list">${items.map((entry) => `<li>${esc(text(entry))}</li>`).join("")}</ul>` : "";
+    const citySimpleItemFlex = (item) => `
+      <div class="city-simple-item">
+        <div class="city-simple-text">
+          <h3>${esc(text(item.title))}</h3>
+          ${item.address ? `<p class="city-meta">${esc(text(item.address))}</p>` : ""}
+          <p>${esc(text(item.note || item.body))}</p>
+          ${cityList(item.list)}
+        </div>
+        ${cityLinks(item)}
+      </div>
+    `;
+    const citySections = DATA.citySections || [];
+    if (citySections.length) {
+      const byId = new Map(cityItems.filter(Boolean).map((item) => [item.id, item]));
+      const groups = citySections.map((section) => {
+        const items = (section.items || [])
+          .map((item) => typeof item === "string" ? byId.get(item) : item)
+          .filter(Boolean);
+        if (!items.length) return "";
+        return `
+          <details class="${cardClass(section.tone || "blue")} city-simple-group" open>
+            <summary>
+              <span class="city-card-icon">${iconMap[section.icon] || iconMap.city}</span>
+              <span>${esc(text(section.title))}</span>
+            </summary>
+            <div class="city-simple-body">
+              ${section.lead ? `<p class="city-simple-lead">${esc(text(section.lead))}</p>` : ""}
+              ${items.map(citySimpleItemFlex).join("")}
+            </div>
+          </details>
+        `;
+      }).join("");
+      app.innerHTML = `
+        <main class="page city-page-simple">
+          ${pageHero()}
+          <section class="city-simple-list">${groups}</section>
+        </main>
+      `;
+      return;
+    }
     {
       const cityMain = DATA.city || [];
       const compactCityCategories = [

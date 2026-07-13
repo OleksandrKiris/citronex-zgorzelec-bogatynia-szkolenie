@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260713-zgorzelec-bogatynia-lekarz1",
+    "version": "20260713-zgorzelec-bogatynia-miasto-urzad1",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
     "repo": "citronex-zgorzelec-bogatynia-szkolenie",
@@ -159,25 +159,25 @@
     "miasto": {
       "title": {
         "pl": "Miasto, urząd i banki",
-        "en": "City, office and banks",
-        "ua": "Місто, установа і банки",
-        "ru": "Город, учреждение и банки",
-        "az": "Şəhər, idarə və banklar",
-        "es": "Ciudad, oficina y bancos",
-        "fil": "Lungsod, opisina at bangko",
+        "en": "City, offices and banks",
+        "ua": "Місто, установи і банки",
+        "ru": "Город, учреждения и банки",
+        "az": "Şəhər, idarələr və banklar",
+        "es": "Ciudad, oficinas y bancos",
+        "fil": "City, opisina at bangko",
         "id": "Kota, kantor dan bank",
         "ne": "शहर, कार्यालय र बैंक"
       },
       "lead": {
-        "pl": "Proste kafelki do map: urząd, DUW, banki, transport i najważniejsze sprawy obcokrajowca.",
-        "en": "Simple map buttons: office, DUW, banks, transport and key things for a foreign worker.",
-        "ua": "Прості кнопки карт: установа, DUW, банки, транспорт і важливі справи іноземця.",
-        "ru": "Простые кнопки карт: учреждение, DUW, банки, транспорт и важные дела иностранца.",
-        "az": "Sadə xəritə düymələri: idarə, DUW, banklar, nəqliyyat və əcnəbi üçün vacib işlər.",
-        "es": "Botones simples de mapa: oficina, DUW, bancos, transporte y asuntos importantes para extranjeros.",
-        "fil": "Simpleng map buttons: opisina, DUW, bangko, transport at mahalagang bagay para sa dayuhan.",
-        "id": "Tombol peta sederhana: kantor, DUW, bank, transportasi dan hal penting untuk orang asing.",
-        "ne": "सरल नक्सा बटन: कार्यालय, DUW, बैंक, यातायात र विदेशीका मुख्य काम।"
+        "pl": "Najważniejsze miejsca dla pracownika w Zgorzelcu i Bogatyni: oba urzędy lokalne, DUW, karta pobytu, banki, poczta, transport i aplikacje.",
+        "en": "Key places for a worker in Zgorzelec and Bogatynia: both local offices, DUW, residence card, banks, post office, transport and apps.",
+        "ua": "Найважливіші місця для працівника в Zgorzelcu і Bogatyni: обидві місцеві установи, DUW, карта побиту, банки, пошта, транспорт і додатки.",
+        "ru": "Самые важные места для работника в Zgorzelcu и Bogatyni: оба местных учреждения, DUW, карта побыту, банки, почта, транспорт и приложения.",
+        "az": "Zgorzelec və Bogatynia-da işçi üçün əsas yerlər: hər iki yerli idarə, DUW, yaşayış kartı, banklar, poçt, nəqliyyat və tətbiqlər.",
+        "es": "Lugares clave en Zgorzelec y Bogatynia: oficinas locales, DUW, residencia, bancos, correo, transporte y apps.",
+        "fil": "Mahahalagang lugar sa Zgorzelec at Bogatynia: local offices, DUW, residence card, bangko, post office, transport at apps.",
+        "id": "Tempat penting di Zgorzelec dan Bogatynia: kantor lokal, DUW, kartu tinggal, bank, kantor pos, transportasi dan aplikasi.",
+        "ne": "Zgorzelec र Bogatynia मा कामदारका लागि मुख्य ठाउँहरू: स्थानीय कार्यालयहरू, DUW, बसोबास कार्ड, बैंक, हुलाक, यातायात र एपहरू।"
       }
     },
     "grupy": {
@@ -1852,42 +1852,56 @@
   ],
   "city": [
     {
+      "id": "urzad-zgorzelec",
       "icon": "city",
       "tone": "blue",
       "title": {
-        "pl": "Urząd - Zgorzelec",
-        "en": "Office - Zgorzelec",
-        "ua": "Установа - Zgorzelec",
-        "ru": "Учреждение - Zgorzelec",
-        "az": "İdarə - Zgorzelec",
-        "es": "Oficina - Zgorzelec",
-        "fil": "Opisina - Zgorzelec",
-        "id": "Kantor - Zgorzelec",
-        "ne": "कार्यालय - Zgorzelec"
-      },
-      "body": {
-        "pl": "Miejsce na urząd i sprawy administracyjne w Zgorzelcu.",
-        "en": "Place for office and administration matters in Zgorzelec.",
-        "ua": "Місце для установи і адміністративних справ у Zgorzelcu.",
-        "ru": "Место для учреждения и административных дел в Zgorzelcu.",
-        "az": "Zgorzelec-də idarə və inzibati işlər üçün yer.",
-        "es": "Lugar para oficina y trámites en Zgorzelec.",
-        "fil": "Lugar para opisina at admin sa Zgorzelec.",
-        "id": "Tempat kantor dan administrasi di Zgorzelec.",
-        "ne": "Zgorzelec मा कार्यालय र प्रशासनिक कामको ठाउँ।"
+        "pl": "Urząd Miasta Zgorzelec",
+        "en": "Zgorzelec City Office",
+        "ua": "Міська рада Zgorzelec",
+        "ru": "Городская администрация Zgorzelec",
+        "az": "Zgorzelec şəhər idarəsi",
+        "es": "Ayuntamiento de Zgorzelec",
+        "fil": "Zgorzelec City Office",
+        "id": "Kantor Kota Zgorzelec",
+        "ne": "Zgorzelec शहर कार्यालय"
       },
       "address": {
-        "pl": "Adres / szczegóły: do uzupełnienia.",
-        "en": "Address / details: to be added.",
-        "ua": "Адреса / деталі: потрібно додати.",
-        "ru": "Адрес / детали: нужно добавить.",
-        "az": "Ünvan / məlumat: əlavə ediləcək.",
-        "es": "Dirección / detalles: por añadir.",
-        "fil": "Address / detalye: idaragdag.",
-        "id": "Alamat / detail: akan ditambahkan.",
-        "ne": "ठेगाना / विवरण: थप्नु पर्ने।"
+        "pl": "ul. Domańskiego 7, 59-900 Zgorzelec. Telefon: 75 77 59 900.",
+        "en": "ul. Domańskiego 7, 59-900 Zgorzelec. Phone: 75 77 59 900.",
+        "ua": "вул. Domańskiego 7, 59-900 Zgorzelec. Телефон: 75 77 59 900.",
+        "ru": "ул. Domańskiego 7, 59-900 Zgorzelec. Телефон: 75 77 59 900.",
+        "az": "ul. Domańskiego 7, 59-900 Zgorzelec. Telefon: 75 77 59 900.",
+        "es": "ul. Domańskiego 7, 59-900 Zgorzelec. Teléfono: 75 77 59 900.",
+        "fil": "ul. Domańskiego 7, 59-900 Zgorzelec. Telepono: 75 77 59 900.",
+        "id": "ul. Domańskiego 7, 59-900 Zgorzelec. Telepon: 75 77 59 900.",
+        "ne": "ul. Domańskiego 7, 59-900 Zgorzelec। फोन: 75 77 59 900।"
       },
-      "buttons": [
+      "note": {
+        "pl": "Urząd do lokalnych spraw w Zgorzelcu. Użyj, jeśli mieszkasz albo masz sprawę w Zgorzelcu.",
+        "en": "Local office for Zgorzelec matters. Use it if you live or have a matter in Zgorzelec.",
+        "ua": "Установа для місцевих справ у Zgorzelcu. Використай, якщо живеш або маєш справу в Zgorzelcu.",
+        "ru": "Учреждение для местных дел в Zgorzelcu. Используй, если живёшь или есть дело в Zgorzelcu.",
+        "az": "Zgorzelec yerli işləri üçün idarə. Zgorzelec-də yaşayırsınızsa və ya işiniz varsa istifadə edin.",
+        "es": "Oficina local para Zgorzelec. Úsala si vives o tienes asunto en Zgorzelec.",
+        "fil": "Local office para sa Zgorzelec. Gamitin kung nakatira ka o may asikaso sa Zgorzelec.",
+        "id": "Kantor lokal untuk Zgorzelec. Gunakan jika tinggal atau punya urusan di Zgorzelec.",
+        "ne": "Zgorzelec का स्थानीय कामका लागि कार्यालय। Zgorzelec मा बस्नुहुन्छ वा काम छ भने प्रयोग गर्नुहोस्।"
+      },
+      "list": [
+        {
+          "pl": "Punkt obsługi interesanta: poniedziałek-piątek 7:30-17:00.",
+          "en": "Customer service point: Monday-Friday 7:30-17:00.",
+          "ua": "Пункт обслуговування: понеділок-п’ятниця 7:30-17:00.",
+          "ru": "Пункт обслуживания: понедельник-пятница 7:30-17:00.",
+          "az": "Müştəri xidməti: bazar ertəsi-cümə 7:30-17:00.",
+          "es": "Atención al cliente: lunes-viernes 7:30-17:00.",
+          "fil": "Customer service: Lunes-Biyernes 7:30-17:00.",
+          "id": "Layanan pelanggan: Senin-Jumat 7:30-17:00.",
+          "ne": "सेवा बिन्दु: सोमबार-शुक्रबार 7:30-17:00।"
+        }
+      ],
+      "links": [
         {
           "label": {
             "pl": "Otwórz mapę",
@@ -1900,100 +1914,392 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=urz%C4%85d%20Zgorzelec"
+          "url": "https://www.google.com/maps/search/?api=1&query=Urz%C4%85d%20Miasta%20Zgorzelec%20Doma%C5%84skiego%207",
+          "tone": "blue"
+        },
+        {
+          "label": {
+            "pl": "Otwórz stronę",
+            "en": "Open website",
+            "ua": "Відкрити сторінку",
+            "ru": "Открыть сайт",
+            "az": "Saytı aç",
+            "es": "Abrir web",
+            "fil": "Buksan ang website",
+            "id": "Buka situs",
+            "ne": "वेबसाइट खोल्नुहोस्"
+          },
+          "url": "https://zgorzelec.eu/kontakt/",
+          "tone": "blue"
         }
-      ]
+      ],
+      "phone": "+48757759900"
     },
     {
+      "id": "urzad-bogatynia",
+      "icon": "city",
+      "tone": "blue",
+      "title": {
+        "pl": "Urząd Miasta i Gminy Bogatynia",
+        "en": "Bogatynia Town and Commune Office",
+        "ua": "Уряд міста і гміни Bogatynia",
+        "ru": "Управление города и гмины Bogatynia",
+        "az": "Bogatynia şəhər və bələdiyyə idarəsi",
+        "es": "Ayuntamiento de Bogatynia",
+        "fil": "Bogatynia Town and Commune Office",
+        "id": "Kantor Kota dan Gmina Bogatynia",
+        "ne": "Bogatynia शहर र ग्मिना कार्यालय"
+      },
+      "address": {
+        "pl": "ul. Daszyńskiego 1, 59-920 Bogatynia. Telefon: 75 77 25 100.",
+        "en": "ul. Daszyńskiego 1, 59-920 Bogatynia. Phone: 75 77 25 100.",
+        "ua": "вул. Daszyńskiego 1, 59-920 Bogatynia. Телефон: 75 77 25 100.",
+        "ru": "ул. Daszyńskiego 1, 59-920 Bogatynia. Телефон: 75 77 25 100.",
+        "az": "ul. Daszyńskiego 1, 59-920 Bogatynia. Telefon: 75 77 25 100.",
+        "es": "ul. Daszyńskiego 1, 59-920 Bogatynia. Teléfono: 75 77 25 100.",
+        "fil": "ul. Daszyńskiego 1, 59-920 Bogatynia. Telepono: 75 77 25 100.",
+        "id": "ul. Daszyńskiego 1, 59-920 Bogatynia. Telepon: 75 77 25 100.",
+        "ne": "ul. Daszyńskiego 1, 59-920 Bogatynia। फोन: 75 77 25 100।"
+      },
+      "note": {
+        "pl": "Urząd do lokalnych spraw w Bogatyni. Użyj, jeśli mieszkasz albo masz sprawę w Bogatyni.",
+        "en": "Local office for Bogatynia matters. Use it if you live or have a matter in Bogatynia.",
+        "ua": "Установа для місцевих справ у Bogatyni. Використай, якщо живеш або маєш справу в Bogatyni.",
+        "ru": "Учреждение для местных дел в Bogatyni. Используй, если живёшь или есть дело в Bogatyni.",
+        "az": "Bogatynia yerli işləri üçün idarə. Bogatynia-da yaşayırsınızsa və ya işiniz varsa istifadə edin.",
+        "es": "Oficina local para Bogatynia. Úsala si vives o tienes asunto en Bogatynia.",
+        "fil": "Local office para sa Bogatynia. Gamitin kung nakatira ka o may asikaso sa Bogatynia.",
+        "id": "Kantor lokal untuk Bogatynia. Gunakan jika tinggal atau punya urusan di Bogatynia.",
+        "ne": "Bogatynia का स्थानीय कामका लागि कार्यालय। Bogatynia मा बस्नुहुन्छ वा काम छ भने प्रयोग गर्नुहोस्।"
+      },
+      "list": [
+        {
+          "pl": "Obsługa mieszkańca: poniedziałek 7:30-17:00, wtorek-czwartek 7:30-15:30, piątek 7:30-14:00.",
+          "en": "Resident service: Monday 7:30-17:00, Tuesday-Thursday 7:30-15:30, Friday 7:30-14:00.",
+          "ua": "Обслуговування: понеділок 7:30-17:00, вівторок-четвер 7:30-15:30, п’ятниця 7:30-14:00.",
+          "ru": "Обслуживание: понедельник 7:30-17:00, вторник-четверг 7:30-15:30, пятница 7:30-14:00.",
+          "az": "Xidmət: bazar ertəsi 7:30-17:00, çərşənbə axşamı-cümə axşamı 7:30-15:30, cümə 7:30-14:00.",
+          "es": "Atención: lunes 7:30-17:00, martes-jueves 7:30-15:30, viernes 7:30-14:00.",
+          "fil": "Service: Lunes 7:30-17:00, Martes-Huwebes 7:30-15:30, Biyernes 7:30-14:00.",
+          "id": "Layanan: Senin 7:30-17:00, Selasa-Kamis 7:30-15:30, Jumat 7:30-14:00.",
+          "ne": "सेवा: सोमबार 7:30-17:00, मंगलबार-बिहीबार 7:30-15:30, शुक्रबार 7:30-14:00।"
+        }
+      ],
+      "links": [
+        {
+          "label": {
+            "pl": "Otwórz mapę",
+            "en": "Open map",
+            "ua": "Відкрити карту",
+            "ru": "Открыть карту",
+            "az": "Xəritəni aç",
+            "es": "Abrir mapa",
+            "fil": "Buksan ang mapa",
+            "id": "Buka peta",
+            "ne": "नक्सा खोल्नुहोस्"
+          },
+          "url": "https://www.google.com/maps/search/?api=1&query=Urz%C4%85d%20Miasta%20i%20Gminy%20Bogatynia%20Daszy%C5%84skiego%201",
+          "tone": "blue"
+        },
+        {
+          "label": {
+            "pl": "Otwórz stronę",
+            "en": "Open website",
+            "ua": "Відкрити сторінку",
+            "ru": "Открыть сайт",
+            "az": "Saytı aç",
+            "es": "Abrir web",
+            "fil": "Buksan ang website",
+            "id": "Buka situs",
+            "ne": "वेबसाइट खोल्नुहोस्"
+          },
+          "url": "https://bogatynia.eboi.pl/",
+          "tone": "blue"
+        }
+      ],
+      "phone": "+48757725100"
+    },
+    {
+      "id": "duw-wroclaw",
+      "icon": "city",
+      "tone": "blue",
+      "title": {
+        "pl": "DUW Wrocław / karta pobytu",
+        "en": "DUW Wrocław / residence card",
+        "ua": "DUW Wrocław / карта побиту",
+        "ru": "DUW Wrocław / карта побыту",
+        "az": "DUW Wrocław / yaşayış kartı",
+        "es": "DUW Wrocław / tarjeta de residencia",
+        "fil": "DUW Wrocław / residence card",
+        "id": "DUW Wrocław / kartu tinggal",
+        "ne": "DUW Wrocław / बसोबास कार्ड"
+      },
+      "address": {
+        "pl": "Wydział Spraw Obywatelskich i Cudzoziemców: pl. Powstańców Warszawy 1, 50-153 Wrocław. Infolinia: 71 701 11 00.",
+        "en": "Citizens and Foreigners Affairs Department: pl. Powstańców Warszawy 1, 50-153 Wrocław. Helpline: 71 701 11 00.",
+        "ua": "Відділ громадянських справ і іноземців: pl. Powstańców Warszawy 1, 50-153 Wrocław. Інфолінія: 71 701 11 00.",
+        "ru": "Отдел гражданских дел и иностранцев: pl. Powstańców Warszawy 1, 50-153 Wrocław. Инфолиния: 71 701 11 00.",
+        "az": "Vətəndaş və əcnəbilər şöbəsi: pl. Powstańców Warszawy 1, 50-153 Wrocław. Məlumat xətti: 71 701 11 00.",
+        "es": "Departamento de ciudadanos y extranjeros: pl. Powstańców Warszawy 1, 50-153 Wrocław. Línea: 71 701 11 00.",
+        "fil": "Citizens and Foreigners Affairs: pl. Powstańców Warszawy 1, 50-153 Wrocław. Helpline: 71 701 11 00.",
+        "id": "Bagian warga dan orang asing: pl. Powstańców Warszawy 1, 50-153 Wrocław. Hotline: 71 701 11 00.",
+        "ne": "नागरिक र विदेशी विभाग: pl. Powstańców Warszawy 1, 50-153 Wrocław। फोन: 71 701 11 00।"
+      },
+      "note": {
+        "pl": "Do karty pobytu i legalizacji. Od 2026 wnioski składa się online przez MOS; do urzędu jedź tylko po instrukcji/terminie.",
+        "en": "For residence card and legalisation. From 2026 applications are submitted online via MOS; go to the office only with instructions/appointment.",
+        "ua": "Для карти побиту і легалізації. З 2026 заяви подаються онлайн через MOS; до установи їдь тільки за інструкцією/терміном.",
+        "ru": "Для карты побыту и легализации. С 2026 заявления подаются онлайн через MOS; в учреждение езжай только по инструкции/записи.",
+        "az": "Yaşayış kartı və leqallaşma üçün. 2026-dan ərizələr MOS ilə onlayn verilir; idarəyə yalnız təlimat/vaxtla get.",
+        "es": "Para residencia y legalización. Desde 2026 se solicita online por MOS; ve a la oficina solo con instrucciones/cita.",
+        "fil": "Para residence card at legalisation. Mula 2026 online sa MOS; pumunta sa office lang kung may instructions/appointment.",
+        "id": "Untuk kartu tinggal dan legalisasi. Mulai 2026 pengajuan online via MOS; pergi ke kantor hanya dengan instruksi/janji.",
+        "ne": "बसोबास कार्ड र वैधानिक बसाइका लागि। 2026 देखि आवेदन MOS बाट अनलाइन हुन्छ; निर्देशन/अपोइन्टमेन्ट भए मात्र कार्यालय जानुहोस्।"
+      },
+      "list": [
+        {
+          "pl": "Infolinia dla cudzoziemców: poniedziałek-piątek 8:00-16:00, środa 8:00-18:00.",
+          "en": "Foreigners helpline: Monday-Friday 8:00-16:00, Wednesday 8:00-18:00.",
+          "ua": "Інфолінія для іноземців: понеділок-п’ятниця 8:00-16:00, середа 8:00-18:00.",
+          "ru": "Инфолиния для иностранцев: понедельник-пятница 8:00-16:00, среда 8:00-18:00.",
+          "az": "Əcnəbilər xətti: bazar ertəsi-cümə 8:00-16:00, çərşənbə 8:00-18:00.",
+          "es": "Línea para extranjeros: lunes-viernes 8:00-16:00, miércoles 8:00-18:00.",
+          "fil": "Helpline: Lunes-Biyernes 8:00-16:00, Miyerkules 8:00-18:00.",
+          "id": "Hotline orang asing: Senin-Jumat 8:00-16:00, Rabu 8:00-18:00.",
+          "ne": "विदेशीका लागि फोन: सोमबार-शुक्रबार 8:00-16:00, बुधबार 8:00-18:00।"
+        }
+      ],
+      "links": [
+        {
+          "label": {
+            "pl": "Otwórz mapę",
+            "en": "Open map",
+            "ua": "Відкрити карту",
+            "ru": "Открыть карту",
+            "az": "Xəritəni aç",
+            "es": "Abrir mapa",
+            "fil": "Buksan ang mapa",
+            "id": "Buka peta",
+            "ne": "नक्सा खोल्नुहोस्"
+          },
+          "url": "https://www.google.com/maps/search/?api=1&query=Dolno%C5%9Bl%C4%85ski%20Urz%C4%85d%20Wojew%C3%B3dzki%20Wydzia%C5%82%20Spraw%20Cudzoziemc%C3%B3w%20pl.%20Powsta%C5%84c%C3%B3w%20Warszawy%201%20Wroc%C5%82aw",
+          "tone": "blue"
+        },
+        {
+          "label": {
+            "pl": "Otwórz stronę",
+            "en": "Open website",
+            "ua": "Відкрити сторінку",
+            "ru": "Открыть сайт",
+            "az": "Saytı aç",
+            "es": "Abrir web",
+            "fil": "Buksan ang website",
+            "id": "Buka situs",
+            "ne": "वेबसाइट खोल्नुहोस्"
+          },
+          "url": "https://przybysz.duw.pl/kontakt/",
+          "tone": "blue"
+        },
+        {
+          "label": {
+            "pl": "Umów wizytę",
+            "en": "Book a visit",
+            "ua": "Записатися на візит",
+            "ru": "Записаться на визит",
+            "az": "Görüş təyin et",
+            "es": "Reservar cita",
+            "fil": "Mag-book ng appointment",
+            "id": "Buat janji",
+            "ne": "भेटघाट बुक गर्नुहोस्"
+          },
+          "url": "https://wizyta.duw.pl/",
+          "tone": "blue"
+        }
+      ],
+      "phone": "+48717011100"
+    },
+    {
+      "id": "duw-jelenia",
+      "icon": "city",
+      "tone": "blue",
+      "title": {
+        "pl": "DUW Delegatura Jelenia Góra",
+        "en": "DUW branch Jelenia Góra",
+        "ua": "DUW делегатура Jelenia Góra",
+        "ru": "DUW делегатура Jelenia Góra",
+        "az": "DUW Jelenia Góra filialı",
+        "es": "DUW delegación Jelenia Góra",
+        "fil": "DUW branch Jelenia Góra",
+        "id": "Cabang DUW Jelenia Góra",
+        "ne": "DUW Jelenia Góra शाखा"
+      },
+      "address": {
+        "pl": "ul. Piłsudskiego 12, 58-500 Jelenia Góra. Telefon: 75 722 94 39.",
+        "en": "ul. Piłsudskiego 12, 58-500 Jelenia Góra. Phone: 75 722 94 39.",
+        "ua": "вул. Piłsudskiego 12, 58-500 Jelenia Góra. Телефон: 75 722 94 39.",
+        "ru": "ул. Piłsudskiego 12, 58-500 Jelenia Góra. Телефон: 75 722 94 39.",
+        "az": "ul. Piłsudskiego 12, 58-500 Jelenia Góra. Telefon: 75 722 94 39.",
+        "es": "ul. Piłsudskiego 12, 58-500 Jelenia Góra. Teléfono: 75 722 94 39.",
+        "fil": "ul. Piłsudskiego 12, 58-500 Jelenia Góra. Telepono: 75 722 94 39.",
+        "id": "ul. Piłsudskiego 12, 58-500 Jelenia Góra. Telepon: 75 722 94 39.",
+        "ne": "ul. Piłsudskiego 12, 58-500 Jelenia Góra। फोन: 75 722 94 39।"
+      },
+      "note": {
+        "pl": "To delegatura urzędu wojewódzkiego. Przed wyjazdem zadzwoń i zapytaj, czy twoją sprawę można załatwić właśnie tam.",
+        "en": "This is a voivodeship office branch. Before going, call and ask if your matter can be handled there.",
+        "ua": "Це делегатура воєводського управління. Перед поїздкою подзвони і запитай, чи твою справу можна вирішити там.",
+        "ru": "Это делегатура воеводского управления. Перед поездкой позвони и спроси, можно ли решить твоё дело там.",
+        "az": "Bu voyevodalıq idarəsinin filialıdır. Getməzdən əvvəl zəng et və işini orada həll etməyin mümkün olub-olmadığını soruş.",
+        "es": "Es una delegación regional. Antes de ir, llama y pregunta si tu asunto se puede resolver allí.",
+        "fil": "Branch ito ng voivodeship office. Tumawag muna at itanong kung puwede doon ang iyong case.",
+        "id": "Ini cabang kantor provinsi. Sebelum pergi, telepon dan tanyakan apakah urusanmu bisa di sana.",
+        "ne": "यो प्रान्तीय कार्यालयको शाखा हो। जानुअघि फोन गरेर तपाईंको काम त्यहाँ हुन्छ कि हुँदैन सोध्नुहोस्।"
+      },
+      "list": [],
+      "links": [
+        {
+          "label": {
+            "pl": "Otwórz mapę",
+            "en": "Open map",
+            "ua": "Відкрити карту",
+            "ru": "Открыть карту",
+            "az": "Xəritəni aç",
+            "es": "Abrir mapa",
+            "fil": "Buksan ang mapa",
+            "id": "Buka peta",
+            "ne": "नक्सा खोल्नुहोस्"
+          },
+          "url": "https://www.google.com/maps/search/?api=1&query=Dolno%C5%9Bl%C4%85ski%20Urz%C4%85d%20Wojew%C3%B3dzki%20Delegatura%20Jelenia%20G%C3%B3ra%20Pi%C5%82sudskiego%2012",
+          "tone": "blue"
+        }
+      ],
+      "phone": "+48757229439"
+    },
+    {
+      "id": "mos-profil-duw",
       "icon": "document",
       "tone": "blue",
       "title": {
-        "pl": "DUW / karta pobytu",
-        "en": "DUW / residence card",
-        "ua": "DUW / карта побиту",
-        "ru": "DUW / карта побыту",
-        "az": "DUW / yaşayış kartı",
-        "es": "DUW / tarjeta de residencia",
-        "fil": "DUW / residence card",
-        "id": "DUW / kartu tinggal",
-        "ne": "DUW / residence card"
-      },
-      "body": {
-        "pl": "Kafelka na sprawy karty pobytu i urzędu wojewódzkiego.",
-        "en": "Tile for residence card and voivodeship office matters.",
-        "ua": "Кафель для карти побиту і воєводського управління.",
-        "ru": "Плитка для карты побыту и воеводского управления.",
-        "az": "Yaşayış kartı və voyevodalıq idarəsi üçün kafel.",
-        "es": "Kafel para residencia y oficina regional.",
-        "fil": "Tile para sa residence card at regional office.",
-        "id": "Tile untuk kartu tinggal dan kantor provinsi.",
-        "ne": "रेसिडेन्स कार्ड र प्रान्तीय कार्यालयका लागि टाइल।"
+        "pl": "MOS, Profil Zaufany i Przybysz",
+        "en": "MOS, Trusted Profile and Przybysz",
+        "ua": "MOS, Profil Zaufany і Przybysz",
+        "ru": "MOS, Profil Zaufany и Przybysz",
+        "az": "MOS, Etibarlı profil və Przybysz",
+        "es": "MOS, Perfil de confianza y Przybysz",
+        "fil": "MOS, Trusted Profile at Przybysz",
+        "id": "MOS, Profil Tepercaya dan Przybysz",
+        "ne": "MOS, विश्वसनीय प्रोफाइल र Przybysz"
       },
       "address": {
-        "pl": "Adres / szczegóły: do uzupełnienia.",
-        "en": "Address / details: to be added.",
-        "ua": "Адреса / деталі: потрібно додати.",
-        "ru": "Адрес / детали: нужно добавить.",
-        "az": "Ünvan / məlumat: əlavə ediləcək.",
-        "es": "Dirección / detalles: por añadir.",
-        "fil": "Address / detalye: idaragdag.",
-        "id": "Alamat / detail: akan ditambahkan.",
-        "ne": "ठेगाना / विवरण: थप्नु पर्ने।"
+        "pl": "Systemy online do karty pobytu i spraw cudzoziemca.",
+        "en": "Online systems for residence card and foreigner matters.",
+        "ua": "Онлайн-системи для карти побиту і справ іноземця.",
+        "ru": "Онлайн-системы для карты побыту и дел иностранца.",
+        "az": "Yaşayış kartı və əcnəbi işləri üçün onlayn sistemlər.",
+        "es": "Sistemas online para residencia y asuntos de extranjeros.",
+        "fil": "Online systems para residence card at foreigner matters.",
+        "id": "Sistem online untuk kartu tinggal dan urusan orang asing.",
+        "ne": "बसोबास कार्ड र विदेशीका कामका लागि अनलाइन प्रणालीहरू।"
       },
-      "buttons": [
+      "note": {
+        "pl": "Nie podawaj nikomu loginu ani hasła. Jeśli ktoś pomaga, ty nadal musisz być zalogowany na swoim koncie.",
+        "en": "Do not give anyone your login or password. If someone helps, you still must be logged into your own account.",
+        "ua": "Нікому не давай логін або пароль. Якщо хтось допомагає, ти все одно маєш бути залогований у своєму акаунті.",
+        "ru": "Никому не давай логин или пароль. Если кто-то помогает, ты всё равно должен быть в своём аккаунте.",
+        "az": "Login və şifrəni heç kimə vermə. Kimsə kömək etsə də, öz hesabında sən daxil olmalısan.",
+        "es": "No des tu usuario ni contraseña. Si alguien ayuda, tú debes estar conectado en tu cuenta.",
+        "fil": "Huwag ibigay ang login o password. Kung may tumulong, ikaw pa rin dapat naka-login sa account mo.",
+        "id": "Jangan beri login atau kata sandi. Jika dibantu, kamu tetap harus login di akun sendiri.",
+        "ne": "लगइन वा पासवर्ड कसैलाई नदिनुहोस्। कसैले सहयोग गरे पनि तपाईं आफ्नै खातामा लगइन हुनुपर्छ।"
+      },
+      "list": [],
+      "links": [
         {
           "label": {
-            "pl": "Otwórz mapę",
-            "en": "Open map",
-            "ua": "Відкрити карту",
-            "ru": "Открыть карту",
-            "az": "Xəritəni aç",
-            "es": "Abrir mapa",
-            "fil": "Buksan ang mapa",
-            "id": "Buka peta",
-            "ne": "नक्सा खोल्नुहोस्"
+            "pl": "MOS - wniosek online",
+            "en": "MOS - online application",
+            "ua": "MOS - заява онлайн",
+            "ru": "MOS - заявление онлайн",
+            "az": "MOS - onlayn ərizə",
+            "es": "MOS - solicitud online",
+            "fil": "MOS - online application",
+            "id": "MOS - pengajuan online",
+            "ne": "MOS - अनलाइन आवेदन"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Dolno%C5%9Bl%C4%85ski%20Urz%C4%85d%20Wojew%C3%B3dzki"
+          "url": "https://mos.cudzoziemcy.gov.pl/",
+          "tone": "blue"
+        },
+        {
+          "label": {
+            "pl": "Otwórz stronę",
+            "en": "Open website",
+            "ua": "Відкрити сторінку",
+            "ru": "Открыть сайт",
+            "az": "Saytı aç",
+            "es": "Abrir web",
+            "fil": "Buksan ang website",
+            "id": "Buka situs",
+            "ne": "वेबसाइट खोल्नुहोस्"
+          },
+          "url": "https://przybysz.duw.pl/cudzoziemcy-pobyt/wydanie-wymiana-karty-pobytu/",
+          "tone": "blue"
+        },
+        {
+          "label": {
+            "pl": "Profil Zaufany",
+            "en": "Trusted Profile",
+            "ua": "Profil Zaufany",
+            "ru": "Profil Zaufany",
+            "az": "Etibarlı profil",
+            "es": "Perfil de confianza",
+            "fil": "Trusted Profile",
+            "id": "Profil Tepercaya",
+            "ne": "विश्वसनीय प्रोफाइल"
+          },
+          "url": "https://www.gov.pl/web/profilzaufany",
+          "tone": "blue"
         }
       ]
     },
     {
+      "id": "bank-zgorzelec",
       "icon": "bank",
       "tone": "yellow",
       "title": {
-        "pl": "Banki i bankomaty",
-        "en": "Banks and ATMs",
-        "ua": "Банки і банкомати",
-        "ru": "Банки и банкоматы",
-        "az": "Banklar və bankomatlar",
-        "es": "Bancos y cajeros",
-        "fil": "Bangko at ATM",
-        "id": "Bank dan ATM",
-        "ne": "बैंक र ATM"
-      },
-      "body": {
-        "pl": "Ogólna mapa banków i bankomatów dla obu miejsc.",
-        "en": "General map of banks and ATMs for both places.",
-        "ua": "Загальна карта банків і банкоматів для обох місць.",
-        "ru": "Общая карта банков и банкоматов для обоих мест.",
-        "az": "Hər iki yer üçün bank və bankomatların xəritəsi.",
-        "es": "Mapa general de bancos y cajeros para ambos lugares.",
-        "fil": "General map ng bangko at ATM para sa dalawang lugar.",
-        "id": "Peta umum bank dan ATM untuk dua tempat.",
-        "ne": "दुवै ठाउँका बैंक र ATM को सामान्य नक्सा।"
+        "pl": "Banki i bankomaty Zgorzelec",
+        "en": "Banks and ATMs Zgorzelec",
+        "ua": "Банки і банкомати Zgorzelec",
+        "ru": "Банки и банкоматы Zgorzelec",
+        "az": "Zgorzelec banklar və bankomatlar",
+        "es": "Bancos y cajeros Zgorzelec",
+        "fil": "Bangko at ATM Zgorzelec",
+        "id": "Bank dan ATM Zgorzelec",
+        "ne": "Zgorzelec बैंक र ATM"
       },
       "address": {
-        "pl": "Adres / szczegóły: do uzupełnienia.",
-        "en": "Address / details: to be added.",
-        "ua": "Адреса / деталі: потрібно додати.",
-        "ru": "Адрес / детали: нужно добавить.",
-        "az": "Ünvan / məlumat: əlavə ediləcək.",
-        "es": "Dirección / detalles: por añadir.",
-        "fil": "Address / detalye: idaragdag.",
-        "id": "Alamat / detail: akan ditambahkan.",
-        "ne": "ठेगाना / विवरण: थप्नु पर्ने।"
+        "pl": "Mapa pokazuje banki i bankomaty w Zgorzelcu.",
+        "en": "The map shows banks and ATMs in Zgorzelec.",
+        "ua": "Карта показує банки і банкомати у Zgorzelcu.",
+        "ru": "Карта показывает банки и банкоматы в Zgorzelcu.",
+        "az": "Xəritə Zgorzelec-də bank və bankomatları göstərir.",
+        "es": "El mapa muestra bancos y cajeros en Zgorzelec.",
+        "fil": "Makikita sa mapa ang bangko at ATM sa Zgorzelec.",
+        "id": "Peta menampilkan bank dan ATM di Zgorzelec.",
+        "ne": "नक्सामा Zgorzelec का बैंक र ATM देखिन्छन्।"
       },
-      "buttons": [
+      "note": {
+        "pl": "Do gotówki, konta bankowego i spraw z kartą.",
+        "en": "For cash, bank account and card matters.",
+        "ua": "Для готівки, рахунку і картки.",
+        "ru": "Для наличных, счёта и карты.",
+        "az": "Nağd pul, bank hesabı və kart üçün.",
+        "es": "Para efectivo, cuenta y tarjeta.",
+        "fil": "Para cash, bank account at card.",
+        "id": "Untuk uang tunai, rekening dan kartu.",
+        "ne": "नगद, खाता र कार्डका लागि।"
+      },
+      "list": [],
+      "links": [
         {
           "label": {
             "pl": "Otwórz mapę",
@@ -2006,47 +2312,50 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=bank%20bankomat%20Zgorzelec%20Bogatynia"
+          "url": "https://www.google.com/maps/search/?api=1&query=bank%20bankomat%20Zgorzelec",
+          "tone": "yellow"
         }
       ]
     },
     {
+      "id": "bank-bogatynia",
       "icon": "bank",
       "tone": "yellow",
       "title": {
-        "pl": "Bank - Zgorzelec",
-        "en": "Bank - Zgorzelec",
-        "ua": "Банк - Zgorzelec",
-        "ru": "Банк - Zgorzelec",
-        "az": "Bank - Zgorzelec",
-        "es": "Banco - Zgorzelec",
-        "fil": "Bank - Zgorzelec",
-        "id": "Bank - Zgorzelec",
-        "ne": "बैंक - Zgorzelec"
-      },
-      "body": {
-        "pl": "Miejsce na konkretny bank w Zgorzelcu.",
-        "en": "Place for a specific bank in Zgorzelec.",
-        "ua": "Місце для конкретного банку у Zgorzelcu.",
-        "ru": "Место для конкретного банка в Zgorzelcu.",
-        "az": "Zgorzelec-də konkret bank üçün yer.",
-        "es": "Lugar para banco concreto en Zgorzelec.",
-        "fil": "Lugar para specific bank sa Zgorzelec.",
-        "id": "Tempat bank tertentu di Zgorzelec.",
-        "ne": "Zgorzelec को खास बैंकको ठाउँ।"
+        "pl": "Banki i bankomaty Bogatynia",
+        "en": "Banks and ATMs Bogatynia",
+        "ua": "Банки і банкомати Bogatynia",
+        "ru": "Банки и банкоматы Bogatynia",
+        "az": "Bogatynia banklar və bankomatlar",
+        "es": "Bancos y cajeros Bogatynia",
+        "fil": "Bangko at ATM Bogatynia",
+        "id": "Bank dan ATM Bogatynia",
+        "ne": "Bogatynia बैंक र ATM"
       },
       "address": {
-        "pl": "Adres / szczegóły: do uzupełnienia.",
-        "en": "Address / details: to be added.",
-        "ua": "Адреса / деталі: потрібно додати.",
-        "ru": "Адрес / детали: нужно добавить.",
-        "az": "Ünvan / məlumat: əlavə ediləcək.",
-        "es": "Dirección / detalles: por añadir.",
-        "fil": "Address / detalye: idaragdag.",
-        "id": "Alamat / detail: akan ditambahkan.",
-        "ne": "ठेगाना / विवरण: थप्नु पर्ने।"
+        "pl": "Mapa pokazuje banki i bankomaty w Bogatyni.",
+        "en": "The map shows banks and ATMs in Bogatynia.",
+        "ua": "Карта показує банки і банкомати у Bogatyni.",
+        "ru": "Карта показывает банки и банкоматы в Bogatyni.",
+        "az": "Xəritə Bogatynia-da bank və bankomatları göstərir.",
+        "es": "El mapa muestra bancos y cajeros en Bogatynia.",
+        "fil": "Makikita sa mapa ang bangko at ATM sa Bogatynia.",
+        "id": "Peta menampilkan bank dan ATM di Bogatynia.",
+        "ne": "नक्सामा Bogatynia का बैंक र ATM देखिन्छन्।"
       },
-      "buttons": [
+      "note": {
+        "pl": "Najpierw sprawdź godziny i czy bankomat działa.",
+        "en": "First check opening hours and whether the ATM works.",
+        "ua": "Спочатку перевір години і чи працює банкомат.",
+        "ru": "Сначала проверь часы и работает ли банкомат.",
+        "az": "Əvvəl iş saatlarını və bankomatın işləyib-işləmədiyini yoxla.",
+        "es": "Primero revisa horario y si el cajero funciona.",
+        "fil": "Tingnan muna ang oras at kung gumagana ang ATM.",
+        "id": "Cek dulu jam buka dan apakah ATM berfungsi.",
+        "ne": "पहिले समय र ATM चल्छ कि चल्दैन जाँच्नुहोस्।"
+      },
+      "list": [],
+      "links": [
         {
           "label": {
             "pl": "Otwórz mapę",
@@ -2059,153 +2368,121 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=bank%20Zgorzelec"
+          "url": "https://www.google.com/maps/search/?api=1&query=bank%20bankomat%20Bogatynia",
+          "tone": "yellow"
         }
       ]
     },
     {
-      "icon": "bank",
-      "tone": "yellow",
-      "title": {
-        "pl": "Bank - Bogatynia",
-        "en": "Bank - Bogatynia",
-        "ua": "Банк - Bogatynia",
-        "ru": "Банк - Bogatynia",
-        "az": "Bank - Bogatynia",
-        "es": "Banco - Bogatynia",
-        "fil": "Bank - Bogatynia",
-        "id": "Bank - Bogatynia",
-        "ne": "बैंक - Bogatynia"
-      },
-      "body": {
-        "pl": "Miejsce na konkretny bank w Bogatyni.",
-        "en": "Place for a specific bank in Bogatynia.",
-        "ua": "Місце для конкретного банку у Bogatyni.",
-        "ru": "Место для конкретного банка в Bogatyni.",
-        "az": "Bogatynia-da konkret bank üçün yer.",
-        "es": "Lugar para banco concreto en Bogatynia.",
-        "fil": "Lugar para specific bank sa Bogatynia.",
-        "id": "Tempat bank tertentu di Bogatynia.",
-        "ne": "Bogatynia को खास बैंकको ठाउँ।"
-      },
-      "address": {
-        "pl": "Adres / szczegóły: do uzupełnienia.",
-        "en": "Address / details: to be added.",
-        "ua": "Адреса / деталі: потрібно додати.",
-        "ru": "Адрес / детали: нужно добавить.",
-        "az": "Ünvan / məlumat: əlavə ediləcək.",
-        "es": "Dirección / detalles: por añadir.",
-        "fil": "Address / detalye: idaragdag.",
-        "id": "Alamat / detail: akan ditambahkan.",
-        "ne": "ठेगाना / विवरण: थप्नु पर्ने।"
-      },
-      "buttons": [
-        {
-          "label": {
-            "pl": "Otwórz mapę",
-            "en": "Open map",
-            "ua": "Відкрити карту",
-            "ru": "Открыть карту",
-            "az": "Xəritəni aç",
-            "es": "Abrir mapa",
-            "fil": "Buksan ang mapa",
-            "id": "Buka peta",
-            "ne": "नक्सा खोल्नुहोस्"
-          },
-          "url": "https://www.google.com/maps/search/?api=1&query=bank%20Bogatynia"
-        }
-      ]
-    },
-    {
+      "id": "poczta-zb",
       "icon": "document",
-      "tone": "blue",
+      "tone": "yellow",
       "title": {
-        "pl": "Profil Zaufany / mObywatel",
-        "en": "Trusted Profile / mObywatel",
-        "ua": "Profil Zaufany / mObywatel",
-        "ru": "Profil Zaufany / mObywatel",
-        "az": "Profil Zaufany / mObywatel",
-        "es": "Perfil de confianza / mObywatel",
-        "fil": "Trusted Profile / mObywatel",
-        "id": "Profil Zaufany / mObywatel",
-        "ne": "Profil Zaufany / mObywatel"
-      },
-      "body": {
-        "pl": "Podstawowe sprawy urzędowe w Polsce.",
-        "en": "Basic official matters in Poland.",
-        "ua": "Основні офіційні справи в Польщі.",
-        "ru": "Основные официальные дела в Польше.",
-        "az": "Polşada əsas rəsmi işlər.",
-        "es": "Asuntos oficiales básicos en Polonia.",
-        "fil": "Basic official matters sa Poland.",
-        "id": "Urusan resmi dasar di Polandia.",
-        "ne": "पोल्याण्डका आधारभूत सरकारी काम।"
+        "pl": "Poczta Zgorzelec / Bogatynia",
+        "en": "Post office Zgorzelec / Bogatynia",
+        "ua": "Пошта Zgorzelec / Bogatynia",
+        "ru": "Почта Zgorzelec / Bogatynia",
+        "az": "Zgorzelec / Bogatynia poçtu",
+        "es": "Correo Zgorzelec / Bogatynia",
+        "fil": "Post office Zgorzelec / Bogatynia",
+        "id": "Kantor pos Zgorzelec / Bogatynia",
+        "ne": "Zgorzelec / Bogatynia हुलाक"
       },
       "address": {
-        "pl": "Adres / szczegóły: do uzupełnienia.",
-        "en": "Address / details: to be added.",
-        "ua": "Адреса / деталі: потрібно додати.",
-        "ru": "Адрес / детали: нужно добавить.",
-        "az": "Ünvan / məlumat: əlavə ediləcək.",
-        "es": "Dirección / detalles: por añadir.",
-        "fil": "Address / detalye: idaragdag.",
-        "id": "Alamat / detail: akan ditambahkan.",
-        "ne": "ठेगाना / विवरण: थप्नु पर्ने।"
+        "pl": "Do listów poleconych, dokumentów i odbioru przesyłek.",
+        "en": "For registered letters, documents and parcel pickup.",
+        "ua": "Для рекомендованих листів, документів і посилок.",
+        "ru": "Для заказных писем, документов и посылок.",
+        "az": "Sifarişli məktub, sənəd və bağlama üçün.",
+        "es": "Para cartas certificadas, documentos y paquetes.",
+        "fil": "Para registered letters, documents at parcels.",
+        "id": "Untuk surat tercatat, dokumen dan paket.",
+        "ne": "रेजिस्टर्ड पत्र, कागजात र पार्सलका लागि।"
       },
-      "buttons": [
+      "note": {
+        "pl": "Przy sprawach urzędowych często przydaje się list polecony.",
+        "en": "For official matters, a registered letter is often useful.",
+        "ua": "У державних справах часто потрібен рекомендований лист.",
+        "ru": "В официальных делах часто нужно заказное письмо.",
+        "az": "Rəsmi işlərdə sifarişli məktub çox vaxt lazımdır.",
+        "es": "Para asuntos oficiales suele servir carta certificada.",
+        "fil": "Sa official matters madalas kailangan registered letter.",
+        "id": "Untuk urusan resmi sering perlu surat tercatat.",
+        "ne": "सरकारी काममा रेजिस्टर्ड पत्र प्रायः उपयोगी हुन्छ।"
+      },
+      "list": [],
+      "links": [
         {
           "label": {
-            "pl": "Otwórz mapę",
-            "en": "Open map",
-            "ua": "Відкрити карту",
-            "ru": "Открыть карту",
-            "az": "Xəritəni aç",
-            "es": "Abrir mapa",
-            "fil": "Buksan ang mapa",
-            "id": "Buka peta",
-            "ne": "नक्सा खोल्नुहोस्"
+            "pl": "Poczta Zgorzelec",
+            "en": "Post Zgorzelec",
+            "ua": "Пошта Zgorzelec",
+            "ru": "Почта Zgorzelec",
+            "az": "Zgorzelec poçtu",
+            "es": "Correo Zgorzelec",
+            "fil": "Post Zgorzelec",
+            "id": "Pos Zgorzelec",
+            "ne": "Zgorzelec हुलाक"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Profil%20Zaufany%20mObywatel"
+          "url": "https://www.google.com/maps/search/?api=1&query=Poczta%20Polska%20Zgorzelec",
+          "tone": "yellow"
+        },
+        {
+          "label": {
+            "pl": "Poczta Bogatynia",
+            "en": "Post Bogatynia",
+            "ua": "Пошта Bogatynia",
+            "ru": "Почта Bogatynia",
+            "az": "Bogatynia poçtu",
+            "es": "Correo Bogatynia",
+            "fil": "Post Bogatynia",
+            "id": "Pos Bogatynia",
+            "ne": "Bogatynia हुलाक"
+          },
+          "url": "https://www.google.com/maps/search/?api=1&query=Poczta%20Polska%20Bogatynia",
+          "tone": "yellow"
         }
       ]
     },
     {
+      "id": "transport-zb",
       "icon": "map",
       "tone": "blue",
       "title": {
-        "pl": "Transport - Zgorzelec / Bogatynia",
-        "en": "Transport - Zgorzelec / Bogatynia",
-        "ua": "Транспорт - Zgorzelec / Bogatynia",
-        "ru": "Транспорт - Zgorzelec / Bogatynia",
-        "az": "Nəqliyyat - Zgorzelec / Bogatynia",
-        "es": "Transporte - Zgorzelec / Bogatynia",
-        "fil": "Transport - Zgorzelec / Bogatynia",
-        "id": "Transportasi - Zgorzelec / Bogatynia",
-        "ne": "यातायात - Zgorzelec / Bogatynia"
-      },
-      "body": {
-        "pl": "Miejsce na przystanki, dworce i lokalny dojazd.",
-        "en": "Place for stops, stations and local route.",
-        "ua": "Місце для зупинок, станцій і місцевої дороги.",
-        "ru": "Место для остановок, станций и местной дороги.",
-        "az": "Dayanacaqlar, stansiyalar və yerli yol üçün yer.",
-        "es": "Lugar para paradas, estaciones y ruta local.",
-        "fil": "Lugar para stops, stations at local route.",
-        "id": "Tempat halte, stasiun dan rute lokal.",
-        "ne": "स्टप, स्टेशन र स्थानीय बाटोको ठाउँ।"
+        "pl": "Transport Zgorzelec / Bogatynia",
+        "en": "Transport Zgorzelec / Bogatynia",
+        "ua": "Транспорт Zgorzelec / Bogatynia",
+        "ru": "Транспорт Zgorzelec / Bogatynia",
+        "az": "Zgorzelec / Bogatynia nəqliyyat",
+        "es": "Transporte Zgorzelec / Bogatynia",
+        "fil": "Transport Zgorzelec / Bogatynia",
+        "id": "Transportasi Zgorzelec / Bogatynia",
+        "ne": "Zgorzelec / Bogatynia यातायात"
       },
       "address": {
-        "pl": "Adres / szczegóły: do uzupełnienia.",
-        "en": "Address / details: to be added.",
-        "ua": "Адреса / деталі: потрібно додати.",
-        "ru": "Адрес / детали: нужно добавить.",
-        "az": "Ünvan / məlumat: əlavə ediləcək.",
-        "es": "Dirección / detalles: por añadir.",
-        "fil": "Address / detalye: idaragdag.",
-        "id": "Alamat / detail: akan ditambahkan.",
-        "ne": "ठेगाना / विवरण: थप्नु पर्ने।"
+        "pl": "Przystanki, dworce i aplikacje do dojazdu.",
+        "en": "Stops, stations and travel apps.",
+        "ua": "Зупинки, вокзали і додатки для доїзду.",
+        "ru": "Остановки, вокзалы и приложения для дороги.",
+        "az": "Dayanacaqlar, stansiyalar və yol tətbiqləri.",
+        "es": "Paradas, estaciones y apps de viaje.",
+        "fil": "Sakayan, stations at travel apps.",
+        "id": "Halte, stasiun dan aplikasi perjalanan.",
+        "ne": "स्टप, स्टेशन र यात्रा एपहरू।"
       },
-      "buttons": [
+      "note": {
+        "pl": "Do planowania drogi używaj mapy, e-podróżnika i Koleo.",
+        "en": "For route planning use the map, e-podroznik and Koleo.",
+        "ua": "Для планування дороги використовуй карту, e-podróżnik і Koleo.",
+        "ru": "Для планирования дороги используй карту, e-podróżnik и Koleo.",
+        "az": "Yolu planlamaq üçün xəritə, e-podróżnik və Koleo istifadə edin.",
+        "es": "Para planear ruta usa mapa, e-podróżnik y Koleo.",
+        "fil": "Para sa route, gamitin map, e-podróżnik at Koleo.",
+        "id": "Untuk rute gunakan peta, e-podróżnik dan Koleo.",
+        "ne": "रुट बनाउन नक्सा, e-podróżnik र Koleo प्रयोग गर्नुहोस्।"
+      },
+      "list": [],
+      "links": [
         {
           "label": {
             "pl": "Otwórz mapę",
@@ -2218,47 +2495,80 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20przystanek%20dworzec"
+          "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20przystanek%20dworzec",
+          "tone": "blue"
+        },
+        {
+          "label": {
+            "pl": "e-podróżnik",
+            "en": "e-podroznik",
+            "ua": "e-podróżnik",
+            "ru": "e-podróżnik",
+            "az": "e-podróżnik",
+            "es": "e-podróżnik",
+            "fil": "e-podróżnik",
+            "id": "e-podróżnik",
+            "ne": "e-podróżnik"
+          },
+          "url": "https://www.e-podroznik.pl/",
+          "tone": "blue"
+        },
+        {
+          "label": {
+            "pl": "Koleo",
+            "en": "Koleo",
+            "ua": "Koleo",
+            "ru": "Koleo",
+            "az": "Koleo",
+            "es": "Koleo",
+            "fil": "Koleo",
+            "id": "Koleo",
+            "ne": "Koleo"
+          },
+          "url": "https://koleo.pl/",
+          "tone": "blue"
         }
       ]
     },
     {
+      "id": "najblizsze-zb",
       "icon": "map",
       "tone": "blue",
       "title": {
-        "pl": "Najbliższe punkty",
-        "en": "Nearest points",
-        "ua": "Найближчі точки",
-        "ru": "Ближайшие точки",
-        "az": "Yaxın nöqtələr",
-        "es": "Puntos cercanos",
-        "fil": "Malapit na lugar",
-        "id": "Titik terdekat",
-        "ne": "नजिकका ठाउँ"
-      },
-      "body": {
-        "pl": "Sklep, apteka, podstawowe miejsca dla nowej osoby.",
-        "en": "Shop, pharmacy, basic places for a new person.",
-        "ua": "Магазин, аптека, базові місця для нової людини.",
-        "ru": "Магазин, аптека, основные места для нового человека.",
-        "az": "Mağaza, aptek və yeni insan üçün əsas yerlər.",
-        "es": "Tienda, farmacia y lugares básicos para nueva persona.",
-        "fil": "Tindahan, botika at basic places para sa bagong tao.",
-        "id": "Toko, apotek dan tempat dasar untuk orang baru.",
-        "ne": "नयाँ मान्छेका लागि पसल, फार्मेसी र आधारभूत ठाउँ।"
+        "pl": "Sklep, apteka, najbliższe punkty",
+        "en": "Shop, pharmacy, nearby points",
+        "ua": "Магазин, аптека, найближчі місця",
+        "ru": "Магазин, аптека, ближайшие места",
+        "az": "Mağaza, aptek, yaxın yerlər",
+        "es": "Tienda, farmacia, puntos cercanos",
+        "fil": "Tindahan, botika, malapit na lugar",
+        "id": "Toko, apotek, tempat terdekat",
+        "ne": "पसल, फार्मेसी, नजिकका ठाउँहरू"
       },
       "address": {
-        "pl": "Adres / szczegóły: do uzupełnienia.",
-        "en": "Address / details: to be added.",
-        "ua": "Адреса / деталі: потрібно додати.",
-        "ru": "Адрес / детали: нужно добавить.",
-        "az": "Ünvan / məlumat: əlavə ediləcək.",
-        "es": "Dirección / detalles: por añadir.",
-        "fil": "Address / detalye: idaragdag.",
-        "id": "Alamat / detail: akan ditambahkan.",
-        "ne": "ठेगाना / विवरण: थप्नु पर्ने।"
+        "pl": "Mapa do podstawowych miejsc w Zgorzelcu i Bogatyni.",
+        "en": "Map to basic places in Zgorzelec and Bogatynia.",
+        "ua": "Карта до основних місць у Zgorzelcu і Bogatyni.",
+        "ru": "Карта к основным местам в Zgorzelcu и Bogatyni.",
+        "az": "Zgorzelec və Bogatynia-da əsas yerlərə xəritə.",
+        "es": "Mapa a lugares básicos en Zgorzelec y Bogatynia.",
+        "fil": "Mapa sa basic places sa Zgorzelec at Bogatynia.",
+        "id": "Peta ke tempat dasar di Zgorzelec dan Bogatynia.",
+        "ne": "Zgorzelec र Bogatynia का आधारभूत ठाउँहरूको नक्सा।"
       },
-      "buttons": [
+      "note": {
+        "pl": "Użyj, jeśli jesteś nowy i potrzebujesz kupić coś podstawowego.",
+        "en": "Use it if you are new and need to buy basic things.",
+        "ua": "Використай, якщо ти новий і треба купити щось основне.",
+        "ru": "Используй, если ты новый и нужно купить основные вещи.",
+        "az": "Yenisinizsə və əsas şeylər almaq lazımdırsa istifadə edin.",
+        "es": "Úsalo si eres nuevo y necesitas comprar algo básico.",
+        "fil": "Gamitin kung bago ka at kailangan bumili ng basic things.",
+        "id": "Gunakan jika baru dan perlu membeli kebutuhan dasar.",
+        "ne": "नयाँ हुनुहुन्छ र आधारभूत सामान किन्नुपर्छ भने प्रयोग गर्नुहोस्।"
+      },
+      "list": [],
+      "links": [
         {
           "label": {
             "pl": "Otwórz mapę",
@@ -2271,8 +2581,105 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=sklep%20apteka%20Zgorzelec%20Bogatynia"
+          "url": "https://www.google.com/maps/search/?api=1&query=sklep%20apteka%20Zgorzelec%20Bogatynia",
+          "tone": "blue"
         }
+      ]
+    }
+  ],
+  "citySections": [
+    {
+      "tone": "blue",
+      "icon": "document",
+      "title": {
+        "pl": "Urzędy i dokumenty",
+        "en": "Offices and documents",
+        "ua": "Установи і документи",
+        "ru": "Учреждения и документы",
+        "az": "İdarələr və sənədlər",
+        "es": "Oficinas y documentos",
+        "fil": "Opisina at dokumento",
+        "id": "Kantor dan dokumen",
+        "ne": "कार्यालय र कागजात"
+      },
+      "lead": {
+        "pl": "Adresy urzędów, karta pobytu, PESEL i sprawy dokumentów.",
+        "en": "Office addresses, residence card, PESEL and document matters.",
+        "ua": "Адреси установ, карта побиту, PESEL і документи.",
+        "ru": "Адреса учреждений, карта побыту, PESEL и документы.",
+        "az": "İdarə ünvanları, yaşayış kartı, PESEL və sənəd işləri.",
+        "es": "Direcciones, tarjeta de residencia, PESEL y documentos.",
+        "fil": "Mga address, residence card, PESEL at dokumento.",
+        "id": "Alamat kantor, kartu tinggal, PESEL dan dokumen.",
+        "ne": "कार्यालय ठेगाना, बसोबास कार्ड, PESEL र कागजात।"
+      },
+      "items": [
+        "urzad-zgorzelec",
+        "urzad-bogatynia",
+        "duw-wroclaw",
+        "duw-jelenia",
+        "mos-profil-duw"
+      ]
+    },
+    {
+      "tone": "yellow",
+      "icon": "bank",
+      "title": {
+        "pl": "Banki, poczta i bankomaty",
+        "en": "Banks, post office and ATMs",
+        "ua": "Банки, пошта і банкомати",
+        "ru": "Банки, почта и банкоматы",
+        "az": "Banklar, poçt və bankomatlar",
+        "es": "Bancos, correo y cajeros",
+        "fil": "Bangko, post office at ATM",
+        "id": "Bank, kantor pos dan ATM",
+        "ne": "बैंक, हुलाक र ATM"
+      },
+      "lead": {
+        "pl": "Najpierw sprawdź godzinę otwarcia w mapie albo zadzwoń.",
+        "en": "First check opening hours in the map or call.",
+        "ua": "Спочатку перевір години роботи на карті або подзвони.",
+        "ru": "Сначала проверь часы работы на карте или позвони.",
+        "az": "Əvvəl xəritədə iş saatlarını yoxla və ya zəng et.",
+        "es": "Primero revisa el horario en el mapa o llama.",
+        "fil": "Tingnan muna ang oras sa mapa o tumawag.",
+        "id": "Cek dulu jam buka di peta atau telepon.",
+        "ne": "पहिले नक्सामा खुल्ने समय हेर्नुहोस् वा फोन गर्नुहोस्।"
+      },
+      "items": [
+        "bank-zgorzelec",
+        "bank-bogatynia",
+        "poczta-zb"
+      ]
+    },
+    {
+      "tone": "blue",
+      "icon": "map",
+      "title": {
+        "pl": "Transport i aplikacje",
+        "en": "Transport and apps",
+        "ua": "Транспорт і додатки",
+        "ru": "Транспорт и приложения",
+        "az": "Nəqliyyat və tətbiqlər",
+        "es": "Transporte y apps",
+        "fil": "Transport at apps",
+        "id": "Transportasi dan aplikasi",
+        "ne": "यातायात र एपहरू"
+      },
+      "lead": {
+        "pl": "Mapy, przystanki i aplikacje do dojazdu.",
+        "en": "Maps, stops and travel apps.",
+        "ua": "Карти, зупинки і додатки для доїзду.",
+        "ru": "Карты, остановки и приложения для дороги.",
+        "az": "Xəritələr, dayanacaqlar və yol tətbiqləri.",
+        "es": "Mapas, paradas y apps de viaje.",
+        "fil": "Mapa, sakayan at travel apps.",
+        "id": "Peta, halte dan aplikasi perjalanan.",
+        "ne": "नक्सा, स्टप र यात्रा एपहरू।"
+      },
+      "items": [
+        "transport-zb",
+        "najblizsze-zb"
       ]
     }
   ]
@@ -2289,5 +2696,6 @@
   D.groups = T.groups;
   D.medical = T.medical;
   D.city = T.city;
+  D.citySections = T.citySections || [];
   D.cityExtras = [];
 })();
