@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "citronex-zgorzelec-bogatynia-szkolenie-";
-const CACHE_NAME = CACHE_PREFIX + "20260713-contacts1-zgorzelec-bogatynia";
+const CACHE_NAME = CACHE_PREFIX + "20260713-hydra-link1-zgorzelec-bogatynia";
 
 const CORE_ASSETS = [
   "./",
@@ -18,10 +18,10 @@ const CORE_ASSETS = [
   "./zakazy.html",
   "./test.html",
   "./manifest.webmanifest",
-  "./assets/css/training.css?v=20260713-zgorzelec-bogatynia-lekarz1",
+  "./assets/css/training.css?v=20260713-hydra-link1-zgorzelec-bogatynia",
   "./assets/js/training-data.js?v=20260713-zgorzelec-bogatynia-lekarz1",
   "./assets/js/location-custom.js?v=20260713-contacts1-zgorzelec-bogatynia",
-  "./assets/js/training-app.js?v=20260713-contacts1-zgorzelec-bogatynia",
+  "./assets/js/training-app.js?v=20260713-hydra-link1-zgorzelec-bogatynia",
   "./assets/brand/polskie-pomidory-logo.png",
   "./assets/brand/polskie-pomidory-icon.png",
   "./assets/orientation/sklarnia-etap-excel.png"

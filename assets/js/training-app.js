@@ -123,6 +123,13 @@
         <span>${esc(text(item.label))}</span>
       </a>
     `).join("");
+    const hydraHref = `https://oleksandrkiris.github.io/citronex-hydra-project/?lang=${encodeURIComponent(lang)}`;
+    const hydraHtml = `
+      <a class="top-nav-link hydra-link" href="${esc(hydraHref)}">
+        <span class="top-nav-icon">${iconMap.home}</span>
+        <span>HYDRA</span>
+      </a>
+    `;
 
     document.body.insertAdjacentHTML("afterbegin", `
       <header class="app-header">
@@ -138,7 +145,7 @@
           <select class="lang-select" id="langSelect" aria-label="Language">${selected}</select>
         </div>
         <nav class="top-nav" aria-label="${esc(text(tx("Szybkie przyciski", "Quick buttons", "Швидкі кнопки", "Быстрые кнопки", "Sürətli düymələr", "Botones rápidos", "Mabilis na buttons", "Tombol cepat", "छिटो बटनहरू")))}">
-          <div class="top-nav-scroll">${navHtml}</div>
+          <div class="top-nav-scroll">${navHtml}${hydraHtml}</div>
         </nav>
       </header>
     `);
