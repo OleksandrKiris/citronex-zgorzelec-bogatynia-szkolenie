@@ -538,6 +538,85 @@
         ${tabletLinkCard("yellow")}
       </main>
     `;
+    setupGreenhouseFullscreen();
+  }
+
+  function setupGreenhouseFullscreen() {
+    const steps = Array.from(document.querySelectorAll(".greenhouse-steps .step-card"));
+    if (!steps.length) return;
+    const labels = {
+      open: text(tx("Otwórz na cały ekran", "Open full screen", "Відкрити на весь екран", "Открыть на весь экран", "Tam ekranda aç", "Abrir en pantalla completa", "Buksan sa buong screen", "Buka layar penuh", "पूरा स्क्रिनमा खोल्नुहोस्")),
+      close: text(tx("Zamknij", "Close", "Закрити", "Закрыть", "Bağla", "Cerrar", "Isara", "Tutup", "बन्द गर्नुहोस्")),
+      hint: text(tx("Dotknij schematu, aby zobaczyć duży widok.", "Tap the diagram to see a large view.", "Натисніть на схему, щоб побачити великий вигляд.", "Нажмите на схему, чтобы увидеть большой вид.", "Böyük görünüş üçün sxemə toxunun.", "Toca el esquema para verlo grande.", "I-tap ang schema para makita nang malaki.", "Ketuk skema untuk melihat tampilan besar.", "ठूलो दृश्य हेर्न योजना छुनुहोस्।"))
+    };
+
+    let modal = document.querySelector(".orientation-modal");
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.className = "orientation-modal";
+      modal.setAttribute("role", "dialog");
+      modal.setAttribute("aria-modal", "true");
+      modal.setAttribute("aria-hidden", "true");
+      modal.innerHTML = `
+        <div class="orientation-modal-panel">
+          <button class="orientation-modal-close" type="button" aria-label="${esc(labels.close)}">×</button>
+          <div class="orientation-modal-content"></div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    const content = modal.querySelector(".orientation-modal-content");
+    const closeButton = modal.querySelector(".orientation-modal-close");
+    const closeModal = () => {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("orientation-modal-open");
+      content.innerHTML = "";
+    };
+    const openModal = (step) => {
+      const copy = step.cloneNode(true);
+      copy.querySelectorAll(".orientation-zoom-pill").forEach((item) => item.remove());
+      content.innerHTML = "";
+      content.appendChild(copy);
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("orientation-modal-open");
+      try {
+        closeButton.focus({ preventScroll: true });
+      } catch (error) {
+        closeButton.focus();
+      }
+    };
+
+    closeButton.addEventListener("click", closeModal);
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+    });
+
+    steps.forEach((step) => {
+      const schema = step.querySelector(".schema");
+      if (!schema || schema.dataset.orientationReady === "1") return;
+      schema.dataset.orientationReady = "1";
+      schema.setAttribute("role", "button");
+      schema.setAttribute("tabindex", "0");
+      schema.setAttribute("aria-label", labels.open);
+      schema.title = labels.hint;
+      const pill = document.createElement("span");
+      pill.className = "orientation-zoom-pill";
+      pill.textContent = labels.open;
+      schema.appendChild(pill);
+      schema.addEventListener("click", () => openModal(step));
+      schema.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openModal(step);
+        }
+      });
+    });
   }
 
   function readerTabButton(tab, active) {
