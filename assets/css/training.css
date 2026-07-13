@@ -4166,3 +4166,220 @@ body.orientation-modal-open {
     white-space: nowrap;
   }
 }
+
+/* Shared visual layer for all Citronex/Polskie Pomidory training projects. */
+:root {
+  --bg: #f6f8f5;
+  --surface-soft: #f1f5f2;
+  --muted: #53635a;
+  --line: #d8e3dc;
+  --brand: #d8202a;
+  --brand-2: #167a3a;
+  --green: #167a3a;
+  --green-soft: #e7f5ed;
+  --green-line: #acd9be;
+  --blue: #1d5fd6;
+  --blue-soft: #edf4ff;
+  --blue-line: #b8cdfa;
+  --yellow: #e08a00;
+  --yellow-soft: #fff4dc;
+  --yellow-line: #edc36a;
+  --red: #d8202a;
+  --red-soft: #fff0f1;
+  --red-line: #efb3b6;
+  --shadow-sm: 0 7px 16px rgba(17, 24, 39, .06);
+  --shadow: 0 14px 32px rgba(17, 24, 39, .08);
+  --shadow-lift: 0 18px 38px rgba(17, 24, 39, .12);
+  --radius: 16px;
+}
+
+body {
+  background:
+    linear-gradient(180deg, var(--accent-wash), transparent 280px),
+    radial-gradient(circle at 100% 0, rgba(216,32,42,.055), transparent 250px),
+    linear-gradient(90deg, rgba(29,95,214,.025), transparent 52%, rgba(224,138,0,.035)),
+    var(--bg);
+}
+
+.app-header {
+  background: rgba(248, 251, 249, .97);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 7px 22px rgba(28, 51, 39, .07);
+}
+
+.hero,
+.card,
+.step-card,
+.notice,
+.tile,
+.person,
+.reader-panel,
+.medical-card,
+.glossary-group,
+.speech-group,
+.ban-section {
+  border-color: rgba(216, 227, 220, .96);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.hero {
+  background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(255,255,255,.86) 48%, var(--accent-soft));
+}
+
+.tile {
+  min-height: 146px;
+  border-left: 0;
+}
+
+.tile::before {
+  width: 5px;
+  border-radius: 999px;
+}
+
+.icon-box,
+.city-card-icon,
+.ban-alert-icon {
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, .06);
+}
+
+.btn,
+.pill,
+.lang-select,
+.back-link,
+.top-nav-link,
+.version-line {
+  border-radius: 14px;
+}
+
+.btn {
+  min-height: 52px;
+  font-weight: 950;
+  box-shadow: 0 10px 22px var(--accent-shadow);
+}
+
+.btn.secondary,
+.btn.ghost,
+.pill {
+  background: rgba(255,255,255,.92);
+  border: 1px solid var(--line);
+  color: var(--text);
+  box-shadow: 0 6px 14px rgba(17, 24, 39, .05);
+}
+
+.pill.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 10px 22px var(--accent-shadow);
+}
+
+.top-nav-scroll {
+  scrollbar-width: none;
+}
+
+.top-nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.top-nav-link.hydra-link {
+  background: linear-gradient(135deg, #151a22, #331316);
+  border-color: #211827;
+}
+
+.card.green { background: linear-gradient(145deg, #fff, #f7fcf8 44%, var(--green-soft)); }
+.card.blue { background: linear-gradient(145deg, #fff, #f8fbff 44%, var(--blue-soft)); }
+.card.yellow { background: linear-gradient(145deg, #fff, #fffaf0 44%, var(--yellow-soft)); }
+.card.red { background: linear-gradient(145deg, #fff, #fff7f7 44%, var(--red-soft)); }
+
+@media (max-width: 430px) {
+  .page {
+    padding: 14px 10px calc(44px + env(safe-area-inset-bottom));
+    overflow-x: hidden;
+  }
+
+  .tile {
+    min-height: 112px;
+    padding: 13px;
+  }
+
+  .btn {
+    min-height: 54px;
+    width: 100%;
+  }
+
+  .top-nav-scroll {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    overflow-x: visible;
+  }
+
+  .top-nav-link {
+    min-width: 0;
+    width: 100%;
+    justify-content: center;
+    padding: 6px 7px;
+    font-size: 11.5px;
+    white-space: nowrap;
+  }
+}
+
+/* Final shared mobile navigation: one compact, tappable row across all projects. */
+@media (max-width: 430px) {
+  .top-nav-scroll {
+    display: flex !important;
+    grid-template-columns: none !important;
+    gap: 8px !important;
+    margin: 0 -10px;
+    padding: 7px 10px 8px;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .top-nav-link {
+    flex: 0 0 auto;
+    width: auto !important;
+    min-width: 76px !important;
+    min-height: 50px !important;
+    padding: 7px 10px !important;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    white-space: normal !important;
+    text-align: center;
+    line-height: 1.08;
+    scroll-snap-align: start;
+  }
+
+  .top-nav-icon {
+    width: 20px !important;
+    height: 20px !important;
+    flex: 0 0 auto;
+  }
+
+  .top-nav-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .back-link {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .top-nav-link {
+    min-width: 72px !important;
+    font-size: 10.8px !important;
+  }
+}
