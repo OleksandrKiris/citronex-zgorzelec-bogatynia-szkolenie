@@ -84,8 +84,91 @@
   }
 
   function action(url, label, tone = "") {
-    const cls = tone ? `btn ${tone}` : "btn";
-    return `<a class="${cls}" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`;
+    const cls = tone ? "btn " + tone : "btn";
+    return '<a class="' + cls + '" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(label) + '</a>';
+  }
+
+  const linkLabels = {
+    backupMap: tx("Mapa zapasowa", "Backup map", "Запасна карта", "Запасная карта", "Ehtiyat xəritə", "Mapa de reserva", "Backup na mapa", "Peta cadangan", "ब्याकअप नक्सा"),
+    copyAddress: tx("Kopiuj adres", "Copy address", "Копіювати адресу", "Копировать адрес", "Ünvanı kopyala", "Copiar dirección", "Kopyahin ang address", "Salin alamat", "ठेगाना कपी गर्नुहोस्"),
+    copyPoint: tx("Kopiuj punkt", "Copy point", "Копіювати пункт", "Копировать точку", "Nöqtəni kopyala", "Copiar punto", "Kopyahin ang punto", "Salin titik", "स्थान कपी गर्नुहोस्"),
+    copied: tx("Skopiowano", "Copied", "Скопійовано", "Скопировано", "Kopyalandı", "Copiado", "Nakopya", "Disalin", "कपी भयो")
+  };
+
+  function cleanText(value) {
+    return text(value).replace(/\s+/g, " ").trim();
+  }
+
+  function isMapLikeUrl(url = "") {
+    return /maps\.app\.goo\.gl|google\.[^/]+\/maps|goo\.gl\/maps/i.test(String(url));
+  }
+
+  function coordinatesFromUrl(url = "") {
+    const raw = String(url || "");
+    const direct = raw.match(/(-?\d{1,3}\.\d+)\s*,\s*(-?\d{1,3}\.\d+)/);
+    if (direct) return direct[1] + "," + direct[2];
+    try {
+      const parsed = new URL(raw, location.href);
+      const joined = [parsed.searchParams.get("q"), parsed.searchParams.get("destination"), parsed.pathname].filter(Boolean).join(" ");
+      const match = joined.match(/(-?\d{1,3}\.\d+)\s*,\s*(-?\d{1,3}\.\d+)/);
+      return match ? match[1] + "," + match[2] : "";
+    } catch {
+      return "";
+    }
+  }
+
+  function fallbackMapUrl(source = {}, url = "") {
+    const explicit = source.backupUrl || source.fallbackUrl || source.backupMap;
+    if (explicit) return explicit;
+    const coords = coordinatesFromUrl(url || source.url || source.map);
+    if (coords) return "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(coords);
+    const address = cleanText(source.address);
+    if (address) return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address);
+    return "";
+  }
+
+  function linkCopyValue(source = {}) {
+    return cleanText(source.address) || cleanText(source.title) || cleanText(source.label) || cleanText(source.note);
+  }
+
+  function linkTools(source = {}, url = "", tone = "secondary") {
+    const primaryUrl = String(url || source.url || source.map || "").trim();
+    const copyValue = linkCopyValue(source);
+    const shouldSupport = isMapLikeUrl(primaryUrl) || !!cleanText(source.address);
+    if (!shouldSupport) return "";
+    const fallback = fallbackMapUrl(source, primaryUrl);
+    const hasFallback = fallback && fallback !== primaryUrl;
+    const copyLabel = cleanText(source.address) ? text(linkLabels.copyAddress) : text(linkLabels.copyPoint);
+    const backupTone = tone === "red" ? "red" : "secondary";
+    const backup = hasFallback ? action(fallback, text(linkLabels.backupMap), backupTone) : "";
+    const copy = copyValue ? '<button type="button" class="btn secondary link-copy-btn" data-copy-link="' + esc(copyValue) + '" data-copy-original="' + esc(copyLabel) + '">' + esc(copyLabel) + '</button>' : "";
+    return backup || copy ? '<div class="link-tools">' + backup + copy + '</div>' : "";
+  }
+
+  function mapActionGroup(source = {}, label = ui("openMap"), tone = "blue") {
+    const url = source.url || source.map || "";
+    if (!url) return "";
+    return '<div class="map-action-group"><div class="btn-row">' + action(url, label, tone) + '</div>' + linkTools(source, url, tone) + '</div>';
+  }
+
+  function bindCopyLinks() {
+    app.querySelectorAll("[data-copy-link]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const value = button.dataset.copyLink || "";
+        const original = button.dataset.copyOriginal || button.textContent;
+        try {
+          await navigator.clipboard.writeText(value);
+          button.textContent = text(linkLabels.copied);
+          button.classList.add("is-copied");
+          window.setTimeout(() => {
+            button.textContent = original;
+            button.classList.remove("is-copied");
+          }, 1800);
+        } catch {
+          button.textContent = value;
+        }
+      });
+    });
   }
 
   function phoneActions(phone, whatsappLabel = ui("whatsapp")) {
@@ -247,7 +330,7 @@
       <article class="${cardClass(item.tone)}">
         <h3>${esc(text(item.title))}</h3>
         <p>${esc(text(item.note))}</p>
-        <div class="btn-row">${action(item.url, `${ui("openMap")} - ${text(item.title)}`, item.tone === "red" ? "red" : item.tone === "yellow" ? "yellow" : "blue")}</div>
+        ${mapActionGroup(item, ui("openMap") + " - " + text(item.title), item.tone === "red" ? "red" : item.tone === "yellow" ? "yellow" : "blue")}
       </article>
     `).join("");
     const firstSteps = DATA.firstDay.steps.map((item, index) => `
@@ -305,8 +388,8 @@
     const warehouseMap = DATA.maps.find((item) => item.key === "warehouse");
     const oldWarehouseMap = DATA.maps.find((item) => item.key === "oldWarehouse");
     const warehouseButtons = [
-      warehouseMap ? action(warehouseMap.url, text(tx("Mapa magazynu", "Warehouse map", "Карта складу", "Карта склада", "Anbar xəritəsi", "Mapa del almacén", "Mapa ng bodega", "Peta gudang", "गोदाम नक्सा")), "yellow") : "",
-      oldWarehouseMap ? action(oldWarehouseMap.url, text(oldWarehouseMap.title), "yellow") : ""
+      warehouseMap ? mapActionGroup(warehouseMap, text(tx("Mapa magazynu", "Warehouse map", "Карта складу", "Карта склада", "Anbar xəritəsi", "Mapa del almacén", "Mapa ng bodega", "Peta gudang", "गोदाम नक्सा")), "yellow") : "",
+      oldWarehouseMap ? mapActionGroup(oldWarehouseMap, text(oldWarehouseMap.title), "yellow") : ""
     ].filter(Boolean).join("");
     app.innerHTML = `
       <main class="page">
@@ -315,7 +398,7 @@
           <h2>${esc(text(DATA.tiles.find((tile) => tile.page === "magazyn").title))}</h2>
           <p>${esc(warehouseMap ? text(warehouseMap.note) : text(DATA.pages.magazyn.lead))}</p>
           <ul class="list">${rules}</ul>
-          <div class="btn-row">
+          <div class="map-action-list">
             ${warehouseButtons}
           </div>
         </section>
@@ -818,8 +901,8 @@
   function renderMedical() {
     const cards = DATA.medical.map((item) => {
       const notes = item.body.map((note) => `<li>${esc(text(note))}</li>`).join("");
-      const maps = (item.maps || []).map((map) => action(map.url, `${ui("openMap")} - ${text(map.label)}`, item.tone)).join("");
-      const oneMap = item.map ? action(item.map, ui("openMap"), item.tone) : "";
+      const maps = (item.maps || []).map((map) => mapActionGroup({ ...item, ...map, title: map.label || item.title, address: map.address || item.address }, ui("openMap") + " - " + text(map.label), item.tone)).join("");
+      const oneMap = item.map ? mapActionGroup(item, ui("openMap"), item.tone) : "";
       const phones = (item.phones || []).map((phone) => `
         <article class="person">
           <div class="person-name">${esc(text(phone.label))}</div>
@@ -834,7 +917,7 @@
           </summary>
           <div class="details-body medical-body">
             <ul class="list">${notes}</ul>
-            ${maps || oneMap ? `<div class="btn-row">${oneMap}${maps}</div>` : ""}
+            ${maps || oneMap ? '<div class="map-action-list">' + oneMap + maps + '</div>' : ""}
             ${phones ? `<div class="section contact-group">${phones}</div>` : ""}
           </div>
         </details>
@@ -935,10 +1018,13 @@
   function renderCity() {
     const cityItems = [...DATA.city, ...(DATA.cityExtras || [])];
     const cityLinks = (item) => {
-      const links = item.links || item.buttons || (item.url ? [{ url: item.url, label: item.button || DATA.ui.openMap, tone: item.tone }] : []);
-      const buttons = links.map((link) => action(link.url, text(link.label), link.tone || item.tone)).join("");
-      const phone = item.phone ? `<a class="btn secondary" href="${esc(telHref(item.phone))}">${esc(ui("call"))} ${esc(formatPhone(item.phone))}</a>` : "";
-      return buttons || phone ? `<div class="btn-row city-links">${buttons}${phone}</div>` : "";
+      const links = item.links || (item.url ? [{ url: item.url, label: item.button || DATA.ui.openMap, tone: item.tone }] : []);
+      const buttons = links.map((link) => {
+        const source = { ...item, ...link, title: link.label || item.title, address: link.address || item.address };
+        return mapActionGroup(source, text(link.label), link.tone || item.tone);
+      }).join("");
+      const phone = item.phone ? '<a class="btn secondary" href="' + esc(telHref(item.phone)) + '">' + esc(ui("call")) + ' ' + esc(formatPhone(item.phone)) + '</a>' : "";
+      return buttons || phone ? '<div class="city-links city-links-stack">' + buttons + (phone ? '<div class="btn-row">' + phone + '</div>' : "") + '</div>' : "";
     };
     const cityList = (items) => items && items.length ? `<ul class="list city-rule-list">${items.map((entry) => `<li>${esc(text(entry))}</li>`).join("")}</ul>` : "";
     const citySimpleItemFlex = (item) => `
@@ -1476,6 +1562,7 @@
       test: renderTest
     };
     (renderers[page] || renderHome)();
+    bindCopyLinks();
     renderVersionFooter();
   }
 

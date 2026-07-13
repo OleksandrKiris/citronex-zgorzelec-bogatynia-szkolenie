@@ -4783,3 +4783,54 @@ body[data-page="mowa"] .speech-search {
     grid-template-rows: 42px minmax(0, 1fr) !important;
   }
 }
+
+
+/* Link guard: backup map + copy address/point without changing source data. */
+.map-action-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.map-action-group {
+  display: grid;
+  gap: 8px;
+}
+
+.link-tools {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.link-tools .btn {
+  min-height: 48px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  font-size: .9rem;
+  line-height: 1.15;
+  box-shadow: var(--shadow-sm);
+}
+
+.link-copy-btn.is-copied {
+  background: var(--green);
+  color: #fff;
+  border-color: transparent;
+}
+
+.city-links-stack {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+@media (max-width: 420px) {
+  .link-tools {
+    grid-template-columns: 1fr;
+  }
+
+  .link-tools .btn {
+    min-height: 50px;
+    font-size: .92rem;
+  }
+}
