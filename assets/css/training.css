@@ -5217,3 +5217,90 @@ body[data-page="mowa"] .speech-search {
     grid-template-columns: minmax(0, 1fr) 58px minmax(0, 1fr);
   }
 }
+
+/* Hydra entry splash and readable greenhouse labels */
+body.location-splash-open {
+  overflow: hidden;
+}
+
+.location-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: max(18px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom));
+  background:
+    radial-gradient(circle at 50% 26%, rgba(220, 38, 38, .10), transparent 34%),
+    linear-gradient(145deg, #ffffff, #fff7f7 56%, #f7fee7);
+  opacity: 1;
+  transition: opacity .28s ease, visibility .28s ease;
+}
+
+.location-splash.is-hiding {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.location-splash-card {
+  width: min(280px, 86vw);
+  min-height: 240px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  padding: 24px 20px;
+  border: 1px solid rgba(220, 38, 38, .14);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, .94);
+  box-shadow: 0 26px 70px rgba(15, 23, 42, .18);
+  text-align: center;
+}
+
+.location-splash-card img {
+  width: 118px;
+  max-width: 54vw;
+  height: auto;
+  object-fit: contain;
+}
+
+.location-splash-card strong {
+  color: #111827;
+  font-size: clamp(18px, 5vw, 24px);
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.location-splash-card span {
+  color: #475569;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.orientation-builder-head {
+  align-items: center;
+}
+
+.orientation-builder-head p {
+  margin: 0;
+}
+
+.nave-3d-view .nave-side small,
+.orientation-modal-content .nave-3d-view .nave-side small {
+  writing-mode: horizontal-tb !important;
+  transform: none !important;
+  max-width: 100%;
+  text-align: center;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.passage-label,
+.passage-3d-view .passage-label {
+  writing-mode: horizontal-tb !important;
+  transform: translate(-50%, -50%) !important;
+  max-width: 58px;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.05;
+}
