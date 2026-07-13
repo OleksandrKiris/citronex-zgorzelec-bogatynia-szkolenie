@@ -948,7 +948,7 @@
           .filter(Boolean);
         if (!items.length) return "";
         return `
-          <details class="${cardClass(section.tone || "blue")} city-simple-group" open>
+          <details class="${cardClass(section.tone || "blue")} city-simple-group">
             <summary>
               <span class="city-card-icon">${iconMap[section.icon] || iconMap.city}</span>
               <span>${esc(text(section.title))}</span>
@@ -966,6 +966,14 @@
           <section class="city-simple-list">${groups}</section>
         </main>
       `;
+      app.querySelectorAll(".city-simple-group").forEach((group) => {
+        group.addEventListener("toggle", () => {
+          if (!group.open) return;
+          app.querySelectorAll(".city-simple-group[open]").forEach((other) => {
+            if (other !== group) other.open = false;
+          });
+        });
+      });
       return;
     }
     {
@@ -1022,6 +1030,14 @@
           <section class="city-simple-list">${citySimpleGroups}</section>
         </main>
       `;
+      app.querySelectorAll(".city-simple-group").forEach((group) => {
+        group.addEventListener("toggle", () => {
+          if (!group.open) return;
+          app.querySelectorAll(".city-simple-group[open]").forEach((other) => {
+            if (other !== group) other.open = false;
+          });
+        });
+      });
       return;
     }
   }
