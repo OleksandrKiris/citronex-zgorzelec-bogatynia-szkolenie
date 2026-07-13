@@ -651,8 +651,120 @@
         ${tabletLinkCard("yellow")}
       </main>
     `;
+    setupGreenhousePathBuilder(document);
+    setupGreenhouseStepViewer(document);
     setupGreenhouseNavePicker(document);
     setupGreenhouseFullscreen();
+  }
+
+  function setupGreenhouseStepViewer(root = document) {
+    const container = root.querySelector(".greenhouse-steps");
+    if (!container || container.dataset.stepViewerReady === "1") return;
+    const steps = Array.from(container.children).filter((child) => child.classList.contains("step-card"));
+    if (steps.length < 2) return;
+    container.dataset.stepViewerReady = "1";
+    const labels = [
+      text(tx("Cała szklarnia", "Whole greenhouse", "Вся теплиця", "Вся теплица", "Bütün istixana", "Todo el invernadero", "Buong greenhouse", "Seluruh rumah kaca", "पूरै ग्रीनहाउस")),
+      text(tx("Nawa", "Nave", "Нава", "Нава", "Nava", "Nave", "Nave", "Nave", "नावा")),
+      text(tx("Przejście", "Passage", "Прохід", "Проход", "Keçid", "Pasillo", "Daanan", "Lorong", "बाटो"))
+    ];
+    const tabs = document.createElement("div");
+    tabs.className = "greenhouse-step-tabs";
+    tabs.setAttribute("aria-label", text(tx("Widoki szklarni", "Greenhouse views", "Види теплиці", "Виды теплицы", "İstixana görünüşləri", "Vistas del invernadero", "Mga view ng greenhouse", "Tampilan rumah kaca", "ग्रीनहाउस दृश्य")));
+    tabs.innerHTML = labels.map((label, index) => `
+      <button class="greenhouse-step-tab${index === 0 ? " is-active" : ""}" type="button" data-greenhouse-step="${index}" aria-pressed="${index === 0 ? "true" : "false"}">
+        <span>${index + 1}</span>${esc(label)}
+      </button>
+    `).join("");
+    const legend = container.querySelector(".orientation-legend");
+    container.insertBefore(tabs, legend ? legend.nextSibling : container.firstChild);
+    const buttons = Array.from(tabs.querySelectorAll("[data-greenhouse-step]"));
+    const showStep = (index) => {
+      steps.forEach((step, stepIndex) => {
+        const active = stepIndex === index;
+        step.classList.toggle("is-active-step", active);
+        step.hidden = !active;
+      });
+      buttons.forEach((button, buttonIndex) => {
+        const active = buttonIndex === index;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+    };
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => showStep(Number(button.dataset.greenhouseStep || 0)));
+    });
+    showStep(0);
+  }
+
+  function setupGreenhousePathBuilder(root = document) {
+    const steps = root.querySelector(".greenhouse-steps");
+    if (!steps || root.querySelector("[data-orientation-builder]")) return;
+    const labels = {
+      title: text(tx("Wybierz swoje miejsce", "Choose your place", "Оберіть своє місце", "Выберите свое место", "Öz yerinizi seçin", "Elige tu lugar", "Piliin ang iyong lugar", "Pilih tempat Anda", "आफ्नो ठाउँ छान्नुहोस्")),
+      subtitle: text(tx("Wybieraj po kolei. Na końcu dostaniesz prostą informację, jak powiedzieć gdzie jesteś.", "Choose step by step. At the end you get a simple line showing where you are.", "Обирайте по черзі. В кінці отримаєте просту інформацію, як сказати де ви є.", "Выбирайте по очереди. В конце получите простую строку, как сказать где вы находитесь.", "Ardıcıllıqla seçin. Sonda harada olduğunuzu demək üçün sadə məlumat alacaqsınız.", "Elige paso a paso. Al final tendrás una frase simple para decir dónde estás.", "Pumili nang sunod-sunod. Sa dulo may simpleng linya kung nasaan ka.", "Pilih berurutan. Di akhir Anda mendapat kalimat sederhana untuk mengatakan posisi Anda.", "क्रमसँग छान्नुहोस्। अन्त्यमा आफू कहाँ हुनुहुन्छ भन्ने सरल वाक्य पाउनुहुन्छ।")),
+      part: text(tx("Część szklarni", "Greenhouse part", "Частина теплиці", "Часть теплицы", "İstixana hissəsi", "Parte del invernadero", "Bahagi ng greenhouse", "Bagian rumah kaca", "ग्रीनहाउसको भाग")),
+      nave: text(tx("Nawa", "Nave", "Нава", "Нава", "Nava", "Nave", "Nave", "Nave", "नावा")),
+      passage: text(tx("Przejście", "Passage", "Прохід", "Проход", "Keçid", "Pasillo", "Daanan", "Lorong", "बाटो")),
+      row: text(tx("Strona / rząd", "Side / row", "Сторона / ряд", "Сторона / ряд", "Tərəf / sıra", "Lado / fila", "Bahagi / hanay", "Sisi / baris", "भाग / लाइन")),
+      section: text(tx("Przęsło", "Section", "Секція", "Секция", "Bölmə", "Sección", "Seksyon", "Bagian", "सेक्शन")),
+      choose: text(tx("wybierz", "choose", "оберіть", "выберите", "seçin", "elige", "piliin", "pilih", "छान्नुहोस्")),
+      left: text(tx("lewa część", "left part", "ліва частина", "левая часть", "sol hissə", "parte izquierda", "kaliwang bahagi", "bagian kiri", "बायाँ भाग")),
+      right: text(tx("prawa część", "right part", "права частина", "правая часть", "sağ hissə", "parte derecha", "kanang bahagi", "bagian kanan", "दायाँ भाग")),
+      leftRow: text(tx("lewy rząd", "left row", "лівий ряд", "левый ряд", "sol sıra", "fila izquierda", "kaliwang hanay", "baris kiri", "बायाँ लाइन")),
+      rightRow: text(tx("prawy rząd", "right row", "правий ряд", "правый ряд", "sağ sıra", "fila derecha", "kanang hanay", "baris kanan", "दायाँ लाइन")),
+      result: text(tx("Twoja informacja", "Your information", "Ваша інформація", "Ваша информация", "Sizin məlumatınız", "Tu información", "Iyong impormasyon", "Informasi Anda", "तपाईंको जानकारी")),
+      empty: text(tx("Uzupełnij pola. Potem pokaż to brygadziście albo przeczytaj na głos.", "Fill in the fields. Then show this to the brigadier or read it aloud.", "Заповніть поля. Потім покажіть це бригадиру або прочитайте вголос.", "Заполните поля. Потом покажите это бригадиру или прочитайте вслух.", "Sahələri doldurun. Sonra bunu briqadirə göstərin və ya ucadan oxuyun.", "Rellena los campos. Luego muéstralo al encargado o léelo en voz alta.", "Punan ang mga field. Pagkatapos ipakita sa brigadier o basahin nang malakas.", "Isi kolomnya. Lalu tunjukkan ke mandor atau baca keras.", "फिल्डहरू भर्नुहोस्। त्यसपछि ब्रिगेडियरलाई देखाउनुहोस् वा ठूलो स्वरमा पढ्नुहोस्।")),
+      prefix: text(tx("Jestem tutaj:", "I am here:", "Я тут:", "Я здесь:", "Mən buradayam:", "Estoy aquí:", "Nandito ako:", "Saya di sini:", "म यहाँ छु:"))
+    };
+    const optionNumbers = (count) => Array.from({ length: count }, (_, index) => `<option value="${index + 1}">${index + 1}</option>`).join("");
+    const builder = document.createElement("section");
+    builder.className = "card orientation-builder";
+    builder.dataset.orientationBuilder = "1";
+    builder.innerHTML = `
+      <div class="orientation-builder-head">
+        <span>1-2-3</span>
+        <div>
+          <h2>${esc(labels.title)}</h2>
+          <p>${esc(labels.subtitle)}</p>
+        </div>
+      </div>
+      <div class="orientation-builder-grid">
+        <label>${esc(labels.part)}<select data-orient-field="part"><option value="">${esc(labels.choose)}</option><option value="left">${esc(labels.left)}</option><option value="right">${esc(labels.right)}</option></select></label>
+        <label>${esc(labels.nave)}<select data-orient-field="nave"><option value="">${esc(labels.choose)}</option>${optionNumbers(39)}</select></label>
+        <label>${esc(labels.passage)}<select data-orient-field="passage"><option value="">${esc(labels.choose)}</option>${optionNumbers(5)}</select></label>
+        <label>${esc(labels.row)}<select data-orient-field="row"><option value="">${esc(labels.choose)}</option><option value="left">${esc(labels.leftRow)}</option><option value="right">${esc(labels.rightRow)}</option></select></label>
+        <label>${esc(labels.section)}<select data-orient-field="section"><option value="">${esc(labels.choose)}</option>${optionNumbers(27)}</select></label>
+      </div>
+      <div class="orientation-builder-result" data-orientation-result>
+        <span>${esc(labels.result)}</span>
+        <strong>${esc(labels.empty)}</strong>
+      </div>
+    `;
+    steps.parentNode.insertBefore(builder, steps);
+    const fields = Object.fromEntries(Array.from(builder.querySelectorAll("[data-orient-field]")).map((field) => [field.dataset.orientField, field]));
+    const result = builder.querySelector("[data-orientation-result] strong");
+    const update = () => {
+      const values = {
+        part: fields.part?.value === "left" ? labels.left : fields.part?.value === "right" ? labels.right : "",
+        nave: fields.nave?.value,
+        passage: fields.passage?.value,
+        row: fields.row?.value === "left" ? labels.leftRow : fields.row?.value === "right" ? labels.rightRow : "",
+        section: fields.section?.value
+      };
+      const chunks = [];
+      if (values.part) chunks.push(values.part);
+      if (values.nave) chunks.push(`${labels.nave} ${values.nave}`);
+      if (values.passage) chunks.push(`${labels.passage} ${values.passage}`);
+      if (values.row) chunks.push(values.row);
+      if (values.section) chunks.push(`${labels.section} ${values.section}`);
+      result.textContent = chunks.length ? `${labels.prefix} ${chunks.join(" · ")}` : labels.empty;
+      if (fields.passage?.value) {
+        const button = root.querySelector(`.nave-pick-btn[data-nave-passage="${fields.passage.value}"]`);
+        if (button && !button.classList.contains("is-active")) button.click();
+      }
+    };
+    Object.values(fields).forEach((field) => field?.addEventListener("change", update));
   }
 
   function setupGreenhouseNavePicker(root = document) {
@@ -705,6 +817,12 @@
         passageBadges.forEach((badge) => {
           badge.classList.add("is-active");
           badge.textContent = `${badge.dataset.label || ""} ${number}`.trim();
+        });
+        document.querySelectorAll('[data-orient-field="passage"]').forEach((field) => {
+          if (field.value !== number) {
+            field.value = number;
+            field.dispatchEvent(new Event("change", { bubbles: true }));
+          }
         });
       };
       buttons.forEach((button) => {
