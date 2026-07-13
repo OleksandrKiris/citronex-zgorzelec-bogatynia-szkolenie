@@ -459,7 +459,10 @@
       stand: tx("stoisz tutaj", "you stand here", "ви стоїте тут", "вы стоите здесь", "burada dayanırsınız", "estás aquí", "dito ka nakatayo", "Anda berdiri di sini", "तपाईं यहाँ उभिनुहुन्छ"),
       look: tx("patrzysz w stronę naw", "you look toward the naves", "дивитесь у бік нав", "смотрите в сторону нав", "navalara tərəf baxırsınız", "miras hacia las naves", "nakatingin ka sa mga nave", "Anda melihat ke arah nave", "तपाईं नावातिर हेर्नुहुन्छ"),
       entrances: tx("wejścia 1-5 od lewej", "entrances 1-5 from the left", "входи 1-5 зліва", "входы 1-5 слева", "girişlər soldan 1-5", "entradas 1-5 desde la izquierda", "pasukan 1-5 mula kaliwa", "pintu 1-5 dari kiri", "बायाँबाट प्रवेश १-५"),
-      rows: tx("10 rzędów w jednej nawie", "10 rows in one nave", "10 рядів в одній наві", "10 рядов в одной наве", "bir navada 10 sıra", "10 filas en una nave", "10 hanay sa isang nave", "10 baris dalam satu nave", "एउटा नावामा १० लाइन"),
+      rows: tx("5 przejść = 10 rzędów", "5 passages = 10 rows", "5 проходів = 10 рядів", "5 проходов = 10 рядов", "5 keçid = 10 sıra", "5 pasillos = 10 filas", "5 daanan = 10 hanay", "5 lorong = 10 baris", "५ बाटो = १० लाइन"),
+      leftRow: tx("lewy rząd", "left row", "лівий ряд", "левый ряд", "sol sıra", "fila izquierda", "kaliwang hanay", "baris kiri", "बायाँ लाइन"),
+      rightRow: tx("prawy rząd", "right row", "правий ряд", "правый ряд", "sağ sıra", "fila derecha", "kanang hanay", "baris kanan", "दायाँ लाइन"),
+      passage: tx("przejście", "passage", "прохід", "проход", "keçid", "pasillo", "daanan", "lorong", "बाटो"),
       depth: tx("głąb przejścia", "deeper into the passage", "вглиб проходу", "вглубь прохода", "keçidin içərisinə", "hacia dentro del pasillo", "papasok sa daanan", "ke dalam lorong", "बाटोभित्र अगाडि"),
       floor: tx("numery przęseł po środku", "section numbers in the middle", "номери секцій посередині", "номера секций посередине", "bölmə nömrələri ortadadır", "números en el centro", "numero ng seksyon sa gitna", "nomor bagian di tengah", "बीचमा सेक्सन नम्बर")
     };
@@ -492,13 +495,24 @@
             <span class="step-number">2</span>
             <div>
               <h3>${esc(text(tx("Jedna nawa", "One nave", "Одна нава", "Одна нава", "Bir nava", "Una nave", "Isang nave", "Satu nave", "एउटा नावा")))}</h3>
-              <p>${esc(text(tx("Patrzysz na nawę. Nie ma tu różnicy prawa/lewa strona szklarni. Od lewej zaczyna się pierwsze wejście. W nawie jest 5 wejść obok siebie i 10 rzędów.", "You look at one nave. Here we do not use greenhouse left/right. The first entrance starts from the left. One nave has 5 entrances next to each other and 10 rows.", "Ви дивитесь на одну наву. Тут не ділимо на праву/ліву сторону теплиці. Зліва починається перший вхід. У наві 5 входів поруч і 10 рядів.", "Вы смотрите на одну наву. Здесь не делим на правую/левую сторону теплицы. Слева начинается первый вход. В наве 5 входов рядом и 10 рядов.", "Bir navaya baxırsınız. Burada istixananın sağ/sol tərəfi fərqləndirilmir. Soldan birinci giriş başlayır. Navada yanaşı 5 giriş və 10 sıra var.", "Miras una nave. Aqui no usamos lado derecho/izquierdo del invernadero. Desde la izquierda empieza la primera entrada. Hay 5 entradas y 10 filas.", "Tinitingnan ang isang nawa. Dito hindi ginagamit ang kanan/kaliwa ng bahay-taniman. Sa kaliwa nagsisimula ang unang pasukan. May 5 pasukan at 10 hanay.", "Anda melihat satu nave. Di sini tidak memakai kanan/kiri rumah kaca. Dari kiri mulai pintu pertama. Ada 5 pintu dan 10 baris.", "एउटा नावा हेर्दै हुनुहुन्छ। यहाँ ग्रीनहाउसको दायाँ/बायाँ फरक छैन। बायाँबाट पहिलो प्रवेश सुरु हुन्छ। ५ प्रवेश र १० पङ्क्ति हुन्छ।")))}</p>
+              <p>${esc(text(tx("Patrzysz na jedną nawę od wejścia. Od lewej zaczyna się pierwsze przejście. W nawie jest 5 przejść obok siebie. Każde przejście ma lewy rząd i prawy rząd, razem 10 rzędów.", "You look at one nave from the entrance. The first passage starts from the left. One nave has 5 passages next to each other. Each passage has a left row and a right row, together 10 rows.", "Ви дивитесь на одну наву від входу. Зліва починається перший прохід. У наві є 5 проходів поруч. Кожен прохід має лівий ряд і правий ряд, разом 10 рядів.", "Вы смотрите на одну наву со входа. Слева начинается первый проход. В наве 5 проходов рядом. В каждом проходе есть левый ряд и правый ряд, всего 10 рядов.", "Bir navaya giriş tərəfdən baxırsınız. Soldan birinci keçid başlayır. Navada yanaşı 5 keçid var. Hər keçiddə sol sıra və sağ sıra var, cəmi 10 sıra.", "Miras una nave desde la entrada. Desde la izquierda empieza el primer pasillo. Una nave tiene 5 pasillos juntos. Cada pasillo tiene una fila izquierda y una fila derecha, en total 10 filas.", "Tinitingnan mo ang isang nave mula sa pasukan. Sa kaliwa nagsisimula ang unang daanan. May 5 daanan na magkakatabi. Bawat daanan ay may kaliwang hanay at kanang hanay, kabuuang 10 hanay.", "Anda melihat satu nave dari pintu masuk. Dari kiri mulai lorong pertama. Satu nave memiliki 5 lorong berdampingan. Setiap lorong memiliki baris kiri dan baris kanan, total 10 baris.", "तपाईं प्रवेशबाट एउटा नावा हेर्दै हुनुहुन्छ। बायाँबाट पहिलो बाटो सुरु हुन्छ। एउटा नावामा ५ बाटो सँगसँगै हुन्छन्। हरेक बाटोमा बायाँ लाइन र दायाँ लाइन हुन्छ, जम्मा १० लाइन।")))}</p>
               <div class="schema">
                 <div class="nave-diagram nave-3d-view">
                   <div class="orientation-badge nave-entrances">${esc(text(orient.entrances))}</div>
                   <div class="orientation-badge nave-rows">${esc(text(orient.rows))}</div>
                   <div class="orientation-badge nave-stand">${esc(text(orient.stand))}</div>
-                  ${Array.from({ length: 5 }, (_, i) => `<div class="entry"><span>${i + 1}</span><div class="entry-rows">${Array.from({ length: 10 }, (_, r) => `<div class="row-line">${r + 1}</div>`).join("")}</div></div>`).join("")}
+                  ${Array.from({ length: 5 }, (_, i) => {
+                    const leftRow = (i * 2) + 1;
+                    const rightRow = leftRow + 1;
+                    return `<div class="entry nave-entry">
+                      <span>${i + 1}</span>
+                      <div class="entry-rows entry-two-rows">
+                        <div class="row-line row-pair row-left"><b>${leftRow}</b><small>${esc(text(orient.leftRow))}</small></div>
+                        <div class="entry-corridor"><small>${esc(text(orient.passage))}</small></div>
+                        <div class="row-line row-pair row-right"><b>${rightRow}</b><small>${esc(text(orient.rightRow))}</small></div>
+                      </div>
+                    </div>`;
+                  }).join("")}
                 </div>
               </div>
             </div>

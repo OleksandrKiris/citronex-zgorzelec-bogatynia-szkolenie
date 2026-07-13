@@ -3471,6 +3471,128 @@ details.card,
   }
 }
 
+/* Correct nave logic: 5 passages, 2 rows in each passage = 10 rows */
+.nave-3d-view .nave-entry {
+  grid-template-rows: 34px minmax(0, 1fr);
+}
+
+.nave-3d-view .entry-two-rows {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 34px minmax(0, 1fr);
+  gap: 7px;
+  padding: 8px 6px;
+}
+
+.nave-3d-view .row-pair {
+  min-height: 72px;
+  padding: 5px 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 12px;
+  border-color: rgba(22, 101, 52, .28);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.48), transparent 42%),
+    linear-gradient(90deg, #bbf7d0, #dbeafe);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.3);
+}
+
+.nave-3d-view .row-pair b {
+  min-width: 24px;
+  min-height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(21, 128, 61, .96);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.nave-3d-view .row-pair small {
+  color: #14532d;
+  font-size: 9px;
+  font-weight: 950;
+  line-height: 1.05;
+  text-align: center;
+}
+
+.nave-3d-view .entry-corridor {
+  min-height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px dashed rgba(180, 83, 9, .45);
+  border-radius: 10px;
+  background:
+    linear-gradient(90deg, rgba(120, 53, 15, .16), transparent 20%, transparent 80%, rgba(120, 53, 15, .16)),
+    repeating-linear-gradient(90deg, #fef3c7 0 10px, #fde68a 10px 20px);
+  color: #713f12;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.32);
+}
+
+.nave-3d-view .entry-corridor small {
+  font-size: 9px;
+  font-weight: 950;
+  line-height: 1;
+  text-align: center;
+}
+
+@media (max-width: 430px) {
+  .nave-3d-view .entry-two-rows {
+    grid-template-rows: minmax(0, 1fr) 28px minmax(0, 1fr);
+    gap: 5px;
+    padding: 5px 3px;
+  }
+
+  .nave-3d-view .row-pair {
+    min-height: 58px;
+    padding: 4px 2px;
+  }
+
+  .nave-3d-view .row-pair b {
+    min-width: 20px;
+    min-height: 20px;
+    font-size: 10px;
+  }
+
+  .nave-3d-view .row-pair small,
+  .nave-3d-view .entry-corridor small {
+    font-size: 7px;
+  }
+}
+
+@media (max-width: 360px) {
+  .nave-3d-view .row-pair small {
+    display: none;
+  }
+
+  .nave-3d-view .row-pair {
+    min-height: 50px;
+  }
+}
+
+.orientation-modal-content .nave-3d-view .entry-two-rows {
+  grid-template-rows: minmax(0, 1fr) 44px minmax(0, 1fr);
+  gap: 9px;
+}
+
+.orientation-modal-content .nave-3d-view .row-pair {
+  min-height: 108px;
+}
+
+.orientation-modal-content .nave-3d-view .row-pair b {
+  min-width: 30px;
+  min-height: 30px;
+  font-size: 14px;
+}
+
+.orientation-modal-content .nave-3d-view .row-pair small {
+  display: block;
+  font-size: 10px;
+}
+
 /* Full screen greenhouse step viewer */
 body.orientation-modal-open {
   overflow: hidden;
@@ -3662,5 +3784,25 @@ body.orientation-modal-open {
   .orientation-modal-content .row-side,
   .orientation-modal-content .work-passage {
     min-height: 49vh;
+  }
+}
+
+@media (max-width: 430px) {
+  .orientation-modal-content .nave-3d-view .entry-two-rows {
+    grid-template-rows: minmax(0, 1fr) 32px minmax(0, 1fr);
+    gap: 6px;
+    padding: 6px 3px;
+  }
+
+  .orientation-modal-content .nave-3d-view .row-pair {
+    min-height: 80px;
+  }
+
+  .orientation-modal-content .nave-3d-view .row-pair small {
+    display: none;
+  }
+
+  .orientation-modal-content .nave-3d-view .entry-corridor small {
+    display: none;
   }
 }
