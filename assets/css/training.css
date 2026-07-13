@@ -3478,9 +3478,10 @@ details.card,
 
 .nave-3d-view .entry-two-rows {
   display: grid;
-  grid-template-rows: minmax(0, 1fr) 34px minmax(0, 1fr);
-  gap: 7px;
-  padding: 8px 6px;
+  grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: 6px;
+  padding: 8px 5px;
 }
 
 .nave-3d-view .row-pair {
@@ -3520,14 +3521,14 @@ details.card,
 }
 
 .nave-3d-view .entry-corridor {
-  min-height: 30px;
+  min-height: 72px;
   display: grid;
   place-items: center;
   border: 1px dashed rgba(180, 83, 9, .45);
   border-radius: 10px;
   background:
-    linear-gradient(90deg, rgba(120, 53, 15, .16), transparent 20%, transparent 80%, rgba(120, 53, 15, .16)),
-    repeating-linear-gradient(90deg, #fef3c7 0 10px, #fde68a 10px 20px);
+    linear-gradient(180deg, rgba(120, 53, 15, .16), transparent 18%, transparent 82%, rgba(120, 53, 15, .16)),
+    repeating-linear-gradient(180deg, #fef3c7 0 10px, #fde68a 10px 20px);
   color: #713f12;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.32);
 }
@@ -3541,9 +3542,9 @@ details.card,
 
 @media (max-width: 430px) {
   .nave-3d-view .entry-two-rows {
-    grid-template-rows: minmax(0, 1fr) 28px minmax(0, 1fr);
-    gap: 5px;
-    padding: 5px 3px;
+    grid-template-columns: minmax(0, 1fr) 12px minmax(0, 1fr);
+    gap: 3px;
+    padding: 5px 2px;
   }
 
   .nave-3d-view .row-pair {
@@ -3559,7 +3560,7 @@ details.card,
 
   .nave-3d-view .row-pair small,
   .nave-3d-view .entry-corridor small {
-    font-size: 7px;
+    display: none;
   }
 }
 
@@ -3574,7 +3575,8 @@ details.card,
 }
 
 .orientation-modal-content .nave-3d-view .entry-two-rows {
-  grid-template-rows: minmax(0, 1fr) 44px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) 26px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
   gap: 9px;
 }
 
@@ -3755,8 +3757,8 @@ body.orientation-modal-open {
   }
 
   .orientation-modal-content .step-card {
-    grid-template-columns: 44px minmax(0, 1fr);
-    gap: 10px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
     padding: 10px;
     border-radius: 20px;
   }
@@ -3789,13 +3791,19 @@ body.orientation-modal-open {
 
 @media (max-width: 430px) {
   .orientation-modal-content .nave-3d-view .entry-two-rows {
-    grid-template-rows: minmax(0, 1fr) 32px minmax(0, 1fr);
-    gap: 6px;
-    padding: 6px 3px;
+    grid-template-columns: minmax(0, 1fr) 8px minmax(0, 1fr);
+    gap: 2px;
+    padding: 6px 2px;
   }
 
   .orientation-modal-content .nave-3d-view .row-pair {
     min-height: 80px;
+  }
+
+  .orientation-modal-content .nave-3d-view .row-pair b {
+    min-width: 18px;
+    min-height: 18px;
+    font-size: 10px;
   }
 
   .orientation-modal-content .nave-3d-view .row-pair small {
