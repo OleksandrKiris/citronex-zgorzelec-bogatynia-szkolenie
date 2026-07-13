@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   color-scheme: light;
   --bg: #f6f7f5;
   --surface: #ffffff;
@@ -120,13 +120,14 @@ a { color: inherit; }
 .brand {
   min-width: 0;
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
+  grid-template-columns: minmax(96px, 138px) minmax(0, 1fr);
   gap: 10px;
   align-items: center;
 }
 
 .brand img {
-  width: 42px;
+  width: 100%;
+  max-width: 138px;
   height: 42px;
   object-fit: contain;
   display: block;
@@ -2329,11 +2330,13 @@ details.ban-section .ban-section-head {
   }
 
   .brand {
-    grid-template-columns: 34px minmax(0, 1fr);
+    grid-template-columns: minmax(96px, 118px) minmax(0, 1fr);
+    gap: 8px;
   }
 
   .brand img {
-    width: 34px;
+    width: 100%;
+    max-width: 118px;
     height: 34px;
   }
 
@@ -2449,3 +2452,4 @@ details.ban-section .ban-section-head {
   object-fit: contain;
   background: #f8fafc;
 }
+

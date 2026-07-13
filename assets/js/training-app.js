@@ -106,6 +106,8 @@
 
   function renderHeader() {
     const isHome = page === "home";
+    const logoSrc = DATA.meta && DATA.meta.logo ? DATA.meta.logo : "assets/logo-citronex.svg";
+    const logoAlt = DATA.meta && DATA.meta.logoAlt ? DATA.meta.logoAlt : "Citronex";
     const selected = DATA.languages.map((item) => (
       `<option value="${esc(item.id)}"${item.id === lang ? " selected" : ""}>${esc(item.label)}</option>`
     )).join("");
@@ -127,7 +129,7 @@
         <div class="header-inner">
           ${isHome ? `<span class="back-link" aria-hidden="true">CX</span>` : `<a class="back-link" href="${esc(href("home"))}" aria-label="${esc(ui("back"))}">‹</a>`}
           <div class="brand">
-            <img src="assets/logo-citronex.svg" alt="Citronex">
+            <img src="${esc(logoSrc)}" alt="${esc(logoAlt)}">
             <div>
               <p class="brand-title">${esc(ui("brand"))}</p>
               <p class="brand-subtitle">${esc(ui("subtitle"))}</p>
