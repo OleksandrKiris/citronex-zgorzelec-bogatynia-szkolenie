@@ -304,16 +304,19 @@
     const rules = DATA.warehouseRules.map((item) => `<li>${esc(text(item))}</li>`).join("");
     const warehouseMap = DATA.maps.find((item) => item.key === "warehouse");
     const oldWarehouseMap = DATA.maps.find((item) => item.key === "oldWarehouse");
+    const warehouseButtons = [
+      warehouseMap ? action(warehouseMap.url, text(tx("Mapa magazynu", "Warehouse map", "Карта складу", "Карта склада", "Anbar xəritəsi", "Mapa del almacén", "Mapa ng bodega", "Peta gudang", "गोदाम नक्सा")), "yellow") : "",
+      oldWarehouseMap ? action(oldWarehouseMap.url, text(oldWarehouseMap.title), "yellow") : ""
+    ].filter(Boolean).join("");
     app.innerHTML = `
       <main class="page">
         ${pageHero()}
         <section class="card yellow">
           <h2>${esc(text(DATA.tiles.find((tile) => tile.page === "magazyn").title))}</h2>
-          <p>${esc(text(warehouseMap.note))}</p>
+          <p>${esc(warehouseMap ? text(warehouseMap.note) : text(DATA.pages.magazyn.lead))}</p>
           <ul class="list">${rules}</ul>
           <div class="btn-row">
-            ${action(warehouseMap.url, text(tx("Mapa magazynu", "Warehouse map", "Карта складу", "Карта склада", "Anbar xəritəsi", "Mapa del almacén", "Mapa ng bodega", "Peta gudang", "गोदाम नक्सा")), "yellow")}
-            ${action(oldWarehouseMap.url, text(oldWarehouseMap.title), "yellow")}
+            ${warehouseButtons}
           </div>
         </section>
         ${tabletLinkCard("yellow")}

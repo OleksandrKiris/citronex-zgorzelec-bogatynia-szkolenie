@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   color-scheme: light;
   --bg: #f6f7f5;
   --surface: #ffffff;
@@ -2487,4 +2487,437 @@ details.ban-section .ban-section-head {
   .tablet-shot { border-radius: 12px; }
   .nave-diagram { grid-template-columns: repeat(5, minmax(32px, 1fr)); }
   .passage-diagram { grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr); }
+}
+/* Phone fit layer: iPhone 8 and small Android screens */
+:root {
+  --bg: #f6f8f5;
+  --surface-soft: #eef5f0;
+  --muted: #53635a;
+  --line: #d6e2db;
+  --brand: #d8202a;
+  --brand-2: #167a3a;
+  --green: #167a3a;
+  --green-soft: #e7f5ed;
+  --green-line: #acd9be;
+  --blue: #1d5fd6;
+  --blue-soft: #edf4ff;
+  --blue-line: #b8cdfa;
+  --yellow: #e08a00;
+  --yellow-soft: #fff4dc;
+  --yellow-line: #edc36a;
+  --red: #d8202a;
+  --red-soft: #fff0f1;
+  --red-line: #efb3b6;
+  --accent-wash: rgba(22, 122, 58, .10);
+  --accent-shadow: rgba(22, 122, 58, .18);
+  --shadow-sm: 0 7px 16px rgba(17, 24, 39, .06);
+  --shadow: 0 12px 28px rgba(17, 24, 39, .08);
+  --radius: 16px;
+}
+
+body {
+  background:
+    linear-gradient(180deg, var(--accent-wash), transparent 250px),
+    radial-gradient(circle at 100% 0, rgba(216,32,42,.055), transparent 240px),
+    linear-gradient(90deg, rgba(29,95,214,.022), transparent 54%, rgba(224,138,0,.03)),
+    var(--bg);
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video,
+canvas {
+  max-width: 100%;
+}
+
+table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.app-header {
+  background: rgba(248, 251, 249, .97);
+  border-bottom-color: rgba(214, 226, 219, .92);
+  box-shadow: 0 7px 22px rgba(28, 51, 39, .065);
+}
+
+.header-inner {
+  padding: 9px 12px 7px;
+}
+
+.page {
+  padding: 16px 12px 42px;
+}
+
+.top-nav-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 7px 12px 9px;
+}
+
+.top-nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.top-nav-link {
+  min-width: 92px;
+  min-height: 42px;
+  scroll-snap-align: start;
+}
+
+.tiles,
+.module-grid,
+.card-grid,
+.steps,
+.contact-group,
+.photo-grid,
+.ban-list,
+.ban-quick-grid {
+  gap: 12px;
+}
+
+.tile,
+.card,
+.step-card,
+.notice,
+details.card,
+.person,
+.city-simple-item,
+.glossary-card,
+.speech-card,
+.ban-quick,
+.ban-alert {
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tile {
+  min-height: 138px;
+  padding: 14px;
+}
+
+.tile-title {
+  font-size: 18px;
+  line-height: 1.14;
+}
+
+.tile-text,
+.card p,
+.step-card p,
+.notice p {
+  line-height: 1.34;
+}
+
+.icon-box,
+.city-card-icon,
+.ban-alert-icon,
+.ban-quick-icon {
+  border-radius: 14px;
+}
+
+.btn,
+.intro-action,
+.language-choice,
+.reopen-intro {
+  min-height: 52px;
+  border-radius: 14px;
+  overflow-wrap: anywhere;
+}
+
+.pill,
+.lang-select,
+.back-link {
+  border-radius: 13px;
+}
+
+@media (max-width: 390px) {
+  body { font-size: 15.5px; }
+
+  .header-inner {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 7px;
+    padding: 8px 10px 7px;
+  }
+
+  .back-link {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .brand {
+    gap: 7px;
+  }
+
+  .brand img {
+    max-height: 30px;
+  }
+
+  .brand-title {
+    font-size: 10.8px;
+    line-height: 1.08;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .lang-select {
+    width: 88px;
+    max-width: 88px;
+    min-height: 40px;
+    padding-left: 7px;
+    padding-right: 24px;
+    font-size: 13px;
+  }
+
+  .top-nav-scroll {
+    gap: 6px;
+    padding: 7px 10px 8px;
+  }
+
+  .top-nav-link {
+    min-width: 88px;
+    min-height: 40px;
+    padding: 7px 8px;
+    gap: 5px;
+    font-size: 12px;
+  }
+
+  .top-nav-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .page {
+    padding: 14px 10px 34px;
+  }
+
+  .hero {
+    padding-top: 8px;
+  }
+
+  h1 {
+    font-size: clamp(24px, 7vw, 30px);
+    line-height: 1.08;
+  }
+
+  h2 {
+    font-size: clamp(20px, 5.6vw, 25px);
+  }
+
+  .lead {
+    margin-top: 9px;
+    font-size: 15.5px;
+    line-height: 1.35;
+  }
+
+  .tiles {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .tile {
+    min-height: 116px;
+    padding: 12px;
+    border-radius: 15px;
+    gap: 10px;
+  }
+
+  .tile-top {
+    gap: 8px;
+  }
+
+  .icon-box {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .icon-box svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 19px;
+  }
+
+  .tile-title {
+    font-size: 17px;
+  }
+
+  .tile-text {
+    font-size: 13px;
+    line-height: 1.28;
+    -webkit-line-clamp: 2;
+  }
+
+  .module-grid.two,
+  .card-grid.two,
+  .btn-row,
+  .contact-group,
+  .test-answer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card,
+  .step-card,
+  .notice,
+  details.card,
+  .person {
+    padding: 14px;
+    border-radius: 15px;
+  }
+
+  details.card {
+    padding: 0;
+  }
+
+  details.card > summary {
+    min-height: 54px;
+    padding: 14px;
+  }
+
+  .step-card {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+  }
+
+  .btn {
+    min-height: 52px;
+    padding: 12px 13px;
+    font-size: 15px;
+  }
+
+  .pill-row {
+    gap: 7px;
+  }
+
+  .pill {
+    min-height: 42px;
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+
+  .photo-grid img,
+  .tablet-shot img,
+  .media-frame img {
+    max-height: 58vh;
+    object-fit: contain;
+  }
+
+  .greenhouse-map {
+    min-height: 190px;
+  }
+
+  .nave-diagram {
+    grid-template-columns: repeat(5, minmax(30px, 1fr));
+    gap: 4px;
+  }
+
+  .entry {
+    min-height: 142px;
+  }
+
+  .passage-diagram {
+    grid-template-columns: minmax(0, 1fr) 62px minmax(0, 1fr);
+  }
+
+  .app-version-footer,
+  .footer-note {
+    margin-top: 18px;
+  }
+}
+
+@media (max-width: 340px) {
+  .header-inner {
+    gap: 6px;
+  }
+
+  .brand-title {
+    font-size: 10px;
+  }
+
+  .lang-select {
+    width: 78px;
+    max-width: 78px;
+    font-size: 12px;
+    padding-left: 6px;
+  }
+
+  .top-nav-link {
+    min-width: 82px;
+    font-size: 11.5px;
+  }
+
+  .tile {
+    min-height: 108px;
+  }
+
+  .tile-title {
+    font-size: 16px;
+  }
+}
+
+@media (max-height: 700px) and (max-width: 430px) {
+  .page {
+    padding-top: 12px;
+  }
+
+  .hero {
+    padding: 8px 0 6px;
+  }
+
+  .tiles,
+  .module-grid,
+  .card-grid,
+  .steps {
+    gap: 9px;
+  }
+
+  .tile {
+    min-height: 104px;
+  }
+
+  .card,
+  .step-card,
+  .notice,
+  .person {
+    padding: 12px;
+  }
+
+  .btn {
+    min-height: 50px;
+  }
 }
