@@ -4383,3 +4383,403 @@ body {
     font-size: 10.8px !important;
   }
 }
+
+/* Unified module layer: reader, tablet, bans, greenhouse, groups, glossary, speech and test. */
+:where(
+  body[data-page="reader"],
+  body[data-page="tablet"],
+  body[data-page="zakazy"],
+  body[data-page="szklarnia"],
+  body[data-page="grupy"],
+  body[data-page="slownik"],
+  body[data-page="mowa"],
+  body[data-page="test"]
+) .hero {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(216, 227, 220, .96);
+  box-shadow: var(--shadow);
+}
+
+:where(
+  body[data-page="reader"],
+  body[data-page="tablet"],
+  body[data-page="zakazy"],
+  body[data-page="szklarnia"],
+  body[data-page="grupy"],
+  body[data-page="slownik"],
+  body[data-page="mowa"],
+  body[data-page="test"]
+) .hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 7px;
+  background: var(--accent);
+}
+
+:where(
+  body[data-page="reader"],
+  body[data-page="tablet"],
+  body[data-page="zakazy"],
+  body[data-page="szklarnia"],
+  body[data-page="grupy"],
+  body[data-page="slownik"],
+  body[data-page="mowa"],
+  body[data-page="test"]
+) .section {
+  margin-top: 16px;
+}
+
+:where(.reader-panel, .tablet-guide, .test-shell, .glossary-help, .speech-intro, .ban-before-card, .green-flow) {
+  border: 1px solid rgba(216, 227, 220, .98);
+  border-radius: 20px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,255,255,.88) 56%, var(--accent-soft)),
+    #fff;
+  box-shadow: var(--shadow);
+}
+
+body[data-page="grupy"] .module-grid {
+  gap: 12px;
+}
+
+body[data-page="grupy"] .module-grid > .card {
+  min-height: 156px;
+  display: grid;
+  align-content: space-between;
+  gap: 14px;
+  border-left: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+body[data-page="grupy"] .module-grid > .card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+body[data-page="grupy"] .module-grid > .card h2 {
+  margin: 0;
+  padding-left: 4px;
+  font-size: clamp(19px, 4.6vw, 25px);
+  line-height: 1.1;
+}
+
+body[data-page="reader"] .pill-row,
+body[data-page="kontakty"] .pill-row {
+  margin: 0 -2px 12px;
+  padding: 4px 2px 12px;
+}
+
+body[data-page="reader"] .pill,
+body[data-page="kontakty"] .pill {
+  min-height: 50px;
+  border-radius: 14px;
+}
+
+.reader-panel {
+  padding: 14px;
+}
+
+.reader-panel-head,
+body[data-page="tablet"] .city-card-head {
+  min-height: 82px;
+  padding: 13px;
+  border-radius: 18px;
+  border: 1px solid var(--accent-line);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.96), rgba(255,255,255,.70)),
+    var(--accent-soft);
+}
+
+.reader-section,
+.tablet-step,
+.test-question.is-single,
+.speech-card,
+.glossary-card,
+.ban-card-modern {
+  border: 1px solid rgba(216, 227, 220, .98);
+  border-radius: 18px;
+  background: rgba(255,255,255,.94);
+  box-shadow: var(--shadow-sm);
+}
+
+.reader-section {
+  padding: 13px;
+}
+
+.reader-step,
+.step-card.compact {
+  border-radius: 16px;
+  background: #fff;
+}
+
+.reader-step .step-number,
+.step-number {
+  box-shadow: 0 8px 18px var(--accent-shadow);
+}
+
+.reader-image-translation,
+.tablet-screen,
+.floor-note,
+.speech-status,
+.glossary-example {
+  border-radius: 14px;
+}
+
+.tablet-guide {
+  padding: 14px;
+}
+
+.tablet-step {
+  overflow: hidden;
+}
+
+.tablet-step > summary,
+.speech-group summary,
+.glossary-summary,
+.ban-group-panel > summary {
+  min-height: 62px;
+  border-radius: 0;
+}
+
+.tablet-step > summary {
+  background: linear-gradient(90deg, #fff, var(--accent-soft));
+}
+
+.tablet-step[open] > summary,
+.speech-group[open] summary,
+.glossary-group[open] .glossary-summary,
+.ban-group-panel[open] > summary {
+  border-bottom: 1px solid rgba(216, 227, 220, .98);
+}
+
+.tablet-screen {
+  border: 1px solid rgba(255,255,255,.18);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent),
+    #172033;
+}
+
+.tablet-shot,
+.reader-visual,
+.media {
+  border-radius: 18px;
+}
+
+body[data-page="zakazy"] .ban-alert {
+  border-radius: 22px;
+}
+
+.ban-quick-grid {
+  gap: 11px;
+}
+
+.ban-quick {
+  min-height: 126px;
+  border-radius: 18px;
+}
+
+.ban-card-modern {
+  min-height: 112px;
+}
+
+.ban-card-label,
+.speech-count,
+.city-card-tag,
+.mini-tag {
+  letter-spacing: 0;
+}
+
+body[data-page="szklarnia"] .greenhouse-steps {
+  display: grid;
+  gap: 14px;
+}
+
+body[data-page="szklarnia"] .greenhouse-steps .step-card {
+  border-radius: 20px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,255,255,.88) 58%, var(--green-soft)),
+    #fff;
+}
+
+body[data-page="szklarnia"] .schema {
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, #ffffff, #f5fbf6);
+}
+
+.orientation-zoom-pill {
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(17,24,39,.10);
+}
+
+body[data-page="slownik"] .glossary-search,
+body[data-page="mowa"] .speech-search {
+  min-height: 54px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.glossary-group,
+.speech-group {
+  overflow: hidden;
+}
+
+.glossary-list,
+.speech-list {
+  padding: 12px;
+  gap: 10px;
+}
+
+.speech-card {
+  gap: 12px;
+}
+
+.speech-polish {
+  color: var(--accent);
+  font-size: clamp(18px, 4.7vw, 23px);
+}
+
+.speech-actions .btn {
+  min-height: 50px;
+}
+
+.test-shell {
+  padding: 15px;
+}
+
+.test-progress-head {
+  min-height: 34px;
+}
+
+.test-progress-bar {
+  height: 12px;
+}
+
+.test-question.is-single h3 {
+  margin-top: 8px;
+}
+
+.test-question.is-single label {
+  min-height: 62px;
+  border-width: 1px;
+}
+
+.test-question.is-single label.is-picked {
+  border-width: 2px;
+}
+
+.test-nav-row .btn {
+  min-height: 56px;
+}
+
+@media (min-width: 760px) {
+  body[data-page="grupy"] .module-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .glossary-list,
+  .speech-list,
+  .ban-list-modern {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 430px) {
+  :where(.reader-panel, .tablet-guide, .test-shell, .glossary-help, .speech-intro, .ban-before-card, .green-flow) {
+    border-radius: 17px;
+    padding: 12px;
+  }
+
+  .reader-panel-head,
+  body[data-page="tablet"] .city-card-head {
+    grid-template-columns: 46px minmax(0, 1fr);
+    min-height: 72px;
+    padding: 11px;
+    gap: 10px;
+  }
+
+  .reader-panel-head h2,
+  body[data-page="tablet"] .city-card-head h2 {
+    font-size: 18px;
+  }
+
+  .reader-section,
+  .tablet-step-body,
+  .test-question.is-single,
+  .speech-card,
+  .glossary-card,
+  .ban-card-modern {
+    padding: 12px;
+  }
+
+  .tablet-step > summary,
+  .speech-group summary,
+  .glossary-summary,
+  .ban-group-panel > summary {
+    min-height: 58px;
+    padding: 12px;
+  }
+
+  .ban-quick-grid,
+  .ban-list,
+  .ban-list-modern,
+  .glossary-list,
+  .speech-list {
+    grid-template-columns: 1fr !important;
+  }
+
+  body[data-page="grupy"] .module-grid > .card {
+    min-height: 130px;
+  }
+
+  .speech-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .test-nav-row {
+    gap: 8px;
+  }
+}
+
+/* Mobile guard for repeated training modules. Keeps the shared header and small controls usable on iPhone 8 width. */
+@media (max-width: 430px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .top-nav-scroll {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .lang-select {
+    min-height: 44px !important;
+  }
+
+  .nave-3d-view .nave-pick-btn {
+    min-height: 42px !important;
+    font-size: 11px !important;
+  }
+
+  .nave-3d-view {
+    width: 100% !important;
+    grid-template-columns: repeat(5, minmax(44px, 1fr)) !important;
+    gap: 6px !important;
+  }
+
+  .nave-3d-view .nave-entry {
+    grid-template-rows: 42px minmax(0, 1fr) !important;
+  }
+}
