@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260713-zgorzelec-bogatynia-clean1",
+    "version": "20260713-zgorzelec-bogatynia-dataaudit1",
     "displayVersion": "2026-07-13",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
@@ -2185,7 +2185,7 @@
             "id": "Buka aplikasi",
             "ne": "एप खोल्नुहोस्"
           },
-          "url": "https://www.zus.pl/ezus",
+          "url": "https://www.zus.pl/portal/logowanie.npi",
           "tone": "yellow"
         }
       ],
