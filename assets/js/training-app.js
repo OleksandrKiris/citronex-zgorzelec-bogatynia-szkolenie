@@ -452,18 +452,34 @@
         <ul class="list">${card.items.map((item) => `<li>${esc(text(item))}</li>`).join("")}</ul>
       </article>
     `).join("");
+    const orient = {
+      back: tx("pierwsze nawy za plecami", "first naves behind your back", "перші нави за спиною", "первые навы за спиной", "ilk navalar arxanızdadır", "primeras naves detrás de ti", "unang mga nave nasa likod mo", "nave pertama di belakang Anda", "पहिलो नावा तपाईंको पछाडि"),
+      left: tx("lewa część szklarni", "left part of the greenhouse", "ліва частина теплиці", "левая часть теплицы", "istixananın sol hissəsi", "parte izquierda del invernadero", "kaliwang bahagi ng greenhouse", "bagian kiri rumah kaca", "ग्रीनहाउसको बायाँ भाग"),
+      right: tx("prawa część szklarni", "right part of the greenhouse", "права частина теплиці", "правая часть теплицы", "istixananın sağ hissəsi", "parte derecha del invernadero", "kanang bahagi ng greenhouse", "bagian kanan rumah kaca", "ग्रीनहाउसको दायाँ भाग"),
+      stand: tx("stoisz tutaj", "you stand here", "ви стоїте тут", "вы стоите здесь", "burada dayanırsınız", "estás aquí", "dito ka nakatayo", "Anda berdiri di sini", "तपाईं यहाँ उभिनुहुन्छ"),
+      look: tx("patrzysz w stronę naw", "you look toward the naves", "дивитесь у бік нав", "смотрите в сторону нав", "navalara tərəf baxırsınız", "miras hacia las naves", "nakatingin ka sa mga nave", "Anda melihat ke arah nave", "तपाईं नावातिर हेर्नुहुन्छ"),
+      entrances: tx("wejścia 1-5 od lewej", "entrances 1-5 from the left", "входи 1-5 зліва", "входы 1-5 слева", "girişlər soldan 1-5", "entradas 1-5 desde la izquierda", "pasukan 1-5 mula kaliwa", "pintu 1-5 dari kiri", "बायाँबाट प्रवेश १-५"),
+      rows: tx("10 rzędów w jednej nawie", "10 rows in one nave", "10 рядів в одній наві", "10 рядов в одной наве", "bir navada 10 sıra", "10 filas en una nave", "10 hanay sa isang nave", "10 baris dalam satu nave", "एउटा नावामा १० लाइन"),
+      depth: tx("głąb przejścia", "deeper into the passage", "вглиб проходу", "вглубь прохода", "keçidin içərisinə", "hacia dentro del pasillo", "papasok sa daanan", "ke dalam lorong", "बाटोभित्र अगाडि"),
+      floor: tx("numery przęseł po środku", "section numbers in the middle", "номери секцій посередині", "номера секций посередине", "bölmə nömrələri ortadadır", "números en el centro", "numero ng seksyon sa gitna", "nomor bagian di tengah", "बीचमा सेक्सन नम्बर")
+    };
 
     app.innerHTML = `
       <main class="page">
         ${pageHero()}
-        <section class="steps">
+        <section class="steps greenhouse-steps">
           <article class="step-card">
             <span class="step-number">1</span>
             <div>
               <h3>${esc(text(tx("Cała szklarnia z góry", "Whole greenhouse from above", "Вся теплиця зверху", "Вся теплица сверху", "Bütün istixana yuxarıdan", "Todo el invernadero desde arriba", "Buong bahay-taniman mula sa taas", "Seluruh rumah kaca dari atas", "पूरै ग्रीनहाउस माथिबाट")))}</h3>
               <p>${esc(text(tx("Stoisz plecami do pierwszych naw. Po środku jest droga. Po jednej stronie jest lewa część, po drugiej prawa część. Liczba naw może być różna: 37, 38 albo 39.", "Stand with your back to the first naves. The road is in the middle. One side is left, the other is right. The number of naves may be 37, 38 or 39.", "Станьте спиною до перших нав. Посередині дорога. З одного боку ліва частина, з іншого права. Нав може бути 37, 38 або 39.", "Встаньте спиной к первым навам. Посередине дорога. С одной стороны левая часть, с другой правая. Нав может быть 37, 38 или 39.", "İlk navalara arxanızla dayanın. Ortada yol var. Bir tərəf sol, o biri sağdır. Nava sayı 37, 38 və ya 39 ola bilər.", "Ponte de espaldas a las primeras naves. En el medio está el camino. Un lado es izquierdo y otro derecho. Puede haber 37, 38 o 39 naves.", "Tumayo na nakatalikod sa unang mga nawa. Nasa gitna ang daan. Isang bahagi ay kaliwa, isa ay kanan. Puwedeng 37, 38 o 39 nawa.", "Berdiri membelakangi nave pertama. Jalan ada di tengah. Satu sisi kiri, satu sisi kanan. Jumlah nave bisa 37, 38 atau 39.", "पहिलो नावातिर ढाड फर्काएर उभिनुहोस्। बीचमा बाटो छ। एक भाग बायाँ, अर्को दायाँ। नावा ३७, ३८ वा ३९ हुन सक्छ।")))}</p>
               <div class="schema">
-                <div class="greenhouse-map" aria-label="greenhouse schema">
+                <div class="greenhouse-map greenhouse-3d-overview" aria-label="greenhouse schema">
+                  <div class="orientation-badge overview-back">${esc(text(orient.back))}</div>
+                  <div class="orientation-badge overview-left">${esc(text(orient.left))}</div>
+                  <div class="orientation-badge overview-right">${esc(text(orient.right))}</div>
+                  <div class="orientation-badge overview-look">${esc(text(orient.look))}</div>
+                  <div class="orientation-badge overview-stand">${esc(text(orient.stand))}</div>
                   <div class="green-side">${Array.from({ length: 12 }, (_, i) => `<span class="nave-cell">${i === 0 ? "1" : i === 11 ? "..." : ""}</span>`).join("")}</div>
                   <div class="center-road">${esc(text(tx("droga środkowa", "middle road", "центральна дорога", "центральная дорога", "orta yol", "camino central", "gitnang daan", "jalan tengah", "बीच बाटो")))}</div>
                   <div class="green-side">${Array.from({ length: 12 }, (_, i) => `<span class="nave-cell">${i === 0 ? "1" : i === 11 ? "..." : ""}</span>`).join("")}</div>
@@ -478,7 +494,10 @@
               <h3>${esc(text(tx("Jedna nawa", "One nave", "Одна нава", "Одна нава", "Bir nava", "Una nave", "Isang nave", "Satu nave", "एउटा नावा")))}</h3>
               <p>${esc(text(tx("Patrzysz na nawę. Nie ma tu różnicy prawa/lewa strona szklarni. Od lewej zaczyna się pierwsze wejście. W nawie jest 5 wejść obok siebie i 10 rzędów.", "You look at one nave. Here we do not use greenhouse left/right. The first entrance starts from the left. One nave has 5 entrances next to each other and 10 rows.", "Ви дивитесь на одну наву. Тут не ділимо на праву/ліву сторону теплиці. Зліва починається перший вхід. У наві 5 входів поруч і 10 рядів.", "Вы смотрите на одну наву. Здесь не делим на правую/левую сторону теплицы. Слева начинается первый вход. В наве 5 входов рядом и 10 рядов.", "Bir navaya baxırsınız. Burada istixananın sağ/sol tərəfi fərqləndirilmir. Soldan birinci giriş başlayır. Navada yanaşı 5 giriş və 10 sıra var.", "Miras una nave. Aqui no usamos lado derecho/izquierdo del invernadero. Desde la izquierda empieza la primera entrada. Hay 5 entradas y 10 filas.", "Tinitingnan ang isang nawa. Dito hindi ginagamit ang kanan/kaliwa ng bahay-taniman. Sa kaliwa nagsisimula ang unang pasukan. May 5 pasukan at 10 hanay.", "Anda melihat satu nave. Di sini tidak memakai kanan/kiri rumah kaca. Dari kiri mulai pintu pertama. Ada 5 pintu dan 10 baris.", "एउटा नावा हेर्दै हुनुहुन्छ। यहाँ ग्रीनहाउसको दायाँ/बायाँ फरक छैन। बायाँबाट पहिलो प्रवेश सुरु हुन्छ। ५ प्रवेश र १० पङ्क्ति हुन्छ।")))}</p>
               <div class="schema">
-                <div class="nave-diagram">
+                <div class="nave-diagram nave-3d-view">
+                  <div class="orientation-badge nave-entrances">${esc(text(orient.entrances))}</div>
+                  <div class="orientation-badge nave-rows">${esc(text(orient.rows))}</div>
+                  <div class="orientation-badge nave-stand">${esc(text(orient.stand))}</div>
                   ${Array.from({ length: 5 }, (_, i) => `<div class="entry"><span>${i + 1}</span><div class="entry-rows">${Array.from({ length: 10 }, (_, r) => `<div class="row-line">${r + 1}</div>`).join("")}</div></div>`).join("")}
                 </div>
               </div>
@@ -490,7 +509,10 @@
               <h3>${esc(text(tx("Wejście do rzędu", "Entry into the row", "Вхід у ряд", "Вход в ряд", "Sıraya giriş", "Entrada a la fila", "Pagpasok sa hanay", "Masuk ke baris", "पङ्क्तिमा प्रवेश")))}</h3>
               <p>${esc(text(tx("Patrzysz w przejście. Po lewej jest lewa strona, czyli lewy rząd. Po prawej jest prawa strona, czyli prawy rząd. Praca odbywa się w rzędzie, a nie 'obok rzędu'.", "You look into the passage. On the left is the left side, the left row. On the right is the right side, the right row. Work is in the row, not next to the row.", "Ви дивитесь у прохід. Зліва є ліва сторона, тобто лівий ряд. Справа є права сторона, тобто правий ряд. Робота відбувається в ряду, не біля ряду.", "Вы смотрите в проход. Слева левая сторона, то есть левый ряд. Справа правая сторона, то есть правый ряд. Работа в ряду, не возле ряда.", "Keçidə baxırsınız. Solda sol tərəf, yəni sol sıra var. Sağda sağ tərəf, yəni sağ sıra var. İş sıranın içindədir, sıranın yanında deyil.", "Miras al pasillo. A la izquierda está el lado izquierdo, es decir la fila izquierda. A la derecha está el lado derecho, es decir la fila derecha. Se trabaja dentro de la fila, no al lado.", "Tumingin sa daanan. Sa kaliwa ang kaliwang bahagi, ibig sabihin kaliwang hanay. Sa kanan ang kanang bahagi, ibig sabihin kanang hanay. Ang trabaho ay nasa hanay, hindi sa tabi.", "Lihat ke lorong. Di kiri ada sisi kiri, yaitu baris kiri. Di kanan ada sisi kanan, yaitu baris kanan. Kerja di dalam baris, bukan di samping.", "पासेजतिर हेर्नुहोस्। बायाँतिर बायाँ भाग, अर्थात् बायाँ लाइन हुन्छ। दायाँतिर दायाँ भाग, अर्थात् दायाँ लाइन हुन्छ। काम लाइनभित्र हुन्छ, लाइनको छेउमा होइन।")))}</p>
               <div class="schema">
-                <div class="passage-diagram">
+                <div class="passage-diagram passage-3d-view">
+                  <div class="orientation-badge passage-depth">${esc(text(orient.depth))}</div>
+                  <div class="orientation-badge passage-floor">${esc(text(orient.floor))}</div>
+                  <div class="orientation-badge passage-stand">${esc(text(orient.stand))}</div>
                   <div class="row-side">${esc(text(tx("lewa strona / lewy rząd", "left side / left row", "ліва сторона / лівий ряд", "левая сторона / левый ряд", "sol tərəf / sol sıra", "lado izquierdo / fila izquierda", "kaliwang bahagi / kaliwang hanay", "sisi kiri / baris kiri", "बायाँ भाग / बायाँ लाइन")))}</div>
                   <div class="work-passage">
                     <span class="passage-label">${esc(text(tx("przejście", "passage", "прохід", "проход", "keçid", "pasillo", "daanan", "lorong", "पासेज")))}</span>

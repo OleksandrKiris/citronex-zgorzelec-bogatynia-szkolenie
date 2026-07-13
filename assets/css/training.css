@@ -3198,3 +3198,275 @@ details.card,
     font-size: 10px;
   }
 }
+
+/* Greenhouse orientation explanation layer */
+.greenhouse-steps .step-card > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.greenhouse-steps .step-card > div > h3 {
+  order: 1;
+}
+
+.greenhouse-steps .step-card > div > .schema {
+  order: 2;
+  margin-top: 10px;
+}
+
+.greenhouse-steps .step-card > div > p {
+  order: 3;
+  margin-top: 12px;
+}
+
+.greenhouse-steps .step-card > div > .btn-row {
+  order: 4;
+}
+
+.orientation-badge {
+  position: absolute;
+  z-index: 8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 6px 9px;
+  border: 1px solid rgba(30, 64, 175, .22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .94);
+  color: #0f172a;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, .13);
+  font-size: clamp(10px, 2.5vw, 12px);
+  font-weight: 900;
+  line-height: 1.08;
+  text-align: center;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+}
+
+.greenhouse-3d-overview {
+  padding-top: 82px;
+  padding-bottom: 78px;
+  background:
+    radial-gradient(circle at 50% 102%, rgba(37, 99, 235, .16), transparent 42%),
+    linear-gradient(180deg, rgba(236, 253, 245, .92), rgba(219, 234, 254, .7));
+}
+
+.greenhouse-3d-overview::after {
+  bottom: 44px;
+}
+
+.overview-back {
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 76%;
+  background: #fef3c7;
+  border-color: rgba(180, 83, 9, .26);
+  color: #713f12;
+}
+
+.overview-left,
+.overview-right {
+  top: 48px;
+  max-width: 37%;
+  background: #dcfce7;
+  border-color: rgba(22, 101, 52, .22);
+  color: #14532d;
+}
+
+.overview-left {
+  left: 12px;
+}
+
+.overview-right {
+  right: 12px;
+}
+
+.overview-look {
+  bottom: 48px;
+  left: 50%;
+  width: max-content;
+  max-width: 74%;
+  transform: translateX(-50%);
+}
+
+.overview-stand {
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #dbeafe;
+  border-color: rgba(37, 99, 235, .28);
+  color: #1e3a8a;
+}
+
+.nave-3d-view {
+  padding-top: 64px;
+  padding-bottom: 58px;
+  background:
+    radial-gradient(circle at 50% 104%, rgba(37, 99, 235, .14), transparent 42%),
+    linear-gradient(180deg, rgba(219, 234, 254, .78), rgba(220, 252, 231, .82));
+}
+
+.nave-3d-view::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 38px;
+  width: 22px;
+  height: 30px;
+  transform: translateX(-50%);
+  border-radius: 14px 14px 8px 8px;
+  background:
+    radial-gradient(circle at 50% 7px, #111827 0 5px, transparent 6px),
+    linear-gradient(180deg, #2563eb 14px, #1d4ed8 14px 24px, transparent 24px);
+  box-shadow: 0 9px 14px rgba(29, 78, 216, .22);
+}
+
+.nave-entrances {
+  top: 10px;
+  left: 12px;
+  max-width: 45%;
+  background: #fef3c7;
+  border-color: rgba(180, 83, 9, .25);
+  color: #713f12;
+}
+
+.nave-rows {
+  top: 10px;
+  right: 12px;
+  max-width: 45%;
+  background: #dcfce7;
+  border-color: rgba(22, 101, 52, .22);
+  color: #14532d;
+}
+
+.nave-stand {
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #dbeafe;
+  border-color: rgba(37, 99, 235, .28);
+  color: #1e3a8a;
+}
+
+.passage-3d-view {
+  padding-top: 80px;
+  padding-bottom: 62px;
+  background:
+    radial-gradient(circle at 50% 102%, rgba(37, 99, 235, .16), transparent 42%),
+    linear-gradient(180deg, rgba(220, 252, 231, .86), rgba(219, 234, 254, .62));
+}
+
+.passage-3d-view::after {
+  bottom: 38px;
+}
+
+.passage-depth {
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 76%;
+  background: #fef3c7;
+  border-color: rgba(180, 83, 9, .25);
+  color: #713f12;
+}
+
+.passage-floor {
+  top: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 84%;
+  background: rgba(31, 41, 55, .93);
+  border-color: rgba(255, 255, 255, .18);
+  color: #fff;
+}
+
+.passage-stand {
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #dbeafe;
+  border-color: rgba(37, 99, 235, .28);
+  color: #1e3a8a;
+}
+
+@media (max-width: 430px) {
+  .orientation-badge {
+    min-height: 26px;
+    padding: 5px 7px;
+    font-size: 10px;
+  }
+
+  .greenhouse-3d-overview {
+    padding-top: 78px;
+    padding-bottom: 76px;
+  }
+
+  .overview-left,
+  .overview-right {
+    top: 45px;
+    max-width: 38%;
+  }
+
+  .overview-look {
+    bottom: 48px;
+    max-width: 80%;
+  }
+
+  .nave-3d-view {
+    padding-top: 62px;
+    padding-bottom: 56px;
+  }
+
+  .nave-entrances,
+  .nave-rows {
+    max-width: 46%;
+  }
+
+  .passage-3d-view {
+    padding-top: 78px;
+    padding-bottom: 60px;
+  }
+}
+
+@media (max-width: 360px) {
+  .orientation-badge {
+    font-size: 9px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .greenhouse-3d-overview,
+  .nave-3d-view,
+  .passage-3d-view {
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 430px) {
+  .nave-3d-view {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    overflow-x: hidden;
+    gap: 5px;
+  }
+
+  .nave-3d-view .entry {
+    min-width: 0;
+  }
+
+  .nave-3d-view .entry span {
+    min-height: 26px;
+    font-size: 10px;
+  }
+
+  .nave-3d-view .entry-rows {
+    padding: 5px 3px;
+    gap: 3px;
+  }
+
+  .nave-3d-view .row-line {
+    min-height: 13px;
+    font-size: 8px;
+  }
+}
