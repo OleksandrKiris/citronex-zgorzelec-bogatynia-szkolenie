@@ -464,7 +464,11 @@
       rightRow: tx("prawy rząd", "right row", "правий ряд", "правый ряд", "sağ sıra", "fila derecha", "kanang hanay", "baris kanan", "दायाँ लाइन"),
       passage: tx("przejście", "passage", "прохід", "проход", "keçid", "pasillo", "daanan", "lorong", "बाटो"),
       depth: tx("głąb przejścia", "deeper into the passage", "вглиб проходу", "вглубь прохода", "keçidin içərisinə", "hacia dentro del pasillo", "papasok sa daanan", "ke dalam lorong", "बाटोभित्र अगाडि"),
-      floor: tx("numery przęseł po środku", "section numbers in the middle", "номери секцій посередині", "номера секций посередине", "bölmə nömrələri ortadadır", "números en el centro", "numero ng seksyon sa gitna", "nomor bagian di tengah", "बीचमा सेक्सन नम्बर")
+      floor: tx("numery przęseł po środku", "section numbers in the middle", "номери секцій посередині", "номера секций посередине", "bölmə nömrələri ortadadır", "números en el centro", "numero ng seksyon sa gitna", "nomor bagian di tengah", "बीचमा सेक्सन नम्बर"),
+      choose: tx("Dotknij numeru przejścia na schemacie.", "Tap the passage number on the diagram.", "Натисніть номер проходу на схемі.", "Нажмите номер прохода на схеме.", "Sxemdə keçid nömrəsinə toxunun.", "Toca el número del pasillo en el esquema.", "I-tap ang numero ng daanan sa schema.", "Ketuk nomor lorong pada skema.", "नक्सामा बाटोको नम्बर छुनुहोस्।"),
+      selected: tx("Wybrane przejście", "Selected passage", "Вибраний прохід", "Выбранный проход", "Seçilmiş keçid", "Pasillo elegido", "Napiling daanan", "Lorong dipilih", "छानिएको बाटो"),
+      selectedMessage: tx("Wejdź w wybrane przejście. W środku sprawdź lewą albo prawą stronę pracy oraz numer przęsła na podłodze.", "Enter the selected passage. Inside, check the left or right work side and the section number on the floor.", "Зайдіть у вибраний прохід. Усередині перевірте ліву або праву сторону роботи та номер секції на підлозі.", "Зайдите в выбранный проход. Внутри проверьте левую или правую сторону работы и номер секции на полу.", "Seçilmiş keçidə daxil olun. İçəridə sol və ya sağ iş tərəfini və yerdəki bölmə nömrəsini yoxlayın.", "Entra en el pasillo elegido. Dentro revisa el lado izquierdo o derecho de trabajo y el número de sección en el suelo.", "Pumasok sa napiling daanan. Sa loob, tingnan ang kaliwa o kanang bahagi ng trabaho at ang numero ng seksyon sa sahig.", "Masuk ke lorong yang dipilih. Di dalam, cek sisi kerja kiri atau kanan dan nomor bagian di lantai.", "छानिएको बाटोमा जानुहोस्। भित्र बायाँ वा दायाँ काम गर्ने भाग र भुइँको सेक्शन नम्बर जाँच गर्नुहोस्।"),
+      nextStep: tx("Następny krok: wejście do rzędu", "Next step: enter the row", "Наступний крок: вхід у ряд", "Следующий шаг: вход в ряд", "Növbəti addım: sıraya giriş", "Siguiente paso: entrar en la fila", "Susunod: pumasok sa hanay", "Langkah berikutnya: masuk ke baris", "अर्को चरण: लाइनमा प्रवेश")
     };
 
     app.innerHTML = `
@@ -502,8 +506,9 @@
                   <div class="orientation-badge nave-rows">${esc(text(orient.rows))}</div>
                   <div class="orientation-badge nave-stand">${esc(text(orient.stand))}</div>
                   ${Array.from({ length: 5 }, (_, i) => {
+                    const passageNumber = i + 1;
                     return `<div class="entry nave-entry">
-                      <span>${i + 1}</span>
+                      <button class="nave-pick-btn" type="button" data-nave-passage="${passageNumber}" aria-label="${esc(text(orient.passage))} ${passageNumber}">${passageNumber}</button>
                       <div class="entry-rows entry-two-rows">
                         <div class="nave-side nave-side-left"><small>${esc(text(orient.leftRow))}</small></div>
                         <div class="entry-corridor"><small>${esc(text(orient.passage))}</small></div>
@@ -512,6 +517,11 @@
                     </div>`;
                   }).join("")}
                 </div>
+              </div>
+              <div class="nave-guide-panel" data-nave-guide data-default-title="${esc(text(orient.rows))}" data-default-message="${esc(text(orient.choose))}" data-selected-title="${esc(text(orient.selected))}" data-selected-message="${esc(text(orient.selectedMessage))}">
+                <span>${esc(text(orient.nextStep))}</span>
+                <strong data-nave-guide-title>${esc(text(orient.rows))}</strong>
+                <p data-nave-guide-message>${esc(text(orient.choose))}</p>
               </div>
             </div>
           </article>
@@ -550,7 +560,41 @@
         ${tabletLinkCard("yellow")}
       </main>
     `;
+    setupGreenhouseNavePicker(document);
     setupGreenhouseFullscreen();
+  }
+
+  function setupGreenhouseNavePicker(root = document) {
+    const diagrams = Array.from(root.querySelectorAll(".nave-3d-view"));
+    diagrams.forEach((diagram) => {
+      if (diagram.dataset.navePickerReady === "1") return;
+      diagram.dataset.navePickerReady = "1";
+      const card = diagram.closest(".step-card") || root;
+      const guide = card.querySelector("[data-nave-guide]");
+      const title = guide ? guide.querySelector("[data-nave-guide-title]") : null;
+      const message = guide ? guide.querySelector("[data-nave-guide-message]") : null;
+      const buttons = Array.from(diagram.querySelectorAll(".nave-pick-btn"));
+      const setActive = (button) => {
+        const number = button.dataset.navePassage || button.textContent.trim();
+        buttons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("is-active", active);
+          item.setAttribute("aria-pressed", active ? "true" : "false");
+          item.closest(".nave-entry")?.classList.toggle("is-active", active);
+        });
+        if (guide) guide.classList.add("is-active");
+        if (title) title.textContent = `${guide?.dataset.selectedTitle || ""} ${number}`.trim();
+        if (message) message.textContent = guide?.dataset.selectedMessage || "";
+      };
+      buttons.forEach((button) => {
+        button.setAttribute("aria-pressed", "false");
+        button.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          setActive(button);
+        });
+      });
+    });
   }
 
   function setupGreenhouseFullscreen() {
@@ -589,8 +633,12 @@
     const openModal = (step) => {
       const copy = step.cloneNode(true);
       copy.querySelectorAll(".orientation-zoom-pill").forEach((item) => item.remove());
+      copy.querySelectorAll(".nave-3d-view").forEach((diagram) => {
+        delete diagram.dataset.navePickerReady;
+      });
       content.innerHTML = "";
       content.appendChild(copy);
+      setupGreenhouseNavePicker(content);
       modal.classList.add("is-open");
       modal.setAttribute("aria-hidden", "false");
       document.body.classList.add("orientation-modal-open");
@@ -621,8 +669,12 @@
       pill.className = "orientation-zoom-pill";
       pill.textContent = labels.open;
       schema.appendChild(pill);
-      schema.addEventListener("click", () => openModal(step));
+      schema.addEventListener("click", (event) => {
+        if (event.target.closest(".nave-pick-btn")) return;
+        openModal(step);
+      });
       schema.addEventListener("keydown", (event) => {
+        if (event.target.closest(".nave-pick-btn")) return;
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
           openModal(step);
