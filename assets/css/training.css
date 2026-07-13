@@ -2030,7 +2030,10 @@ details.ban-section .ban-section-head {
   place-items: center;
   border: 1px solid rgba(24,65,36,.35);
   border-radius: 7px;
-  background: linear-gradient(180deg, #b9dc9a, #d8e9ff);
+  background:
+    radial-gradient(circle at 30% 28%, #15803d 0 3px, transparent 4px),
+    radial-gradient(circle at 70% 68%, #16a34a 0 3px, transparent 4px),
+    linear-gradient(180deg, #b9dc9a, #d8e9ff);
   color: #1c4b2a;
   font-size: 11px;
   font-weight: 950;
@@ -2085,7 +2088,11 @@ details.ban-section .ban-section-head {
   min-height: 14px;
   display: grid;
   place-items: center;
-  background: linear-gradient(90deg, #c6e5b4, #dbeafe);
+  background:
+    radial-gradient(circle at 18% 50%, #15803d 0 2px, transparent 3px),
+    radial-gradient(circle at 50% 50%, #22c55e 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 50%, #15803d 0 2px, transparent 3px),
+    linear-gradient(90deg, #c6e5b4, #dbeafe);
   border: 1px solid rgba(33,72,38,.25);
   border-radius: 5px;
   color: #28522c;
@@ -2108,7 +2115,12 @@ details.ban-section .ban-section-head {
   justify-content: center;
   border: 2px solid #245c31;
   border-radius: 16px;
-  background: repeating-linear-gradient(180deg, #bde0a4 0 18px, #d9ecff 18px 36px);
+  background:
+    radial-gradient(circle at 24% 11px, #166534 0 3px, transparent 4px),
+    radial-gradient(circle at 72% 25px, #16a34a 0 3px, transparent 4px),
+    repeating-linear-gradient(180deg, #bde0a4 0 18px, #d9ecff 18px 36px);
+  background-size: 26px 36px, 26px 36px, auto;
+  background-position: 0 0, 13px 0, 0 0;
   text-align: center;
   font-weight: 950;
 }
@@ -3003,9 +3015,13 @@ details.card,
   border: 1px solid rgba(22, 101, 52, .45);
   border-radius: 16px;
   background:
+    radial-gradient(circle at 18% 12px, rgba(22, 101, 52, .82) 0 3px, transparent 4px),
+    radial-gradient(circle at 72% 26px, rgba(22, 163, 74, .8) 0 3px, transparent 4px),
     linear-gradient(180deg, rgba(255,255,255,.35), transparent 18%),
     repeating-linear-gradient(180deg, rgba(22,163,74,.10) 0 16px, rgba(59,130,246,.12) 16px 32px),
     #dcfce7;
+  background-size: 28px 42px, 28px 42px, auto, auto, auto;
+  background-position: 0 0, 14px 0, 0 0, 0 0, 0 0;
   box-shadow:
     0 18px 0 #86b874,
     0 22px 24px rgba(21, 83, 45, .18),
@@ -3026,8 +3042,11 @@ details.card,
   min-height: clamp(24px, 6vw, 36px);
   border-radius: 7px;
   background:
+    radial-gradient(circle at 30% 30%, #15803d 0 3px, transparent 4px),
+    radial-gradient(circle at 72% 68%, #22c55e 0 3px, transparent 4px),
     linear-gradient(180deg, rgba(255,255,255,.62), transparent 35%),
     linear-gradient(180deg, #fef08a 0 17%, #bfdbfe 17% 50%, #bbf7d0 50% 100%);
+  background-size: 28px 34px, 28px 34px, auto, auto;
   box-shadow: inset 0 0 0 1px rgba(21,83,45,.18);
 }
 
@@ -3096,6 +3115,9 @@ details.card,
 .row-line {
   min-height: clamp(12px, 3.2vw, 18px);
   background:
+    radial-gradient(circle at 18% 50%, #15803d 0 2px, transparent 3px),
+    radial-gradient(circle at 50% 50%, #22c55e 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 50%, #15803d 0 2px, transparent 3px),
     linear-gradient(180deg, rgba(255,255,255,.45), transparent 45%),
     linear-gradient(90deg, #bbf7d0, #dbeafe);
 }
@@ -3129,8 +3151,12 @@ details.card,
   min-height: clamp(220px, 58vw, 310px);
   border: 1px solid rgba(22, 101, 52, .5);
   background:
+    radial-gradient(circle at 24% 11px, #166534 0 3px, transparent 4px),
+    radial-gradient(circle at 72% 25px, #16a34a 0 3px, transparent 4px),
     linear-gradient(180deg, rgba(255,255,255,.48), transparent 20%),
     repeating-linear-gradient(180deg, #bbf7d0 0 18px, #dbeafe 18px 36px);
+  background-size: 26px 36px, 26px 36px, auto, auto;
+  background-position: 0 0, 13px 0, 0 0, 0 0;
   box-shadow:
     0 14px 0 #86b874,
     0 18px 22px rgba(21,83,45,.16);
@@ -3733,8 +3759,12 @@ details.card,
   border-radius: 12px;
   border-color: rgba(22, 101, 52, .28);
   background:
+    radial-gradient(circle at 28% 9px, #166534 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 20px, #16a34a 0 2px, transparent 3px),
     linear-gradient(90deg, rgba(255,255,255,.56), transparent 42%, rgba(255,255,255,.32)),
     repeating-linear-gradient(180deg, #86efac 0 9px, #bbf7d0 9px 18px);
+  background-size: 18px 30px, 18px 30px, auto, auto;
+  background-position: 0 0, 9px 0, 0 0, 0 0;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.3);
 }
 
@@ -3885,10 +3915,13 @@ body.orientation-modal-open {
 }
 
 .orientation-modal-panel {
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
   padding: calc(12px + env(safe-area-inset-top)) 10px calc(18px + env(safe-area-inset-bottom));
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -3897,6 +3930,7 @@ body.orientation-modal-open {
   top: calc(8px + env(safe-area-inset-top));
   left: 100%;
   z-index: 4;
+  flex: 0 0 auto;
   width: 52px;
   height: 52px;
   margin-left: auto;
@@ -3913,8 +3947,14 @@ body.orientation-modal-open {
 }
 
 .orientation-modal-content {
+  flex: 1 1 auto;
+  min-height: 0;
   max-width: 980px;
+  width: 100%;
   margin: 10px auto 0;
+  padding-bottom: 18px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .orientation-modal-content .step-card {
@@ -3949,6 +3989,9 @@ body.orientation-modal-open {
   border-radius: 22px;
   cursor: default;
   transform: none;
+  max-height: min(58dvh, calc(100dvh - 220px));
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .orientation-modal-content .orientation-zoom-pill {
@@ -3956,29 +3999,29 @@ body.orientation-modal-open {
 }
 
 .orientation-modal-content .greenhouse-map {
-  min-height: min(58vh, 540px);
+  min-height: min(50vh, 460px);
 }
 
 .orientation-modal-content .green-side,
 .orientation-modal-content .center-road {
-  min-height: min(50vh, 460px);
+  min-height: min(42vh, 380px);
 }
 
 .orientation-modal-content .nave-diagram {
-  min-height: min(62vh, 560px);
+  min-height: min(50vh, 460px);
 }
 
 .orientation-modal-content .entry {
-  min-height: min(54vh, 500px);
+  min-height: min(44vh, 400px);
 }
 
 .orientation-modal-content .passage-diagram {
-  min-height: min(62vh, 560px);
+  min-height: min(50vh, 460px);
 }
 
 .orientation-modal-content .row-side,
 .orientation-modal-content .work-passage {
-  min-height: min(54vh, 500px);
+  min-height: min(44vh, 400px);
 }
 
 @media (max-width: 430px) {
@@ -4007,12 +4050,13 @@ body.orientation-modal-open {
 
   .orientation-modal-content .schema {
     padding: 8px;
+    max-height: min(56dvh, calc(100dvh - 190px));
   }
 
   .orientation-modal-content .greenhouse-map,
   .orientation-modal-content .nave-diagram,
   .orientation-modal-content .passage-diagram {
-    min-height: 58vh;
+    min-height: 42vh;
   }
 
   .orientation-modal-content .green-side,
@@ -4020,7 +4064,7 @@ body.orientation-modal-open {
   .orientation-modal-content .entry,
   .orientation-modal-content .row-side,
   .orientation-modal-content .work-passage {
-    min-height: 49vh;
+    min-height: 34vh;
   }
 }
 
@@ -4032,11 +4076,11 @@ body.orientation-modal-open {
   }
 
   .orientation-modal-content .nave-3d-view .nave-side {
-    min-height: 270px;
+    min-height: min(34vh, 240px);
   }
 
   .orientation-modal-content .nave-3d-view .entry-corridor {
-    min-height: 270px;
+    min-height: min(34vh, 240px);
   }
 
   .orientation-modal-content .nave-3d-view .nave-side small {
