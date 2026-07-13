@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260713-no-location-photos1-zgorzelec-bogatynia",
+    "version": "20260713-contacts1-zgorzelec-bogatynia",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
     "repo": "citronex-zgorzelec-bogatynia-szkolenie",
@@ -919,16 +919,34 @@
   "contacts": {
     "coordinators": [
       {
-        "name": "Koordynator Zgorzelec 1",
-        "role": "Zgorzelec - do uzupełnienia"
+        "name": "Anastasiia Derepa",
+        "role": {
+          "pl": "Bogatynia / Zgorzelec - rekrutacja i koordynacja",
+          "en": "Bogatynia / Zgorzelec - recruitment and coordination",
+          "ua": "Bogatynia / Zgorzelec - рекрутація і координація",
+          "ru": "Bogatynia / Zgorzelec - рекрутация и координация",
+          "az": "Bogatynia / Zgorzelec - işə qəbul və koordinasiya",
+          "es": "Bogatynia / Zgorzelec - reclutamiento y coordinación",
+          "fil": "Bogatynia / Zgorzelec - recruitment at coordination",
+          "id": "Bogatynia / Zgorzelec - rekrutmen dan koordinasi",
+          "ne": "Bogatynia / Zgorzelec - भर्ना र समन्वय"
+        },
+        "phone": "+48 797 684 159"
       },
       {
-        "name": "Koordynator Bogatynia 1",
-        "role": "Bogatynia - do uzupełnienia"
-      },
-      {
-        "name": "Koordynator wspólny",
-        "role": "Zgorzelec / Bogatynia - do uzupełnienia"
+        "name": "Oleksandr Kiris",
+        "role": {
+          "pl": "Bogatynia / Zgorzelec - koordynacja",
+          "en": "Bogatynia / Zgorzelec - coordination",
+          "ua": "Bogatynia / Zgorzelec - координація",
+          "ru": "Bogatynia / Zgorzelec - координация",
+          "az": "Bogatynia / Zgorzelec - koordinasiya",
+          "es": "Bogatynia / Zgorzelec - coordinación",
+          "fil": "Bogatynia / Zgorzelec - coordination",
+          "id": "Bogatynia / Zgorzelec - koordinasi",
+          "ne": "Bogatynia / Zgorzelec - समन्वय"
+        },
+        "phone": "+48 502 251 384"
       }
     ],
     "warehouse": [

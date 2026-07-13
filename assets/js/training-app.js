@@ -601,13 +601,14 @@
 
   function renderContacts(activeGroup = "coordinators") {
     function personCard(person, groupLabel = "") {
-      const role = person.role || groupLabel;
-      const message = `${role ? role + " " : ""}${person.name}`;
+      const name = text(person.name);
+      const role = person.role ? text(person.role) : groupLabel;
+      const message = `${role ? role + " " : ""}${name}`;
       return `
         <article class="person">
           <div class="person-head">
             <div>
-              <div class="person-name">${esc(person.name)}</div>
+              <div class="person-name">${esc(name)}</div>
               <div class="person-role">${esc(role)}</div>
             </div>
             ${groupLabel && !person.role ? `<span class="mini-tag">${esc(groupLabel)}</span>` : ""}
