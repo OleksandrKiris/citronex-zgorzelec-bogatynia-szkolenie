@@ -3471,7 +3471,7 @@ details.card,
   }
 }
 
-/* Correct nave logic: 5 passages, 2 rows in each passage = 10 rows */
+/* Correct nave logic: show only 5 passages here. Row details belong to the next view. */
 .nave-3d-view .nave-entry {
   grid-template-rows: 34px minmax(0, 1fr);
 }
@@ -3484,7 +3484,7 @@ details.card,
   padding: 8px 5px;
 }
 
-.nave-3d-view .row-pair {
+.nave-3d-view .nave-side {
   min-height: 72px;
   padding: 5px 3px;
   display: flex;
@@ -3500,24 +3500,14 @@ details.card,
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.3);
 }
 
-.nave-3d-view .row-pair b {
-  min-width: 24px;
-  min-height: 24px;
-  display: grid;
-  place-items: center;
-  border-radius: 999px;
-  background: rgba(21, 128, 61, .96);
-  color: #fff;
-  font-size: 12px;
-  line-height: 1;
-}
-
-.nave-3d-view .row-pair small {
+.nave-3d-view .nave-side small {
   color: #14532d;
   font-size: 9px;
   font-weight: 950;
   line-height: 1.05;
   text-align: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
 }
 
 .nave-3d-view .entry-corridor {
@@ -3547,29 +3537,19 @@ details.card,
     padding: 5px 2px;
   }
 
-  .nave-3d-view .row-pair {
+  .nave-3d-view .nave-side {
     min-height: 58px;
     padding: 4px 2px;
   }
 
-  .nave-3d-view .row-pair b {
-    min-width: 20px;
-    min-height: 20px;
-    font-size: 10px;
-  }
-
-  .nave-3d-view .row-pair small,
+  .nave-3d-view .nave-side small,
   .nave-3d-view .entry-corridor small {
     display: none;
   }
 }
 
 @media (max-width: 360px) {
-  .nave-3d-view .row-pair small {
-    display: none;
-  }
-
-  .nave-3d-view .row-pair {
+  .nave-3d-view .nave-side {
     min-height: 50px;
   }
 }
@@ -3580,17 +3560,11 @@ details.card,
   gap: 9px;
 }
 
-.orientation-modal-content .nave-3d-view .row-pair {
+.orientation-modal-content .nave-3d-view .nave-side {
   min-height: 108px;
 }
 
-.orientation-modal-content .nave-3d-view .row-pair b {
-  min-width: 30px;
-  min-height: 30px;
-  font-size: 14px;
-}
-
-.orientation-modal-content .nave-3d-view .row-pair small {
+.orientation-modal-content .nave-3d-view .nave-side small {
   display: block;
   font-size: 10px;
 }
@@ -3796,17 +3770,11 @@ body.orientation-modal-open {
     padding: 6px 2px;
   }
 
-  .orientation-modal-content .nave-3d-view .row-pair {
+  .orientation-modal-content .nave-3d-view .nave-side {
     min-height: 80px;
   }
 
-  .orientation-modal-content .nave-3d-view .row-pair b {
-    min-width: 18px;
-    min-height: 18px;
-    font-size: 10px;
-  }
-
-  .orientation-modal-content .nave-3d-view .row-pair small {
+  .orientation-modal-content .nave-3d-view .nave-side small {
     display: none;
   }
 
