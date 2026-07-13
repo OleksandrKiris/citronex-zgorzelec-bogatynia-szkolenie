@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260713-version1-zgorzelec-bogatynia",
+    "version": "20260713-accommodation1-zgorzelec-bogatynia",
     "displayVersion": "2026-07-13",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
@@ -1001,12 +1001,19 @@
       ],
       "Zakwaterowanie": [
         {
-          "name": "Kontakt zakwaterowania 1",
-          "role": "Zakwaterowanie - do uzupełnienia"
-        },
-        {
-          "name": "Kontakt zakwaterowania 2",
-          "role": "Zakwaterowanie - do uzupełnienia"
+          "name": "Nataliia",
+          "phone": "+48609809601",
+          "role": {
+            "pl": "Zakwaterowanie - Bogatynia",
+            "en": "Accommodation - Bogatynia",
+            "ua": "Житло - Bogatynia",
+            "ru": "Жильё - Bogatynia",
+            "az": "Yaşayış yeri - Bogatynia",
+            "es": "Alojamiento - Bogatynia",
+            "fil": "Tirahan - Bogatynia",
+            "id": "Akomodasi - Bogatynia",
+            "ne": "बसोबास - Bogatynia"
+          }
         }
       ]
     }
