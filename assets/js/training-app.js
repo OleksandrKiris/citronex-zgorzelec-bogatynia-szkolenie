@@ -475,6 +475,13 @@
       <main class="page">
         ${pageHero()}
         <section class="steps greenhouse-steps">
+          <div class="orientation-legend">
+            <strong>${esc(text(tx("Legenda kolorów", "Color legend", "Легенда кольорів", "Легенда цветов", "Rəng izahı", "Leyenda de colores", "Legend ng kulay", "Legenda warna", "रङको अर्थ")))}</strong>
+            <span class="legend-road">${esc(text(tx("droga / przejście", "road / passage", "дорога / прохід", "дорога / проход", "yol / keçid", "camino / pasillo", "daan / daanan", "jalan / lorong", "बाटो")))}</span>
+            <span class="legend-work">${esc(text(tx("strona pracy", "work side", "сторона роботи", "сторона работы", "iş tərəfi", "lado de trabajo", "bahagi ng trabaho", "sisi kerja", "काम गर्ने भाग")))}</span>
+            <span class="legend-you">${esc(text(tx("ty stoisz tutaj", "you stand here", "ви стоїте тут", "вы стоите здесь", "siz burada dayanırsınız", "estás aquí", "dito ka nakatayo", "Anda berdiri di sini", "तपाईं यहाँ हुनुहुन्छ")))}</span>
+            <span class="legend-look">${esc(text(tx("kierunek patrzenia", "looking direction", "напрямок погляду", "направление взгляда", "baxış istiqaməti", "dirección de la vista", "direksyon ng tingin", "arah melihat", "हेर्ने दिशा")))}</span>
+          </div>
           <article class="step-card">
             <span class="step-number">1</span>
             <div>
@@ -535,6 +542,7 @@
                   <div class="orientation-badge passage-depth">${esc(text(orient.depth))}</div>
                   <div class="orientation-badge passage-floor">${esc(text(orient.floor))}</div>
                   <div class="orientation-badge passage-stand">${esc(text(orient.stand))}</div>
+                  <div class="orientation-badge passage-selected" data-passage-current data-default-label="${esc(text(tx("wybierz przejście w kroku 2", "choose a passage in step 2", "виберіть прохід у кроці 2", "выберите проход в шаге 2", "2-ci addımda keçidi seçin", "elige el pasillo en el paso 2", "piliin ang daanan sa hakbang 2", "pilih lorong di langkah 2", "चरण २ मा बाटो छान्नुहोस्")))}" data-label="${esc(text(orient.selected))}">${esc(text(tx("wybierz przejście w kroku 2", "choose a passage in step 2", "виберіть прохід у кроці 2", "выберите проход в шаге 2", "2-ci addımda keçidi seçin", "elige el pasillo en el paso 2", "piliin ang daanan sa hakbang 2", "pilih lorong di langkah 2", "चरण २ मा बाटो छान्नुहोस्")))}</div>
                   <div class="row-side">${esc(text(tx("lewa strona / lewy rząd", "left side / left row", "ліва сторона / лівий ряд", "левая сторона / левый ряд", "sol tərəf / sol sıra", "lado izquierdo / fila izquierda", "kaliwang bahagi / kaliwang hanay", "sisi kiri / baris kiri", "बायाँ भाग / बायाँ लाइन")))}</div>
                   <div class="work-passage">
                     <span class="passage-label">${esc(text(tx("przejście", "passage", "прохід", "проход", "keçid", "pasillo", "daanan", "lorong", "पासेज")))}</span>
@@ -565,6 +573,23 @@
   }
 
   function setupGreenhouseNavePicker(root = document) {
+    const routeText = {
+      chip: text(tx("schemat pracy", "work schema", "схема роботи", "схема работы", "iş sxemi", "esquema de trabajo", "schema ng trabaho", "skema kerja", "कामको नक्सा")),
+      titleDefault: text(tx("Ścieżka orientacji", "Orientation path", "Шлях орієнтації", "Путь ориентации", "Orientasiya yolu", "Ruta de orientación", "Gabay sa direksyon", "Jalur orientasi", "दिशा बुझ्ने क्रम")),
+      messageDefault: text(tx("Najpierw wybierz przejście w kroku 2. Potem patrz na ten widok: lewa strona, prawa strona i numer przęsła po środku.", "First choose the passage in step 2. Then use this view: left side, right side and section number in the middle.", "Спочатку виберіть прохід у кроці 2. Потім дивіться на цей вид: ліва сторона, права сторона і номер секції посередині.", "Сначала выберите проход в шаге 2. Потом смотрите на этот вид: левая сторона, правая сторона и номер секции посередине.", "Əvvəl 2-ci addımda keçidi seçin. Sonra bu görünüşə baxın: sol tərəf, sağ tərəf və ortada bölmə nömrəsi.", "Primero elige el pasillo en el paso 2. Luego mira este esquema: lado izquierdo, lado derecho y número de sección en el centro.", "Piliin muna ang daanan sa hakbang 2. Pagkatapos tingnan ang view na ito: kaliwang bahagi, kanang bahagi at numero ng seksyon sa gitna.", "Pilih lorong dulu di langkah 2. Lalu lihat tampilan ini: sisi kiri, sisi kanan dan nomor bagian di tengah.", "पहिले चरण २ मा बाटो छान्नुहोस्। त्यसपछि यो दृश्य हेर्नुहोस्: बायाँ भाग, दायाँ भाग र बीचमा सेक्शन नम्बर.")),
+      titleSelected: text(tx("Wybrana ścieżka", "Selected path", "Вибраний шлях", "Выбранный путь", "Seçilmiş yol", "Ruta elegida", "Napiling gabay", "Jalur dipilih", "छानिएको क्रम")),
+      messageSelected: text(tx("Idź do wybranego przejścia. W środku sprawdź lewą albo prawą stronę pracy i numer przęsła na podłodze.", "Go to the selected passage. Inside, check the left or right work side and the section number on the floor.", "Ідіть до вибраного проходу. Усередині перевірте ліву або праву сторону роботи та номер секції на підлозі.", "Идите к выбранному проходу. Внутри проверьте левую или правую сторону работы и номер секции на полу.", "Seçilmiş keçidə gedin. İçəridə sol və ya sağ iş tərəfini və yerdəki bölmə nömrəsini yoxlayın.", "Ve al pasillo elegido. Dentro revisa el lado izquierdo o derecho de trabajo y el número de sección en el suelo.", "Pumunta sa napiling daanan. Sa loob, tingnan ang kaliwa o kanang bahagi ng trabaho at ang numero ng seksyon sa sahig.", "Pergi ke lorong yang dipilih. Di dalam, cek sisi kerja kiri atau kanan dan nomor bagian di lantai.", "छानिएको बाटोमा जानुहोस्। भित्र बायाँ वा दायाँ काम गर्ने भाग र भुइँको सेक्शन नम्बर जाँच गर्नुहोस्।"))
+    };
+    const passageSchema = root.querySelector(".passage-3d-view")?.closest(".schema");
+    if (passageSchema && !passageSchema.querySelector("[data-passage-route]")) {
+      passageSchema.querySelector(".passage-3d-view")?.insertAdjacentHTML("afterend", `
+        <div class="orientation-route" data-passage-route data-selected-title="${esc(routeText.titleSelected)}" data-selected-message="${esc(routeText.messageSelected)}">
+          <span>${esc(routeText.chip)}</span>
+          <strong data-passage-route-title>${esc(routeText.titleDefault)}</strong>
+          <p data-passage-route-message>${esc(routeText.messageDefault)}</p>
+        </div>
+      `);
+    }
     const diagrams = Array.from(root.querySelectorAll(".nave-3d-view"));
     diagrams.forEach((diagram) => {
       if (diagram.dataset.navePickerReady === "1") return;
@@ -574,6 +599,8 @@
       const title = guide ? guide.querySelector("[data-nave-guide-title]") : null;
       const message = guide ? guide.querySelector("[data-nave-guide-message]") : null;
       const buttons = Array.from(diagram.querySelectorAll(".nave-pick-btn"));
+      const routePanels = Array.from(root.querySelectorAll("[data-passage-route]"));
+      const passageBadges = Array.from(root.querySelectorAll("[data-passage-current]"));
       const setActive = (button) => {
         const number = button.dataset.navePassage || button.textContent.trim();
         buttons.forEach((item) => {
@@ -585,6 +612,17 @@
         if (guide) guide.classList.add("is-active");
         if (title) title.textContent = `${guide?.dataset.selectedTitle || ""} ${number}`.trim();
         if (message) message.textContent = guide?.dataset.selectedMessage || "";
+        routePanels.forEach((panel) => {
+          panel.classList.add("is-active");
+          const routeTitle = panel.querySelector("[data-passage-route-title]");
+          const routeMessage = panel.querySelector("[data-passage-route-message]");
+          if (routeTitle) routeTitle.textContent = `${panel.dataset.selectedTitle || ""}: ${number}`.trim();
+          if (routeMessage) routeMessage.textContent = panel.dataset.selectedMessage || "";
+        });
+        passageBadges.forEach((badge) => {
+          badge.classList.add("is-active");
+          badge.textContent = `${badge.dataset.label || ""} ${number}`.trim();
+        });
       };
       buttons.forEach((button) => {
         button.setAttribute("aria-pressed", "false");
