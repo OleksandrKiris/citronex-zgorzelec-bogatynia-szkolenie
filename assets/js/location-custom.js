@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260713-city-office-full1-zgorzelec-bogatynia",
+    "version": "20260713-medical-audit1-zgorzelec-bogatynia",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
     "repo": "citronex-zgorzelec-bogatynia-szkolenie",
@@ -1455,15 +1455,15 @@
           "ne": "ठेगाना: ul. Szpitalna 16, 59-920 Bogatynia।"
         },
         {
-          "pl": "SOR / izba przyjęć: nagły przypadek, uraz, silny ból, problemy z oddychaniem, omdlenie albo poważne pogorszenie stanu zdrowia.",
-          "en": "ER / admission room: emergency, injury, strong pain, breathing problems, fainting or serious health deterioration.",
-          "ua": "SOR / приймальне відділення: невідкладний випадок, травма, сильний біль, проблеми з диханням, втрата свідомості або серйозне погіршення стану.",
-          "ru": "SOR / приёмное отделение: срочный случай, травма, сильная боль, проблемы с дыханием, обморок или серьёзное ухудшение состояния.",
-          "az": "Təcili / qəbul otağı: təcili hal, zədə, güclü ağrı, nəfəs problemi, huş itirmə və ya ciddi pisləşmə.",
-          "es": "Urgencias / admisión: emergencia, lesión, dolor fuerte, problemas para respirar, desmayo o empeoramiento grave.",
-          "fil": "ER / admission: emergency, injury, matinding sakit, hirap huminga, nahimatay o seryosong paglala.",
-          "id": "IGD / penerimaan: darurat, cedera, nyeri kuat, sulit bernapas, pingsan atau kondisi memburuk serius.",
-          "ne": "आपतकालीन / भर्ना कक्ष: आकस्मिक अवस्था, चोट, धेरै दुखाइ, सास फेर्न समस्या, बेहोस वा स्वास्थ्य धेरै बिग्रिनु।"
+          "pl": "Izba przyjęć: nagły przypadek, uraz, silny ból, problemy z oddychaniem, omdlenie albo poważne pogorszenie stanu zdrowia.",
+          "en": "Admission room: emergency, injury, strong pain, breathing problems, fainting or serious health deterioration.",
+          "ua": "Приймальне відділення: невідкладний випадок, травма, сильний біль, проблеми з диханням, втрата свідомості або серйозне погіршення стану.",
+          "ru": "Приёмное отделение: срочный случай, травма, сильная боль, проблемы с дыханием, обморок или серьёзное ухудшение состояния.",
+          "az": "Qəbul otağı: təcili hal, zədə, güclü ağrı, nəfəs problemi, huş itirmə və ya ciddi pisləşmə.",
+          "es": "Admisión: urgencia, lesión, dolor fuerte, problemas para respirar, desmayo o empeoramiento grave.",
+          "fil": "Admission room: emergency, injury, matinding sakit, hirap huminga, nahimatay o seryosong lumala ang kalagayan.",
+          "id": "Ruang penerimaan: darurat, cedera, nyeri kuat, masalah bernapas, pingsan atau kondisi memburuk serius.",
+          "ne": "भर्ना कक्ष: आपतकालीन अवस्था, चोट, धेरै दुखाइ, सास फेर्न समस्या, बेहोस हुनु वा स्वास्थ्य धेरै बिग्रिनु।"
         },
         {
           "pl": "Nocna i świąteczna opieka w Bogatyni: na Izbie Przyjęć, dni robocze 18:00-8:00, weekendy i święta całodobowo.",
@@ -1549,15 +1549,15 @@
         },
         {
           "label": {
-            "pl": "SOR / izba przyjęć",
-            "en": "ER / admission room",
-            "ua": "SOR / приймальне відділення",
-            "ru": "SOR / приёмное отделение",
-            "az": "Təcili / qəbul otağı",
-            "es": "Urgencias / admisión",
-            "fil": "ER / admission room",
-            "id": "IGD / ruang penerimaan",
-            "ne": "आपतकालीन / भर्ना कक्ष"
+            "pl": "Izba przyjęć",
+            "en": "Admission room",
+            "ua": "Приймальне відділення",
+            "ru": "Приёмное отделение",
+            "az": "Qəbul otağı",
+            "es": "Admisión",
+            "fil": "Admission room",
+            "id": "Ruang penerimaan",
+            "ne": "भर्ना कक्ष"
           },
           "phone": "+48 75 773 20 31"
         }
@@ -1764,17 +1764,17 @@
       "phones": [
         {
           "label": {
-            "pl": "Poradnia stomatologiczna",
-            "en": "Dental clinic",
-            "ua": "Стоматологічна поліклініка",
-            "ru": "Стоматологическая поликлиника",
-            "az": "Diş klinikası",
-            "es": "Clínica dental",
-            "fil": "Dental clinic",
-            "id": "Klinik gigi",
-            "ne": "दन्त क्लिनिक"
+            "pl": "Rejestracja Fabryczna 1",
+            "en": "Registration Fabryczna 1",
+            "ua": "Реєстрація Fabryczna 1",
+            "ru": "Регистрация Fabryczna 1",
+            "az": "Fabryczna 1 qeydiyyat",
+            "es": "Registro Fabryczna 1",
+            "fil": "Registration Fabryczna 1",
+            "id": "Pendaftaran Fabryczna 1",
+            "ne": "Fabryczna 1 दर्ता"
           },
-          "phone": "+48 606 882 453"
+          "phone": "+48 75 773 24 24"
         },
         {
           "label": {
