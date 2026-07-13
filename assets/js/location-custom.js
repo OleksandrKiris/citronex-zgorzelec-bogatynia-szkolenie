@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260713-greenhouse3d1-zgorzelec-bogatynia",
+    "version": "20260713-zgorzelec-bogatynia-clean1",
     "displayVersion": "2026-07-13",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
@@ -25,15 +25,15 @@
       "ne": "सूचना र तालिम प्रणाली"
     },
     "subtitle": {
-      "pl": "Zgorzelec / Bogatynia - makieta. Wybierz, czego potrzebujesz.",
-      "en": "Zgorzelec / Bogatynia - mockup. Choose what you need.",
-      "ua": "Zgorzelec / Bogatynia - макет. Оберіть, що вам потрібно.",
-      "ru": "Zgorzelec / Bogatynia - макет. Выберите, что вам нужно.",
-      "az": "Zgorzelec / Bogatynia - maket. Lazım olanı seçin.",
-      "es": "Zgorzelec / Bogatynia - maqueta. Elige lo que necesitas.",
-      "fil": "Zgorzelec / Bogatynia - mockup. Piliin ang kailangan mo.",
-      "id": "Zgorzelec / Bogatynia - mockup. Pilih yang Anda butuhkan.",
-      "ne": "Zgorzelec / Bogatynia - नमुना। तपाईंलाई चाहिएको कुरा छान्नुहोस्।"
+      "pl": "Zgorzelec / Bogatynia - wybierz, czego potrzebujesz.",
+      "en": "Zgorzelec / Bogatynia - choose what you need.",
+      "ua": "Zgorzelec / Bogatynia - оберіть, що вам потрібно.",
+      "ru": "Zgorzelec / Bogatynia - выберите, что вам нужно.",
+      "az": "Zgorzelec / Bogatynia - lazım olanı seçin.",
+      "es": "Zgorzelec / Bogatynia - elige lo que necesitas.",
+      "fil": "Zgorzelec / Bogatynia - piliin ang kailangan mo.",
+      "id": "Zgorzelec / Bogatynia - pilih yang Anda butuhkan.",
+      "ne": "Zgorzelec / Bogatynia - तपाईंलाई चाहिएको कुरा छान्नुहोस्।"
     }
   },
   "pages": {
@@ -50,15 +50,15 @@
         "ne": "Zgorzelec / Bogatynia - मोड्युल छान्नुहोस्"
       },
       "lead": {
-        "pl": "To jest makieta. Przyciski są przygotowane, a konkretne dane będziemy uzupełniać po kolei.",
-        "en": "This is a mockup. Buttons are prepared and the real data will be added step by step.",
-        "ua": "Це макет. Кнопки підготовлені, а точні дані будемо додавати по черзі.",
-        "ru": "Это макет. Кнопки подготовлены, точные данные будем добавлять по очереди.",
-        "az": "Bu maketdir. Düymələr hazırdır, real məlumatı mərhələlərlə əlavə edəcəyik.",
-        "es": "Es una maqueta. Los botones están listos y los datos reales se añadirán paso a paso.",
-        "fil": "Mockup ito. Handa na ang mga button at idadagdag ang tunay na data nang paisa-isa.",
-        "id": "Ini mockup. Tombol sudah siap dan data asli akan ditambahkan bertahap.",
-        "ne": "यो नमुना हो। बटन तयार छन्, वास्तविक डेटा क्रमैसँग थपिनेछ।"
+        "pl": "Najpierw wybierz miasto albo moduł. Dane ogólne są gotowe, a punkty lokalne potwierdza koordynator.",
+        "en": "First choose the city or module. General data is ready; local points are confirmed by the coordinator.",
+        "ua": "Спочатку оберіть місто або модуль. Загальні дані готові, локальні точки підтверджує координатор.",
+        "ru": "Сначала выберите город или модуль. Общие данные готовы, локальные точки подтверждает координатор.",
+        "az": "Əvvəl şəhəri və ya modulu seçin. Ümumi məlumat hazırdır, yerli nöqtələri koordinator təsdiqləyir.",
+        "es": "Primero elige ciudad o módulo. Los datos generales están listos; el coordinador confirma puntos locales.",
+        "fil": "Piliin muna ang city o module. Handa ang general data; iko-confirm ng coordinator ang local points.",
+        "id": "Pilih kota atau modul dulu. Data umum siap; titik lokal dikonfirmasi koordinator.",
+        "ne": "पहिले शहर वा मोड्युल छान्नुहोस्। सामान्य जानकारी तयार छ; स्थानीय बिन्दु कोर्डिनेटरले पुष्टि गर्छ।"
       }
     },
     "mapa": {
@@ -135,15 +135,15 @@
     },
     "kontakty": {
       "title": {
-        "pl": "Kontakty - do uzupełnienia",
-        "en": "Contacts - to be added",
-        "ua": "Контакти - потрібно додати",
-        "ru": "Контакты - нужно добавить",
-        "az": "Kontaktlar - əlavə ediləcək",
-        "es": "Contactos - por añadir",
-        "fil": "Mga contact - idaragdag",
-        "id": "Kontak - akan ditambahkan",
-        "ne": "सम्पर्क - थप्नु पर्ने"
+        "pl": "Kontakty",
+        "en": "Contacts",
+        "ua": "Контакти",
+        "ru": "Контакты",
+        "az": "Kontaktlar",
+        "es": "Contactos",
+        "fil": "Mga contact",
+        "id": "Kontak",
+        "ne": "सम्पर्क"
       },
       "lead": {
         "pl": "Tu przygotowane są miejsca na koordynatorów, brygadzistów szklarni i brygadzistów magazynu.",
@@ -219,15 +219,15 @@
       "ne": "पहिलो दिन - Zgorzelec / Bogatynia"
     },
     "lead": {
-      "pl": "Makieta kolejności: otwórz mapę, wybierz właściwe miejsce, idź do punktu spotkania i czekaj na osobę prowadzącą.",
-      "en": "Mockup order: open the map, choose the correct place, go to the meeting point and wait for the responsible person.",
-      "ua": "Порядок макета: відкрийте карту, виберіть правильне місце, ідіть до місця зустрічі і чекайте відповідальну особу.",
-      "ru": "Порядок макета: откройте карту, выберите правильное место, идите к месту встречи и ждите ответственного.",
-      "az": "Maket sırası: xəritəni açın, düzgün məkanı seçin, görüş yerinə gedin və məsul şəxsi gözləyin.",
-      "es": "Orden de maqueta: abre el mapa, elige el lugar correcto, ve al punto de encuentro y espera a la persona responsable.",
-      "fil": "Order sa mockup: buksan ang mapa, piliin ang tamang lugar, pumunta sa meeting point at maghintay.",
-      "id": "Urutan mockup: buka peta, pilih tempat yang benar, pergi ke titik kumpul dan tunggu petugas.",
-      "ne": "नमुना क्रम: नक्सा खोल्नुहोस्, सही ठाउँ छान्नुहोस्, भेट्ने ठाउँमा जानुहोस् र जिम्मेवार व्यक्तिलाई पर्खनुहोस्।"
+      "pl": "Kolejność: otwórz mapę, wybierz właściwe miasto i miejsce, idź do punktu spotkania i czekaj na osobę prowadzącą.",
+      "en": "Order: open the map, choose the correct city and place, go to the meeting point and wait for the responsible person.",
+      "ua": "Порядок: відкрийте карту, виберіть правильне місто і місце, ідіть до місця зустрічі та чекайте відповідальну особу.",
+      "ru": "Порядок: откройте карту, выберите правильный город и место, идите к месту встречи и ждите ответственного.",
+      "az": "Sıra: xəritəni açın, düzgün şəhəri və yeri seçin, görüş yerinə gedin və məsul şəxsi gözləyin.",
+      "es": "Orden: abre el mapa, elige ciudad y lugar correctos, ve al punto de encuentro y espera al responsable.",
+      "fil": "Order: buksan ang mapa, piliin ang tamang city at lugar, pumunta sa meeting point at maghintay.",
+      "id": "Urutan: buka peta, pilih kota dan tempat yang benar, pergi ke titik kumpul dan tunggu petugas.",
+      "ne": "क्रम: नक्सा खोल्नुहोस्, सही शहर र ठाउँ छान्नुहोस्, भेट्ने ठाउँमा जानुहोस् र जिम्मेवार व्यक्तिलाई पर्खनुहोस्।"
     },
     "steps": [
       {
@@ -267,15 +267,15 @@
           "ne": "Google Maps खोल्नुहोस्"
         },
         "note": {
-          "pl": "Przycisk pokaże trasę albo wyszuka lokalizację do uzupełnienia.",
-          "en": "The button will show a route or search a location to be added.",
-          "ua": "Кнопка покаже маршрут або знайде місце, яке треба додати.",
-          "ru": "Кнопка покажет маршрут или найдет место, которое нужно добавить.",
-          "az": "Düymə marşrutu göstərəcək və ya əlavə ediləcək yeri axtaracaq.",
-          "es": "El botón mostrará la ruta o buscará una ubicación por añadir.",
-          "fil": "Ipakikita ng button ang ruta o hahanapin ang lugar na idaragdag.",
-          "id": "Tombol akan menunjukkan rute atau mencari lokasi yang akan ditambahkan.",
-          "ne": "बटनले बाटो देखाउँछ वा थपिने स्थान खोज्छ।"
+          "pl": "Przycisk otworzy Google Maps. Punkt potwierdź z koordynatorem przed pierwszym wyjazdem.",
+          "en": "The button opens Google Maps. Confirm the point with the coordinator before the first trip.",
+          "ua": "Кнопка відкриє Google Maps. Перед першою поїздкою підтвердіть пункт з координатором.",
+          "ru": "Кнопка откроет Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+          "az": "Düymə Google Maps açacaq. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+          "es": "El botón abre Google Maps. Confirma el punto con el coordinador antes del primer viaje.",
+          "fil": "Bubuksan ng button ang Google Maps. I-confirm muna ang point sa coordinator bago unang biyahe.",
+          "id": "Tombol membuka Google Maps. Konfirmasi titik dengan koordinator sebelum perjalanan pertama.",
+          "ne": "बटनले Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
         }
       },
       {
@@ -344,15 +344,15 @@
         "ne": "भेट्ने ठाउँ - Zgorzelec"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20punkt%20spotkania%20Polskie%20Pomidory"
     },
@@ -371,15 +371,15 @@
         "ne": "भेट्ने ठाउँ - Bogatynia"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20punkt%20spotkania%20Polskie%20Pomidory"
     },
@@ -398,15 +398,15 @@
         "ne": "काम गर्ने ठाउँ / ग्रीनहाउस - Zgorzelec"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20szklarnia%20Polskie%20Pomidory"
     },
@@ -425,15 +425,15 @@
         "ne": "काम गर्ने ठाउँ / ग्रीनहाउस - Bogatynia"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20szklarnia%20Polskie%20Pomidory"
     },
@@ -479,15 +479,15 @@
         "ne": "गोदाम - Zgorzelec"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20magazyn%20Polskie%20Pomidory"
     },
@@ -506,15 +506,15 @@
         "ne": "गोदाम - Bogatynia"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20magazyn%20Polskie%20Pomidory"
     },
@@ -533,15 +533,15 @@
         "ne": "पुरानो गोदाम / वैकल्पिक बिन्दु"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20stary%20magazyn"
     },
@@ -560,15 +560,15 @@
         "ne": "कर्मचारी प्रवेश - Zgorzelec"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20wej%C5%9Bcie%20dla%20personelu%20Polskie%20Pomidory"
     },
@@ -587,15 +587,15 @@
         "ne": "कर्मचारी प्रवेश - Bogatynia"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20wej%C5%9Bcie%20dla%20personelu%20Polskie%20Pomidory"
     },
@@ -614,15 +614,15 @@
         "ne": "पार्किङ / झर्ने ठाउँ - Zgorzelec"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20parking%20Polskie%20Pomidory"
     },
@@ -641,15 +641,15 @@
         "ne": "पार्किङ / झर्ने ठाउँ - Bogatynia"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20parking%20Polskie%20Pomidory"
     },
@@ -668,15 +668,15 @@
         "ne": "कार्यालय / प्रशासन"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20biuro%20Polskie%20Pomidory"
     },
@@ -695,15 +695,15 @@
         "ne": "स्टप / यातायात - Zgorzelec"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20przystanek%20autobusowy"
     },
@@ -722,15 +722,15 @@
         "ne": "स्टप / यातायात - Bogatynia"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20przystanek%20autobusowy"
     },
@@ -749,15 +749,15 @@
         "ne": "स्थानीय कार्यालय - Zgorzelec"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=urz%C4%85d%20Zgorzelec"
     },
@@ -776,15 +776,15 @@
         "ne": "स्थानीय कार्यालय - Bogatynia"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=urz%C4%85d%20Bogatynia"
     },
@@ -803,15 +803,15 @@
         "ne": "बैंक र ATM - Zgorzelec"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=bank%20bankomat%20Zgorzelec"
     },
@@ -830,15 +830,15 @@
         "ne": "बैंक र ATM - Bogatynia"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=bank%20bankomat%20Bogatynia"
     },
@@ -857,15 +857,15 @@
         "ne": "पसल / फार्मेसी - क्षेत्र"
       },
       "note": {
-        "pl": "Przycisk roboczy. Po uzupełnieniu danych podmienimy go na stały link Google Maps.",
-        "en": "Working button. After filling in data we will replace it with a fixed Google Maps link.",
-        "ua": "Робоча кнопка. Після заповнення даних замінимо її на постійне посилання Google Maps.",
-        "ru": "Рабочая кнопка. После заполнения данных заменим её на постоянную ссылку Google Maps.",
-        "az": "İşçi düymədir. Məlumatdan sonra onu sabit Google Maps linki ilə əvəz edəcəyik.",
-        "es": "Botón provisional. Después de completar datos lo cambiaremos por un enlace fijo de Google Maps.",
-        "fil": "Provisional button. Kapag may data, papalitan ito ng fixed Google Maps link.",
-        "id": "Tombol sementara. Setelah data lengkap akan diganti dengan link Google Maps tetap.",
-        "ne": "अस्थायी बटन। डेटा पूरा भएपछि स्थायी Google Maps लिंक राखिनेछ।"
+        "pl": "Otwiera Google Maps. Przed pierwszym wyjazdem potwierdź punkt z koordynatorem.",
+        "en": "Opens Google Maps. Before the first trip, confirm the point with the coordinator.",
+        "ua": "Відкриває Google Maps. Перед першою поїздкою підтвердьте пункт з координатором.",
+        "ru": "Открывает Google Maps. Перед первой поездкой подтвердите точку с координатором.",
+        "az": "Google Maps açır. İlk gedişdən əvvəl nöqtəni koordinatorla təsdiqləyin.",
+        "es": "Abre Google Maps. Antes del primer viaje confirma el punto con el coordinador.",
+        "fil": "Bubuksan ang Google Maps. Bago unang biyahe, i-confirm ang point sa coordinator.",
+        "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
+        "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
       "url": "https://www.google.com/maps/search/?api=1&query=apteka%20sklep%20Zgorzelec%20Bogatynia"
     }
@@ -982,55 +982,8 @@
         "phone": "+48 502 251 384"
       }
     ],
-    "warehouse": [
-      {
-        "name": "Brygadzista magazynu Zgorzelec 1",
-        "role": "Magazyn Zgorzelec - do uzupełnienia"
-      },
-      {
-        "name": "Brygadzista magazynu Zgorzelec 2",
-        "role": "Magazyn Zgorzelec - do uzupełnienia"
-      },
-      {
-        "name": "Brygadzista magazynu Bogatynia 1",
-        "role": "Magazyn Bogatynia - do uzupełnienia"
-      },
-      {
-        "name": "Brygadzista magazynu Bogatynia 2",
-        "role": "Magazyn Bogatynia - do uzupełnienia"
-      }
-    ],
+    "warehouse": [],
     "greenhouse": {
-      "Zgorzelec": [
-        {
-          "name": "Brygadzista szklarni Zgorzelec 1",
-          "role": "Szklarnia Zgorzelec - do uzupełnienia"
-        },
-        {
-          "name": "Brygadzista szklarni Zgorzelec 2",
-          "role": "Szklarnia Zgorzelec - do uzupełnienia"
-        }
-      ],
-      "Bogatynia": [
-        {
-          "name": "Brygadzista szklarni Bogatynia 1",
-          "role": "Szklarnia Bogatynia - do uzupełnienia"
-        },
-        {
-          "name": "Brygadzista szklarni Bogatynia 2",
-          "role": "Szklarnia Bogatynia - do uzupełnienia"
-        }
-      ],
-      "Transport": [
-        {
-          "name": "Kontakt transportowy 1",
-          "role": "Transport - do uzupełnienia"
-        },
-        {
-          "name": "Kontakt transportowy 2",
-          "role": "Transport - do uzupełnienia"
-        }
-      ],
       "Zakwaterowanie": [
         {
           "name": "Nataliia",
@@ -1936,7 +1889,7 @@
         {
           "pl": "Godziny: poniedziałek 7:30-17:00, wtorek-czwartek 7:30-15:30, piątek 7:30-14:00.",
           "en": "Hours: Monday 7:30-17:00, Tuesday-Thursday 7:30-15:30, Friday 7:30-14:00.",
-          "ua": "Години: понеділок 7:30-17:00, вівторок-четвер 7:30-15:30, пʼятниця 7:30-14:00.",
+          "ua": "Години: понеділок 7:30-17:00, вівторок-четвер 7:30-15:30, п'ятниця 7:30-14:00.",
           "ru": "Часы: понедельник 7:30-17:00, вторник-четверг 7:30-15:30, пятница 7:30-14:00.",
           "az": "Saatlar: bazar ertəsi 7:30-17:00, çərşənbə axşamı-cümə axşamı 7:30-15:30, cümə 7:30-14:00.",
           "es": "Horario: lunes 7:30-17:00, martes-jueves 7:30-15:30, viernes 7:30-14:00.",

@@ -866,7 +866,7 @@
       ...accommodationEntries.map(([stage, people]) => ({ id: stage, label: stage, people, tag: stage })),
       { id: "warehouse", label: text(tx("Magazyn", "Warehouse", "Склад", "Склад", "Anbar", "Almacén", "Warehouse", "Gudang", "गोदाम")), people: DATA.contacts.warehouse, tag: text(tx("Magazyn", "Warehouse", "Склад", "Склад", "Anbar", "Almacén", "Warehouse", "Gudang", "गोदाम")) },
       ...otherGreenhouseEntries.map(([stage, people]) => ({ id: stage, label: stage, people, tag: stage }))
-    ];
+    ].filter((group) => Array.isArray(group.people) && group.people.length);
 
     const current = groups.find((group) => group.id === activeGroup) || groups[0];
     const pills = groups.map((group) => `<button class="pill${group.id === current.id ? " active" : ""}" type="button" data-contact-group="${esc(group.id)}">${esc(group.label)}</button>`).join("");
