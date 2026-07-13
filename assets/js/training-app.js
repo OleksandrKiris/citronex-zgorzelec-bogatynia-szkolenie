@@ -256,6 +256,8 @@
     const params = new URLSearchParams(location.search);
     if (params.get("from") !== "hydra" || document.querySelector(".location-splash")) return;
     const appTitle = DATA.meta && DATA.meta.appTitle ? DATA.meta.appTitle : ui("brand");
+    const logoSrc = DATA.meta && DATA.meta.logo ? DATA.meta.logo : "assets/logo-citronex.svg";
+    const logoAlt = DATA.meta && DATA.meta.logoAlt ? DATA.meta.logoAlt : appTitle;
     const cleanUrl = new URL(location.href);
     cleanUrl.searchParams.delete("from");
     history.replaceState(null, "", cleanUrl.toString());
@@ -265,7 +267,7 @@
     splash.setAttribute("aria-live", "polite");
     splash.innerHTML = `
       <div class="location-splash-card">
-        <img src="assets/logo-citronex.svg" alt="">
+        <img src="${esc(logoSrc)}" alt="${esc(logoAlt)}">
         <strong>${esc(appTitle)}</strong>
         <span>${esc(text(tx("Ładowanie szkolenia", "Loading training", "Завантаження навчання", "Загрузка обучения", "Təlim yüklənir", "Cargando formación", "Naglo-load ang training", "Memuat pelatihan", "तालिम खुल्दैछ")))}</span>
       </div>
