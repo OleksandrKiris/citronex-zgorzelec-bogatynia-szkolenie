@@ -4091,3 +4091,78 @@ body.orientation-modal-open {
     display: none;
   }
 }
+
+.medical-accordion {
+  padding: 0;
+  overflow: hidden;
+}
+
+.medical-accordion > summary {
+  position: relative;
+  min-height: 62px;
+  padding: 12px 58px 12px 12px;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 11px;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 950;
+  line-height: 1.14;
+}
+
+.medical-accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+.medical-accordion > summary::after {
+  content: "+";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255,255,255,.82);
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 950;
+  box-shadow: inset 0 0 0 1px rgba(15,23,42,.08);
+}
+
+.medical-accordion[open] > summary::after {
+  content: "-";
+}
+
+.medical-body {
+  padding: 0 12px 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.medical-body .contact-group,
+.medical-body .section {
+  margin: 0;
+}
+
+.medical-body .person {
+  padding: 11px;
+}
+
+@media (max-width: 430px) {
+  .top-nav-scroll {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+
+  .top-nav-link {
+    min-width: 0;
+    width: 100%;
+    white-space: nowrap;
+  }
+}

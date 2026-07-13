@@ -827,16 +827,29 @@
         </article>
       `).join("");
       return `
-        <section class="${cardClass(item.tone)}">
-          <h2>${esc(text(item.title))}</h2>
-          <ul class="list">${notes}</ul>
-          ${maps || oneMap ? `<div class="btn-row">${oneMap}${maps}</div>` : ""}
-          ${phones ? `<div class="section contact-group">${phones}</div>` : ""}
-        </section>
+        <details class="${cardClass(item.tone)} medical-card medical-accordion">
+          <summary>
+            <span class="city-card-icon">${iconMap.medical}</span>
+            <span>${esc(text(item.title))}</span>
+          </summary>
+          <div class="details-body medical-body">
+            <ul class="list">${notes}</ul>
+            ${maps || oneMap ? `<div class="btn-row">${oneMap}${maps}</div>` : ""}
+            ${phones ? `<div class="section contact-group">${phones}</div>` : ""}
+          </div>
+        </details>
       `;
     }).join("");
 
     app.innerHTML = `<main class="page">${pageHero()}<div class="module-grid">${cards}</div><section class="card red section"><h2>112</h2><p>${esc(text(tx("W sytuacji zagrożenia życia dzwoń pod numer 112.", "In a life-threatening situation call 112.", "У ситуації загрози життю телефонуйте 112.", "В ситуации угрозы жизни звоните 112.", "Həyat təhlükəsi olduqda 112-yə zəng edin.", "En peligro de vida llama al 112.", "Kung buhay ay nasa panganib, tumawag sa 112.", "Jika mengancam nyawa, hubungi 112.", "जीवन जोखिममा भए 112 मा फोन गर्नुहोस्।")))}</p><div class="btn-row"><a class="btn red" href="tel:112">112</a></div></section></main>`;
+    app.querySelectorAll(".medical-accordion").forEach((group) => {
+      group.addEventListener("toggle", () => {
+        if (!group.open) return;
+        app.querySelectorAll(".medical-accordion[open]").forEach((other) => {
+          if (other !== group) other.open = false;
+        });
+      });
+    });
   }
 
   function renderContacts(activeGroup = "coordinators") {
