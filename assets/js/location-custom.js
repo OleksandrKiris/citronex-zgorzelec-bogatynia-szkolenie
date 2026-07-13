@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260713-medical-audit1-zgorzelec-bogatynia",
+    "version": "20260713-no-location-photos1-zgorzelec-bogatynia",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
     "repo": "citronex-zgorzelec-bogatynia-szkolenie",
@@ -218,15 +218,15 @@
       "ne": "पहिलो दिन - Zgorzelec / Bogatynia"
     },
     "lead": {
-      "pl": "Makieta kolejności: otwórz mapę, porównaj wejście ze zdjęciem, idź do punktu spotkania i czekaj na osobę prowadzącą.",
-      "en": "Mockup order: open map, compare entrance with photo, go to meeting point and wait for the responsible person.",
-      "ua": "Порядок макета: відкрийте карту, порівняйте вхід із фото, ідіть до місця зустрічі і чекайте відповідальну особу.",
-      "ru": "Порядок макета: откройте карту, сравните вход с фото, идите к месту встречи и ждите ответственного.",
-      "az": "Maket sırası: xəritəni açın, girişi şəkillə müqayisə edin, görüş yerinə gedin və məsul şəxsi gözləyin.",
-      "es": "Orden de maqueta: abre el mapa, compara la entrada con la foto, ve al punto de encuentro y espera a la persona responsable.",
-      "fil": "Order sa mockup: buksan ang mapa, ihambing ang pasukan sa larawan, pumunta sa meeting point at maghintay.",
-      "id": "Urutan mockup: buka peta, cocokkan pintu masuk dengan foto, pergi ke titik kumpul dan tunggu petugas.",
-      "ne": "नमुना क्रम: नक्सा खोल्नुहोस्, फोटोसँग प्रवेश मिलाउनुहोस्, भेट्ने ठाउँमा जानुहोस् र जिम्मेवार व्यक्तिलाई पर्खनुहोस्।"
+      "pl": "Makieta kolejności: otwórz mapę, wybierz właściwe miejsce, idź do punktu spotkania i czekaj na osobę prowadzącą.",
+      "en": "Mockup order: open the map, choose the correct place, go to the meeting point and wait for the responsible person.",
+      "ua": "Порядок макета: відкрийте карту, виберіть правильне місце, ідіть до місця зустрічі і чекайте відповідальну особу.",
+      "ru": "Порядок макета: откройте карту, выберите правильное место, идите к месту встречи и ждите ответственного.",
+      "az": "Maket sırası: xəritəni açın, düzgün məkanı seçin, görüş yerinə gedin və məsul şəxsi gözləyin.",
+      "es": "Orden de maqueta: abre el mapa, elige el lugar correcto, ve al punto de encuentro y espera a la persona responsable.",
+      "fil": "Order sa mockup: buksan ang mapa, piliin ang tamang lugar, pumunta sa meeting point at maghintay.",
+      "id": "Urutan mockup: buka peta, pilih tempat yang benar, pergi ke titik kumpul dan tunggu petugas.",
+      "ne": "नमुना क्रम: नक्सा खोल्नुहोस्, सही ठाउँ छान्नुहोस्, भेट्ने ठाउँमा जानुहोस् र जिम्मेवार व्यक्तिलाई पर्खनुहोस्।"
     },
     "steps": [
       {
@@ -279,26 +279,26 @@
       },
       {
         "title": {
-          "pl": "Sprawdź zdjęcie wejścia",
-          "en": "Check entrance photo",
-          "ua": "Перевірте фото входу",
-          "ru": "Проверьте фото входа",
-          "az": "Giriş şəklini yoxlayın",
-          "es": "Mira foto de entrada",
-          "fil": "Tingnan ang larawan ng pasukan",
-          "id": "Cek foto pintu masuk",
-          "ne": "प्रवेश फोटो जाँच गर्नुहोस्"
+          "pl": "Sprawdź punkt na mapie",
+          "en": "Check the map point",
+          "ua": "Перевірте пункт на карті",
+          "ru": "Проверьте точку на карте",
+          "az": "Xəritədə nöqtəni yoxlayın",
+          "es": "Revisa el punto en el mapa",
+          "fil": "Tingnan ang punto sa mapa",
+          "id": "Cek titik di peta",
+          "ne": "नक्साको बिन्दु जाँच गर्नुहोस्"
         },
         "note": {
-          "pl": "Zdjęcie jest teraz zastępcze. Później dodamy prawdziwe zdjęcia Zgorzelca / Bogatyni.",
-          "en": "The photo is temporary. Later we will add real Zgorzelec / Bogatynia photos.",
-          "ua": "Фото тимчасове. Пізніше додамо справжні фото Zgorzelca / Bogatyni.",
-          "ru": "Фото временное. Позже добавим настоящие фото Zgorzelca / Bogatyni.",
-          "az": "Şəkil müvəqqətidir. Sonra Zgorzelec / Bogatynia üçün real şəkillər əlavə edəcəyik.",
-          "es": "La foto es temporal. Luego añadiremos fotos reales de Zgorzelec / Bogatynia.",
-          "fil": "Temporary ang larawan. Mamaya idadagdag ang tunay na larawan ng Zgorzelec / Bogatynia.",
-          "id": "Foto sementara. Nanti ditambah foto asli Zgorzelec / Bogatynia.",
-          "ne": "फोटो अस्थायी हो। पछि Zgorzelec / Bogatynia का वास्तविक फोटो थपिनेछ।"
+          "pl": "Upewnij się, że wybrana jest właściwa lokalizacja.",
+          "en": "Make sure the selected location is correct.",
+          "ua": "Переконайтеся, що вибрана правильна локація.",
+          "ru": "Убедитесь, что выбрана правильная локация.",
+          "az": "Seçilən məkanın düzgün olduğuna əmin olun.",
+          "es": "Asegúrate de que la ubicación elegida sea correcta.",
+          "fil": "Siguraduhin na tama ang napiling lokasyon.",
+          "id": "Pastikan lokasi yang dipilih benar.",
+          "ne": "छानिएको स्थान सही छ कि छैन पक्का गर्नुहोस्।"
         }
       },
       {
@@ -869,148 +869,7 @@
       "url": "https://www.google.com/maps/search/?api=1&query=apteka%20sklep%20Zgorzelec%20Bogatynia"
     }
   ],
-  "mapPhotos": [
-    {
-      "title": {
-        "pl": "Punkt spotkania - Zgorzelec",
-        "en": "Meeting point - Zgorzelec",
-        "ua": "Місце зустрічі - Zgorzelec",
-        "ru": "Место встречи - Zgorzelec",
-        "az": "Görüş yeri - Zgorzelec",
-        "es": "Punto de encuentro - Zgorzelec",
-        "fil": "Meeting point - Zgorzelec",
-        "id": "Titik kumpul - Zgorzelec",
-        "ne": "भेट्ने ठाउँ - Zgorzelec"
-      },
-      "note": {
-        "pl": "Tu dodamy prawdziwe zdjęcie punktu w Zgorzelcu.",
-        "en": "Here we will add a real photo of the Zgorzelec point.",
-        "ua": "Тут додамо справжнє фото місця у Zgorzelcu.",
-        "ru": "Здесь добавим настоящее фото точки в Zgorzelcu.",
-        "az": "Burada Zgorzelec nöqtəsinin real şəkli olacaq.",
-        "es": "Aquí añadiremos foto real del punto en Zgorzelec.",
-        "fil": "Dito ilalagay ang tunay na larawan sa Zgorzelec.",
-        "id": "Di sini akan ditambah foto asli titik Zgorzelec.",
-        "ne": "यहाँ Zgorzelec को वास्तविक फोटो थपिनेछ।"
-      },
-      "tone": "blue",
-      "photos": [
-        "assets/location/entry-placeholder.svg"
-      ]
-    },
-    {
-      "title": {
-        "pl": "Punkt spotkania - Bogatynia",
-        "en": "Meeting point - Bogatynia",
-        "ua": "Місце зустрічі - Bogatynia",
-        "ru": "Место встречи - Bogatynia",
-        "az": "Görüş yeri - Bogatynia",
-        "es": "Punto de encuentro - Bogatynia",
-        "fil": "Meeting point - Bogatynia",
-        "id": "Titik kumpul - Bogatynia",
-        "ne": "भेट्ने ठाउँ - Bogatynia"
-      },
-      "note": {
-        "pl": "Tu dodamy prawdziwe zdjęcie punktu w Bogatyni.",
-        "en": "Here we will add a real photo of the Bogatynia point.",
-        "ua": "Тут додамо справжнє фото місця у Bogatyni.",
-        "ru": "Здесь добавим настоящее фото точки в Bogatyni.",
-        "az": "Burada Bogatynia nöqtəsinin real şəkli olacaq.",
-        "es": "Aquí añadiremos foto real del punto en Bogatynia.",
-        "fil": "Dito ilalagay ang tunay na larawan sa Bogatynia.",
-        "id": "Di sini akan ditambah foto asli titik Bogatynia.",
-        "ne": "यहाँ Bogatynia को वास्तविक फोटो थपिनेछ।"
-      },
-      "tone": "blue",
-      "photos": [
-        "assets/location/entry-placeholder.svg"
-      ]
-    },
-    {
-      "title": {
-        "pl": "Wejście dla personelu - Zgorzelec",
-        "en": "Staff entrance - Zgorzelec",
-        "ua": "Вхід для персоналу - Zgorzelec",
-        "ru": "Вход для персонала - Zgorzelec",
-        "az": "Personal girişi - Zgorzelec",
-        "es": "Entrada de personal - Zgorzelec",
-        "fil": "Staff entrance - Zgorzelec",
-        "id": "Pintu masuk staf - Zgorzelec",
-        "ne": "कर्मचारी प्रवेश - Zgorzelec"
-      },
-      "note": {
-        "pl": "Tu dodamy zdjęcie wejścia w Zgorzelcu.",
-        "en": "Here we will add the entrance photo in Zgorzelec.",
-        "ua": "Тут додамо фото входу у Zgorzelcu.",
-        "ru": "Здесь добавим фото входа в Zgorzelcu.",
-        "az": "Burada Zgorzelec giriş şəkli olacaq.",
-        "es": "Aquí añadiremos foto de entrada en Zgorzelec.",
-        "fil": "Dito ang entrance photo sa Zgorzelec.",
-        "id": "Di sini foto pintu masuk Zgorzelec.",
-        "ne": "यहाँ Zgorzelec प्रवेश फोटो थपिनेछ।"
-      },
-      "tone": "blue",
-      "photos": [
-        "assets/location/entry-placeholder.svg"
-      ]
-    },
-    {
-      "title": {
-        "pl": "Wejście dla personelu - Bogatynia",
-        "en": "Staff entrance - Bogatynia",
-        "ua": "Вхід для персоналу - Bogatynia",
-        "ru": "Вход для персонала - Bogatynia",
-        "az": "Personal girişi - Bogatynia",
-        "es": "Entrada de personal - Bogatynia",
-        "fil": "Staff entrance - Bogatynia",
-        "id": "Pintu masuk staf - Bogatynia",
-        "ne": "कर्मचारी प्रवेश - Bogatynia"
-      },
-      "note": {
-        "pl": "Tu dodamy zdjęcie wejścia w Bogatyni.",
-        "en": "Here we will add the entrance photo in Bogatynia.",
-        "ua": "Тут додамо фото входу у Bogatyni.",
-        "ru": "Здесь добавим фото входа в Bogatyni.",
-        "az": "Burada Bogatynia giriş şəkli olacaq.",
-        "es": "Aquí añadiremos foto de entrada en Bogatynia.",
-        "fil": "Dito ang entrance photo sa Bogatynia.",
-        "id": "Di sini foto pintu masuk Bogatynia.",
-        "ne": "यहाँ Bogatynia प्रवेश फोटो थपिनेछ।"
-      },
-      "tone": "blue",
-      "photos": [
-        "assets/location/entry-placeholder.svg"
-      ]
-    },
-    {
-      "title": {
-        "pl": "Magazyn - zdjęcie",
-        "en": "Warehouse - photo",
-        "ua": "Склад - фото",
-        "ru": "Склад - фото",
-        "az": "Anbar - şəkil",
-        "es": "Almacén - foto",
-        "fil": "Bodega - larawan",
-        "id": "Gudang - foto",
-        "ne": "गोदाम - फोटो"
-      },
-      "note": {
-        "pl": "Tu dodamy zdjęcie magazynu właściwe dla lokalizacji.",
-        "en": "Here we will add the warehouse photo for the location.",
-        "ua": "Тут додамо фото складу для локації.",
-        "ru": "Здесь добавим фото склада для локации.",
-        "az": "Burada məkan üçün anbar şəkli əlavə olunacaq.",
-        "es": "Aquí añadiremos foto del almacén de la ubicación.",
-        "fil": "Dito idadagdag ang warehouse photo ng lokasyon.",
-        "id": "Di sini akan ditambah foto gudang lokasi.",
-        "ne": "यहाँ स्थान अनुसार गोदाम फोटो थपिनेछ।"
-      },
-      "tone": "yellow",
-      "photos": [
-        "assets/location/entry-placeholder.svg"
-      ]
-    }
-  ],
+  "mapPhotos": [],
   "warehouseRules": [
     {
       "pl": "Projekt obejmuje dwie lokalizacje: Zgorzelec i Bogatynia.",
@@ -1024,15 +883,15 @@
       "ne": "परियोजनामा दुई स्थान छन्: Zgorzelec र Bogatynia।"
     },
     {
-      "pl": "Magazyn ma osobny ekran: mapa, wejście, zdjęcie, tablet i zasady.",
-      "en": "Warehouse has a separate screen: map, entrance, photo, tablet and rules.",
-      "ua": "Склад має окремий екран: карта, вхід, фото, планшет і правила.",
-      "ru": "Склад имеет отдельный экран: карта, вход, фото, планшет и правила.",
-      "az": "Anbarın ayrıca ekranı var: xəritə, giriş, şəkil, planşet və qaydalar.",
-      "es": "El almacén tiene pantalla separada: mapa, entrada, foto, tablet y reglas.",
-      "fil": "May hiwalay na screen ang bodega: mapa, pasukan, larawan, tablet at patakaran.",
-      "id": "Gudang punya layar terpisah: peta, pintu masuk, foto, tablet dan aturan.",
-      "ne": "गोदामको अलग स्क्रिन छ: नक्सा, प्रवेश, फोटो, ट्याबलेट र नियम।"
+      "pl": "Magazyn ma osobny ekran: mapa, wejście, tablet i zasady.",
+      "en": "Warehouse has a separate screen: map, entrance, tablet and rules.",
+      "ua": "Склад має окремий екран: карта, вхід, планшет і правила.",
+      "ru": "Склад имеет отдельный экран: карта, вход, планшет и правила.",
+      "az": "Anbarın ayrıca ekranı var: xəritə, giriş, planşet və qaydalar.",
+      "es": "El almacén tiene pantalla separada: mapa, entrada, tablet y reglas.",
+      "fil": "May hiwalay na screen ang bodega: mapa, pasukan, tablet at patakaran.",
+      "id": "Gudang punya layar terpisah: peta, pintu masuk, tablet dan aturan.",
+      "ne": "गोदामको अलग स्क्रिन छ: नक्सा, प्रवेश, ट्याबलेट र नियम।"
     },
     {
       "pl": "Reader pokazujemy tylko tam, gdzie lokalne zasady tego wymagają.",
@@ -1046,15 +905,15 @@
       "ne": "स्थानीय नियमले चाहिँदा मात्र reader देखाइन्छ।"
     },
     {
-      "pl": "Dane, zdjęcia i telefony dodamy po otrzymaniu tabeli.",
-      "en": "Data, photos and phones will be added after receiving the table.",
-      "ua": "Дані, фото і телефони додамо після отримання таблиці.",
-      "ru": "Данные, фото и телефоны добавим после получения таблицы.",
-      "az": "Məlumat, şəkillər və telefonlar cədvəldən sonra əlavə olunacaq.",
-      "es": "Datos, fotos y teléfonos se añadirán al recibir la tabla.",
-      "fil": "Data, larawan at telepono idadagdag kapag may table.",
-      "id": "Data, foto dan telepon ditambah setelah menerima tabel.",
-      "ne": "तालिका पाएपछि डेटा, फोटो र फोन थपिनेछ।"
+      "pl": "Dane i telefony dodamy po otrzymaniu tabeli.",
+      "en": "Data and phones will be added after receiving the table.",
+      "ua": "Дані і телефони додамо після отримання таблиці.",
+      "ru": "Данные и телефоны добавим после получения таблицы.",
+      "az": "Məlumat və telefonlar cədvəldən sonra əlavə olunacaq.",
+      "es": "Datos y teléfonos se añadirán al recibir la tabla.",
+      "fil": "Data at telepono idadagdag kapag may table.",
+      "id": "Data dan telepon ditambah setelah menerima tabel.",
+      "ne": "तालिका पाएपछि डेटा र फोन थपिनेछ।"
     }
   ],
   "contacts": {

@@ -2445,11 +2445,3 @@ details.ban-section .ban-section-head {
   .nave-diagram { grid-template-columns: repeat(5, minmax(32px, 1fr)); }
   .passage-diagram { grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr); }
 }
-
-
-/* Location clone: hide source warehouse photos until real local photos are added. */
-.warehouse-photos .media img[src*="magazyn-wejscie"] {
-  object-fit: contain;
-  background: #f8fafc;
-}
-

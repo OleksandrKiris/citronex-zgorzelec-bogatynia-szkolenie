@@ -20,14 +20,11 @@ const CORE_ASSETS = [
   "./manifest.webmanifest",
   "./assets/css/training.css?v=20260713-zgorzelec-bogatynia-lekarz1",
   "./assets/js/training-data.js?v=20260713-zgorzelec-bogatynia-lekarz1",
-  "./assets/js/location-custom.js?v=20260713-medical-audit1-zgorzelec-bogatynia",
-  "./assets/js/training-app.js?v=20260713-medical-audit1-zgorzelec-bogatynia",
+  "./assets/js/location-custom.js?v=20260713-no-location-photos1-zgorzelec-bogatynia",
+  "./assets/js/training-app.js?v=20260713-no-location-photos1-zgorzelec-bogatynia",
   "./assets/brand/polskie-pomidory-logo.png",
   "./assets/brand/polskie-pomidory-icon.png",
-  "./assets/location/entry-placeholder.svg",
-  "./assets/orientation/sklarnia-etap-excel.png",
-  "./assets/warehouse/magazyn-wejscie-1.jpg",
-  "./assets/warehouse/magazyn-wejscie-2.jpg"
+  "./assets/orientation/sklarnia-etap-excel.png"
 ];
 
 self.addEventListener("install", (event) => {

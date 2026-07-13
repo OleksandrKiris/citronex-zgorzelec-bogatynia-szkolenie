@@ -209,8 +209,6 @@
   }
 
   function renderMap() {
-    const photoWord = tx("zdjęcie", "photo", "фото", "фото", "şəkil", "foto", "larawan", "foto", "फोटो");
-    const placeHint = tx("Rozpoznaj to miejsce przed wejściem.", "Recognize this place before entering.", "Впізнайте це місце перед входом.", "Узнайте это место перед входом.", "Girməzdən əvvəl bu yeri tanıyın.", "Reconoce este lugar antes de entrar.", "Kilalanin ang lugar bago pumasok.", "Kenali tempat ini sebelum masuk.", "प्रवेश अघि यो ठाउँ चिन्नुहोस्।");
     const cards = DATA.maps.map((item) => `
       <article class="${cardClass(item.tone)}">
         <h3>${esc(text(item.title))}</h3>
@@ -227,7 +225,9 @@
         </div>
       </article>
     `).join("");
-    const photoGroups = (DATA.mapPhotos || []).map((group) => {
+    const photoWord = tx("zdjęcie", "photo", "фото", "фото", "şəkil", "foto", "larawan", "foto", "फोटो");
+    const placeHint = tx("Rozpoznaj to miejsce przed wejściem.", "Recognize this place before entering.", "Впізнайте це місце перед входом.", "Узнайте это место перед входом.", "Girməzdən əvvəl bu yeri tanıyın.", "Reconoce este lugar antes de entrar.", "Kilalanin ang lugar bago pumasok.", "Kenali tempat ini sebelum masuk.", "प्रवेश अघि यो ठाउँ चिन्नुहोस्।");
+    const photoGroups = (DATA.mapPhotos || []).filter((group) => group.photos && group.photos.length).map((group) => {
       const photos = group.photos.map((src, index) => `
         <figure class="media">
           <img loading="lazy" src="${esc(src)}" alt="${esc(text(group.title))}">
@@ -244,6 +244,12 @@
         </details>
       `;
     }).join("");
+    const photoSection = photoGroups ? `
+        <section class="section">
+          <h2>${esc(text(tx("Zdjęcia wejść", "Entrance photos", "Фото входів", "Фото входов", "Giriş şəkilləri", "Fotos de entradas", "Mga larawan ng pasukan", "Foto pintu masuk", "प्रवेश फोटो")))}</h2>
+          <div class="stack">${photoGroups}</div>
+        </section>
+      ` : "";
     app.innerHTML = `
       <main class="page">
         ${pageHero()}
@@ -255,10 +261,7 @@
           </div>
         </details>
         <section class="module-grid two section">${cards}</section>
-        <section class="section">
-          <h2>${esc(text(tx("Zdjęcia wejść", "Entrance photos", "Фото входів", "Фото входов", "Giriş şəkilləri", "Fotos de entradas", "Mga larawan ng pasukan", "Foto pintu masuk", "प्रवेश फोटो")))}</h2>
-          <div class="stack">${photoGroups}</div>
-        </section>
+        ${photoSection}
       </main>
     `;
   }
@@ -277,16 +280,6 @@
           <div class="btn-row">
             ${action(warehouseMap.url, text(tx("Mapa magazynu", "Warehouse map", "Карта складу", "Карта склада", "Anbar xəritəsi", "Mapa del almacén", "Mapa ng bodega", "Peta gudang", "गोदाम नक्सा")), "yellow")}
             ${action(oldWarehouseMap.url, text(oldWarehouseMap.title), "yellow")}
-          </div>
-        </section>
-        <section class="card yellow section media-details warehouse-photos">
-          <h2>${esc(text(tx("Zdjęcia magazynu", "Warehouse photos", "Фото складу", "Фото склада", "Anbar şəkilləri", "Fotos del almacén", "Mga larawan ng bodega", "Foto gudang", "गोदाम फोटो")))}</h2>
-          <p>${esc(text(tx("Najpierw otwórz mapę, potem porównaj wejście ze zdjęciem.", "First open the map, then compare the entrance with the photo.", "Спочатку відкрийте карту, потім порівняйте вхід із фото.", "Сначала откройте карту, потом сравните вход с фото.", "Əvvəl xəritəni açın, sonra girişi şəkillə müqayisə edin.", "Primero abre el mapa y luego compara la entrada con la foto.", "Buksan muna ang mapa, pagkatapos ihambing ang pasukan sa larawan.", "Buka peta dulu, lalu cocokkan pintu masuk dengan foto.", "पहिले नक्सा खोल्नुहोस्, अनि प्रवेशलाई फोटोसँग मिलाउनुहोस्।")))}</p>
-          <div class="details-body">
-            <div class="photo-grid">
-            <figure class="media"><img loading="lazy" src="assets/warehouse/magazyn-wejscie-1.jpg" alt="Magazyn wejście"><figcaption>${esc(text(tx("Budynek magazynu - widok z parkingu.", "Warehouse building - view from parking.", "Будівля складу - вид з парковки.", "Здание склада - вид с парковки.", "Anbar binası - dayanacaqdan görünüş.", "Edificio de almacén - vista desde parking.", "Gusali ng bodega mula sa paradahan.", "Gedung gudang dari parkir.", "पार्किङबाट गोदाम भवन।")))}</figcaption></figure>
-            <figure class="media"><img loading="lazy" src="assets/warehouse/magazyn-wejscie-2.jpg" alt="Magazyn wejście drzwi"><figcaption>${esc(text(tx("Wejście dla personelu.", "Staff entrance.", "Вхід для персоналу.", "Вход для персонала.", "Personal girişi.", "Entrada de personal.", "Pasukan ng staff.", "Pintu masuk staf.", "कर्मचारी प्रवेश।")))}</figcaption></figure>
-          </div>
           </div>
         </section>
         ${tabletLinkCard("yellow")}

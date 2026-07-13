@@ -3,9 +3,8 @@ JAK AKTUALIZOWAC - Citronex Zgorzelec / Bogatynia - szkolenie
 1. Edytuj dane lokalizacji w:
    assets/js/location-custom.js
 
-2. Zdjecia wejsc i magazynu podmieniaj w:
-   assets/location/
-   assets/warehouse/
+2. Dane map, telefonow i zasad zmieniaj w:
+   assets/js/location-custom.js
 
 3. Po zmianie sprawdz lokalnie:
    node tools/audit-project.js
