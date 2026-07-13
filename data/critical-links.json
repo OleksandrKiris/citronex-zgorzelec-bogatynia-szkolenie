@@ -1,21 +1,24 @@
 {
-  "version": "20260713-zgorzelec-bogatynia-base1",
-  "description": "Krytyczne linki map dla lokalizacji. Uzupełnić stałymi linkami po potwierdzeniu adresów.",
   "links": [
     {
-      "id": "zgorzelec",
-      "label": "Punkt spotkania - Zgorzelec",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec"
-    },
-    {
-      "id": "bogatynia",
-      "label": "Punkt spotkania - Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia"
+      "id": "spotkanie",
+      "label": "Punkt spotkania - Zgorzelec / Bogatynia",
+      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia"
     },
     {
       "id": "warehouse",
       "label": "Magazyn / miejsce pracy - Zgorzelec / Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec+Bogatynia+magazyn"
+      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20magazyn"
+    },
+    {
+      "id": "oldWarehouse",
+      "label": "Stary magazyn",
+      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20stary%20magazyn"
+    },
+    {
+      "id": "office",
+      "label": "Urząd / centrum - Zgorzelec / Bogatynia",
+      "url": "https://www.google.com/maps/search/?api=1&query=urz%C4%85d%20Zgorzelec%20Bogatynia"
     }
   ]
 }

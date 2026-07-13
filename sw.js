@@ -1,5 +1,5 @@
-﻿const CACHE_PREFIX = "citronex-zgorzelec-bogatynia-szkolenie-";
-const CACHE_NAME = CACHE_PREFIX + "20260713-polskie-pomidory-logo1";
+const CACHE_PREFIX = "citronex-zgorzelec-bogatynia-szkolenie-";
+const CACHE_NAME = CACHE_PREFIX + "20260713-moduly-tlumaczenia1";
 
 const CORE_ASSETS = [
   "./",
@@ -18,86 +18,53 @@ const CORE_ASSETS = [
   "./zakazy.html",
   "./test.html",
   "./manifest.webmanifest",
-  "./assets/css/training.css?v=20260713-polskie-pomidory-logo1",
-  "./assets/js/training-data.js?v=20260713-polskie-pomidory-logo1",
-  "./assets/js/location-custom.js?v=20260713-polskie-pomidory-logo1",
-  "./assets/js/training-app.js?v=20260713-polskie-pomidory-logo1",
+  "./assets/css/training.css?v=20260713-moduly-tlumaczenia1",
+  "./assets/js/training-data.js?v=20260713-moduly-tlumaczenia1",
+  "./assets/js/location-custom.js?v=20260713-moduly-tlumaczenia1",
+  "./assets/js/training-app.js?v=20260713-moduly-tlumaczenia1",
   "./assets/brand/polskie-pomidory-logo.png",
-  "./assets/brand/polskie-pomidory-icon.png"
+  "./assets/brand/polskie-pomidory-icon.png",
+  "./assets/location/entry-placeholder.svg",
+  "./assets/orientation/sklarnia-etap-excel.png",
+  "./assets/warehouse/magazyn-wejscie-1.jpg",
+  "./assets/warehouse/magazyn-wejscie-2.jpg"
 ];
 
 self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
-    await Promise.all(CORE_ASSETS.map(async (asset) => {
-      try {
-        await cache.add(new Request(asset, { cache: "reload" }));
-      } catch (error) {
-        // Offline cache stays resilient if a non-critical asset fails.
-      }
-    }));
+    await cache.addAll(CORE_ASSETS);
     await self.skipWaiting();
   })());
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil((async () => {
-    const names = await caches.keys();
-    await Promise.all(names.map((name) => {
-      if ((name.startsWith(CACHE_PREFIX) || name.startsWith("citronex-siechnice-training-")) && name !== CACHE_NAME) {
-        return caches.delete(name);
-      }
-      return Promise.resolve();
-    }));
+    const keys = await caches.keys();
+    await Promise.all(keys
+      .filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME)
+      .map((key) => caches.delete(key)));
     await self.clients.claim();
   })());
 });
 
-async function putInCache(request, response) {
-  if (!response || !response.ok) return;
-  const cache = await caches.open(CACHE_NAME);
-  await cache.put(request, response.clone());
-}
-
-async function networkFirst(request) {
-  try {
-    const response = await fetch(request);
-    await putInCache(request, response);
-    return response;
-  } catch (error) {
-    const cached = await caches.match(request);
-    return cached || caches.match("./index.html");
-  }
-}
-
-async function cacheFirst(request) {
-  const cached = await caches.match(request);
-  if (cached) return cached;
-  const response = await fetch(request);
-  await putInCache(request, response);
-  return response;
-}
-
 self.addEventListener("fetch", (event) => {
-  const request = event.request;
-  if (request.method !== "GET") return;
+  if (event.request.method !== "GET") return;
+  const requestUrl = new URL(event.request.url);
+  if (requestUrl.origin !== location.origin) return;
 
-  const url = new URL(request.url);
-  if (url.origin !== self.location.origin) return;
-
-  const accept = request.headers.get("accept") || "";
-  if (request.mode === "navigate" || accept.includes("text/html")) {
-    event.respondWith(networkFirst(request));
-    return;
-  }
-
-  if (["script", "style", "worker"].includes(request.destination)) {
-    event.respondWith(networkFirst(request));
-    return;
-  }
-
-  event.respondWith(cacheFirst(request));
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    const cached = await cache.match(event.request);
+    if (cached) return cached;
+    try {
+      const response = await fetch(event.request);
+      if (response && response.ok) {
+        cache.put(event.request, response.clone());
+      }
+      return response;
+    } catch (error) {
+      return cache.match("./index.html");
+    }
+  })());
 });
-
-
-

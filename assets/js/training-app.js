@@ -154,10 +154,11 @@
 
   function pageHero(pageName = page) {
     const info = DATA.pages[pageName] || DATA.pages.home;
-    document.title = `${text(info.title)} - Citronex Siechnice`;
+    const appTitle = DATA.meta && DATA.meta.appTitle ? DATA.meta.appTitle : "Citronex";
+    document.title = `${text(info.title)} - ${appTitle}`;
     return `
       <section class="hero">
-        <p class="eyebrow">${esc(appName)}</p>
+        <p class="eyebrow">${esc(appTitle)}</p>
         <h1>${esc(text(info.title))}</h1>
         <p class="lead">${esc(text(info.lead))}</p>
       </section>
@@ -652,8 +653,8 @@
   function renderGroups() {
     const cards = DATA.groups.map((item) => `
       <article class="${cardClass(item.tone)}">
-        <h2>${esc(item.title)}</h2>
-        <div class="btn-row">${action(item.url, `${ui("open")} ${item.title}`, "blue")}</div>
+        <h2>${esc(text(item.title))}</h2>
+        <div class="btn-row">${action(item.url, `${ui("open")} ${text(item.title)}`, "blue")}</div>
       </article>
     `).join("");
     app.innerHTML = `<main class="page">${pageHero()}<section class="module-grid">${cards}</section></main>`;
@@ -1110,7 +1111,8 @@
       }
 
       const score = DATA.test.reduce((sum, item, index) => sum + (answers[index] === item.ok ? 1 : 0), 0);
-      const message = `Wynik testu Citronex Siechnice: ${score}/${total}. Odpowiedzi: ${answered}/${total}. Jezyk: ${lang.toUpperCase()}.`;
+      const appTitle = DATA.meta && DATA.meta.appTitle ? DATA.meta.appTitle : "Citronex";
+      const message = `Wynik testu ${appTitle}: ${score}/${total}. Odpowiedzi: ${answered}/${total}. Jezyk: ${lang.toUpperCase()}.`;
       result.innerHTML = `
         <section class="result-box">
           <h2>${esc(ui("score"))}: ${score}/${total}</h2>
