@@ -585,11 +585,11 @@
   function renderMedical() {
     const cards = DATA.medical.map((item) => {
       const notes = item.body.map((note) => `<li>${esc(text(note))}</li>`).join("");
-      const maps = (item.maps || []).map((map) => action(map.url, `${ui("openMap")} - ${map.label}`, item.tone)).join("");
+      const maps = (item.maps || []).map((map) => action(map.url, `${ui("openMap")} - ${text(map.label)}`, item.tone)).join("");
       const oneMap = item.map ? action(item.map, ui("openMap"), item.tone) : "";
       const phones = (item.phones || []).map((phone) => `
         <article class="person">
-          <div class="person-name">${esc(phone.label)}</div>
+          <div class="person-name">${esc(text(phone.label))}</div>
           <div class="btn-row"><a class="btn secondary" href="${esc(telHref(phone.phone))}">${esc(ui("call"))} ${esc(formatPhone(phone.phone))}</a></div>
         </article>
       `).join("");

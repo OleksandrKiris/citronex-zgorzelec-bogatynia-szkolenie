@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260713-zgorzelec-bogatynia-makieta1",
+    "version": "20260713-zgorzelec-bogatynia-lekarz1",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
     "repo": "citronex-zgorzelec-bogatynia-szkolenie",
@@ -110,26 +110,26 @@
     },
     "lekarz": {
       "title": {
-        "pl": "Lekarz i pomoc medyczna",
-        "en": "Doctor and medical help",
-        "ua": "Лікар і медична допомога",
-        "ru": "Врач и медицинская помощь",
-        "az": "Həkim və tibbi yardım",
-        "es": "Médico y ayuda médica",
-        "fil": "Doktor at medical help",
-        "id": "Dokter dan bantuan medis",
-        "ne": "डाक्टर र स्वास्थ्य सहयोग"
+        "pl": "Lekarz - Zgorzelec / Bogatynia",
+        "en": "Doctor - Zgorzelec / Bogatynia",
+        "ua": "Лікар - Zgorzelec / Bogatynia",
+        "ru": "Врач - Zgorzelec / Bogatynia",
+        "az": "Həkim - Zgorzelec / Bogatynia",
+        "es": "Médico - Zgorzelec / Bogatynia",
+        "fil": "Doktor - Zgorzelec / Bogatynia",
+        "id": "Dokter - Zgorzelec / Bogatynia",
+        "ne": "डाक्टर - Zgorzelec / Bogatynia"
       },
       "lead": {
-        "pl": "Makieta miejsc: przychodnia, SOR, dentysta, apteka. Linki i telefony do uzupełnienia.",
-        "en": "Mockup of places: clinic, ER, dentist, pharmacy. Links and phones to be added.",
-        "ua": "Макет місць: поліклініка, SOR, стоматолог, аптека. Посилання і телефони потрібно додати.",
-        "ru": "Макет мест: поликлиника, SOR, стоматолог, аптека. Ссылки и телефоны нужно добавить.",
-        "az": "Məkan maketi: poliklinika, təcili yardım, diş həkimi, aptek. Link və telefonlar əlavə ediləcək.",
-        "es": "Maqueta de lugares: clínica, urgencias, dentista, farmacia. Enlaces y teléfonos por añadir.",
-        "fil": "Mockup ng lugar: klinika, ER, dentista, botika. Link at telepono ay idaragdag.",
-        "id": "Mockup tempat: klinik, IGD, dokter gigi, apotek. Link dan telepon akan ditambahkan.",
-        "ne": "स्थानहरूको नमुना: क्लिनिक, आपतकालीन, दन्त चिकित्सक, फार्मेसी। लिंक र फोन थप्नु पर्ने।"
+        "pl": "Najpierw wybierz miasto i sytuację. W nagłym zagrożeniu dzwoń 112.",
+        "en": "First choose the city and situation. In emergency danger call 112.",
+        "ua": "Спочатку оберіть місто і ситуацію. При небезпеці телефонуйте 112.",
+        "ru": "Сначала выберите город и ситуацию. При опасности звоните 112.",
+        "az": "Əvvəl şəhəri və vəziyyəti seçin. Təcili təhlükədə 112-yə zəng edin.",
+        "es": "Primero elige ciudad y situación. En emergencia llama 112.",
+        "fil": "Piliin muna ang city at sitwasyon. Sa emergency, tumawag 112.",
+        "id": "Pilih kota dan situasi dulu. Dalam darurat hubungi 112.",
+        "ne": "पहिले शहर र अवस्था छान्नुहोस्। आपतकालीन खतरामा 112 मा फोन गर्नुहोस्।"
       }
     },
     "kontakty": {
@@ -1217,134 +1217,580 @@
     {
       "tone": "red",
       "title": {
-        "pl": "Przychodnia - Zgorzelec",
-        "en": "Clinic - Zgorzelec",
-        "ua": "Поліклініка - Zgorzelec",
-        "ru": "Поликлиника - Zgorzelec",
-        "az": "Poliklinika - Zgorzelec",
-        "es": "Clínica - Zgorzelec",
-        "fil": "Klinika - Zgorzelec",
-        "id": "Klinik - Zgorzelec",
-        "ne": "क्लिनिक - Zgorzelec"
+        "pl": "Zgorzelec - szpital, SOR i nocna pomoc",
+        "en": "Zgorzelec - hospital, ER and night care",
+        "ua": "Zgorzelec - лікарня, SOR і нічна допомога",
+        "ru": "Zgorzelec - больница, SOR и ночная помощь",
+        "az": "Zgorzelec - xəstəxana, təcili və gecə yardımı",
+        "es": "Zgorzelec - hospital, urgencias y atención nocturna",
+        "fil": "Zgorzelec - hospital, ER at night care",
+        "id": "Zgorzelec - rumah sakit, IGD dan layanan malam",
+        "ne": "Zgorzelec - अस्पताल, आपतकालीन र रातको सेवा"
       },
       "body": [
         {
-          "pl": "Tu dodamy właściwą przychodnię, godziny zapisów i telefon.",
-          "en": "Here we will add the correct clinic, registration hours and phone.",
-          "ua": "Тут додамо правильну поліклініку, години запису і телефон.",
-          "ru": "Здесь добавим правильную поликлинику, часы записи и телефон.",
-          "az": "Burada doğru poliklinika, qeydiyyat saatları və telefon əlavə olunacaq.",
-          "es": "Aquí añadiremos clínica correcta, horario y teléfono.",
-          "fil": "Dito idadagdag ang tamang klinika, oras at telepono.",
-          "id": "Di sini akan ditambah klinik benar, jam daftar dan telepon.",
-          "ne": "यहाँ सही क्लिनिक, दर्ता समय र फोन थपिनेछ।"
-        }
-      ],
-      "map": "https://www.google.com/maps/search/?api=1&query=przychodnia%20Zgorzelec"
-    },
-    {
-      "tone": "red",
-      "title": {
-        "pl": "Przychodnia - Bogatynia",
-        "en": "Clinic - Bogatynia",
-        "ua": "Поліклініка - Bogatynia",
-        "ru": "Поликлиника - Bogatynia",
-        "az": "Poliklinika - Bogatynia",
-        "es": "Clínica - Bogatynia",
-        "fil": "Klinika - Bogatynia",
-        "id": "Klinik - Bogatynia",
-        "ne": "क्लिनिक - Bogatynia"
-      },
-      "body": [
-        {
-          "pl": "Tu dodamy właściwą przychodnię, godziny zapisów i telefon.",
-          "en": "Here we will add the correct clinic, registration hours and phone.",
-          "ua": "Тут додамо правильну поліклініку, години запису і телефон.",
-          "ru": "Здесь добавим правильную поликлинику, часы записи и телефон.",
-          "az": "Burada doğru poliklinika, qeydiyyat saatları və telefon əlavə olunacaq.",
-          "es": "Aquí añadiremos clínica correcta, horario y teléfono.",
-          "fil": "Dito idadagdag ang tamang klinika, oras at telepono.",
-          "id": "Di sini akan ditambah klinik benar, jam daftar dan telepon.",
-          "ne": "यहाँ सही क्लिनिक, दर्ता समय र फोन थपिनेछ।"
-        }
-      ],
-      "map": "https://www.google.com/maps/search/?api=1&query=przychodnia%20Bogatynia"
-    },
-    {
-      "tone": "red",
-      "title": {
-        "pl": "SOR / nagłe przypadki",
-        "en": "ER / emergencies",
-        "ua": "SOR / невідкладні випадки",
-        "ru": "SOR / срочные случаи",
-        "az": "Təcili yardım",
-        "es": "Urgencias",
-        "fil": "ER / emergency",
-        "id": "IGD / darurat",
-        "ne": "आपतकालीन"
-      },
-      "body": [
-        {
-          "pl": "Dodamy najbliższy SOR dla Zgorzelca i Bogatyni.",
-          "en": "We will add the nearest ER for Zgorzelec and Bogatynia.",
-          "ua": "Додамо найближчий SOR для Zgorzelca і Bogatyni.",
-          "ru": "Добавим ближайший SOR для Zgorzelca и Bogatyni.",
-          "az": "Zgorzelec və Bogatynia üçün ən yaxın təcili yardım əlavə olunacaq.",
-          "es": "Añadiremos urgencias cercanas para Zgorzelec y Bogatynia.",
-          "fil": "Idadagdag ang pinakamalapit na ER para sa Zgorzelec at Bogatynia.",
-          "id": "Akan ditambah IGD terdekat untuk Zgorzelec dan Bogatynia.",
-          "ne": "Zgorzelec र Bogatynia का लागि नजिकको आपतकालीन थपिनेछ।"
+          "pl": "Adres: ul. Lubańska 11-12, 59-900 Zgorzelec.",
+          "en": "Address: ul. Lubańska 11-12, 59-900 Zgorzelec.",
+          "ua": "Адреса: вул. Lubańska 11-12, 59-900 Zgorzelec.",
+          "ru": "Адрес: ул. Lubańska 11-12, 59-900 Zgorzelec.",
+          "az": "Ünvan: ul. Lubańska 11-12, 59-900 Zgorzelec.",
+          "es": "Dirección: ul. Lubańska 11-12, 59-900 Zgorzelec.",
+          "fil": "Address: ul. Lubańska 11-12, 59-900 Zgorzelec.",
+          "id": "Alamat: ul. Lubańska 11-12, 59-900 Zgorzelec.",
+          "ne": "ठेगाना: ul. Lubańska 11-12, 59-900 Zgorzelec।"
         },
         {
-          "pl": "W zagrożeniu życia dzwoń 112.",
-          "en": "In life danger call 112.",
-          "ua": "При загрозі життю телефонуйте 112.",
-          "ru": "При угрозе жизни звоните 112.",
-          "az": "Həyat təhlükəsində 112-yə zəng edin.",
-          "es": "En peligro de vida llama 112.",
-          "fil": "Kung delikado ang buhay, tumawag sa 112.",
-          "id": "Jika mengancam nyawa, hubungi 112.",
-          "ne": "जीवन जोखिममा भए 112 मा फोन गर्नुहोस्।"
+          "pl": "SOR / izba przyjęć: nagły przypadek, uraz, silny ból, problemy z oddychaniem, omdlenie albo poważne pogorszenie stanu zdrowia.",
+          "en": "ER / admission room: emergency, injury, strong pain, breathing problems, fainting or serious health deterioration.",
+          "ua": "SOR / приймальне відділення: невідкладний випадок, травма, сильний біль, проблеми з диханням, втрата свідомості або серйозне погіршення стану.",
+          "ru": "SOR / приёмное отделение: срочный случай, травма, сильная боль, проблемы с дыханием, обморок или серьёзное ухудшение состояния.",
+          "az": "Təcili / qəbul otağı: təcili hal, zədə, güclü ağrı, nəfəs problemi, huş itirmə və ya ciddi pisləşmə.",
+          "es": "Urgencias / admisión: emergencia, lesión, dolor fuerte, problemas para respirar, desmayo o empeoramiento grave.",
+          "fil": "ER / admission: emergency, injury, matinding sakit, hirap huminga, nahimatay o seryosong paglala.",
+          "id": "IGD / penerimaan: darurat, cedera, nyeri kuat, sulit bernapas, pingsan atau kondisi memburuk serius.",
+          "ne": "आपतकालीन / भर्ना कक्ष: आकस्मिक अवस्था, चोट, धेरै दुखाइ, सास फेर्न समस्या, बेहोस वा स्वास्थ्य धेरै बिग्रिनु।"
+        },
+        {
+          "pl": "Nocna i świąteczna opieka: gdy POZ jest zamknięty, ale to nie jest zagrożenie życia.",
+          "en": "Night and holiday care: when POZ is closed, but it is not life-threatening.",
+          "ua": "Нічна і святкова допомога: коли POZ закритий, але немає загрози життю.",
+          "ru": "Ночная и праздничная помощь: когда POZ закрыт, но нет угрозы жизни.",
+          "az": "Gecə və bayram yardımı: POZ bağlıdırsa, amma həyat təhlükəsi yoxdursa.",
+          "es": "Atención nocturna y festiva: cuando POZ está cerrado, pero no hay peligro de vida.",
+          "fil": "Night/holiday care: kapag sarado ang POZ pero hindi life-threatening.",
+          "id": "Layanan malam/libur: saat POZ tutup tetapi tidak mengancam nyawa.",
+          "ne": "रात/बिदाको सेवा: POZ बन्द हुँदा, तर जीवन जोखिम नभए।"
+        },
+        {
+          "pl": "Najpierw zadzwoń i zapytaj, czy można przyjść oraz jakie dokumenty zabrać.",
+          "en": "Call first and ask if you can come and which documents to take.",
+          "ua": "Спочатку зателефонуйте і запитайте, чи можна прийти та які документи взяти.",
+          "ru": "Сначала позвоните и спросите, можно ли прийти и какие документы взять.",
+          "az": "Əvvəl zəng edin və gəlib-gəlməmək, hansı sənədləri götürmək lazım olduğunu soruşun.",
+          "es": "Primero llama y pregunta si puedes ir y qué documentos llevar.",
+          "fil": "Tumawag muna at itanong kung puwedeng pumunta at anong dokumento ang dalhin.",
+          "id": "Telepon dulu dan tanyakan apakah bisa datang dan dokumen apa yang dibawa.",
+          "ne": "पहिले फोन गरेर आउन मिल्छ कि र कुन कागज लैजाने सोध्नुहोस्।"
         }
       ],
       "maps": [
         {
-          "label": "SOR Zgorzelec",
-          "url": "https://www.google.com/maps/search/?api=1&query=SOR%20Zgorzelec"
+          "label": {
+            "pl": "Szpital / SOR Zgorzelec",
+            "en": "Hospital / ER Zgorzelec",
+            "ua": "Лікарня / SOR Zgorzelec",
+            "ru": "Больница / SOR Zgorzelec",
+            "az": "Xəstəxana / təcili Zgorzelec",
+            "es": "Hospital / urgencias Zgorzelec",
+            "fil": "Hospital / ER Zgorzelec",
+            "id": "Rumah sakit / IGD Zgorzelec",
+            "ne": "अस्पताल / आपतकालीन Zgorzelec"
+          },
+          "url": "https://www.google.com/maps/search/?api=1&query=Wielospecjalistyczny%20Szpital%20SPZOZ%20Luba%C5%84ska%2011-12%20Zgorzelec"
+        }
+      ],
+      "phones": [
+        {
+          "label": {
+            "pl": "Centrala / informacja",
+            "en": "Main line / information",
+            "ua": "Централа / інформація",
+            "ru": "Центральный номер / информация",
+            "az": "Mərkəz / məlumat",
+            "es": "Central / información",
+            "fil": "Main line / impormasyon",
+            "id": "Pusat / informasi",
+            "ne": "मुख्य लाइन / जानकारी"
+          },
+          "phone": "+48 75 772 29 00"
         },
         {
-          "label": "SOR Bogatynia",
-          "url": "https://www.google.com/maps/search/?api=1&query=SOR%20Bogatynia"
+          "label": {
+            "pl": "SOR / izba przyjęć",
+            "en": "ER / admission room",
+            "ua": "SOR / приймальне відділення",
+            "ru": "SOR / приёмное отделение",
+            "az": "Təcili / qəbul otağı",
+            "es": "Urgencias / admisión",
+            "fil": "ER / admission room",
+            "id": "IGD / ruang penerimaan",
+            "ne": "आपतकालीन / भर्ना कक्ष"
+          },
+          "phone": "+48 571 334 945"
+        },
+        {
+          "label": {
+            "pl": "Nocna i świąteczna opieka",
+            "en": "Night and holiday care",
+            "ua": "Нічна і святкова допомога",
+            "ru": "Ночная и праздничная помощь",
+            "az": "Gecə və bayram yardımı",
+            "es": "Atención nocturna y festiva",
+            "fil": "Night and holiday care",
+            "id": "Layanan malam dan libur",
+            "ne": "रात र बिदाको सेवा"
+          },
+          "phone": "+48 571 334 874"
+        }
+      ]
+    },
+    {
+      "tone": "blue",
+      "title": {
+        "pl": "Zgorzelec - lekarz rodzinny (POZ)",
+        "en": "Zgorzelec - family doctor (POZ)",
+        "ua": "Zgorzelec - сімейний лікар (POZ)",
+        "ru": "Zgorzelec - семейный врач (POZ)",
+        "az": "Zgorzelec - ailə həkimi (POZ)",
+        "es": "Zgorzelec - médico de familia (POZ)",
+        "fil": "Zgorzelec - family doctor (POZ)",
+        "id": "Zgorzelec - dokter keluarga (POZ)",
+        "ne": "Zgorzelec - परिवार डाक्टर (POZ)"
+      },
+      "body": [
+        {
+          "pl": "Adres: ul. Lubańska 11-12, 59-900 Zgorzelec.",
+          "en": "Address: ul. Lubańska 11-12, 59-900 Zgorzelec.",
+          "ua": "Адреса: вул. Lubańska 11-12, 59-900 Zgorzelec.",
+          "ru": "Адрес: ул. Lubańska 11-12, 59-900 Zgorzelec.",
+          "az": "Ünvan: ul. Lubańska 11-12, 59-900 Zgorzelec.",
+          "es": "Dirección: ul. Lubańska 11-12, 59-900 Zgorzelec.",
+          "fil": "Address: ul. Lubańska 11-12, 59-900 Zgorzelec.",
+          "id": "Alamat: ul. Lubańska 11-12, 59-900 Zgorzelec.",
+          "ne": "ठेगाना: ul. Lubańska 11-12, 59-900 Zgorzelec।"
+        },
+        {
+          "pl": "POZ: zwykła choroba, recepta, kontrola, skierowanie. Przy zagrożeniu życia nie czekaj - dzwoń 112.",
+          "en": "POZ: ordinary illness, prescription, check-up, referral. In life danger do not wait - call 112.",
+          "ua": "POZ: звичайна хвороба, рецепт, контроль, направлення. При загрозі життю не чекайте - телефонуйте 112.",
+          "ru": "POZ: обычная болезнь, рецепт, контроль, направление. При угрозе жизни не ждите - звоните 112.",
+          "az": "POZ: adi xəstəlik, resept, yoxlama, yönləndirmə. Həyat təhlükəsində gözləməyin - 112-yə zəng edin.",
+          "es": "POZ: enfermedad normal, receta, control, derivación. En peligro de vida no esperes - llama 112.",
+          "fil": "POZ: karaniwang sakit, reseta, check-up, referral. Kung delikado ang buhay, huwag maghintay - tumawag 112.",
+          "id": "POZ: sakit biasa, resep, kontrol, rujukan. Jika mengancam nyawa jangan tunggu - hubungi 112.",
+          "ne": "POZ: साधारण बिरामी, औषधि, जाँच, रेफरल। जीवन जोखिममा नपर्खनुहोस् - 112 मा फोन गर्नुहोस्।"
+        },
+        {
+          "pl": "Najpierw zadzwoń i zapytaj, czy można przyjść oraz jakie dokumenty zabrać.",
+          "en": "Call first and ask if you can come and which documents to take.",
+          "ua": "Спочатку зателефонуйте і запитайте, чи можна прийти та які документи взяти.",
+          "ru": "Сначала позвоните и спросите, можно ли прийти и какие документы взять.",
+          "az": "Əvvəl zəng edin və gəlib-gəlməmək, hansı sənədləri götürmək lazım olduğunu soruşun.",
+          "es": "Primero llama y pregunta si puedes ir y qué documentos llevar.",
+          "fil": "Tumawag muna at itanong kung puwedeng pumunta at anong dokumento ang dalhin.",
+          "id": "Telepon dulu dan tanyakan apakah bisa datang dan dokumen apa yang dibawa.",
+          "ne": "पहिले फोन गरेर आउन मिल्छ कि र कुन कागज लैजाने सोध्नुहोस्।"
+        }
+      ],
+      "maps": [
+        {
+          "label": {
+            "pl": "POZ Zgorzelec",
+            "en": "POZ Zgorzelec",
+            "ua": "POZ Zgorzelec",
+            "ru": "POZ Zgorzelec",
+            "az": "POZ Zgorzelec",
+            "es": "POZ Zgorzelec",
+            "fil": "POZ Zgorzelec",
+            "id": "POZ Zgorzelec",
+            "ne": "POZ Zgorzelec"
+          },
+          "url": "https://www.google.com/maps/search/?api=1&query=Poradnia%20POZ%20Luba%C5%84ska%2011-12%20Zgorzelec"
+        }
+      ],
+      "phones": [
+        {
+          "label": {
+            "pl": "POZ / infolinia",
+            "en": "POZ / helpline",
+            "ua": "POZ / інфолінія",
+            "ru": "POZ / инфолиния",
+            "az": "POZ / məlumat xətti",
+            "es": "POZ / línea de ayuda",
+            "fil": "POZ / helpline",
+            "id": "POZ / bantuan telepon",
+            "ne": "POZ / हेल्पलाइन"
+          },
+          "phone": "+48 75 640 70 11"
+        },
+        {
+          "label": {
+            "pl": "Rejestracja",
+            "en": "Registration",
+            "ua": "Реєстрація",
+            "ru": "Регистрация",
+            "az": "Qeydiyyat",
+            "es": "Registro",
+            "fil": "Registration",
+            "id": "Pendaftaran",
+            "ne": "दर्ता"
+          },
+          "phone": "+48 571 334 931"
+        }
+      ]
+    },
+    {
+      "tone": "red",
+      "title": {
+        "pl": "Bogatynia - SP ZOZ, izba przyjęć i nocna pomoc",
+        "en": "Bogatynia - SP ZOZ, admission room and night care",
+        "ua": "Bogatynia - SP ZOZ, приймальне відділення і нічна допомога",
+        "ru": "Bogatynia - SP ZOZ, приёмное отделение и ночная помощь",
+        "az": "Bogatynia - SP ZOZ, qəbul otağı və gecə yardımı",
+        "es": "Bogatynia - SP ZOZ, admisión y atención nocturna",
+        "fil": "Bogatynia - SP ZOZ, admission room at night care",
+        "id": "Bogatynia - SP ZOZ, ruang penerimaan dan layanan malam",
+        "ne": "Bogatynia - SP ZOZ, भर्ना कक्ष र रातको सेवा"
+      },
+      "body": [
+        {
+          "pl": "Adres: ul. Szpitalna 16, 59-920 Bogatynia.",
+          "en": "Address: ul. Szpitalna 16, 59-920 Bogatynia.",
+          "ua": "Адреса: вул. Szpitalna 16, 59-920 Bogatynia.",
+          "ru": "Адрес: ул. Szpitalna 16, 59-920 Bogatynia.",
+          "az": "Ünvan: ul. Szpitalna 16, 59-920 Bogatynia.",
+          "es": "Dirección: ul. Szpitalna 16, 59-920 Bogatynia.",
+          "fil": "Address: ul. Szpitalna 16, 59-920 Bogatynia.",
+          "id": "Alamat: ul. Szpitalna 16, 59-920 Bogatynia.",
+          "ne": "ठेगाना: ul. Szpitalna 16, 59-920 Bogatynia।"
+        },
+        {
+          "pl": "SOR / izba przyjęć: nagły przypadek, uraz, silny ból, problemy z oddychaniem, omdlenie albo poważne pogorszenie stanu zdrowia.",
+          "en": "ER / admission room: emergency, injury, strong pain, breathing problems, fainting or serious health deterioration.",
+          "ua": "SOR / приймальне відділення: невідкладний випадок, травма, сильний біль, проблеми з диханням, втрата свідомості або серйозне погіршення стану.",
+          "ru": "SOR / приёмное отделение: срочный случай, травма, сильная боль, проблемы с дыханием, обморок или серьёзное ухудшение состояния.",
+          "az": "Təcili / qəbul otağı: təcili hal, zədə, güclü ağrı, nəfəs problemi, huş itirmə və ya ciddi pisləşmə.",
+          "es": "Urgencias / admisión: emergencia, lesión, dolor fuerte, problemas para respirar, desmayo o empeoramiento grave.",
+          "fil": "ER / admission: emergency, injury, matinding sakit, hirap huminga, nahimatay o seryosong paglala.",
+          "id": "IGD / penerimaan: darurat, cedera, nyeri kuat, sulit bernapas, pingsan atau kondisi memburuk serius.",
+          "ne": "आपतकालीन / भर्ना कक्ष: आकस्मिक अवस्था, चोट, धेरै दुखाइ, सास फेर्न समस्या, बेहोस वा स्वास्थ्य धेरै बिग्रिनु।"
+        },
+        {
+          "pl": "Nocna i świąteczna opieka w Bogatyni: na Izbie Przyjęć, dni robocze 18:00-8:00, weekendy i święta całodobowo.",
+          "en": "Night and holiday care in Bogatynia: in the admission room, weekdays 18:00-8:00, weekends and holidays 24h.",
+          "ua": "Нічна і святкова допомога в Bogatyni: у приймальному відділенні, робочі дні 18:00-8:00, вихідні і свята цілодобово.",
+          "ru": "Ночная и праздничная помощь в Bogatyni: в приёмном отделении, рабочие дни 18:00-8:00, выходные и праздники круглосуточно.",
+          "az": "Bogatynia gecə və bayram yardımı: qəbul otağında, iş günləri 18:00-8:00, həftəsonu və bayramlarda 24 saat.",
+          "es": "Atención nocturna y festiva en Bogatynia: en admisión, días laborables 18:00-8:00, fines de semana y festivos 24h.",
+          "fil": "Night/holiday care sa Bogatynia: admission room, weekdays 18:00-8:00, weekend at holiday 24h.",
+          "id": "Layanan malam/libur di Bogatynia: ruang penerimaan, hari kerja 18:00-8:00, akhir pekan/libur 24 jam.",
+          "ne": "Bogatynia रात/बिदा सेवा: भर्ना कक्षमा, कामका दिन 18:00-8:00, सप्ताहन्त/बिदा 24 घण्टा।"
+        },
+        {
+          "pl": "Najpierw zadzwoń i zapytaj, czy można przyjść oraz jakie dokumenty zabrać.",
+          "en": "Call first and ask if you can come and which documents to take.",
+          "ua": "Спочатку зателефонуйте і запитайте, чи можна прийти та які документи взяти.",
+          "ru": "Сначала позвоните и спросите, можно ли прийти и какие документы взять.",
+          "az": "Əvvəl zəng edin və gəlib-gəlməmək, hansı sənədləri götürmək lazım olduğunu soruşun.",
+          "es": "Primero llama y pregunta si puedes ir y qué documentos llevar.",
+          "fil": "Tumawag muna at itanong kung puwedeng pumunta at anong dokumento ang dalhin.",
+          "id": "Telepon dulu dan tanyakan apakah bisa datang dan dokumen apa yang dibawa.",
+          "ne": "पहिले फोन गरेर आउन मिल्छ कि र कुन कागज लैजाने सोध्नुहोस्।"
+        }
+      ],
+      "maps": [
+        {
+          "label": {
+            "pl": "SP ZOZ Bogatynia",
+            "en": "SP ZOZ Bogatynia",
+            "ua": "SP ZOZ Bogatynia",
+            "ru": "SP ZOZ Bogatynia",
+            "az": "SP ZOZ Bogatynia",
+            "es": "SP ZOZ Bogatynia",
+            "fil": "SP ZOZ Bogatynia",
+            "id": "SP ZOZ Bogatynia",
+            "ne": "SP ZOZ Bogatynia"
+          },
+          "url": "https://www.google.com/maps/search/?api=1&query=SP%20ZOZ%20Szpitalna%2016%20Bogatynia"
+        }
+      ],
+      "phones": [
+        {
+          "label": {
+            "pl": "Nocna i świąteczna opieka",
+            "en": "Night and holiday care",
+            "ua": "Нічна і святкова допомога",
+            "ru": "Ночная и праздничная помощь",
+            "az": "Gecə və bayram yardımı",
+            "es": "Atención nocturna y festiva",
+            "fil": "Night and holiday care",
+            "id": "Layanan malam dan libur",
+            "ne": "रात र बिदाको सेवा"
+          },
+          "phone": "+48 75 773 93 24"
+        },
+        {
+          "label": {
+            "pl": "Centrala / informacja",
+            "en": "Main line / information",
+            "ua": "Централа / інформація",
+            "ru": "Центральный номер / информация",
+            "az": "Mərkəz / məlumat",
+            "es": "Central / información",
+            "fil": "Main line / impormasyon",
+            "id": "Pusat / informasi",
+            "ne": "मुख्य लाइन / जानकारी"
+          },
+          "phone": "+48 75 773 93 21"
+        },
+        {
+          "label": {
+            "pl": "Rejestracja",
+            "en": "Registration",
+            "ua": "Реєстрація",
+            "ru": "Регистрация",
+            "az": "Qeydiyyat",
+            "es": "Registro",
+            "fil": "Registration",
+            "id": "Pendaftaran",
+            "ne": "दर्ता"
+          },
+          "phone": "+48 75 773 93 20"
+        },
+        {
+          "label": {
+            "pl": "SOR / izba przyjęć",
+            "en": "ER / admission room",
+            "ua": "SOR / приймальне відділення",
+            "ru": "SOR / приёмное отделение",
+            "az": "Təcili / qəbul otağı",
+            "es": "Urgencias / admisión",
+            "fil": "ER / admission room",
+            "id": "IGD / ruang penerimaan",
+            "ne": "आपतकालीन / भर्ना कक्ष"
+          },
+          "phone": "+48 75 773 20 31"
+        }
+      ]
+    },
+    {
+      "tone": "blue",
+      "title": {
+        "pl": "Bogatynia - MegaMed lekarz rodzinny (POZ)",
+        "en": "Bogatynia - MegaMed family doctor (POZ)",
+        "ua": "Bogatynia - MegaMed сімейний лікар (POZ)",
+        "ru": "Bogatynia - MegaMed семейный врач (POZ)",
+        "az": "Bogatynia - MegaMed ailə həkimi (POZ)",
+        "es": "Bogatynia - MegaMed médico de familia (POZ)",
+        "fil": "Bogatynia - MegaMed family doctor (POZ)",
+        "id": "Bogatynia - MegaMed dokter keluarga (POZ)",
+        "ne": "Bogatynia - MegaMed परिवार डाक्टर (POZ)"
+      },
+      "body": [
+        {
+          "pl": "Adres: ul. Pocztowa 13, 59-920 Bogatynia.",
+          "en": "Address: ul. Pocztowa 13, 59-920 Bogatynia.",
+          "ua": "Адреса: вул. Pocztowa 13, 59-920 Bogatynia.",
+          "ru": "Адрес: ул. Pocztowa 13, 59-920 Bogatynia.",
+          "az": "Ünvan: ul. Pocztowa 13, 59-920 Bogatynia.",
+          "es": "Dirección: ul. Pocztowa 13, 59-920 Bogatynia.",
+          "fil": "Address: ul. Pocztowa 13, 59-920 Bogatynia.",
+          "id": "Alamat: ul. Pocztowa 13, 59-920 Bogatynia.",
+          "ne": "ठेगाना: ul. Pocztowa 13, 59-920 Bogatynia।"
+        },
+        {
+          "pl": "MegaMed podaje pracę POZ od poniedziałku do piątku 7:00-19:00.",
+          "en": "MegaMed lists POZ work Monday to Friday 7:00-19:00.",
+          "ua": "MegaMed подає роботу POZ з понеділка до п'ятниці 7:00-19:00.",
+          "ru": "MegaMed указывает работу POZ с понедельника по пятницу 7:00-19:00.",
+          "az": "MegaMed POZ iş vaxtını bazar ertəsi-cümə 7:00-19:00 göstərir.",
+          "es": "MegaMed indica POZ de lunes a viernes 7:00-19:00.",
+          "fil": "Ayon sa MegaMed, POZ ay Lunes-Biyernes 7:00-19:00.",
+          "id": "MegaMed mencantumkan POZ Senin-Jumat 7:00-19:00.",
+          "ne": "MegaMed अनुसार POZ सोमबार-शुक्रबार 7:00-19:00।"
+        },
+        {
+          "pl": "POZ: zwykła choroba, recepta, kontrola, skierowanie. Przy zagrożeniu życia nie czekaj - dzwoń 112.",
+          "en": "POZ: ordinary illness, prescription, check-up, referral. In life danger do not wait - call 112.",
+          "ua": "POZ: звичайна хвороба, рецепт, контроль, направлення. При загрозі життю не чекайте - телефонуйте 112.",
+          "ru": "POZ: обычная болезнь, рецепт, контроль, направление. При угрозе жизни не ждите - звоните 112.",
+          "az": "POZ: adi xəstəlik, resept, yoxlama, yönləndirmə. Həyat təhlükəsində gözləməyin - 112-yə zəng edin.",
+          "es": "POZ: enfermedad normal, receta, control, derivación. En peligro de vida no esperes - llama 112.",
+          "fil": "POZ: karaniwang sakit, reseta, check-up, referral. Kung delikado ang buhay, huwag maghintay - tumawag 112.",
+          "id": "POZ: sakit biasa, resep, kontrol, rujukan. Jika mengancam nyawa jangan tunggu - hubungi 112.",
+          "ne": "POZ: साधारण बिरामी, औषधि, जाँच, रेफरल। जीवन जोखिममा नपर्खनुहोस् - 112 मा फोन गर्नुहोस्।"
+        },
+        {
+          "pl": "Najpierw zadzwoń i zapytaj, czy można przyjść oraz jakie dokumenty zabrać.",
+          "en": "Call first and ask if you can come and which documents to take.",
+          "ua": "Спочатку зателефонуйте і запитайте, чи можна прийти та які документи взяти.",
+          "ru": "Сначала позвоните и спросите, можно ли прийти и какие документы взять.",
+          "az": "Əvvəl zəng edin və gəlib-gəlməmək, hansı sənədləri götürmək lazım olduğunu soruşun.",
+          "es": "Primero llama y pregunta si puedes ir y qué documentos llevar.",
+          "fil": "Tumawag muna at itanong kung puwedeng pumunta at anong dokumento ang dalhin.",
+          "id": "Telepon dulu dan tanyakan apakah bisa datang dan dokumen apa yang dibawa.",
+          "ne": "पहिले फोन गरेर आउन मिल्छ कि र कुन कागज लैजाने सोध्नुहोस्।"
+        }
+      ],
+      "maps": [
+        {
+          "label": {
+            "pl": "MegaMed Bogatynia",
+            "en": "MegaMed Bogatynia",
+            "ua": "MegaMed Bogatynia",
+            "ru": "MegaMed Bogatynia",
+            "az": "MegaMed Bogatynia",
+            "es": "MegaMed Bogatynia",
+            "fil": "MegaMed Bogatynia",
+            "id": "MegaMed Bogatynia",
+            "ne": "MegaMed Bogatynia"
+          },
+          "url": "https://www.google.com/maps/search/?api=1&query=MegaMed%20Pocztowa%2013%20Bogatynia"
+        }
+      ],
+      "phones": [
+        {
+          "label": {
+            "pl": "Rejestracja",
+            "en": "Registration",
+            "ua": "Реєстрація",
+            "ru": "Регистрация",
+            "az": "Qeydiyyat",
+            "es": "Registro",
+            "fil": "Registration",
+            "id": "Pendaftaran",
+            "ne": "दर्ता"
+          },
+          "phone": "+48 75 773 95 00"
+        },
+        {
+          "label": {
+            "pl": "Rejestracja",
+            "en": "Registration",
+            "ua": "Реєстрація",
+            "ru": "Регистрация",
+            "az": "Qeydiyyat",
+            "es": "Registro",
+            "fil": "Registration",
+            "id": "Pendaftaran",
+            "ne": "दर्ता"
+          },
+          "phone": "+48 75 773 11 11"
+        },
+        {
+          "label": {
+            "pl": "Rejestracja pediatry",
+            "en": "Pediatric registration",
+            "ua": "Реєстрація педіатра",
+            "ru": "Регистрация педиатра",
+            "az": "Pediatr qeydiyyatı",
+            "es": "Registro pediatra",
+            "fil": "Pediatric registration",
+            "id": "Pendaftaran anak",
+            "ne": "बाल डाक्टर दर्ता"
+          },
+          "phone": "+48 75 773 21 52"
         }
       ]
     },
     {
       "tone": "yellow",
       "title": {
-        "pl": "Dentysta / ostry dyżur",
-        "en": "Dentist / emergency duty",
-        "ua": "Стоматолог / чергування",
-        "ru": "Стоматолог / дежурство",
-        "az": "Diş həkimi / növbə",
-        "es": "Dentista / guardia",
-        "fil": "Dentista / emergency",
-        "id": "Dokter gigi / darurat",
-        "ne": "दन्त चिकित्सक / आपतकालीन"
+        "pl": "Dentysta i ból zęba",
+        "en": "Dentist and toothache",
+        "ua": "Стоматолог і зубний біль",
+        "ru": "Стоматолог и зубная боль",
+        "az": "Diş həkimi və diş ağrısı",
+        "es": "Dentista y dolor de muela",
+        "fil": "Dentista at sakit ng ngipin",
+        "id": "Dokter gigi dan sakit gigi",
+        "ne": "दन्त चिकित्सक र दाँत दुखाइ"
       },
       "body": [
         {
-          "pl": "Dodamy gabinety i telefony po otrzymaniu danych.",
-          "en": "We will add clinics and phones after receiving data.",
-          "ua": "Додамо кабінети і телефони після отримання даних.",
-          "ru": "Добавим кабинеты и телефоны после получения данных.",
-          "az": "Məlumatdan sonra kabinet və telefonlar əlavə olunacaq.",
-          "es": "Añadiremos clínicas y teléfonos al recibir datos.",
-          "fil": "Idadagdag ang clinics at telepono kapag may data.",
-          "id": "Klinik dan telepon ditambah setelah data diterima.",
-          "ne": "डेटा पाएपछि क्लिनिक र फोन थपिनेछ।"
+          "pl": "Bogatynia SP ZOZ podaje poradnię stomatologiczną: ul. Fabryczna 1.",
+          "en": "Bogatynia SP ZOZ lists a dental clinic: ul. Fabryczna 1.",
+          "ua": "Bogatynia SP ZOZ подає стоматологічну поліклініку: вул. Fabryczna 1.",
+          "ru": "Bogatynia SP ZOZ указывает стоматологическую поликлинику: ул. Fabryczna 1.",
+          "az": "Bogatynia SP ZOZ diş klinikasını göstərir: ul. Fabryczna 1.",
+          "es": "Bogatynia SP ZOZ indica clínica dental: ul. Fabryczna 1.",
+          "fil": "Bogatynia SP ZOZ dental clinic: ul. Fabryczna 1.",
+          "id": "Bogatynia SP ZOZ mencantumkan klinik gigi: ul. Fabryczna 1.",
+          "ne": "Bogatynia SP ZOZ दन्त क्लिनिक: ul. Fabryczna 1।"
+        },
+        {
+          "pl": "Doraźna pomoc stomatologiczna NFZ zwykle działa w dni robocze 19:00-7:00, a w weekendy i święta całodobowo. Najpierw zadzwoń lub sprawdź pacjent.gov.pl.",
+          "en": "NFZ emergency dental care usually works on weekdays 19:00-7:00 and on weekends/holidays 24h. Call first or check pacjent.gov.pl.",
+          "ua": "Невідкладна стоматологічна допомога NFZ зазвичай працює в робочі дні 19:00-7:00, а у вихідні і свята цілодобово. Спочатку дзвоніть або перевірте pacjent.gov.pl.",
+          "ru": "Срочная стоматологическая помощь NFZ обычно работает в рабочие дни 19:00-7:00, а в выходные и праздники круглосуточно. Сначала звоните или проверьте pacjent.gov.pl.",
+          "az": "NFZ təcili diş yardımı adətən iş günləri 19:00-7:00, həftəsonu/bayram 24 saat işləyir. Əvvəl zəng edin və ya pacjent.gov.pl yoxlayın.",
+          "es": "La ayuda dental urgente NFZ suele funcionar laborables 19:00-7:00 y fines/festivos 24h. Primero llama o revisa pacjent.gov.pl.",
+          "fil": "NFZ emergency dental care karaniwang weekdays 19:00-7:00, weekends/holidays 24h. Tumawag muna o tingnan pacjent.gov.pl.",
+          "id": "Layanan gigi darurat NFZ biasanya hari kerja 19:00-7:00, akhir pekan/libur 24 jam. Telepon dulu atau cek pacjent.gov.pl.",
+          "ne": "NFZ आपतकालीन दन्त सेवा सामान्यतया कामका दिन 19:00-7:00, सप्ताहन्त/बिदा 24 घण्टा। पहिले फोन गर्नुहोस् वा pacjent.gov.pl हेर्नुहोस्।"
+        },
+        {
+          "pl": "Najpierw zadzwoń i zapytaj, czy można przyjść oraz jakie dokumenty zabrać.",
+          "en": "Call first and ask if you can come and which documents to take.",
+          "ua": "Спочатку зателефонуйте і запитайте, чи можна прийти та які документи взяти.",
+          "ru": "Сначала позвоните и спросите, можно ли прийти и какие документы взять.",
+          "az": "Əvvəl zəng edin və gəlib-gəlməmək, hansı sənədləri götürmək lazım olduğunu soruşun.",
+          "es": "Primero llama y pregunta si puedes ir y qué documentos llevar.",
+          "fil": "Tumawag muna at itanong kung puwedeng pumunta at anong dokumento ang dalhin.",
+          "id": "Telepon dulu dan tanyakan apakah bisa datang dan dokumen apa yang dibawa.",
+          "ne": "पहिले फोन गरेर आउन मिल्छ कि र कुन कागज लैजाने सोध्नुहोस्।"
         }
       ],
-      "map": "https://www.google.com/maps/search/?api=1&query=pogotowie%20stomatologiczne%20Zgorzelec%20Bogatynia"
+      "maps": [
+        {
+          "label": {
+            "pl": "Dentysta Bogatynia",
+            "en": "Dentist Bogatynia",
+            "ua": "Стоматолог Bogatynia",
+            "ru": "Стоматолог Bogatynia",
+            "az": "Diş həkimi Bogatynia",
+            "es": "Dentista Bogatynia",
+            "fil": "Dentista Bogatynia",
+            "id": "Dokter gigi Bogatynia",
+            "ne": "दन्त चिकित्सक Bogatynia"
+          },
+          "url": "https://www.google.com/maps/search/?api=1&query=Poradnia%20stomatologiczna%20Fabryczna%201%20Bogatynia"
+        },
+        {
+          "label": {
+            "pl": "Dentysta Zgorzelec",
+            "en": "Dentist Zgorzelec",
+            "ua": "Стоматолог Zgorzelec",
+            "ru": "Стоматолог Zgorzelec",
+            "az": "Diş həkimi Zgorzelec",
+            "es": "Dentista Zgorzelec",
+            "fil": "Dentista Zgorzelec",
+            "id": "Dokter gigi Zgorzelec",
+            "ne": "दन्त चिकित्सक Zgorzelec"
+          },
+          "url": "https://www.google.com/maps/search/?api=1&query=dentysta%20Zgorzelec"
+        }
+      ],
+      "phones": [
+        {
+          "label": {
+            "pl": "Poradnia stomatologiczna",
+            "en": "Dental clinic",
+            "ua": "Стоматологічна поліклініка",
+            "ru": "Стоматологическая поликлиника",
+            "az": "Diş klinikası",
+            "es": "Clínica dental",
+            "fil": "Dental clinic",
+            "id": "Klinik gigi",
+            "ne": "दन्त क्लिनिक"
+          },
+          "phone": "+48 606 882 453"
+        },
+        {
+          "label": {
+            "pl": "Telefoniczna Informacja Pacjenta NFZ",
+            "en": "NFZ Patient Phone Information",
+            "ua": "Телефонна інформація пацієнта NFZ",
+            "ru": "Телефонная информация пациента NFZ",
+            "az": "NFZ pasiyent məlumat xətti",
+            "es": "Información telefónica NFZ",
+            "fil": "NFZ Patient Info",
+            "id": "Informasi Pasien NFZ",
+            "ne": "NFZ बिरामी सूचना फोन"
+          },
+          "phone": "800 190 590"
+        }
+      ]
     },
     {
       "tone": "blue",
@@ -1361,24 +1807,44 @@
       },
       "body": [
         {
-          "pl": "Przyciski do aptek w obu miejscach.",
-          "en": "Buttons to pharmacies in both places.",
-          "ua": "Кнопки до аптек в обох місцях.",
-          "ru": "Кнопки к аптекам в обоих местах.",
-          "az": "Hər iki yer üçün aptek düymələri.",
-          "es": "Botones a farmacias en ambos lugares.",
-          "fil": "Buttons papuntang botika sa dalawang lugar.",
-          "id": "Tombol apotek di kedua tempat.",
-          "ne": "दुवै ठाउँका फार्मेसी बटन।"
+          "pl": "Mapa pokazuje apteki w Zgorzelcu i Bogatyni. Godziny mogą się zmieniać, dlatego sprawdź w Google Maps przed wyjściem.",
+          "en": "The map shows pharmacies in Zgorzelec and Bogatynia. Hours may change, so check Google Maps before leaving.",
+          "ua": "Карта показує аптеки у Zgorzelcu і Bogatyni. Години можуть змінюватися, тому перевірте Google Maps перед виходом.",
+          "ru": "Карта показывает аптеки в Zgorzelcu и Bogatyni. Часы могут меняться, поэтому проверьте Google Maps перед выходом.",
+          "az": "Xəritə Zgorzelec və Bogatynia apteklərini göstərir. Saatlar dəyişə bilər, çıxmazdan əvvəl Google Maps-də yoxlayın.",
+          "es": "El mapa muestra farmacias en Zgorzelec y Bogatynia. Los horarios pueden cambiar, revisa Google Maps antes de salir.",
+          "fil": "Ipinapakita ng mapa ang botika sa Zgorzelec at Bogatynia. Maaaring magbago ang oras, tingnan sa Google Maps bago umalis.",
+          "id": "Peta menampilkan apotek di Zgorzelec dan Bogatynia. Jam bisa berubah, cek Google Maps sebelum berangkat.",
+          "ne": "नक्साले Zgorzelec र Bogatynia का फार्मेसी देखाउँछ। समय बदलिन सक्छ, निस्कनुअघि Google Maps जाँच गर्नुहोस्।"
         }
       ],
       "maps": [
         {
-          "label": "Apteka Zgorzelec",
+          "label": {
+            "pl": "Apteka Zgorzelec",
+            "en": "Pharmacy Zgorzelec",
+            "ua": "Аптека Zgorzelec",
+            "ru": "Аптека Zgorzelec",
+            "az": "Aptek Zgorzelec",
+            "es": "Farmacia Zgorzelec",
+            "fil": "Botika Zgorzelec",
+            "id": "Apotek Zgorzelec",
+            "ne": "फार्मेसी Zgorzelec"
+          },
           "url": "https://www.google.com/maps/search/?api=1&query=apteka%20Zgorzelec"
         },
         {
-          "label": "Apteka Bogatynia",
+          "label": {
+            "pl": "Apteka Bogatynia",
+            "en": "Pharmacy Bogatynia",
+            "ua": "Аптека Bogatynia",
+            "ru": "Аптека Bogatynia",
+            "az": "Aptek Bogatynia",
+            "es": "Farmacia Bogatynia",
+            "fil": "Botika Bogatynia",
+            "id": "Apotek Bogatynia",
+            "ne": "फार्मेसी Bogatynia"
+          },
           "url": "https://www.google.com/maps/search/?api=1&query=apteka%20Bogatynia"
         }
       ]
