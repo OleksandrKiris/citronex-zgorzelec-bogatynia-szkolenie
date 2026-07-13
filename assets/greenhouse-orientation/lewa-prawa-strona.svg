@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Lewa i prawa strona szklarni</title>
+  <desc id="desc">Pracownik stoi plecami do strony pierwszych naw, wtedy lewa reka pokazuje lewa strone, prawa reka prawa strone.</desc>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif}
+    .bg{fill:#f7faf8}.frame{fill:#fff;stroke:#d6e1da;stroke-width:4}.first{fill:#fff7d8;stroke:#d8aa20;stroke-width:4}
+    .sideL{fill:#eaf8ef;stroke:#0f5f3f;stroke-width:4}.sideR{fill:#eaf8ef;stroke:#0f5f3f;stroke-width:4}
+    .person{fill:#0f5f3f}.arm{stroke:#0f5f3f;stroke-width:18;stroke-linecap:round}
+    .arrow{stroke:#b38614;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;fill:none}
+    .label{fill:#0f5f3f;font-weight:900;font-size:36px}.top{fill:#7a5512;font-weight:900;font-size:30px}.small{fill:#42564a;font-weight:800;font-size:22px}
+  </style>
+  <rect class="bg" width="800" height="520" rx="28"/>
+  <rect class="frame" x="48" y="70" width="704" height="360" rx="22"/>
+  <rect class="first" x="184" y="92" width="432" height="70" rx="18"/>
+  <text x="400" y="137" text-anchor="middle" class="top">STRONA PIERWSZYCH NAW</text>
+  <path class="arrow" d="M400 170 L400 232"/>
+  <path class="arrow" d="M400 232 L374 204 M400 232 L426 204"/>
+  <rect class="sideL" x="76" y="238" width="250" height="116" rx="20"/>
+  <rect class="sideR" x="474" y="238" width="250" height="116" rx="20"/>
+  <text x="201" y="307" text-anchor="middle" class="label">LEWA</text>
+  <text x="599" y="307" text-anchor="middle" class="label">PRAWA</text>
+  <circle class="person" cx="400" cy="270" r="34"/>
+  <rect class="person" x="366" y="306" width="68" height="92" rx="28"/>
+  <line class="arm" x1="360" y1="326" x2="308" y2="354"/>
+  <line class="arm" x1="440" y1="326" x2="492" y2="354"/>
+  <text x="400" y="458" text-anchor="middle" class="small">Stój plecami do pierwszych naw</text>
+  <text x="400" y="490" text-anchor="middle" class="small">LEFT / RIGHT  |  ЛЕВАЯ / ПРАВАЯ</text>
+</svg>

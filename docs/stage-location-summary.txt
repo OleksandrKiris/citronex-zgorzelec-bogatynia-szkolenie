@@ -1,0 +1,3 @@
+Podsumowanie:
+
+Dodano wybor etapu, przycisk mapy i etap w potwierdzeniu szkolenia.

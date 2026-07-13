@@ -1,0 +1,6 @@
+Pliki modulu:
+
+index.html
+stage-location.css
+stage-location.js
+data/locations.js

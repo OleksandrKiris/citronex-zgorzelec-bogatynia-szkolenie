@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Przeslo / span</title>
+  <desc id="desc">Rzad szklarni podzielony na mniejsze odcinki miedzy slupami.</desc>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif}
+    .bg{fill:#f7faf8}.frame{fill:#fff;stroke:#d6e1da;stroke-width:4}.row{fill:#eaf8ef;stroke:#2f8f55;stroke-width:5}
+    .span{fill:#f6d65d;stroke:#b38614;stroke-width:5}.post{stroke:#42564a;stroke-width:8;stroke-linecap:round}
+    .plant{fill:#2f8f55}.label{fill:#0f5f3f;font-weight:900;font-size:42px}.small{fill:#42564a;font-weight:800;font-size:24px}
+    .arrow{stroke:#0f5f3f;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;fill:none}
+  </style>
+  <rect class="bg" width="800" height="520" rx="28"/>
+  <rect class="frame" x="48" y="82" width="704" height="310" rx="22"/>
+  <rect class="row" x="86" y="168" width="628" height="118" rx="28"/>
+  <rect class="span" x="316" y="154" width="132" height="146" rx="18"/>
+  <g>
+    <line class="post" x1="184" y1="120" x2="184" y2="340"/>
+    <line class="post" x1="316" y1="120" x2="316" y2="340"/>
+    <line class="post" x1="448" y1="120" x2="448" y2="340"/>
+    <line class="post" x1="580" y1="120" x2="580" y2="340"/>
+  </g>
+  <g opacity=".95">
+    <circle class="plant" cx="120" cy="226" r="17"/><circle class="plant" cx="250" cy="226" r="17"/>
+    <circle class="plant" cx="382" cy="226" r="17"/><circle class="plant" cx="514" cy="226" r="17"/>
+    <circle class="plant" cx="646" cy="226" r="17"/>
+  </g>
+  <path class="arrow" d="M400 408 L400 306"/>
+  <path class="arrow" d="M400 306 L376 332 M400 306 L424 332"/>
+  <text x="400" y="456" text-anchor="middle" class="label">PRZĘSŁO / SPAN</text>
+  <text x="400" y="490" text-anchor="middle" class="small">ПРОЛЁТ / ПРОЛІТ / BÖLMƏ</text>
+</svg>

@@ -1,0 +1,19 @@
+window.TRAINING_DATA = window.TRAINING_DATA || {};
+window.TRAINING_DATA.az = {
+  ui: {
+    appName: 'Citronex Təlimi', location: 'Siechnice', mobileReady: 'Mobil versiya', heroTitle: 'Dili seçin və təlimə başlayın', heroText: 'Bitirdikdən sonra təsdiq ekranını koordinatora göstərin.', startBtn: 'Təlimə başla', resetBtn: 'Yaddaşı təmizlə', phoneHint: 'Linki telefon brauzerində açmaq daha yaxşıdır.', progressTitle: 'Təlimin gedişi', quizLabel: 'Yoxlama testi', quizTitle: 'Suallara cavab verin', finishBtn: 'Təlimi bitir', doneTitle: 'Təlim tamamlandı', nameLabel: 'Ad və soyad', namePlaceholder: 'Ad və soyad', dateLabel: 'Tarix', langLabel: 'Dil', placeLabel: 'Lokasiya', copyBtn: 'Təsdiqi kopyala', showCoordinator: 'Bu ekranı koordinatora göstərin.', footerText: 'Citronex Siechnice məlumat və təlim sistemi', answerAll: 'Bütün suallara cavab verin.', tryAgain: 'Cavabları düzəldin və yenidən cəhd edin.', copied: 'Təsdiq kopyalandı.', noName: 'məlumat yoxdur', confirmHeader: 'TƏLİM TAMAMLANDI'
+  },
+  sections: [
+    { title: 'Gəliş və işə başlama', items: ['Koordinatordan verilən məlumata uyğun vaxtında gəlin.', 'İş başlamazdan əvvəl göstərilən yerdə gözləyin.', 'Briqadir və ya koordinatorun icazəsi olmadan istixanaya tək daxil olmayın.'], notice: 'Gecikirsinizsə, dərhal koordinatora məlumat verin.' },
+    { title: 'Ofis və istixana girişləri', items: ['OFFICE — lokasiya: https://www.google.com/maps/d/edit?mid=1QD04JMl9d4AepFLIV1Kc-ZycNRglwuA&usp=sharing', 'Ofisi necə tapmaq olar: qırmızı kərpic bina, giriş küncdəndir, 2-ci mərtəbə, otaq № 2.', 'GREENHOUSES — əsas giriş xəritəsi: https://www.google.com/maps/d/edit?mid=1VcKjk2pZ1RgER3GV2DrH8u699hZnnts', 'Greenhouse No.1 — Etap 1: https://maps.app.goo.gl/kG99UiAv9FRvb6DG9?g_st=ic', 'Greenhouse No.2 — Etap 2: https://maps.app.goo.gl/kG99UiAv9FRvb6DG9?g_st=ic', 'Greenhouse No.3 — Etap 3: https://maps.google.com?q=51.0173459,17.1570148&entry=gps&shh=CAE&lucs=,94297699,100795625,94231188,94280568,47071704,100809208,94218641,94282134,100799872,94286869&g_st=ic', 'Greenhouse No.4 — Etap 4: https://maps.google.com?q=51.0173459,17.1570148&entry=gps&shh=CAE&lucs=,94297699,100795625,94231188,94280568,47071704,100809208,94218641,94282134,100799872,94286869&g_st=ic', 'Greenhouse No.5 — Etap 5: https://maps.app.goo.gl/ccG5vb6oE26NDsS76?g_st=ic', 'Greenhouse No.6 — Etap 6: https://maps.app.goo.gl/DH8J1Rtea55mXsoTA?g_st=ic'], notice: 'Vacibdir: ilk iş günündən əvvəl öz etapınızı və düzgün girişi yoxlayın.' },
+    { title: 'Təhlükəsizlik', items: ['Verilən iş geyimindən istifadə edin və briqadirin göstərişlərinə əməl edin.', 'İcazə olmadan maşınlara, alətlərə və qurğulara toxunmayın.', 'Qəza, pis hiss etmə və ya problem olduqda dərhal məlumat verin.'] },
+    { title: 'İşin təşkili', items: ['Sizə təyin olunan yerdə işləyin.', 'Etapı, qrupu və ya iş yerini özbaşına dəyişməyin.', 'İş, hotel və ya sənəd problemi barədə koordinatora məlumat verin.'] },
+    { title: 'Hotel qaydaları', items: ['Otaqda, mətbəxdə və ümumi yerlərdə təmizliyə riayət edin.', 'Digər sakinlərə hörmət edin və avadanlığı korlamayın.', 'Texniki problemləri koordinatora bildirin.'] }
+  ],
+  quiz: [
+    { question: 'İşə gecikirsinizsə nə etməlisiniz?', options: ['Heç nə, sonra gəlmək', 'Dərhal koordinatora məlumat vermək', 'Dostdan heç nə deməməsini xahiş etmək'], correct: 1 },
+    { question: 'Etapı və ya iş yerini özbaşına dəyişmək olar?', options: ['Bəli', 'Xeyr, yalnız briqadir və ya koordinatorun razılığı ilə', 'Bəli, boş yer varsa'], correct: 1 },
+    { question: 'Sənəd, hotel və ya iş problemi kimə bildirilməlidir?', options: ['Koordinatora', 'İstənilən adama', 'Bildirmək lazım deyil'], correct: 0 },
+    { question: 'Təlimi bitirdikdən sonra nə etmək lazımdır?', options: ['Telefonu bağlamaq', 'Təsdiq ekranını koordinatora göstərmək', 'Səhifəni silmək'], correct: 1 }
+  ]
+};

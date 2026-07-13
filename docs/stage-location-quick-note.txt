@@ -1,0 +1,5 @@
+Szybka notatka:
+
+Modul wyboru etapu wykorzystuje istniejace linki z data/locations.js.
+Nie dubluje map w kazdym pliku jezykowym.
+Wybor etapu jest zapisywany w tym samym localStorage co szkolenie.

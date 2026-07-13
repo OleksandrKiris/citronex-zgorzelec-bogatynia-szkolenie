@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Gorny wozek / upper trolley</title>
+  <desc id="desc">Wozek roboczy ustawiony przy gornej czesci roslin.</desc>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif}
+    .bg{fill:#f7faf8}.frame{fill:#fff;stroke:#d6e1da;stroke-width:4}.plant{stroke:#2f8f55;stroke-width:18;stroke-linecap:round}
+    .leaf{fill:#65b77b}.mark{fill:#fff7d8;stroke:#d8aa20;stroke-width:5}.cart{fill:#0f5f3f}.wheel{fill:#14211b}
+    .arrow{stroke:#0f5f3f;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;fill:none}
+    .label{fill:#0f5f3f;font-weight:900;font-size:38px}.small{fill:#42564a;font-weight:800;font-size:22px}
+  </style>
+  <rect class="bg" width="800" height="520" rx="28"/>
+  <rect class="frame" x="54" y="72" width="692" height="346" rx="22"/>
+  <line class="plant" x1="230" y1="360" x2="230" y2="130"/>
+  <line class="plant" x1="300" y1="360" x2="300" y2="130"/>
+  <line class="plant" x1="370" y1="360" x2="370" y2="130"/>
+  <ellipse class="leaf" cx="255" cy="170" rx="44" ry="18" transform="rotate(-18 255 170)"/>
+  <ellipse class="leaf" cx="337" cy="190" rx="48" ry="18" transform="rotate(20 337 190)"/>
+  <rect class="mark" x="172" y="112" width="250" height="118" rx="20"/>
+  <rect class="cart" x="480" y="190" width="166" height="54" rx="12"/>
+  <rect class="cart" x="512" y="142" width="104" height="54" rx="12"/>
+  <circle class="wheel" cx="510" cy="258" r="18"/><circle class="wheel" cx="618" cy="258" r="18"/>
+  <path class="arrow" d="M564 340 L564 104"/>
+  <path class="arrow" d="M564 104 L532 138 M564 104 L596 138"/>
+  <text x="400" y="462" text-anchor="middle" class="label">GÓRNY WÓZEK / UPPER TROLLEY</text>
+  <text x="400" y="494" text-anchor="middle" class="small">ВЕРХНЯЯ ТЕЛЕЖКА / YUXARI ARABA</text>
+</svg>

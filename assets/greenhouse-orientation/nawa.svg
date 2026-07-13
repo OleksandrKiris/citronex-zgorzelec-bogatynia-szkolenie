@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Nawa / bay</title>
+  <desc id="desc">Uproszczony plan szklarni z zaznaczona jedna nawa.</desc>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif}
+    .bg{fill:#f7faf8}.frame{fill:#fff;stroke:#d6e1da;stroke-width:4}
+    .plant{fill:#2f8f55}.plant2{fill:#65b77b}.mark{fill:#f6d65d;stroke:#b38614;stroke-width:5}
+    .label{fill:#0f5f3f;font-weight:900;font-size:44px}.small{fill:#42564a;font-weight:800;font-size:24px}
+    .arrow{stroke:#0f5f3f;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;fill:none}
+  </style>
+  <rect class="bg" width="800" height="520" rx="28"/>
+  <rect class="frame" x="50" y="72" width="700" height="342" rx="22"/>
+  <rect class="mark" x="176" y="102" width="94" height="282" rx="16"/>
+  <g opacity=".95">
+    <rect class="plant" x="92" y="112" width="54" height="260" rx="18"/>
+    <rect class="plant2" x="188" y="112" width="54" height="260" rx="18"/>
+    <rect class="plant" x="284" y="112" width="54" height="260" rx="18"/>
+    <rect class="plant" x="380" y="112" width="54" height="260" rx="18"/>
+    <rect class="plant2" x="476" y="112" width="54" height="260" rx="18"/>
+    <rect class="plant" x="572" y="112" width="54" height="260" rx="18"/>
+    <rect class="plant2" x="668" y="112" width="34" height="260" rx="17"/>
+  </g>
+  <path class="arrow" d="M420 430 C360 390 300 360 240 334"/>
+  <path class="arrow" d="M240 334 L273 331 M240 334 L260 360"/>
+  <text x="400" y="470" text-anchor="middle" class="label">NAWA / BAY</text>
+  <text x="400" y="500" text-anchor="middle" class="small">ЛАВА / NAVA</text>
+</svg>

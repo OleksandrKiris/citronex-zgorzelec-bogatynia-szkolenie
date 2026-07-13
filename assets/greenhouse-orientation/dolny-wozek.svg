@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Dolny wozek / lower trolley</title>
+  <desc id="desc">Wozek na dolnym poziomie przy roslinach i transporcie.</desc>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif}
+    .bg{fill:#f7faf8}.frame{fill:#fff;stroke:#d6e1da;stroke-width:4}.plant{stroke:#2f8f55;stroke-width:18;stroke-linecap:round}
+    .leaf{fill:#65b77b}.low{fill:#fff7d8;stroke:#d8aa20;stroke-width:5}.cart{fill:#0f5f3f}.box{fill:#f6d65d;stroke:#b38614;stroke-width:4}
+    .wheel{fill:#14211b}.arrow{stroke:#0f5f3f;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;fill:none}
+    .label{fill:#0f5f3f;font-weight:900;font-size:38px}.small{fill:#42564a;font-weight:800;font-size:22px}
+  </style>
+  <rect class="bg" width="800" height="520" rx="28"/>
+  <rect class="frame" x="54" y="72" width="692" height="346" rx="22"/>
+  <line class="plant" x1="240" y1="360" x2="240" y2="128"/>
+  <line class="plant" x1="316" y1="360" x2="316" y2="128"/>
+  <line class="plant" x1="392" y1="360" x2="392" y2="128"/>
+  <ellipse class="leaf" cx="270" cy="284" rx="44" ry="18" transform="rotate(18 270 284)"/>
+  <ellipse class="leaf" cx="354" cy="316" rx="48" ry="18" transform="rotate(-18 354 316)"/>
+  <rect class="low" x="182" y="278" width="252" height="102" rx="20"/>
+  <rect class="cart" x="488" y="292" width="170" height="54" rx="12"/>
+  <rect class="box" x="524" y="244" width="44" height="48" rx="6"/>
+  <rect class="box" x="578" y="244" width="44" height="48" rx="6"/>
+  <circle class="wheel" cx="520" cy="360" r="18"/><circle class="wheel" cx="626" cy="360" r="18"/>
+  <path class="arrow" d="M570 122 L570 250"/>
+  <path class="arrow" d="M570 250 L540 218 M570 250 L600 218"/>
+  <text x="400" y="462" text-anchor="middle" class="label">DOLNY WÓZEK / LOWER TROLLEY</text>
+  <text x="400" y="494" text-anchor="middle" class="small">НИЖНЯЯ ТЕЛЕЖКА / AŞAĞI ARABA</text>
+</svg>
