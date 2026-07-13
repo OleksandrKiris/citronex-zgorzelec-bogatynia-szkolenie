@@ -2316,9 +2316,41 @@ details.ban-section .ban-section-head {
 }
 
 .app-version-footer {
-  padding: 10px 0 0;
-  opacity: .78;
+  margin: 24px 0 0;
+  padding: 13px 12px;
+  border: 1px solid rgba(22, 101, 52, .14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .82);
+  box-shadow: 0 10px 24px rgba(17, 24, 39, .05);
+  color: var(--muted);
   font-size: 12px;
+  font-weight: 750;
+  line-height: 1.35;
+  text-align: center;
+  display: grid;
+  gap: 5px;
+  justify-items: center;
+}
+
+.version-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 6px 11px;
+  border: 1px solid rgba(22, 101, 52, .18);
+  border-radius: 999px;
+  background: var(--green-soft);
+  color: var(--green);
+  font-size: 12px;
+  line-height: 1.1;
+  font-weight: 950;
+}
+
+.version-technical {
+  color: rgba(75, 85, 99, .72);
+  font-size: 11px;
+  overflow-wrap: anywhere;
 }
 
 @media (min-width: 760px) {

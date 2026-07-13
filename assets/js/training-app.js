@@ -207,11 +207,38 @@
   function renderVersionFooter() {
     const main = app.querySelector("main.page");
     if (!main || main.querySelector(".app-version-footer")) return;
-    const version = DATA.meta && DATA.meta.version ? DATA.meta.version : "dev";
+    const technicalVersion = DATA.meta && DATA.meta.version ? DATA.meta.version : "dev";
+    const displayVersion = DATA.meta && DATA.meta.displayVersion ? DATA.meta.displayVersion : technicalVersion;
+    const versionLabel = text(tx("Wersja", "Version", "Версія", "Версия", "Versiya", "Versión", "Bersyon", "Versi", "संस्करण"));
+    const currentLabel = text(tx(
+      "Aktualne szkolenie dla tej lokalizacji.",
+      "Current training for this location.",
+      "Актуальне навчання для цієї локації.",
+      "Актуальное обучение для этой локации.",
+      "Bu lokasiya üçün aktual təlim.",
+      "Formación actual para esta ubicación.",
+      "Kasalukuyang training para sa lokasyong ito.",
+      "Pelatihan terbaru untuk lokasi ini.",
+      "यो स्थानका लागि हालको तालिम।"
+    ));
+    const pagesLabel = text(tx(
+      "GitHub Pages · działa w przeglądarce · offline po pierwszym otwarciu",
+      "GitHub Pages · works in the browser · offline after first opening",
+      "GitHub Pages · працює в браузері · офлайн після першого відкриття",
+      "GitHub Pages · работает в браузере · офлайн после первого открытия",
+      "GitHub Pages · brauzerdə işləyir · ilk açılışdan sonra offline",
+      "GitHub Pages · funciona en el navegador · offline después de abrir una vez",
+      "GitHub Pages · gumagana sa browser · offline pagkatapos ng unang bukas",
+      "GitHub Pages · berjalan di browser · offline setelah pertama dibuka",
+      "GitHub Pages · ब्राउजरमा चल्छ · पहिलो पटक खोलेपछि अफलाइन"
+    ));
     main.insertAdjacentHTML("beforeend", `
-      <p class="footer-note app-version-footer">
-        GitHub Pages &middot; offline cache &middot; v${esc(version)}
-      </p>
+      <footer class="app-version-footer" aria-label="${esc(versionLabel)}">
+        <span class="version-chip">${esc(versionLabel)}: ${esc(displayVersion)}</span>
+        <span>${esc(currentLabel)}</span>
+        <span>${esc(pagesLabel)}</span>
+        <span class="version-technical">v${esc(technicalVersion)}</span>
+      </footer>
     `);
   }
 

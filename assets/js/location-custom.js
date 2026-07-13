@@ -3,7 +3,8 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260713-contacts1-zgorzelec-bogatynia",
+    "version": "20260713-version1-zgorzelec-bogatynia",
+    "displayVersion": "2026-07-13",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
     "repo": "citronex-zgorzelec-bogatynia-szkolenie",
