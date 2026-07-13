@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260713-accommodation1-zgorzelec-bogatynia",
+    "version": "20260713-priority-contacts1-zgorzelec-bogatynia",
     "displayVersion": "2026-07-13",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
@@ -918,6 +918,38 @@
     }
   ],
   "contacts": {
+    "priority": [
+      {
+        "name": "Anastasiia Derepa",
+        "role": {
+          "pl": "Bogatynia / Zgorzelec - rekrutacja i koordynacja",
+          "en": "Bogatynia / Zgorzelec - recruitment and coordination",
+          "ua": "Bogatynia / Zgorzelec - рекрутація і координація",
+          "ru": "Bogatynia / Zgorzelec - рекрутация и координация",
+          "az": "Bogatynia / Zgorzelec - işə qəbul və koordinasiya",
+          "es": "Bogatynia / Zgorzelec - reclutamiento y coordinación",
+          "fil": "Bogatynia / Zgorzelec - recruitment at coordination",
+          "id": "Bogatynia / Zgorzelec - rekrutmen dan koordinasi",
+          "ne": "Bogatynia / Zgorzelec - भर्ती र समन्वय"
+        },
+        "phone": "+48 797 684 159"
+      },
+      {
+        "name": "Nataliia",
+        "phone": "+48609809601",
+        "role": {
+          "pl": "Zakwaterowanie - Bogatynia",
+          "en": "Accommodation - Bogatynia",
+          "ua": "Житло - Bogatynia",
+          "ru": "Жильё - Bogatynia",
+          "az": "Yaşayış yeri - Bogatynia",
+          "es": "Alojamiento - Bogatynia",
+          "fil": "Tirahan - Bogatynia",
+          "id": "Akomodasi - Bogatynia",
+          "ne": "बसोबास - Bogatynia"
+        }
+      }
+    ],
     "coordinators": [
       {
         "name": "Anastasiia Derepa",

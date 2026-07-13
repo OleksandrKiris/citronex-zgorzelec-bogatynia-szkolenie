@@ -652,19 +652,44 @@
       `;
     }
 
+    const greenhouseEntries = Object.entries(DATA.contacts.greenhouse || {});
+    const accommodationEntries = greenhouseEntries.filter(([stage]) => stage.toLowerCase().includes("zakwater"));
+    const otherGreenhouseEntries = greenhouseEntries.filter(([stage]) => !stage.toLowerCase().includes("zakwater"));
     const groups = [
       { id: "coordinators", label: text(tx("Koordynatorzy", "Coordinators", "Координатори", "Координаторы", "Koordinatorlar", "Coordinadores", "Coordinators", "Koordinator", "कोर्डिनेटरहरू")), people: DATA.contacts.coordinators, tag: text(tx("Koordynator", "Coordinator", "Координатор", "Координатор", "Koordinator", "Coordinador", "Coordinator", "Koordinator", "कोर्डिनेटर")) },
+      ...accommodationEntries.map(([stage, people]) => ({ id: stage, label: stage, people, tag: stage })),
       { id: "warehouse", label: text(tx("Magazyn", "Warehouse", "Склад", "Склад", "Anbar", "Almacén", "Warehouse", "Gudang", "गोदाम")), people: DATA.contacts.warehouse, tag: text(tx("Magazyn", "Warehouse", "Склад", "Склад", "Anbar", "Almacén", "Warehouse", "Gudang", "गोदाम")) },
-      ...Object.entries(DATA.contacts.greenhouse).map(([stage, people]) => ({ id: stage, label: stage, people, tag: stage }))
+      ...otherGreenhouseEntries.map(([stage, people]) => ({ id: stage, label: stage, people, tag: stage }))
     ];
 
     const current = groups.find((group) => group.id === activeGroup) || groups[0];
     const pills = groups.map((group) => `<button class="pill${group.id === current.id ? " active" : ""}" type="button" data-contact-group="${esc(group.id)}">${esc(group.label)}</button>`).join("");
     const people = current.people.map((person) => personCard(person, current.tag)).join("");
+    const priorityContacts = Array.isArray(DATA.contacts.priority) ? DATA.contacts.priority : [];
+    const priorityTitle = text(tx("Najważniejsze kontakty", "Most important contacts", "Найважливіші контакти", "Самые важные контакты", "Ən vacib kontaktlar", "Contactos más importantes", "Pinakamahalagang contact", "Kontak paling penting", "सबैभन्दा महत्वपूर्ण सम्पर्क"));
+    const priorityLead = text(tx(
+      "Te osoby są pokazane na górze, żeby nie szukać ich w zakładkach.",
+      "These people are shown at the top so you do not need to search in tabs.",
+      "Ці люди показані зверху, щоб не шукати їх у вкладках.",
+      "Эти люди показаны сверху, чтобы не искать их во вкладках.",
+      "Bu şəxslər yuxarıda göstərilir ki, bölmələrdə axtarmağa ehtiyac olmasın.",
+      "Estas personas están arriba para no buscarlas en pestañas.",
+      "Nasa itaas ang mga taong ito para hindi na hanapin sa tabs.",
+      "Orang-orang ini ditampilkan di atas agar tidak perlu mencari di tab.",
+      "यी व्यक्तिहरू माथि देखाइएका छन्, ताकि ट्याबमा खोज्नु नपरोस्।"
+    ));
+    const prioritySection = priorityContacts.length ? `
+        <section class="card yellow section">
+          <h2>${esc(priorityTitle)}</h2>
+          <p>${esc(priorityLead)}</p>
+          <div class="contact-group">${priorityContacts.map((person) => personCard(person)).join("")}</div>
+        </section>
+    ` : "";
 
     app.innerHTML = `
       <main class="page">
         ${pageHero()}
+        ${prioritySection}
         <section class="section">
           <div class="pill-row">${pills}</div>
           <h2>${esc(current.label)}</h2>
