@@ -9,6 +9,11 @@ function loadData(root = DEFAULT_ROOT) {
   const dataCode = fs.readFileSync(dataPath, "utf8");
   const context = { window: {} };
   vm.runInNewContext(dataCode, context, { filename: dataPath });
+  const customPath = path.join(root, "assets", "js", "location-custom.js");
+  if (fs.existsSync(customPath)) {
+    const customCode = fs.readFileSync(customPath, "utf8");
+    vm.runInNewContext(customCode, context, { filename: customPath });
+  }
   return context.window.CX_DATA;
 }
 

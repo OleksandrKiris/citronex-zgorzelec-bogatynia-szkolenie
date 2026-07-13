@@ -1,24 +1,104 @@
 {
   "links": [
     {
-      "id": "spotkanie",
-      "label": "Punkt spotkania - Zgorzelec / Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia"
+      "id": "spotkanieZgorzelec",
+      "label": "Punkt spotkania - Zgorzelec",
+      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20punkt%20spotkania%20Polskie%20Pomidory"
+    },
+    {
+      "id": "spotkanieBogatynia",
+      "label": "Punkt spotkania - Bogatynia",
+      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20punkt%20spotkania%20Polskie%20Pomidory"
+    },
+    {
+      "id": "workplaceZgorzelec",
+      "label": "Miejsce pracy / szklarnia - Zgorzelec",
+      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20szklarnia%20Polskie%20Pomidory"
+    },
+    {
+      "id": "workplaceBogatynia",
+      "label": "Miejsce pracy / szklarnia - Bogatynia",
+      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20szklarnia%20Polskie%20Pomidory"
     },
     {
       "id": "warehouse",
-      "label": "Magazyn / miejsce pracy - Zgorzelec / Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20magazyn"
+      "label": "Magazyn główny - do wyboru",
+      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20magazyn%20Polskie%20Pomidory"
+    },
+    {
+      "id": "warehouseZgorzelec",
+      "label": "Magazyn - Zgorzelec",
+      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20magazyn%20Polskie%20Pomidory"
+    },
+    {
+      "id": "warehouseBogatynia",
+      "label": "Magazyn - Bogatynia",
+      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20magazyn%20Polskie%20Pomidory"
     },
     {
       "id": "oldWarehouse",
-      "label": "Stary magazyn",
+      "label": "Stary magazyn / punkt zapasowy",
       "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20stary%20magazyn"
     },
     {
+      "id": "staffEntranceZgorzelec",
+      "label": "Wejście dla personelu - Zgorzelec",
+      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20wej%C5%9Bcie%20dla%20personelu%20Polskie%20Pomidory"
+    },
+    {
+      "id": "staffEntranceBogatynia",
+      "label": "Wejście dla personelu - Bogatynia",
+      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20wej%C5%9Bcie%20dla%20personelu%20Polskie%20Pomidory"
+    },
+    {
+      "id": "parkingZgorzelec",
+      "label": "Parking / wysiadka - Zgorzelec",
+      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20parking%20Polskie%20Pomidory"
+    },
+    {
+      "id": "parkingBogatynia",
+      "label": "Parking / wysiadka - Bogatynia",
+      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20parking%20Polskie%20Pomidory"
+    },
+    {
       "id": "office",
-      "label": "Urząd / centrum - Zgorzelec / Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=urz%C4%85d%20Zgorzelec%20Bogatynia"
+      "label": "Biuro / administracja",
+      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20biuro%20Polskie%20Pomidory"
+    },
+    {
+      "id": "busStopZgorzelec",
+      "label": "Przystanek / transport - Zgorzelec",
+      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20przystanek%20autobusowy"
+    },
+    {
+      "id": "busStopBogatynia",
+      "label": "Przystanek / transport - Bogatynia",
+      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20przystanek%20autobusowy"
+    },
+    {
+      "id": "localOfficeZgorzelec",
+      "label": "Urząd lokalny - Zgorzelec",
+      "url": "https://www.google.com/maps/search/?api=1&query=urz%C4%85d%20Zgorzelec"
+    },
+    {
+      "id": "localOfficeBogatynia",
+      "label": "Urząd lokalny - Bogatynia",
+      "url": "https://www.google.com/maps/search/?api=1&query=urz%C4%85d%20Bogatynia"
+    },
+    {
+      "id": "banksZgorzelec",
+      "label": "Banki i bankomaty - Zgorzelec",
+      "url": "https://www.google.com/maps/search/?api=1&query=bank%20bankomat%20Zgorzelec"
+    },
+    {
+      "id": "banksBogatynia",
+      "label": "Banki i bankomaty - Bogatynia",
+      "url": "https://www.google.com/maps/search/?api=1&query=bank%20bankomat%20Bogatynia"
+    },
+    {
+      "id": "shopPharmacy",
+      "label": "Sklep / apteka - okolica",
+      "url": "https://www.google.com/maps/search/?api=1&query=apteka%20sklep%20Zgorzelec%20Bogatynia"
     }
   ]
 }
