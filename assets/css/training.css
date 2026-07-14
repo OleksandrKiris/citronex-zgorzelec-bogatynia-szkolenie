@@ -5304,3 +5304,515 @@ body.location-splash-open {
   text-align: center;
   line-height: 1.05;
 }
+
+/* Greenhouse orientation polish: three calm screens, no extra place finder. */
+body[data-page="szklarnia"] .greenhouse-steps {
+  gap: 14px;
+}
+
+body[data-page="szklarnia"] .orientation-legend {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid rgba(15, 23, 42, .08);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, .07);
+}
+
+body[data-page="szklarnia"] .orientation-legend strong {
+  grid-column: 1 / -1;
+  color: #0f172a;
+  font-size: 13px;
+}
+
+body[data-page="szklarnia"] .orientation-legend span {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-align: center;
+}
+
+body[data-page="szklarnia"] .greenhouse-step-tabs {
+  gap: 8px;
+  margin-top: 10px;
+}
+
+body[data-page="szklarnia"] .greenhouse-step-tab {
+  min-height: 58px;
+  border-radius: 16px;
+  background: #f8fafc;
+}
+
+body[data-page="szklarnia"] .greenhouse-step-tab.is-active {
+  outline: 2px solid rgba(22, 101, 52, .26);
+  background: linear-gradient(180deg, #dcfce7, #ffffff);
+}
+
+body[data-page="szklarnia"] .greenhouse-steps .step-card {
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid rgba(15, 23, 42, .08);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 8% 4%, rgba(34, 197, 94, .11), transparent 34%),
+    linear-gradient(180deg, #ffffff, #f8fafc);
+  box-shadow: 0 16px 38px rgba(15, 23, 42, .08);
+}
+
+body[data-page="szklarnia"] .greenhouse-steps .step-card > div > h3 {
+  margin: 0 0 8px;
+  color: #0f172a;
+  font-size: clamp(19px, 5.2vw, 26px);
+  line-height: 1.05;
+}
+
+body[data-page="szklarnia"] .greenhouse-steps .step-card > div > p {
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  border-left: 4px solid #16a34a;
+  border-radius: 14px;
+  background: #f0fdf4;
+  color: #14532d;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+body[data-page="szklarnia"] .greenhouse-steps .schema {
+  position: relative;
+  overflow: hidden;
+  padding: 10px;
+  border: 1px solid rgba(15, 23, 42, .08);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,250,252,.96)),
+    repeating-linear-gradient(135deg, rgba(148,163,184,.10) 0 8px, transparent 8px 18px);
+}
+
+body[data-page="szklarnia"] .greenhouse-3d-overview {
+  min-height: min(420px, 66vh);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, .04), transparent 18%),
+    #ecfdf5;
+  transform: perspective(900px) rotateX(2deg);
+  transform-origin: center bottom;
+}
+
+body[data-page="szklarnia"] .greenhouse-3d-overview .green-side {
+  gap: 4px;
+  padding: 42px 6px 24px;
+  border-radius: 16px;
+  background:
+    linear-gradient(90deg, rgba(21, 128, 61, .10), transparent 16%, transparent 84%, rgba(21, 128, 61, .10)),
+    repeating-linear-gradient(180deg, #bbf7d0 0 18px, #dcfce7 18px 34px);
+  box-shadow: inset 0 0 0 1px rgba(22, 101, 52, .14);
+}
+
+body[data-page="szklarnia"] .greenhouse-3d-overview .nave-cell {
+  min-height: 24px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, .58);
+  box-shadow: inset 0 0 0 1px rgba(22, 101, 52, .12);
+}
+
+body[data-page="szklarnia"] .greenhouse-3d-overview .center-road {
+  min-width: 54px;
+  border-radius: 16px;
+  color: #78350f;
+  font-size: 11px;
+  font-weight: 950;
+  text-align: center;
+  box-shadow: inset 0 0 0 1px rgba(180, 83, 9, .18);
+}
+
+body[data-page="szklarnia"] .orientation-badge {
+  border: 1px solid rgba(15, 23, 42, .10);
+  background: rgba(255, 255, 255, .94);
+  color: #0f172a;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, .11);
+}
+
+body[data-page="szklarnia"] .nave-rows,
+body[data-page="szklarnia"] .passage-depth {
+  display: none !important;
+}
+
+body[data-page="szklarnia"] .nave-3d-view {
+  gap: 8px !important;
+  min-height: 305px;
+  padding: 56px 8px 18px;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, #e0f2fe, #f8fafc 34%, #ecfdf5);
+  perspective: 950px;
+}
+
+body[data-page="szklarnia"] .nave-3d-view .nave-entry {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(15, 23, 42, .10);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .74);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, .10);
+}
+
+body[data-page="szklarnia"] .nave-3d-view .nave-entry.is-active {
+  transform: perspective(760px) rotateX(2deg) translateY(-4px) scale(1.025) !important;
+  box-shadow: 0 18px 34px rgba(22, 101, 52, .20);
+}
+
+body[data-page="szklarnia"] .nave-3d-view .nave-pick-btn {
+  min-height: 46px !important;
+  border-radius: 14px 14px 8px 8px;
+  background: #dbeafe;
+  color: #1e3a8a;
+  font-size: 17px !important;
+  font-weight: 1000;
+}
+
+body[data-page="szklarnia"] .nave-3d-view .nave-pick-btn.is-active {
+  background: #16a34a;
+  color: #fff;
+}
+
+body[data-page="szklarnia"] .nave-3d-view .entry-two-rows {
+  min-height: 210px;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(20px, .46fr) minmax(0, 1fr);
+  gap: 3px;
+  padding: 4px;
+}
+
+body[data-page="szklarnia"] .nave-3d-view .nave-side {
+  min-width: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 8px 2px;
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 50% 12px, rgba(22, 101, 52, .82) 0 3px, transparent 4px),
+    repeating-linear-gradient(180deg, #86efac 0 13px, #bbf7d0 13px 26px);
+  background-size: 22px 32px, auto;
+}
+
+body[data-page="szklarnia"] .nave-3d-view .entry-corridor {
+  min-width: 18px;
+  border-radius: 9px;
+  background:
+    linear-gradient(90deg, rgba(120, 53, 15, .12), transparent 40%, rgba(120, 53, 15, .12)),
+    repeating-linear-gradient(180deg, #fef3c7 0 16px, #fde68a 16px 32px);
+}
+
+body[data-page="szklarnia"] .nave-3d-view .entry-corridor small {
+  display: none;
+}
+
+body[data-page="szklarnia"] .nave-guide-panel {
+  margin-top: 10px;
+  border-radius: 18px;
+  background: #eff6ff;
+}
+
+body[data-page="szklarnia"] .passage-3d-view {
+  min-height: 420px;
+  grid-template-columns: minmax(0, 1fr) clamp(58px, 18vw, 82px) minmax(0, 1fr) !important;
+  gap: clamp(7px, 2.5vw, 14px);
+  align-items: stretch;
+  padding: 58px 8px 18px;
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, #e0f2fe 0, #f8fafc 24%, #ecfdf5 100%);
+}
+
+body[data-page="szklarnia"] .passage-3d-view .row-side,
+body[data-page="szklarnia"] .passage-3d-view .work-passage {
+  min-height: 340px;
+  border-radius: 18px;
+  transform: perspective(850px) rotateX(5deg) !important;
+}
+
+body[data-page="szklarnia"] .passage-3d-view .row-side {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 16px 6px;
+  color: #052e16;
+  font-size: 13px;
+  font-weight: 950;
+  line-height: 1.12;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255,255,255,.82);
+}
+
+body[data-page="szklarnia"] .passage-3d-view .work-passage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body[data-page="szklarnia"] .passage-3d-view .floor-number-strip.in-passage {
+  width: min(56px, 100%);
+  max-height: none;
+  margin: 0 auto;
+  border: 1px solid rgba(180, 83, 9, .16);
+  background: rgba(255,255,255,.88);
+}
+
+body[data-page="szklarnia"] .passage-3d-view .floor-number-strip.in-passage span {
+  min-height: 25px;
+  font-weight: 1000;
+}
+
+body[data-page="szklarnia"] .passage-3d-view .passage-label {
+  top: 22px;
+  max-width: 90px;
+  background: #0f172a;
+  font-size: 11px;
+}
+
+body[data-page="szklarnia"] .floor-note {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #fffbeb;
+  color: #713f12;
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.32;
+}
+
+body[data-page="szklarnia"] .orientation-route {
+  margin-top: 10px;
+  border-radius: 16px;
+}
+
+body[data-page="szklarnia"] .greenhouse-work {
+  margin-top: 16px;
+}
+
+@media (max-width: 430px) {
+  body[data-page="szklarnia"] .orientation-legend {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  body[data-page="szklarnia"] .orientation-legend span {
+    min-height: 31px;
+    font-size: 10px;
+  }
+
+  body[data-page="szklarnia"] .greenhouse-steps .step-card {
+    grid-template-columns: 36px minmax(0, 1fr);
+    padding: 10px;
+  }
+
+  body[data-page="szklarnia"] .greenhouse-step-tab {
+    min-height: 52px;
+    font-size: 10px;
+  }
+
+  body[data-page="szklarnia"] .greenhouse-steps .step-card > div > p {
+    font-size: 13px;
+    padding: 9px 10px;
+  }
+
+  body[data-page="szklarnia"] .greenhouse-3d-overview {
+    min-height: 360px;
+  }
+
+  body[data-page="szklarnia"] .nave-3d-view {
+    min-height: 282px;
+    gap: 5px !important;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  body[data-page="szklarnia"] .nave-3d-view .entry-two-rows {
+    min-height: 188px;
+    grid-template-columns: minmax(0, 1fr) 16px minmax(0, 1fr);
+    gap: 2px;
+  }
+
+  body[data-page="szklarnia"] .nave-3d-view .nave-side small {
+    font-size: 9px;
+    line-height: 1.05;
+  }
+
+  body[data-page="szklarnia"] .passage-3d-view {
+    min-height: 390px;
+    padding: 54px 5px 14px;
+  }
+
+  body[data-page="szklarnia"] .passage-3d-view .row-side,
+  body[data-page="szklarnia"] .passage-3d-view .work-passage {
+    min-height: 310px;
+  }
+
+  body[data-page="szklarnia"] .passage-3d-view .row-side {
+    font-size: 11px;
+    padding: 13px 4px;
+  }
+
+  body[data-page="szklarnia"] .passage-3d-view .floor-number-strip.in-passage {
+    width: 46px;
+    padding: 5px;
+  }
+}
+
+/* Greenhouse small-screen guard and collapsed work notes. */
+body[data-page="szklarnia"] .page,
+body[data-page="szklarnia"] .section,
+body[data-page="szklarnia"] .greenhouse-steps,
+body[data-page="szklarnia"] .greenhouse-step-tabs,
+body[data-page="szklarnia"] .greenhouse-steps .step-card,
+body[data-page="szklarnia"] .greenhouse-steps .schema {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+body[data-page="szklarnia"] .greenhouse-step-tabs {
+  width: calc(100vw - 28px) !important;
+  inline-size: calc(100vw - 28px) !important;
+  max-width: calc(100vw - 28px) !important;
+  max-inline-size: calc(100vw - 28px) !important;
+  display: flex !important;
+  justify-self: center;
+  align-self: stretch;
+}
+
+body[data-page="szklarnia"] .greenhouse-step-tab {
+  min-width: 0;
+  width: auto;
+  max-width: none;
+  flex: 1 1 0;
+  white-space: normal;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  overflow: hidden;
+  text-wrap: balance;
+}
+
+body[data-page="szklarnia"] .greenhouse-steps .step-card {
+  width: calc(100vw - 24px) !important;
+  inline-size: calc(100vw - 24px) !important;
+  max-width: calc(100vw - 24px) !important;
+  max-inline-size: calc(100vw - 24px) !important;
+  justify-self: center;
+}
+
+body[data-page="szklarnia"] .greenhouse-map,
+body[data-page="szklarnia"] .greenhouse-3d-overview,
+body[data-page="szklarnia"] .nave-3d-view,
+body[data-page="szklarnia"] .passage-3d-view {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box;
+}
+
+body[data-page="szklarnia"] .hero h1 {
+  max-width: 100%;
+  font-size: clamp(28px, 9vw, 38px);
+  overflow-wrap: anywhere;
+}
+
+body[data-page="szklarnia"] .greenhouse-3d-overview .overview-left {
+  left: 10px;
+  max-width: calc(50% - 24px);
+}
+
+body[data-page="szklarnia"] .greenhouse-3d-overview .overview-right {
+  right: 10px;
+  max-width: calc(50% - 24px);
+}
+
+body[data-page="szklarnia"] .greenhouse-3d-overview .overview-look,
+body[data-page="szklarnia"] .greenhouse-3d-overview .overview-stand,
+body[data-page="szklarnia"] .greenhouse-3d-overview .overview-back {
+  max-width: calc(100% - 28px);
+}
+
+body[data-page="szklarnia"] .greenhouse-work-details {
+  padding: 0;
+  overflow: hidden;
+}
+
+body[data-page="szklarnia"] .greenhouse-work-details > summary {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  color: #0f172a;
+  font-size: 17px;
+  font-weight: 950;
+  list-style: none;
+}
+
+body[data-page="szklarnia"] .greenhouse-work-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+body[data-page="szklarnia"] .greenhouse-work-details > summary::after {
+  content: "+";
+  width: 34px;
+  height: 34px;
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #dcfce7;
+  color: #14532d;
+  font-size: 22px;
+  line-height: 1;
+}
+
+body[data-page="szklarnia"] .greenhouse-work-details[open] > summary::after {
+  content: "-";
+}
+
+body[data-page="szklarnia"] .greenhouse-work-details .green-flow,
+body[data-page="szklarnia"] .greenhouse-work-details .module-grid {
+  margin: 0 14px 14px;
+}
+
+body[data-page="szklarnia"] .greenhouse-work-details .green-flow {
+  padding: 12px;
+  border: 1px solid rgba(22, 101, 52, .14);
+  border-radius: 16px;
+  background: #f0fdf4;
+}
+
+@media (max-width: 390px) {
+  body[data-page="szklarnia"] .greenhouse-step-tabs {
+    gap: 6px;
+  }
+
+  body[data-page="szklarnia"] .greenhouse-step-tab {
+    min-height: 50px;
+    padding: 6px 4px;
+    font-size: 9.5px;
+  }
+
+  body[data-page="szklarnia"] .greenhouse-step-tab span {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+  }
+}

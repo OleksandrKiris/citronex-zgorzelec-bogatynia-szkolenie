@@ -671,7 +671,7 @@
                   <div class="work-passage">
                     <span class="passage-label">${esc(text(tx("przejście", "passage", "прохід", "проход", "keçid", "pasillo", "daanan", "lorong", "पासेज")))}</span>
                     <div class="floor-number-strip in-passage" aria-label="${esc(text(tx("Numeracja przęseł na podłodze", "Section numbers on the floor", "Нумерація секцій на підлозі", "Нумерация секций на полу", "Yerdə bölmə nömrələri", "Números de sección en el suelo", "Mga numero ng seksyon sa sahig", "Nomor bagian di lantai", "भुइँमा सेक्शन नम्बर"))) }">
-                      <span>27</span><span>26</span><span>25</span><span>...</span><span>3</span><span>2</span><span>1</span>
+                      <span>1</span><span>2</span><span>3</span><span>...</span><span>25</span><span>26</span><span>27</span>
                     </div>
                   </div>
                   <div class="row-side">${esc(text(tx("prawa strona / prawy rząd", "right side / right row", "права сторона / правий ряд", "правая сторона / правый ряд", "sağ tərəf / sağ sıra", "lado derecho / fila derecha", "kanang bahagi / kanang hanay", "sisi kanan / baris kanan", "दायाँ भाग / दायाँ लाइन")))}</div>
@@ -682,17 +682,18 @@
           </article>
         </section>
         <section class="section greenhouse-work">
-          <h2>${esc(text(tx("Jak użyć tego w pracy", "How to use this at work", "Як використати це в роботі", "Как использовать это в работе", "Bunu işdə necə istifadə etmək", "Cómo usar esto en el trabajo", "Paano ito gamitin sa trabaho", "Cara memakai ini saat kerja", "काममा यसलाई कसरी प्रयोग गर्ने")))}</h2>
-          <section class="card green-flow">
+          <details class="card greenhouse-work-details">
+            <summary>${esc(text(tx("Jak użyć tego w pracy", "How to use this at work", "Як використати це в роботі", "Как использовать это в работе", "Bunu işdə necə istifadə etmək", "Cómo usar esto en el trabajo", "Paano ito gamitin sa trabaho", "Cara memakai ini saat kerja", "काममा यसलाई कसरी प्रयोग गर्ने")))}</summary>
+          <section class="green-flow">
             <h3>${esc(text(tx("Szukaj miejsca zawsze w tej kolejności", "Always find the place in this order", "Завжди шукайте місце в такій черзі", "Всегда ищите место в таком порядке", "Yeri həmişə bu ardıcıllıqla tapın", "Busca el lugar siempre en este orden", "Hanapin ang lugar palagi sa ganitong ayos", "Cari tempat selalu dengan urutan ini", "ठाउँ सधैं यही क्रममा खोज्नुहोस्")))}</h3>
             <div class="work-flow">${flowChips}</div>
           </section>
           <section class="module-grid two section">${workCardsHtml}</section>
+          </details>
         </section>
         ${tabletLinkCard("yellow")}
       </main>
     `;
-    setupGreenhousePathBuilder(document);
     setupGreenhouseStepViewer(document);
     setupGreenhouseNavePicker(document);
     setupGreenhouseFullscreen();
