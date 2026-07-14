@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260714-phonefit2-zgorzelec-bogatynia",
+    "version": "20260714-telegram-groups1-zgorzelec-bogatynia",
     "displayVersion": "2026-07-13",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
@@ -1053,7 +1053,7 @@
         "id": "Kanal informasi.",
         "ne": "सूचना च्यानल।"
       },
-      "url": "https://t.me/robota_citronex",
+      "url": "https://telegram.me/robota_citronex",
       "tone": "blue"
     },
     {
@@ -1079,7 +1079,7 @@
         "id": "Kanal untuk penutur Azerbaijan.",
         "ne": "अजरबैजानी भाषीका लागि च्यानल।"
       },
-      "url": "https://t.me/poloniawork_citronex",
+      "url": "https://telegram.me/poloniawork_citronex",
       "tone": "blue"
     }
   ],

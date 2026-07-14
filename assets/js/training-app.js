@@ -79,6 +79,11 @@
     return `viber://chat?number=${encodeURIComponent(number)}${suffix}`;
   }
 
+  function telegramAppHref(url = "") {
+    const match = String(url).match(/(?:t\.me|telegram\.me)\/([A-Za-z0-9_]+)/i);
+    return match ? `tg://resolve?domain=${encodeURIComponent(match[1])}` : "";
+  }
+
   function cardClass(tone) {
     return tone ? `card ${tone}` : "card";
   }
@@ -1167,7 +1172,11 @@
     const cards = DATA.groups.map((item) => `
       <article class="${cardClass(item.tone)}">
         <h2>${esc(text(item.title))}</h2>
-        <div class="btn-row">${action(item.url, `${ui("open")} ${text(item.title)}`, "blue")}</div>
+        ${item.note ? `<p>${esc(text(item.note))}</p>` : ""}
+        <div class="btn-row">
+          ${action(item.url, `${ui("open")} ${text(item.title)}`, "blue")}
+          ${telegramAppHref(item.url) ? action(telegramAppHref(item.url), text(tx("Otwórz w aplikacji Telegram", "Open in Telegram app", "Відкрити в додатку Telegram", "Открыть в приложении Telegram", "Telegram tətbiqində aç", "Abrir en la app Telegram", "Buksan sa Telegram app", "Buka di aplikasi Telegram", "Telegram एपमा खोल्नुहोस्")), "secondary") : ""}
+        </div>
       </article>
     `).join("");
     app.innerHTML = `<main class="page">${pageHero()}<section class="module-grid">${cards}</section></main>`;

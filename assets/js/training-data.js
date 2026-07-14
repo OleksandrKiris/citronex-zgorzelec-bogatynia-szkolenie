@@ -463,8 +463,8 @@
 
     groups: [
       { title: "Viber - Citronex", url: "https://invite.viber.com/?g2=AQBkAFR0EI%2F5S1YUZP23%2Fc6MRVsnc6wfhgi%2FQig%2B1XKt3Z7mb2YPUdlazS0qoc4L", tone: "blue" },
-      { title: "Telegram - robota Citronex", url: "https://t.me/robota_citronex", tone: "blue" },
-      { title: "Telegram AZ - Polonia Work Citronex", url: "https://t.me/poloniawork_citronex", tone: "blue" }
+      { title: "Telegram - robota Citronex", url: "https://telegram.me/robota_citronex", tone: "blue" },
+      { title: "Telegram AZ - Polonia Work Citronex", url: "https://telegram.me/poloniawork_citronex", tone: "blue" }
     ],
 
     city: [
