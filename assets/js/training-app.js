@@ -742,7 +742,6 @@
     const steps = root.querySelector(".greenhouse-steps");
     if (!steps || root.querySelector("[data-orientation-builder]")) return;
     const labels = {
-      title: text(tx("Wybierz swoje miejsce", "Choose your place", "Оберіть своє місце", "Выберите свое место", "Öz yerinizi seçin", "Elige tu lugar", "Piliin ang iyong lugar", "Pilih tempat Anda", "आफ्नो ठाउँ छान्नुहोस्")),
       subtitle: text(tx("Wybieraj po kolei. Na końcu dostaniesz prostą informację, jak powiedzieć gdzie jesteś.", "Choose step by step. At the end you get a simple line showing where you are.", "Обирайте по черзі. В кінці отримаєте просту інформацію, як сказати де ви є.", "Выбирайте по очереди. В конце получите простую строку, как сказать где вы находитесь.", "Ardıcıllıqla seçin. Sonda harada olduğunuzu demək üçün sadə məlumat alacaqsınız.", "Elige paso a paso. Al final tendrás una frase simple para decir dónde estás.", "Pumili nang sunod-sunod. Sa dulo may simpleng linya kung nasaan ka.", "Pilih berurutan. Di akhir Anda mendapat kalimat sederhana untuk mengatakan posisi Anda.", "क्रमसँग छान्नुहोस्। अन्त्यमा आफू कहाँ हुनुहुन्छ भन्ने सरल वाक्य पाउनुहुन्छ।")),
       part: text(tx("Część szklarni", "Greenhouse part", "Частина теплиці", "Часть теплицы", "İstixana hissəsi", "Parte del invernadero", "Bahagi ng greenhouse", "Bagian rumah kaca", "ग्रीनहाउसको भाग")),
       nave: text(tx("Nawa", "Nave", "Нава", "Нава", "Nava", "Nave", "Nave", "Nave", "नावा")),
