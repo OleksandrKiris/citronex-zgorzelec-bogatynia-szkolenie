@@ -78,12 +78,12 @@
     {
       "id": "localOfficeZgorzelec",
       "label": "Urząd lokalny - Zgorzelec",
-      "url": "https://www.google.com/maps/search/?api=1&query=urz%C4%85d%20Zgorzelec"
+      "url": "https://maps.google.com?q=51.1479829,15.0073142"
     },
     {
       "id": "localOfficeBogatynia",
       "label": "Urząd lokalny - Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=urz%C4%85d%20Bogatynia"
+      "url": "https://maps.google.com?q=50.9045110,14.9575718"
     },
     {
       "id": "banksZgorzelec",
@@ -102,3 +102,4 @@
     }
   ]
 }
+

@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260714-telegram-groups1-zgorzelec-bogatynia",
+    "version": "20260714-zb-stable-public-maps1",
     "displayVersion": "2026-07-13",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
@@ -759,7 +759,7 @@
         "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
         "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
-      "url": "https://www.google.com/maps/search/?api=1&query=urz%C4%85d%20Zgorzelec"
+      "url": "https://maps.google.com?q=51.1479829,15.0073142"
     },
     {
       "key": "localOfficeBogatynia",
@@ -786,7 +786,7 @@
         "id": "Membuka Google Maps. Sebelum perjalanan pertama, konfirmasi titik dengan koordinator.",
         "ne": "Google Maps खोल्छ। पहिलो यात्राअघि कोर्डिनेटरसँग बिन्दु पुष्टि गर्नुहोस्।"
       },
-      "url": "https://www.google.com/maps/search/?api=1&query=urz%C4%85d%20Bogatynia"
+      "url": "https://maps.google.com?q=50.9045110,14.9575718"
     },
     {
       "key": "banksZgorzelec",
@@ -1156,7 +1156,7 @@
             "id": "Rumah sakit / IGD Zgorzelec",
             "ne": "अस्पताल / आपतकालीन Zgorzelec"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Wielospecjalistyczny%20Szpital%20SPZOZ%20Luba%C5%84ska%2011-12%20Zgorzelec"
+          "url": "https://maps.google.com?q=51.1578324,15.0109637"
         }
       ],
       "phones": [
@@ -1265,7 +1265,7 @@
             "id": "POZ Zgorzelec",
             "ne": "POZ Zgorzelec"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Poradnia%20POZ%20Luba%C5%84ska%2011-12%20Zgorzelec"
+          "url": "https://maps.google.com?q=51.1578324,15.0109637"
         }
       ],
       "phones": [
@@ -1371,7 +1371,7 @@
             "id": "SP ZOZ Bogatynia",
             "ne": "SP ZOZ Bogatynia"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=SP%20ZOZ%20Szpitalna%2016%20Bogatynia"
+          "url": "https://maps.google.com?q=50.9071020,14.9704671"
         }
       ],
       "phones": [
@@ -1505,7 +1505,7 @@
             "id": "MegaMed Bogatynia",
             "ne": "MegaMed Bogatynia"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=MegaMed%20Pocztowa%2013%20Bogatynia"
+          "url": "https://maps.google.com?q=50.9085120,14.9672340"
         }
       ],
       "phones": [
@@ -1614,7 +1614,7 @@
             "id": "Dokter gigi Bogatynia",
             "ne": "दन्त चिकित्सक Bogatynia"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Poradnia%20stomatologiczna%20Fabryczna%201%20Bogatynia"
+          "url": "https://maps.google.com?q=50.9006260,14.9613622"
         },
         {
           "label": {
@@ -1701,7 +1701,7 @@
             "id": "Apotek Zgorzelec",
             "ne": "फार्मेसी Zgorzelec"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=apteka%20Zgorzelec"
+          "url": "https://maps.google.com?q=51.1493741,15.0061189"
         },
         {
           "label": {
@@ -1715,7 +1715,7 @@
             "id": "Apotek Bogatynia",
             "ne": "फार्मेसी Bogatynia"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=apteka%20Bogatynia"
+          "url": "https://maps.google.com?q=50.9015758,14.9719648"
         }
       ]
     }
@@ -1761,7 +1761,7 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Urz%C4%85d%20Miasta%20Zgorzelec%20Doma%C5%84skiego%207",
+          "url": "https://maps.google.com?q=51.1479829,15.0073142",
           "tone": "blue"
         },
         {
@@ -1850,7 +1850,7 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Urz%C4%85d%20Miasta%20i%20Gminy%20Bogatynia%20Daszy%C5%84skiego%201",
+          "url": "https://maps.google.com?q=50.9045110,14.9575718",
           "tone": "blue"
         },
         {
@@ -1939,7 +1939,7 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Starostwo%20Powiatowe%20w%20Zgorzelcu%20Bohater%C3%B3w%20II%20Armii%20Wojska%20Polskiego%208A",
+          "url": "https://maps.google.com?q=51.1486568,15.0119728",
           "tone": "blue"
         },
         {
@@ -2001,7 +2001,7 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Powiatowy%20Urz%C4%85d%20Pracy%20w%20Zgorzelcu%20Pu%C5%82askiego%2014",
+          "url": "https://maps.google.com?q=51.1519566,15.0077624",
           "tone": "blue"
         },
         {
@@ -2078,7 +2078,7 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Urz%C4%85d%20Skarbowy%20w%20Zgorzelcu%20Bohater%C3%B3w%20II%20Armii%20Wojska%20Polskiego%208B",
+          "url": "https://maps.google.com?q=51.1479741,15.0110051",
           "tone": "yellow"
         },
         {
@@ -2155,7 +2155,7 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=ZUS%20Zgorzelec%20Prusa%203",
+          "url": "https://maps.google.com?q=51.1564624,15.0009546",
           "tone": "yellow"
         },
         {
@@ -2232,7 +2232,7 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Dolno%C5%9Bl%C4%85ski%20Urz%C4%85d%20Wojew%C3%B3dzki%20Wydzia%C5%82%20Spraw%20Cudzoziemc%C3%B3w%20pl.%20Powsta%C5%84c%C3%B3w%20Warszawy%201%20Wroc%C5%82aw",
+          "url": "https://maps.google.com?q=51.1100761,17.0494426",
           "tone": "red"
         },
         {
@@ -2324,7 +2324,7 @@
             "id": "Buka peta",
             "ne": "नक्सा खोल्नुहोस्"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Dolno%C5%9Bl%C4%85ski%20Urz%C4%85d%20Wojew%C3%B3dzki%20Delegatura%20Jelenia%20G%C3%B3ra%20Pi%C5%82sudskiego%2012",
+          "url": "https://maps.google.com?q=50.9024177,15.7380723",
           "tone": "yellow"
         },
         {
@@ -2553,7 +2553,7 @@
             "id": "Penukaran uang",
             "ne": "मुद्रा सटही"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=kantor%20wymiany%20walut%20Bogatynia",
+          "url": "https://maps.google.com?q=50.9035299,14.9561956",
           "tone": "yellow"
         }
       ],
@@ -2599,7 +2599,7 @@
             "id": "Pos Zgorzelec",
             "ne": "Zgorzelec हुलाक"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Poczta%20Polska%20Zgorzelec",
+          "url": "https://maps.google.com?q=51.1514714,15.0073846",
           "tone": "yellow"
         },
         {
@@ -2614,7 +2614,7 @@
             "id": "Pos Bogatynia",
             "ne": "Bogatynia हुलाक"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=Poczta%20Polska%20Bogatynia",
+          "url": "https://maps.google.com?q=50.9075475,14.9583248",
           "tone": "yellow"
         },
         {
@@ -2796,7 +2796,7 @@
             "id": "Apotek",
             "ne": "फार्मेसी"
           },
-          "url": "https://www.google.com/maps/search/?api=1&query=apteka%20Zgorzelec%20Bogatynia",
+          "url": "https://maps.google.com?q=51.1493741,15.0061189%20Bogatynia",
           "tone": "blue"
         },
         {
@@ -2962,3 +2962,5 @@
   D.citySections = T.citySections || [];
   D.cityExtras = [];
 })();
+
+

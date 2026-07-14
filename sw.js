@@ -1,5 +1,5 @@
-const CACHE_PREFIX = "citronex-zgorzelec-bogatynia-szkolenie-";
-const CACHE_NAME = CACHE_PREFIX + "20260714-telegram-groups1-zgorzelec-bogatynia";
+﻿const CACHE_PREFIX = "citronex-zgorzelec-bogatynia-szkolenie-";
+const CACHE_NAME = CACHE_PREFIX + "20260714-zb-stable-public-maps1";
 
 const CORE_ASSETS = [
   "./",
@@ -18,10 +18,10 @@ const CORE_ASSETS = [
   "./zakazy.html",
   "./test.html",
   "./manifest.webmanifest",
-  "./assets/css/training.css?v=20260714-telegram-groups1-zgorzelec-bogatynia",
-  "./assets/js/training-data.js?v=20260714-telegram-groups1-zgorzelec-bogatynia",
-  "./assets/js/location-custom.js?v=20260714-telegram-groups1-zgorzelec-bogatynia",
-  "./assets/js/training-app.js?v=20260714-telegram-groups1-zgorzelec-bogatynia",
+  "./assets/css/training.css?v=20260714-zb-stable-public-maps1",
+  "./assets/js/training-data.js?v=20260714-zb-stable-public-maps1",
+  "./assets/js/location-custom.js?v=20260714-zb-stable-public-maps1",
+  "./assets/js/training-app.js?v=20260714-zb-stable-public-maps1",
   "./assets/brand/polskie-pomidory-logo.png",
   "./assets/brand/polskie-pomidory-icon.png",
   "./assets/orientation/sklarnia-etap-excel.png"
@@ -71,3 +71,4 @@ self.addEventListener("fetch", (event) => {
     }
   })());
 });
+
