@@ -5816,3 +5816,594 @@ body[data-page="szklarnia"] .greenhouse-work-details .green-flow {
     flex-basis: 22px;
   }
 }
+
+/* Universal phone fit: keeps every training view usable on small and large phones. */
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body *,
+body *::before,
+body *::after {
+  box-sizing: border-box;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
+img,
+video,
+canvas {
+  height: auto;
+}
+
+table {
+  max-width: 100%;
+}
+
+.page,
+.top-nav,
+.top-nav-scroll,
+.hero,
+.section,
+.tiles,
+.module-grid,
+.card-grid,
+.steps,
+.card,
+.step-card,
+.notice,
+.schema,
+.reader-section,
+.tablet-guide,
+.tablet-step,
+.speech-group,
+.speech-card,
+.glossary-group,
+.glossary-card,
+.ban-group-panel,
+.ban-card-modern,
+.city-card,
+.city-simple-group,
+.city-simple-item,
+.medical-card,
+.contact-card,
+.map-card,
+.photo-card,
+.test-shell,
+.test-question {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.page {
+  width: min(1120px, 100%);
+  padding-left: max(10px, env(safe-area-inset-left));
+  padding-right: max(10px, env(safe-area-inset-right));
+}
+
+.hero h1,
+.hero h2,
+.card h2,
+.card h3,
+.step-card h3,
+.tile h2,
+.btn,
+.top-nav-link,
+.city-category-btn,
+.city-simple-item h3,
+.speech-native,
+.speech-polish,
+.glossary-term,
+.glossary-local,
+.contact-name,
+.medical-card h3 {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.btn,
+.top-nav-link,
+.tile,
+.card,
+.step-card,
+.city-category-btn,
+.speech-card,
+.glossary-card,
+.contact-card,
+.medical-card {
+  touch-action: manipulation;
+}
+
+.btn,
+.top-nav-link,
+.city-category-btn,
+.speech-actions .btn,
+.contact-actions .btn,
+.map-action-list .btn,
+.link-tools .btn,
+.test-nav-row .btn {
+  min-height: 52px;
+  white-space: normal;
+  line-height: 1.12;
+}
+
+.top-nav-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.top-nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.top-nav-link {
+  flex: 0 0 auto;
+  max-width: min(46vw, 190px);
+}
+
+.tiles,
+.module-grid,
+.card-grid,
+.city-panel-grid,
+.ban-quick-grid,
+.ban-list,
+.ban-list-modern,
+.glossary-list,
+.speech-list,
+.contact-grid,
+.medical-grid,
+.map-grid,
+.photo-grid,
+.reader-grid,
+.tablet-steps {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+
+.city-links,
+.speech-actions,
+.contact-actions,
+.link-tools,
+.test-nav-row,
+.btn-row {
+  min-width: 0;
+}
+
+.city-links .btn,
+.speech-actions .btn,
+.contact-actions .btn,
+.link-tools .btn,
+.btn-row .btn {
+  width: 100%;
+  min-width: 0;
+}
+
+.table-wrap,
+.responsive-table,
+.data-table,
+.contact-table {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.reader-photo,
+.tablet-photo,
+.instruction-photo,
+.photo-card img,
+.image-card img,
+.location-photo,
+.entry-photo {
+  width: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 680px) {
+  .page {
+    padding-top: 12px;
+    padding-bottom: calc(28px + env(safe-area-inset-bottom));
+  }
+
+  .hero {
+    padding: 14px 0 10px;
+  }
+
+  .hero h1 {
+    font-size: clamp(25px, 8.2vw, 34px);
+    line-height: 1.06;
+  }
+
+  .hero p,
+  .lead,
+  .card p,
+  .step-card p {
+    font-size: clamp(14px, 3.8vw, 16px);
+  }
+
+  .tiles,
+  .module-grid,
+  .module-grid.two,
+  .card-grid,
+  .card-grid.two,
+  .city-panel-grid,
+  .ban-quick-grid,
+  .ban-list,
+  .ban-list-modern,
+  .glossary-list,
+  .speech-list,
+  .contact-grid,
+  .medical-grid,
+  .map-grid,
+  .photo-grid,
+  .reader-grid,
+  .tablet-steps {
+    grid-template-columns: 1fr !important;
+  }
+
+  .card,
+  .step-card,
+  .notice,
+  .city-card,
+  .speech-card,
+  .glossary-card,
+  .ban-card-modern,
+  .medical-card,
+  .contact-card {
+    border-radius: 16px;
+    padding: 12px;
+  }
+
+  .step-card {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .step-number {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    font-size: 17px;
+  }
+
+  .reader-section,
+  .tablet-step-body,
+  .test-question.is-single,
+  .speech-card,
+  .glossary-card,
+  .ban-card-modern {
+    padding: 12px;
+  }
+
+  .tablet-step > summary,
+  .speech-group summary,
+  .glossary-summary,
+  .ban-group-panel > summary,
+  .city-simple-group > summary {
+    min-height: 56px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 390px) {
+  .page {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+
+  .top-nav-scroll {
+    gap: 6px;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .top-nav-link {
+    min-height: 48px;
+    max-width: min(54vw, 168px);
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+
+  .hero h1 {
+    font-size: clamp(23px, 8.8vw, 31px);
+  }
+
+  h2 {
+    font-size: clamp(20px, 6.5vw, 26px);
+  }
+
+  .btn,
+  .city-category-btn,
+  .speech-actions .btn,
+  .contact-actions .btn,
+  .map-action-list .btn,
+  .link-tools .btn {
+    min-height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+  }
+
+  .card,
+  .step-card,
+  .notice,
+  .city-card,
+  .speech-card,
+  .glossary-card,
+  .ban-card-modern,
+  .medical-card,
+  .contact-card {
+    padding: 10px;
+    border-radius: 14px;
+  }
+
+  .step-card {
+    grid-template-columns: 34px minmax(0, 1fr);
+  }
+
+  .step-number {
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 340px) {
+  .top-nav-link {
+    max-width: 62vw;
+    font-size: 10.5px;
+  }
+
+  .hero h1 {
+    font-size: 23px;
+  }
+
+  .card,
+  .step-card,
+  .notice {
+    padding: 9px;
+  }
+
+  .btn {
+    min-height: 48px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 390px) {
+  body[data-page="szklarnia"] .greenhouse-steps .schema {
+    padding: 6px;
+    border-radius: 16px;
+  }
+
+  body[data-page="szklarnia"] .greenhouse-3d-overview {
+    grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1fr) !important;
+    gap: 4px;
+    min-height: 320px;
+    padding: 52px 4px 58px;
+  }
+
+  body[data-page="szklarnia"] .greenhouse-3d-overview .green-side {
+    gap: 3px;
+    padding: 34px 4px 18px;
+    border-radius: 12px;
+  }
+
+  body[data-page="szklarnia"] .greenhouse-3d-overview .nave-cell {
+    min-height: 22px;
+    font-size: 9px;
+  }
+
+  body[data-page="szklarnia"] .greenhouse-3d-overview .center-road {
+    min-width: 34px;
+    font-size: 9px;
+    border-radius: 12px;
+  }
+
+  body[data-page="szklarnia"] .orientation-badge {
+    min-height: 22px;
+    padding: 4px 6px;
+    font-size: 8.5px;
+    line-height: 1.02;
+    box-shadow: 0 5px 12px rgba(15, 23, 42, .10);
+  }
+
+  body[data-page="szklarnia"] .greenhouse-3d-overview .overview-left {
+    left: 6px;
+    max-width: calc(50% - 16px);
+  }
+
+  body[data-page="szklarnia"] .greenhouse-3d-overview .overview-right {
+    right: 6px;
+    max-width: calc(50% - 16px);
+  }
+
+  body[data-page="szklarnia"] .greenhouse-3d-overview .overview-back,
+  body[data-page="szklarnia"] .greenhouse-3d-overview .overview-look,
+  body[data-page="szklarnia"] .greenhouse-3d-overview .overview-stand {
+    max-width: calc(100% - 14px);
+  }
+
+  body[data-page="szklarnia"] .greenhouse-steps .step-card > div > h3 {
+    font-size: 20px;
+    line-height: 1.08;
+  }
+}
+
+@media (max-width: 340px) {
+  body[data-page="szklarnia"] .greenhouse-3d-overview {
+    grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr) !important;
+    gap: 3px;
+  }
+
+  body[data-page="szklarnia"] .greenhouse-3d-overview .center-road {
+    min-width: 30px;
+    font-size: 8px;
+  }
+
+  body[data-page="szklarnia"] .orientation-badge {
+    font-size: 8px;
+  }
+}
+
+/* Final phone viewport guard: every module must stay inside narrow screens. */
+@media (max-width: 430px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .page,
+  .page > *,
+  main,
+  .hero,
+  .section,
+  .card,
+  .notice,
+  .module-grid,
+  .card-grid,
+  .tiles,
+  .map-grid,
+  .photo-grid,
+  .contact-grid,
+  .medical-grid,
+  .city-panel-grid,
+  .reader-grid,
+  .tablet-guide,
+  .speech-list,
+  .glossary-list,
+  .ban-list,
+  .test-panel {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hero,
+  .section {
+    overflow-x: hidden;
+  }
+
+  .hero h1,
+  .section h2,
+  .card h3,
+  .btn,
+  .top-nav-link {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+}
+
+/* Greenhouse is the widest visual module, so it gets an extra hard guard. */
+body[data-page="szklarnia"] .orientation-legend {
+  grid-template-columns: 1fr !important;
+}
+
+body[data-page="szklarnia"] .greenhouse-step-tabs {
+  width: 100% !important;
+  inline-size: 100% !important;
+  max-width: 100% !important;
+  max-inline-size: 100% !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  justify-self: stretch;
+}
+
+body[data-page="szklarnia"] .greenhouse-step-tab {
+  min-width: 0 !important;
+}
+
+body[data-page="szklarnia"] .greenhouse-steps .step-card {
+  width: 100% !important;
+  inline-size: 100% !important;
+  max-width: 100% !important;
+  max-inline-size: 100% !important;
+}
+
+body[data-page="szklarnia"] .greenhouse-steps .schema {
+  width: 100%;
+  max-width: 100%;
+}
+
+body[data-page="szklarnia"] .greenhouse-3d-overview {
+  grid-template-columns: minmax(0, 1fr) clamp(30px, 12vw, 44px) minmax(0, 1fr) !important;
+  gap: clamp(3px, 1.5vw, 6px) !important;
+  transform: none !important;
+}
+
+body[data-page="szklarnia"] .greenhouse-3d-overview .green-side,
+body[data-page="szklarnia"] .greenhouse-3d-overview .center-road {
+  min-width: 0 !important;
+}
+
+body[data-page="szklarnia"] .orientation-badge {
+  max-width: calc(100% - 12px) !important;
+  white-space: normal;
+}
+
+body[data-page="szklarnia"] .greenhouse-3d-overview .overview-left {
+  left: 6px !important;
+  max-width: calc(50% - 14px) !important;
+}
+
+body[data-page="szklarnia"] .greenhouse-3d-overview .overview-right {
+  right: 6px !important;
+  max-width: calc(50% - 14px) !important;
+}
+
+body[data-page="szklarnia"] .greenhouse-3d-overview .overview-look,
+body[data-page="szklarnia"] .greenhouse-3d-overview .overview-stand,
+body[data-page="szklarnia"] .greenhouse-3d-overview .overview-back {
+  max-width: calc(100% - 12px) !important;
+}
+
+/* Keep module hero text clear of the left accent stripe on every phone. */
+:where(
+  body[data-page="reader"],
+  body[data-page="tablet"],
+  body[data-page="zakazy"],
+  body[data-page="szklarnia"],
+  body[data-page="grupy"],
+  body[data-page="slownik"],
+  body[data-page="mowa"],
+  body[data-page="test"]
+) .hero {
+  padding-left: clamp(18px, 5vw, 28px) !important;
+  padding-right: clamp(12px, 4vw, 20px) !important;
+}
+
+@media (max-width: 430px) {
+  :where(
+    body[data-page="reader"],
+    body[data-page="tablet"],
+    body[data-page="zakazy"],
+    body[data-page="szklarnia"],
+    body[data-page="grupy"],
+    body[data-page="slownik"],
+    body[data-page="mowa"],
+    body[data-page="test"]
+  ) .hero {
+    padding-left: 18px !important;
+    padding-right: 12px !important;
+  }
+}
