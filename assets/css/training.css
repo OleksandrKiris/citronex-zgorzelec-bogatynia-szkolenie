@@ -6422,3 +6422,220 @@ body[data-page="szklarnia"] .greenhouse-3d-overview .overview-back {
     padding-right: 12px !important;
   }
 }
+
+/* Visual polish 2026-07-15: clearer location cards and calmer phone colors. */
+:root {
+  --bg: #f8f9f4;
+  --surface: #ffffff;
+  --surface-strong: #fffdf7;
+  --text: #17211b;
+  --muted: #5b6b62;
+  --line: #dfe8df;
+  --green: #167a3a;
+  --green-soft: #eaf7ef;
+  --green-line: #b9dfc6;
+  --blue: #2463d6;
+  --blue-soft: #edf4ff;
+  --blue-line: #bfd3ff;
+  --yellow: #d89105;
+  --yellow-soft: #fff6dc;
+  --yellow-line: #edc96e;
+  --red: #d8202a;
+  --red-soft: #fff0f1;
+  --red-line: #efb3b8;
+  --shadow: 0 10px 24px rgba(23, 33, 27, .08);
+  --shadow-soft: 0 4px 12px rgba(23, 33, 27, .06);
+  --radius: 8px;
+}
+
+body {
+  color: var(--text);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,249,244,.98) 42%, #fff 100%),
+    radial-gradient(circle at top left, rgba(216,145,5,.10), transparent 22rem);
+}
+
+.app-header,
+.hero,
+.card,
+.notice,
+.reader-panel,
+.tablet-guide,
+.test-panel,
+.module-details,
+.install-card {
+  border-color: rgba(223, 232, 223, .96) !important;
+  box-shadow: var(--shadow-soft);
+}
+
+.app-header {
+  background: rgba(255, 255, 255, .96) !important;
+  backdrop-filter: blur(16px);
+}
+
+.hero {
+  background:
+    linear-gradient(135deg, #fff 0%, var(--surface-strong) 62%, rgba(255,246,220,.74) 100%) !important;
+  border-radius: var(--radius) !important;
+}
+
+.hero h1,
+.card h2,
+.card h3,
+.tile-title {
+  letter-spacing: 0 !important;
+  color: var(--text);
+}
+
+.lead,
+.tile-text,
+.card p,
+.details-body,
+.reader-section-lead {
+  color: var(--muted);
+}
+
+.tiles {
+  gap: 12px !important;
+}
+
+.tile {
+  min-height: 132px;
+  border: 1px solid rgba(223, 232, 223, .98) !important;
+  border-radius: var(--radius) !important;
+  background: var(--surface) !important;
+  box-shadow: var(--shadow-soft);
+}
+
+.tile:hover,
+.tile:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.tile::before {
+  width: 5px !important;
+  opacity: 1 !important;
+}
+
+.icon-box,
+.city-card-icon,
+.top-nav-icon {
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 44px;
+  border-radius: var(--radius);
+  background: var(--yellow-soft);
+  color: var(--yellow);
+}
+
+.top-nav-link {
+  min-height: 48px;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.top-nav-link.is-active,
+.tile[aria-current="page"] {
+  outline: 2px solid rgba(216, 145, 5, .24);
+  background: linear-gradient(180deg, #fff, var(--yellow-soft));
+}
+
+.card,
+.notice,
+.reader-panel,
+.tablet-step,
+.reader-section,
+.media,
+.module-details {
+  border-radius: var(--radius) !important;
+  background: var(--surface);
+}
+
+.warehouse-location-card {
+  min-height: 100%;
+}
+
+.card.blue,
+.notice.blue,
+.tile[data-tone="blue"] {
+  border-color: var(--blue-line) !important;
+}
+
+.card.green,
+.notice.green,
+.tile[data-tone="green"] {
+  border-color: var(--green-line) !important;
+}
+
+.card.yellow,
+.notice.yellow,
+.tile[data-tone="yellow"] {
+  border-color: var(--yellow-line) !important;
+}
+
+.card.red,
+.notice.red,
+.tile[data-tone="red"] {
+  border-color: var(--red-line) !important;
+}
+
+.btn {
+  min-height: 52px;
+  border-radius: var(--radius) !important;
+  font-weight: 800;
+  letter-spacing: 0 !important;
+  box-shadow: none !important;
+}
+
+.btn.secondary {
+  background: #fff !important;
+  color: var(--text) !important;
+  border-color: var(--line) !important;
+}
+
+.btn.yellow {
+  color: #241a05 !important;
+}
+
+details > summary {
+  min-height: 54px;
+  align-items: center;
+}
+
+.media img,
+.tablet-shot img,
+.reader-visual img {
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+@media (max-width: 430px) {
+  .page {
+    padding-left: max(12px, env(safe-area-inset-left)) !important;
+    padding-right: max(12px, env(safe-area-inset-right)) !important;
+  }
+
+  .tile {
+    min-height: 118px;
+    padding: 14px !important;
+  }
+
+  .btn,
+  .btn-row .btn,
+  .map-action-group .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .icon-box,
+  .city-card-icon,
+  .top-nav-icon {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+}
