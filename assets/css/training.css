@@ -7650,3 +7650,18 @@ body[data-page="zakazy"] .ban-section { border-left-color: #dc2626; }
     padding: 9px 10px;
   }
 }
+
+
+/* Hotfix 2026-07-15: hidden loader must never block phone touch/scroll. */
+.page-loader[hidden] {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.page-loader {
+  pointer-events: none;
+}
+
+.page-loader.is-visible {
+  pointer-events: auto;
+}
