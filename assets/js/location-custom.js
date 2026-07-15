@@ -3448,6 +3448,68 @@
       lead: tr("W Bogatyni tablet dziala na szklarni i magazynie. Zgorzelec ma osobny system magazynu bananowego.", "In Bogatynia the tablet works in greenhouse and warehouse. Zgorzelec has a separate banana warehouse system.", "У Bogatynia tablet працює на теплиці і складі. Zgorzelec має окрему систему бананового складу.", "В Bogatynia tablet работает на теплице и складе. Zgorzelec имеет отдельную систему бананового склада.", "Bogatynia-da tablet istixana ve anbarda isleyir. Zgorzelec-in banan anbari ucun ayri sistemi var.", "En Bogatynia tablet funciona en invernadero y almacen. Zgorzelec tiene sistema separado.", "Sa Bogatynia gumagana ang tablet sa greenhouse at warehouse. Ang Zgorzelec ay may hiwalay na sistema.", "Di Bogatynia tablet berlaku di greenhouse dan gudang. Zgorzelec punya sistem terpisah.", "Bogatynia मा tablet ग्रीनहाउस र गोदाममा चल्छ। Zgorzelec मा अलग प्रणाली छ।")
     }
   };
+  D.meta.version = "20260715-zb-home-routing1";
+
+  D.homeModeUi = {
+    eyebrow: tr("Najpierw", "First", "Спочатку", "Сначала", "Əvvəlcə", "Primero", "Una muna", "Pertama", "पहिले"),
+    title: tr("Wybierz swoją sytuację", "Choose your situation", "Оберіть свою ситуацію", "Выберите свою ситуацию", "Öz vəziyyətinizi seçin", "Elige tu situación", "Piliin ang iyong sitwasyon", "Pilih situasi Anda", "आफ्नो अवस्था छान्नुहोस्"),
+    lead: tr(
+      "Po wyborze zobaczysz tylko te kafelki, które są potrzebne w Twojej sytuacji.",
+      "After choosing, you will see only the tiles needed for your situation.",
+      "Після вибору ви побачите тільки ті плитки, які потрібні у вашій ситуації.",
+      "После выбора вы увидите только те плитки, которые нужны в вашей ситуации.",
+      "Seçimdən sonra yalnız sizin vəziyyətiniz üçün lazım olan bölmələri görəcəksiniz.",
+      "Después de elegir, verás solo los módulos necesarios para tu situación.",
+      "Pagkatapos pumili, makikita mo lang ang mga kailangan sa sitwasyon mo.",
+      "Setelah memilih, Anda hanya akan melihat modul yang diperlukan untuk situasi Anda.",
+      "छानेपछि तपाईंको अवस्थाका लागि चाहिने कुरा मात्र देखिन्छ।"
+    ),
+    emptyTitle: tr("Wybierz jedną opcję", "Choose one option", "Оберіть один варіант", "Выберите один вариант", "Bir seçim edin", "Elige una opción", "Pumili ng isang option", "Pilih satu opsi", "एउटा विकल्प छान्नुहोस्"),
+    emptyText: tr(
+      "System nie pokazuje wszystkich instrukcji naraz, żeby nie pomylić lokalizacji.",
+      "The system does not show all instructions at once, so locations are not mixed.",
+      "Система не показує всі інструкції одразу, щоб не переплутати локації.",
+      "Система не показывает все инструкции сразу, чтобы не перепутать локации.",
+      "Sistem bütün təlimatları birdən göstərmir ki, lokasiyalar qarışmasın.",
+      "El sistema no muestra todo a la vez para no mezclar ubicaciones.",
+      "Hindi ipinapakita ng system ang lahat nang sabay para hindi malito ang lokasyon.",
+      "Sistem tidak menampilkan semua instruksi sekaligus agar lokasi tidak tertukar.",
+      "स्थान नझुक्कियोस् भनेर प्रणालीले सबै निर्देशन एकै पटक देखाउँदैन।"
+    )
+  };
+
+  D.homeModes = [
+    {
+      id: "first",
+      tone: "blue",
+      icon: "map",
+      title: tr("Jestem pierwszy raz", "I am here for the first time", "Я вперше", "Я первый раз", "İlk dəfə gəlirəm", "Estoy por primera vez", "Unang beses ko", "Saya pertama kali", "म पहिलो पटक आएको हुँ"),
+      text: tr("Mapa, kontakt, lekarz, zakazy i proste zdania.", "Map, contact, doctor, bans and simple phrases.", "Карта, контакт, лікар, заборони і прості фрази.", "Карта, контакт, врач, запреты и простые фразы.", "Xəritə, əlaqə, həkim, qadağalar və sadə cümlələr.", "Mapa, contacto, médico, prohibiciones y frases simples.", "Mapa, contact, doktor, bawal at simpleng pangungusap.", "Peta, kontak, dokter, larangan dan kalimat sederhana.", "नक्सा, सम्पर्क, डाक्टर, निषेध र सरल वाक्य।"),
+      selectedTitle: tr("Tryb: pierwszy dzień", "Mode: first day", "Режим: перший день", "Режим: первый день", "Rejim: ilk gün", "Modo: primer día", "Mode: unang araw", "Mode: hari pertama", "मोड: पहिलो दिन"),
+      selectedText: tr("Widzisz tylko najważniejsze rzeczy na start.", "You see only the most important things to start.", "Ви бачите тільки найважливіше на старт.", "Вы видите только самое важное для начала.", "Başlamaq üçün yalnız ən vacib olanları görürsünüz.", "Ves solo lo más importante para empezar.", "Makikita mo lang ang pinakamahalaga sa simula.", "Anda hanya melihat hal terpenting untuk mulai.", "सुरुमा चाहिने मुख्य कुरा मात्र देखिन्छ।"),
+      pages: ["mapa", "magazyn", "kontakty", "lekarz", "zakazy", "mowa", "slownik"]
+    },
+    {
+      id: "zgorzelec",
+      tone: "yellow",
+      icon: "warehouse",
+      title: tr("Pracuję w Zgorzelcu", "I work in Zgorzelec", "Працюю в Zgorzelec", "Работаю в Zgorzelec", "Zgorzelec-də işləyirəm", "Trabajo en Zgorzelec", "Nagtatrabaho ako sa Zgorzelec", "Saya bekerja di Zgorzelec", "म Zgorzelec मा काम गर्छु"),
+      text: tr("Tylko magazyn bananowy i osobny system.", "Only banana warehouse and separate system.", "Тільки банановий склад і окрема система.", "Только банановый склад и отдельная система.", "Yalnız banan anbarı və ayrı sistem.", "Solo almacén de bananas y sistema separado.", "Banana warehouse lang at hiwalay na sistema.", "Hanya gudang pisang dan sistem terpisah.", "केरा गोदाम मात्र र अलग प्रणाली।"),
+      selectedTitle: tr("Tryb: Zgorzelec", "Mode: Zgorzelec", "Режим: Zgorzelec", "Режим: Zgorzelec", "Rejim: Zgorzelec", "Modo: Zgorzelec", "Mode: Zgorzelec", "Mode: Zgorzelec", "मोड: Zgorzelec"),
+      selectedText: tr("Ukryto szklarnię, reader i tablet, bo Zgorzelec ma osobny system.", "Greenhouse, reader and tablet are hidden because Zgorzelec has a separate system.", "Теплицю, reader і tablet приховано, бо Zgorzelec має окрему систему.", "Теплица, reader и tablet скрыты, потому что в Zgorzelec отдельная система.", "Zgorzelec-də ayrı sistem olduğu üçün istixana, reader və tablet gizlədildi.", "Se ocultan invernadero, reader y tablet porque Zgorzelec tiene sistema separado.", "Nakatago ang greenhouse, reader at tablet dahil hiwalay ang system sa Zgorzelec.", "Greenhouse, reader dan tablet disembunyikan karena Zgorzelec punya sistem terpisah.", "Zgorzelec मा अलग प्रणाली भएकाले ग्रीनहाउस, reader र tablet लुकाइएको छ।"),
+      pages: ["mapa", "magazyn", "kontakty", "lekarz", "grupy", "miasto", "zakazy", "mowa", "slownik"]
+    },
+    {
+      id: "bogatynia",
+      tone: "green",
+      icon: "greenhouse",
+      title: tr("Pracuję w Bogatyni", "I work in Bogatynia", "Працюю в Bogatynia", "Работаю в Bogatynia", "Bogatynia-da işləyirəm", "Trabajo en Bogatynia", "Nagtatrabaho ako sa Bogatynia", "Saya bekerja di Bogatynia", "म Bogatynia मा काम गर्छु"),
+      text: tr("Szklarnia i magazyn: reader oraz tablet.", "Greenhouse and warehouse: reader and tablet.", "Теплиця і склад: reader та tablet.", "Теплица и склад: reader и tablet.", "İstixana və anbar: reader və tablet.", "Invernadero y almacén: reader y tablet.", "Greenhouse at warehouse: reader at tablet.", "Greenhouse dan gudang: reader dan tablet.", "ग्रीनहाउस र गोदाम: reader र tablet।"),
+      selectedTitle: tr("Tryb: Bogatynia", "Mode: Bogatynia", "Режим: Bogatynia", "Режим: Bogatynia", "Rejim: Bogatynia", "Modo: Bogatynia", "Mode: Bogatynia", "Mode: Bogatynia", "मोड: Bogatynia"),
+      selectedText: tr("Pokazano moduły szklarni, magazynu, readera i tabletu.", "Greenhouse, warehouse, reader and tablet modules are shown.", "Показано модулі теплиці, складу, reader і tablet.", "Показаны модули теплицы, склада, reader и tablet.", "İstixana, anbar, reader və tablet modulları göstərildi.", "Se muestran módulos de invernadero, almacén, reader y tablet.", "Makikita ang modules ng greenhouse, warehouse, reader at tablet.", "Modul greenhouse, gudang, reader dan tablet ditampilkan.", "ग्रीनहाउस, गोदाम, reader र tablet मोड्युल देखाइन्छ।"),
+      pages: ["mapa", "magazyn", "szklarnia", "reader", "tablet", "kontakty", "lekarz", "grupy", "miasto", "zakazy", "mowa", "slownik", "test"]
+    }
+  ];
 })();
 
 

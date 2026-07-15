@@ -315,8 +315,75 @@
     `;
   }
 
+  function homeModeKey() {
+    return `cx-home-mode-${DATA.meta?.repo || DATA.meta?.location || "default"}`;
+  }
+
+  function getHomeMode() {
+    const modes = DATA.homeModes || [];
+    if (!modes.length) return "";
+    const ids = new Set(modes.map((item) => item.id));
+    const params = new URLSearchParams(location.search);
+    const fromUrl = (params.get("mode") || "").toLowerCase();
+    if (ids.has(fromUrl)) {
+      localStorage.setItem(homeModeKey(), fromUrl);
+      return fromUrl;
+    }
+    const fromStorage = (localStorage.getItem(homeModeKey()) || "").toLowerCase();
+    return ids.has(fromStorage) ? fromStorage : "";
+  }
+
+  function modeHref(modeId) {
+    const url = new URL(href("home"), location.href);
+    url.searchParams.set("mode", modeId);
+    return url.pathname.split("/").pop() + url.search;
+  }
+
+  function modeFilteredTiles(modeId) {
+    const modes = DATA.homeModes || [];
+    const mode = modes.find((item) => item.id === modeId);
+    if (!mode || !Array.isArray(mode.pages) || !mode.pages.length) return DATA.tiles;
+    const allowed = new Set(mode.pages);
+    return DATA.tiles.filter((tile) => allowed.has(tile.page));
+  }
+
+  function renderHomeModeSelector(modeId) {
+    const modes = DATA.homeModes || [];
+    if (!modes.length) return "";
+    const current = modes.find((item) => item.id === modeId);
+    const cards = modes.map((item) => `
+      <a class="mode-card${item.id === modeId ? " is-active" : ""}" data-tone="${esc(item.tone || "blue")}" href="${esc(modeHref(item.id))}">
+        <span class="mode-icon">${iconMap[item.icon] || iconMap.home}</span>
+        <span>
+          <strong>${esc(text(item.title))}</strong>
+          <small>${esc(text(item.text))}</small>
+        </span>
+      </a>
+    `).join("");
+    const currentSummary = current ? `
+      <div class="mode-summary" data-tone="${esc(current.tone || "blue")}">
+        <strong>${esc(text(current.selectedTitle || current.title))}</strong>
+        <span>${esc(text(current.selectedText || current.text))}</span>
+      </div>
+    ` : "";
+    return `
+      <section class="mode-selector section" aria-label="${esc(text(DATA.homeModeUi?.title || tx("Wybierz sytuację", "Choose situation", "Оберіть ситуацію", "Выберите ситуацию", "Vəziyyəti seçin", "Elige situación", "Piliin ang sitwasyon", "Pilih situasi", "अवस्था छान्नुहोस्")))}">
+        <div class="mode-head">
+          <p class="eyebrow">${esc(text(DATA.homeModeUi?.eyebrow || tx("Najpierw", "First", "Спочатку", "Сначала", "Əvvəlcə", "Primero", "Una muna", "Pertama", "पहिले")))}</p>
+          <h2>${esc(text(DATA.homeModeUi?.title || tx("Wybierz swoją sytuację", "Choose your situation", "Оберіть свою ситуацію", "Выберите свою ситуацию", "Öz vəziyyətinizi seçin", "Elige tu situación", "Piliin ang iyong sitwasyon", "Pilih situasi Anda", "आफ्नो अवस्था छान्नुहोस्")))}</h2>
+          <p>${esc(text(DATA.homeModeUi?.lead || tx("Po wyborze zobaczysz tylko potrzebne kafelki.", "After choosing you will see only needed tiles.", "Після вибору ви побачите тільки потрібні плитки.", "После выбора вы увидите только нужные плитки.", "Seçimdən sonra yalnız lazım olan bölmələri görəcəksiniz.", "Después verás solo lo necesario.", "Pagkatapos pumili, makikita mo lang ang kailangan.", "Setelah memilih, Anda hanya melihat yang perlu.", "छानेपछि चाहिने कुरा मात्र देखिन्छ।")))}</p>
+        </div>
+        <div class="mode-grid">${cards}</div>
+        ${currentSummary}
+      </section>
+    `;
+  }
+
   function renderHome() {
-    const tiles = DATA.tiles.map((tile) => `
+    const modeId = getHomeMode();
+    const modes = DATA.homeModes || [];
+    const selectedModeRequired = modes.length && !modeId;
+    const tiles = (selectedModeRequired ? [] : modeFilteredTiles(modeId)).map((tile) => `
       <a class="tile" data-tone="${esc(tile.tone)}" href="${esc(href(tile.page))}">
         <div class="tile-top">
           <div>
@@ -344,7 +411,14 @@
       </details>
     ` : "";
 
-    app.innerHTML = `<main class="page">${pageHero("home")}<section class="tiles">${tiles}</section>${installCard}</main>`;
+    const emptyHint = selectedModeRequired ? `
+      <section class="card yellow section">
+        <h2>${esc(text(DATA.homeModeUi?.emptyTitle || tx("Wybierz jedną opcję u góry", "Choose one option above", "Оберіть один варіант зверху", "Выберите один вариант сверху", "Yuxarıda bir seçim edin", "Elige una opción arriba", "Pumili ng isang option sa taas", "Pilih satu opsi di atas", "माथि एउटा विकल्प छान्नुहोस्")))}</h2>
+        <p>${esc(text(DATA.homeModeUi?.emptyText || tx("System pokaże następne kroki dopiero po wyborze.", "The system will show next steps after the choice.", "Система покаже наступні кроки після вибору.", "Система покажет следующие шаги после выбора.", "Sistem növbəti addımları seçimdən sonra göstərəcək.", "El sistema mostrará los pasos después de elegir.", "Ipapakita ng system ang susunod na hakbang pagkatapos pumili.", "Sistem menampilkan langkah berikutnya setelah memilih.", "छानेपछि मात्र अर्को चरण देखिन्छ।")))}</p>
+      </section>
+    ` : "";
+
+    app.innerHTML = `<main class="page">${pageHero("home")}${renderHomeModeSelector(modeId)}${emptyHint}${tiles ? `<section class="tiles">${tiles}</section>` : ""}${selectedModeRequired ? "" : installCard}</main>`;
   }
 
   function renderVersionFooter() {
