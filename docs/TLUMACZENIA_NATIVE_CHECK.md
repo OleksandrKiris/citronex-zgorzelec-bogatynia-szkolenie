@@ -2,7 +2,7 @@
 
 Status techniczny:
 - wszystkie aktywne obiekty tlumaczen maja komplet jezykow: `pl`, `en`, `ua`, `ru`, `az`, `es`, `fil`, `id`, `ne`;
-- sprawdzono brak pustych tekstow, `undefined`, `NaN`, blednych tekstow technicznych i uszkodzonych znakow;
+- sprawdzono brak pustych tekstow, blednych markerow technicznych i uszkodzonych znakow;
 - render krytycznych ekranow zostal sprawdzony w przegladarce.
 
 Do szybkiej kontroli przez native speakera:
