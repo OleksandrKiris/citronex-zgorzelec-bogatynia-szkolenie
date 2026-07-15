@@ -152,7 +152,21 @@
 
   function mapActionGroup(source = {}, label = ui("openMap"), tone = "blue") {
     const url = source.url || source.map || "";
-    if (!url) return "";
+    if (!url) {
+      if (!source.confirmRequired) return "";
+      const message = text(source.confirmText) || text(tx(
+        "Punkt do potwierdzenia z koordynatorem. Nie jedź samodzielnie, dopóki nie dostaniesz dokładnej lokalizacji.",
+        "Point to confirm with the coordinator. Do not go alone until you receive the exact location.",
+        "Пункт потрібно підтвердити з координатором. Не йдіть самостійно, поки не отримаєте точну локацію.",
+        "Точку нужно подтвердить с координатором. Не идите самостоятельно, пока не получите точную локацию.",
+        "Nöqtəni koordinatorla təsdiqləyin. Dəqiq yer almadan tək getməyin.",
+        "Punto por confirmar con el coordinador. No vayas solo hasta recibir la ubicación exacta.",
+        "I-confirm muna ang punto sa coordinator. Huwag pumunta mag-isa hangga't wala kang eksaktong lokasyon.",
+        "Titik harus dikonfirmasi dengan koordinator. Jangan pergi sendiri sebelum menerima lokasi yang tepat.",
+        "यो स्थान कोर्डिनेटरसँग पुष्टि गर्नुहोस्। ठ्याक्कै स्थान नपाएसम्म एक्लै नजानुहोस्।"
+      ));
+      return '<div class="map-action-group"><div class="map-pending">' + esc(message) + '</div></div>';
+    }
     return '<div class="map-action-group"><div class="btn-row">' + action(url, label, tone) + '</div>' + linkTools(source, url, tone) + '</div>';
   }
 

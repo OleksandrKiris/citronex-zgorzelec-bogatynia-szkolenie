@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260715-zb-pharmacy-link-fix1",
+    "version": "20260715-zb-confirmed-public-maps1",
     "displayVersion": "2026-07-13",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
@@ -2976,6 +2976,227 @@
   D.city = T.city;
   D.citySections = T.citySections || [];
   D.cityExtras = [];
+
+  const confirmText = {
+    pl: "Punkt firmowy do potwierdzenia z koordynatorem. Nie jedź samodzielnie, dopóki nie dostaniesz dokładnej lokalizacji.",
+    en: "Company point to confirm with the coordinator. Do not go alone until you receive the exact location.",
+    ua: "Фірмовий пункт потрібно підтвердити з координатором. Не йдіть самостійно, поки не отримаєте точну локацію.",
+    ru: "Рабочую точку нужно подтвердить с координатором. Не идите самостоятельно, пока не получите точную локацию.",
+    az: "Şirkət nöqtəsini koordinatorla təsdiqləyin. Dəqiq yer almadan tək getməyin.",
+    es: "Punto de empresa por confirmar con el coordinador. No vayas solo hasta recibir la ubicación exacta.",
+    fil: "Company point ito na kailangan i-confirm sa coordinator. Huwag pumunta mag-isa hangga't wala kang eksaktong lokasyon.",
+    id: "Titik perusahaan harus dikonfirmasi dengan koordinator. Jangan pergi sendiri sebelum menerima lokasi yang tepat.",
+    ne: "कम्पनीको स्थान कोर्डिनेटरसँग पुष्टि गर्नुहोस्। ठ्याक्कै स्थान नपाएसम्म एक्लै नजानुहोस्।"
+  };
+
+  const confirmedPublicNote = {
+    pl: "Stały punkt publiczny w Google Maps.",
+    en: "Fixed public point in Google Maps.",
+    ua: "Постійний публічний пункт у Google Maps.",
+    ru: "Постоянная публичная точка в Google Maps.",
+    az: "Google Maps-da sabit ictimai nöqtə.",
+    es: "Punto público fijo en Google Maps.",
+    fil: "Fixed public point sa Google Maps.",
+    id: "Titik publik tetap di Google Maps.",
+    ne: "Google Maps मा स्थायी सार्वजनिक स्थान।"
+  };
+
+  const confirmOnlyMapKeys = new Set([
+    "spotkanieZgorzelec",
+    "spotkanieBogatynia",
+    "workplaceZgorzelec",
+    "workplaceBogatynia",
+    "warehouse",
+    "warehouseZgorzelec",
+    "warehouseBogatynia",
+    "oldWarehouse",
+    "staffEntranceZgorzelec",
+    "staffEntranceBogatynia",
+    "parkingZgorzelec",
+    "parkingBogatynia",
+    "office"
+  ]);
+
+  const publicMapFixes = {
+    busStopZgorzelec: {
+      note: confirmedPublicNote,
+      url: "https://maps.google.com?q=51.1501506,15.0112230"
+    },
+    busStopBogatynia: {
+      note: confirmedPublicNote,
+      url: "https://maps.google.com?q=50.9045110,14.9575718"
+    },
+    banksZgorzelec: {
+      title: {
+        pl: "PKO / bankomat - Zgorzelec",
+        en: "PKO / ATM - Zgorzelec",
+        ua: "PKO / банкомат - Zgorzelec",
+        ru: "PKO / банкомат - Zgorzelec",
+        az: "PKO / bankomat - Zgorzelec",
+        es: "PKO / cajero - Zgorzelec",
+        fil: "PKO / ATM - Zgorzelec",
+        id: "PKO / ATM - Zgorzelec",
+        ne: "PKO / ATM - Zgorzelec"
+      },
+      note: confirmedPublicNote,
+      url: "https://maps.google.com?q=51.1538069,15.0276915"
+    },
+    banksBogatynia: {
+      title: {
+        pl: "PKO / bankomat - Bogatynia",
+        en: "PKO / ATM - Bogatynia",
+        ua: "PKO / банкомат - Bogatynia",
+        ru: "PKO / банкомат - Bogatynia",
+        az: "PKO / bankomat - Bogatynia",
+        es: "PKO / cajero - Bogatynia",
+        fil: "PKO / ATM - Bogatynia",
+        id: "PKO / ATM - Bogatynia",
+        ne: "PKO / ATM - Bogatynia"
+      },
+      note: confirmedPublicNote,
+      url: "https://maps.google.com?q=50.9036625,14.9604941"
+    }
+  };
+
+  const shopMapItems = [
+    {
+      key: "shopZgorzelec",
+      tone: "blue",
+      title: {
+        pl: "Sklep - Zgorzelec",
+        en: "Shop - Zgorzelec",
+        ua: "Магазин - Zgorzelec",
+        ru: "Магазин - Zgorzelec",
+        az: "Mağaza - Zgorzelec",
+        es: "Tienda - Zgorzelec",
+        fil: "Shop - Zgorzelec",
+        id: "Toko - Zgorzelec",
+        ne: "पसल - Zgorzelec"
+      },
+      note: confirmedPublicNote,
+      url: "https://maps.google.com?q=51.1520011,15.0173444"
+    },
+    {
+      key: "shopBogatynia",
+      tone: "blue",
+      title: {
+        pl: "Sklep - Bogatynia",
+        en: "Shop - Bogatynia",
+        ua: "Магазин - Bogatynia",
+        ru: "Магазин - Bogatynia",
+        az: "Mağaza - Bogatynia",
+        es: "Tienda - Bogatynia",
+        fil: "Shop - Bogatynia",
+        id: "Toko - Bogatynia",
+        ne: "पसल - Bogatynia"
+      },
+      note: confirmedPublicNote,
+      url: "https://maps.google.com?q=50.9037596,14.9572805"
+    }
+  ];
+
+  D.maps = D.maps.flatMap((item) => {
+    if (item.key === "shopPharmacy") return shopMapItems;
+    const next = { ...item };
+    if (confirmOnlyMapKeys.has(next.key)) {
+      delete next.url;
+      delete next.map;
+      next.confirmRequired = true;
+      next.confirmText = confirmText;
+      next.note = confirmText;
+    }
+    if (publicMapFixes[next.key]) Object.assign(next, publicMapFixes[next.key]);
+    return [next];
+  });
+
+  function replaceCityLinks(id, links) {
+    const item = D.city.find((entry) => entry.id === id);
+    if (item) item.links = links;
+  }
+
+  replaceCityLinks("bank-zgorzelec", [
+    {
+      label: { pl: "PKO / bankomat", en: "PKO / ATM", ua: "PKO / банкомат", ru: "PKO / банкомат", az: "PKO / bankomat", es: "PKO / cajero", fil: "PKO / ATM", id: "PKO / ATM", ne: "PKO / ATM" },
+      url: "https://maps.google.com?q=51.1538069,15.0276915",
+      tone: "blue"
+    },
+    {
+      label: { pl: "Kantor - Wolności 1", en: "Currency exchange - Wolności 1", ua: "Обмін валют - Wolności 1", ru: "Обмен валют - Wolności 1", az: "Valyuta dəyişmə - Wolności 1", es: "Casa de cambio - Wolności 1", fil: "Currency exchange - Wolności 1", id: "Penukaran uang - Wolności 1", ne: "मुद्रा सटही - Wolności 1" },
+      url: "https://maps.google.com?q=51.1501794,15.0029441",
+      tone: "blue"
+    }
+  ]);
+
+  replaceCityLinks("bank-bogatynia", [
+    {
+      label: { pl: "PKO / bankomat", en: "PKO / ATM", ua: "PKO / банкомат", ru: "PKO / банкомат", az: "PKO / bankomat", es: "PKO / cajero", fil: "PKO / ATM", id: "PKO / ATM", ne: "PKO / ATM" },
+      url: "https://maps.google.com?q=50.9036625,14.9604941",
+      tone: "blue"
+    },
+    {
+      label: { pl: "Kantor / wymiana walut", en: "Currency exchange", ua: "Обмін валют", ru: "Обмен валют", az: "Valyuta dəyişmə", es: "Cambio de moneda", fil: "Currency exchange", id: "Penukaran uang", ne: "मुद्रा सटही" },
+      url: "https://maps.google.com?q=50.9035299,14.9561956",
+      tone: "blue"
+    }
+  ]);
+
+  replaceCityLinks("transport-zb", [
+    {
+      label: { pl: "Przystanek Zgorzelec - centrum", en: "Stop Zgorzelec - centre", ua: "Зупинка Zgorzelec - центр", ru: "Остановка Zgorzelec - центр", az: "Dayanacaq Zgorzelec - mərkəz", es: "Parada Zgorzelec - centro", fil: "Stop Zgorzelec - centro", id: "Halte Zgorzelec - pusat", ne: "स्टप Zgorzelec - केन्द्र" },
+      url: "https://maps.google.com?q=51.1501506,15.0112230",
+      tone: "blue"
+    },
+    {
+      label: { pl: "Przystanek Bogatynia - centrum", en: "Stop Bogatynia - centre", ua: "Зупинка Bogatynia - центр", ru: "Остановка Bogatynia - центр", az: "Dayanacaq Bogatynia - mərkəz", es: "Parada Bogatynia - centro", fil: "Stop Bogatynia - centro", id: "Halte Bogatynia - pusat", ne: "स्टप Bogatynia - केन्द्र" },
+      url: "https://maps.google.com?q=50.9045110,14.9575718",
+      tone: "blue"
+    },
+    ...((D.city.find((entry) => entry.id === "transport-zb") || {}).links || []).filter((link) => !String(link.url || "").includes("google.com/maps/search"))
+  ]);
+
+  replaceCityLinks("najblizsze-zb", [
+    {
+      label: { pl: "Sklep Zgorzelec", en: "Shop Zgorzelec", ua: "Магазин Zgorzelec", ru: "Магазин Zgorzelec", az: "Zgorzelec mağaza", es: "Tienda Zgorzelec", fil: "Shop Zgorzelec", id: "Toko Zgorzelec", ne: "Zgorzelec पसल" },
+      url: "https://maps.google.com?q=51.1520011,15.0173444",
+      tone: "blue"
+    },
+    {
+      label: { pl: "Sklep Bogatynia", en: "Shop Bogatynia", ua: "Магазин Bogatynia", ru: "Магазин Bogatynia", az: "Bogatynia mağaza", es: "Tienda Bogatynia", fil: "Shop Bogatynia", id: "Toko Bogatynia", ne: "Bogatynia पसल" },
+      url: "https://maps.google.com?q=50.9037596,14.9572805",
+      tone: "blue"
+    },
+    {
+      label: { pl: "Apteka Zgorzelec", en: "Pharmacy Zgorzelec", ua: "Аптека Zgorzelec", ru: "Аптека Zgorzelec", az: "Zgorzelec apteki", es: "Farmacia Zgorzelec", fil: "Botika Zgorzelec", id: "Apotek Zgorzelec", ne: "Zgorzelec फार्मेसी" },
+      url: "https://maps.google.com?q=51.1493741,15.0061189",
+      tone: "blue"
+    },
+    {
+      label: { pl: "Apteka Bogatynia", en: "Pharmacy Bogatynia", ua: "Аптека Bogatynia", ru: "Аптека Bogatynia", az: "Bogatynia apteki", es: "Farmacia Bogatynia", fil: "Botika Bogatynia", id: "Apotek Bogatynia", ne: "Bogatynia फार्मेसी" },
+      url: "https://maps.google.com?q=50.9015758,14.9719648",
+      tone: "blue"
+    },
+    {
+      label: { pl: "Orange / SIM Zgorzelec", en: "Orange / SIM Zgorzelec", ua: "Orange / SIM Zgorzelec", ru: "Orange / SIM Zgorzelec", az: "Orange / SIM Zgorzelec", es: "Orange / SIM Zgorzelec", fil: "Orange / SIM Zgorzelec", id: "Orange / SIM Zgorzelec", ne: "Orange / SIM Zgorzelec" },
+      url: "https://maps.google.com?q=51.1500647,15.0125440",
+      tone: "blue"
+    },
+    {
+      label: { pl: "Play / SIM Bogatynia", en: "Play / SIM Bogatynia", ua: "Play / SIM Bogatynia", ru: "Play / SIM Bogatynia", az: "Play / SIM Bogatynia", es: "Play / SIM Bogatynia", fil: "Play / SIM Bogatynia", id: "Play / SIM Bogatynia", ne: "Play / SIM Bogatynia" },
+      url: "https://maps.google.com?q=50.9068062,14.9561644",
+      tone: "blue"
+    }
+  ]);
+
+  const dental = D.medical.find((item) => item.key === "dentist" || (item.maps || []).some((map) => String(map.url || "").includes("dentysta%20Zgorzelec")));
+  if (dental && Array.isArray(dental.maps)) {
+    dental.maps = dental.maps.map((map) => String(map.url || "").includes("dentysta%20Zgorzelec")
+      ? {
+          ...map,
+          label: { pl: "Dentysta NFZ Zgorzelec", en: "NFZ dentist Zgorzelec", ua: "Стоматолог NFZ Zgorzelec", ru: "Стоматолог NFZ Zgorzelec", az: "NFZ diş həkimi Zgorzelec", es: "Dentista NFZ Zgorzelec", fil: "NFZ dentist Zgorzelec", id: "Dokter gigi NFZ Zgorzelec", ne: "NFZ दन्त चिकित्सक Zgorzelec" },
+          url: "https://maps.google.com?q=51.1444667,15.0093185"
+        }
+      : map);
+  }
 })();
 
 

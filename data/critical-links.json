@@ -1,105 +1,134 @@
 {
   "links": [
     {
-      "id": "spotkanieZgorzelec",
-      "label": "Punkt spotkania - Zgorzelec",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20punkt%20spotkania%20Polskie%20Pomidory"
-    },
-    {
-      "id": "spotkanieBogatynia",
-      "label": "Punkt spotkania - Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20punkt%20spotkania%20Polskie%20Pomidory"
-    },
-    {
-      "id": "workplaceZgorzelec",
-      "label": "Miejsce pracy / szklarnia - Zgorzelec",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20szklarnia%20Polskie%20Pomidory"
-    },
-    {
-      "id": "workplaceBogatynia",
-      "label": "Miejsce pracy / szklarnia - Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20szklarnia%20Polskie%20Pomidory"
-    },
-    {
-      "id": "warehouse",
-      "label": "Magazyn główny - do wyboru",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20magazyn%20Polskie%20Pomidory"
-    },
-    {
-      "id": "warehouseZgorzelec",
-      "label": "Magazyn - Zgorzelec",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20magazyn%20Polskie%20Pomidory"
-    },
-    {
-      "id": "warehouseBogatynia",
-      "label": "Magazyn - Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20magazyn%20Polskie%20Pomidory"
-    },
-    {
-      "id": "oldWarehouse",
-      "label": "Stary magazyn / punkt zapasowy",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20stary%20magazyn"
-    },
-    {
-      "id": "staffEntranceZgorzelec",
-      "label": "Wejście dla personelu - Zgorzelec",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20wej%C5%9Bcie%20dla%20personelu%20Polskie%20Pomidory"
-    },
-    {
-      "id": "staffEntranceBogatynia",
-      "label": "Wejście dla personelu - Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20wej%C5%9Bcie%20dla%20personelu%20Polskie%20Pomidory"
-    },
-    {
-      "id": "parkingZgorzelec",
-      "label": "Parking / wysiadka - Zgorzelec",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20parking%20Polskie%20Pomidory"
-    },
-    {
-      "id": "parkingBogatynia",
-      "label": "Parking / wysiadka - Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20parking%20Polskie%20Pomidory"
-    },
-    {
-      "id": "office",
-      "label": "Biuro / administracja",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20Bogatynia%20biuro%20Polskie%20Pomidory"
-    },
-    {
-      "id": "busStopZgorzelec",
+      "id": "busStopZgorzelec-1",
       "label": "Przystanek / transport - Zgorzelec",
-      "url": "https://www.google.com/maps/search/?api=1&query=Zgorzelec%20przystanek%20autobusowy"
+      "url": "https://maps.google.com?q=51.1501506,15.0112230"
     },
     {
-      "id": "busStopBogatynia",
+      "id": "busStopBogatynia-2",
       "label": "Przystanek / transport - Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=Bogatynia%20przystanek%20autobusowy"
+      "url": "https://maps.google.com?q=50.9045110,14.9575718"
     },
     {
-      "id": "localOfficeZgorzelec",
+      "id": "localOfficeZgorzelec-3",
       "label": "Urząd lokalny - Zgorzelec",
       "url": "https://maps.google.com?q=51.1479829,15.0073142"
     },
     {
-      "id": "localOfficeBogatynia",
-      "label": "Urząd lokalny - Bogatynia",
-      "url": "https://maps.google.com?q=50.9045110,14.9575718"
+      "id": "banksZgorzelec-5",
+      "label": "PKO / bankomat - Zgorzelec",
+      "url": "https://maps.google.com?q=51.1538069,15.0276915"
     },
     {
-      "id": "banksZgorzelec",
-      "label": "Banki i bankomaty - Zgorzelec",
-      "url": "https://www.google.com/maps/search/?api=1&query=bank%20bankomat%20Zgorzelec"
+      "id": "banksBogatynia-6",
+      "label": "PKO / bankomat - Bogatynia",
+      "url": "https://maps.google.com?q=50.9036625,14.9604941"
     },
     {
-      "id": "banksBogatynia",
-      "label": "Banki i bankomaty - Bogatynia",
-      "url": "https://www.google.com/maps/search/?api=1&query=bank%20bankomat%20Bogatynia"
+      "id": "shopZgorzelec-7",
+      "label": "Sklep - Zgorzelec",
+      "url": "https://maps.google.com?q=51.1520011,15.0173444"
     },
     {
-      "id": "shopPharmacy",
-      "label": "Sklep / apteka - okolica",
-      "url": "https://www.google.com/maps/search/?api=1&query=apteka%20sklep%20Zgorzelec%20Bogatynia"
+      "id": "shopBogatynia-8",
+      "label": "Sklep - Bogatynia",
+      "url": "https://maps.google.com?q=50.9037596,14.9572805"
+    },
+    {
+      "id": "map-9",
+      "label": "Szpital / SOR Zgorzelec",
+      "url": "https://maps.google.com?q=51.1578324,15.0109637"
+    },
+    {
+      "id": "map-11",
+      "label": "SP ZOZ Bogatynia",
+      "url": "https://maps.google.com?q=50.9071020,14.9704671"
+    },
+    {
+      "id": "map-12",
+      "label": "MegaMed Bogatynia",
+      "url": "https://maps.google.com?q=50.9085120,14.9672340"
+    },
+    {
+      "id": "map-13",
+      "label": "Dentysta Bogatynia",
+      "url": "https://maps.google.com?q=50.9006260,14.9613622"
+    },
+    {
+      "id": "map-14",
+      "label": "Dentysta NFZ Zgorzelec",
+      "url": "https://maps.google.com?q=51.1444667,15.0093185"
+    },
+    {
+      "id": "map-15",
+      "label": "Apteka Zgorzelec",
+      "url": "https://maps.google.com?q=51.1493741,15.0061189"
+    },
+    {
+      "id": "map-16",
+      "label": "Apteka Bogatynia",
+      "url": "https://maps.google.com?q=50.9015758,14.9719648"
+    },
+    {
+      "id": "starostwo-zgorzelec-19",
+      "label": "Otwórz mapę",
+      "url": "https://maps.google.com?q=51.1486568,15.0119728"
+    },
+    {
+      "id": "pup-zgorzelec-20",
+      "label": "Otwórz mapę",
+      "url": "https://maps.google.com?q=51.1519566,15.0077624"
+    },
+    {
+      "id": "us-zgorzelec-21",
+      "label": "Otwórz mapę",
+      "url": "https://maps.google.com?q=51.1479741,15.0110051"
+    },
+    {
+      "id": "zus-zgorzelec-22",
+      "label": "Otwórz mapę",
+      "url": "https://maps.google.com?q=51.1564624,15.0009546"
+    },
+    {
+      "id": "duw-wroclaw-23",
+      "label": "Otwórz mapę",
+      "url": "https://maps.google.com?q=51.1100761,17.0494426"
+    },
+    {
+      "id": "duw-jelenia-24",
+      "label": "Otwórz mapę",
+      "url": "https://maps.google.com?q=50.9024177,15.7380723"
+    },
+    {
+      "id": "bank-zgorzelec-26",
+      "label": "Kantor - Wolności 1",
+      "url": "https://maps.google.com?q=51.1501794,15.0029441"
+    },
+    {
+      "id": "bank-bogatynia-28",
+      "label": "Kantor / wymiana walut",
+      "url": "https://maps.google.com?q=50.9035299,14.9561956"
+    },
+    {
+      "id": "poczta-zb-29",
+      "label": "Poczta Zgorzelec",
+      "url": "https://maps.google.com?q=51.1514714,15.0073846"
+    },
+    {
+      "id": "poczta-zb-30",
+      "label": "Poczta Bogatynia",
+      "url": "https://maps.google.com?q=50.9075475,14.9583248"
+    },
+    {
+      "id": "najblizsze-zb-37",
+      "label": "Orange / SIM Zgorzelec",
+      "url": "https://maps.google.com?q=51.1500647,15.0125440"
+    },
+    {
+      "id": "najblizsze-zb-38",
+      "label": "Play / SIM Bogatynia",
+      "url": "https://maps.google.com?q=50.9068062,14.9561644"
     }
   ]
 }
-
