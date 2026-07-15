@@ -3096,6 +3096,7 @@
   ];
 
   D.maps = D.maps.flatMap((item) => {
+    if (["parkingZgorzelec", "parkingBogatynia"].includes(item.key)) return [];
     if (item.key === "shopPharmacy") return shopMapItems;
     const next = { ...item };
     if (confirmOnlyMapKeys.has(next.key)) {
