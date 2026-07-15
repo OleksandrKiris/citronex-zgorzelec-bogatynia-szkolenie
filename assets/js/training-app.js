@@ -4,6 +4,13 @@
   const validLangs = new Set(DATA.languages.map((item) => item.id));
   const page = document.body.dataset.page || "home";
   const app = document.getElementById("app");
+  const assetVersion = (() => {
+    try {
+      return new URL(document.currentScript?.src || location.href).searchParams.get("v") || "";
+    } catch (error) {
+      return "";
+    }
+  })();
 
   const iconMap = {
     home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m3 11 9-8 9 8"/><path d="M5 10v11h14V10"/><path d="M9 21v-6h6v6"/></svg>',
@@ -61,6 +68,13 @@
   function href(pageName) {
     const base = pageName === "home" ? "index.html" : `${pageName}.html`;
     return `${base}?lang=${encodeURIComponent(lang)}`;
+  }
+
+  function assetSrc(src) {
+    const value = String(src || "");
+    const normalized = value.replace(/^\.\//, "");
+    if (!normalized.startsWith("assets/") || /[?&]v=/.test(value)) return value;
+    return `${value}${value.includes("?") ? "&" : "?"}v=${encodeURIComponent(assetVersion || "assets")}`;
   }
 
   function telHref(phone) {
@@ -1871,6 +1885,9 @@
 
   function enhanceFrontend(root = document) {
     root.querySelectorAll("img").forEach((image) => {
+      const currentSrc = image.getAttribute("src");
+      const nextSrc = assetSrc(currentSrc);
+      if (currentSrc && nextSrc !== currentSrc) image.setAttribute("src", nextSrc);
       const importantImage = image.closest(".brand, .location-splash-card");
       if (!image.hasAttribute("loading")) image.setAttribute("loading", importantImage ? "eager" : "lazy");
       image.setAttribute("decoding", "async");
