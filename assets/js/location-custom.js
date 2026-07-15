@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260715-zb-confirmed-public-maps1",
+    "version": "20260715-zb-data-quality1",
     "displayVersion": "2026-07-13",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
@@ -74,15 +74,15 @@
         "ne": "नक्सा र बाटो - Zgorzelec / Bogatynia"
       },
       "lead": {
-        "pl": "Tu będą wszystkie potrzebne mapy: punkt spotkania, wejścia, magazyn, parking, urząd, banki i transport.",
-        "en": "Here will be all needed maps: meeting point, entrances, warehouse, parking, office, banks and transport.",
-        "ua": "Тут будуть усі потрібні карти: місце зустрічі, входи, склад, парковка, установа, банки і транспорт.",
-        "ru": "Здесь будут все нужные карты: место встречи, входы, склад, парковка, учреждение, банки и транспорт.",
-        "az": "Burada bütün lazımi xəritələr olacaq: görüş yeri, girişlər, anbar, dayanacaq, idarə, banklar və nəqliyyat.",
-        "es": "Aquí estarán todos los mapas: punto de encuentro, entradas, almacén, parking, oficina, bancos y transporte.",
-        "fil": "Narito ang lahat ng mapa: meeting point, pasukan, bodega, parking, opisina, bangko at transportasyon.",
-        "id": "Di sini semua peta: titik kumpul, pintu masuk, gudang, parkir, kantor, bank dan transportasi.",
-        "ne": "यहाँ सबै नक्सा हुनेछ: भेट्ने ठाउँ, प्रवेश, गोदाम, पार्किङ, कार्यालय, बैंक र यातायात।"
+        "pl": "Tu są potrzebne mapy: punkt spotkania, wejścia, magazyn, urząd, banki i transport.",
+        "en": "Needed maps are here: meeting point, entrances, warehouse, office, banks and transport.",
+        "ua": "Тут потрібні карти: місце зустрічі, входи, склад, установа, банки і транспорт.",
+        "ru": "Здесь нужные карты: место встречи, входы, склад, учреждение, банки и транспорт.",
+        "az": "Lazım olan xəritələr buradadır: görüş yeri, girişlər, anbar, idarə, banklar və nəqliyyat.",
+        "es": "Aquí están los mapas necesarios: punto de encuentro, entradas, almacén, oficina, bancos y transporte.",
+        "fil": "Narito ang mga kailangan na mapa: meeting point, pasukan, bodega, opisina, bangko at transportasyon.",
+        "id": "Di sini ada peta yang dibutuhkan: titik temu, pintu masuk, gudang, kantor, bank dan transportasi.",
+        "ne": "यहाँ आवश्यक नक्साहरू छन्: भेट्ने ठाउँ, प्रवेश, गोदाम, कार्यालय, बैंक र यातायात।"
       }
     },
     "magazyn": {
@@ -3223,8 +3223,34 @@
     }
   };
 
-  D.meta.version = "20260715-zb-location-systems1";
+  D.meta.version = "20260715-zb-data-quality1";
   D.meta.displayVersion = "2026-07-15";
+
+  setPageText(
+    "mapa",
+    tr(
+      "Mapy i dojazd - Zgorzelec / Bogatynia",
+      "Maps and route - Zgorzelec / Bogatynia",
+      "Карти і дорога - Zgorzelec / Bogatynia",
+      "Карты и дорога - Zgorzelec / Bogatynia",
+      "Xəritə və yol - Zgorzelec / Bogatynia",
+      "Mapas y ruta - Zgorzelec / Bogatynia",
+      "Mapa at ruta - Zgorzelec / Bogatynia",
+      "Peta dan rute - Zgorzelec / Bogatynia",
+      "नक्सा र बाटो - Zgorzelec / Bogatynia"
+    ),
+    tr(
+      "Tu są potrzebne mapy: punkt spotkania, wejścia, magazyn, urząd, banki i transport.",
+      "Needed maps are here: meeting point, entrances, warehouse, office, banks and transport.",
+      "Тут потрібні карти: місце зустрічі, входи, склад, установа, банки і транспорт.",
+      "Здесь нужные карты: место встречи, входы, склад, учреждение, банки и транспорт.",
+      "Lazım olan xəritələr buradadır: görüş yeri, girişlər, anbar, idarə, banklar və nəqliyyat.",
+      "Aquí están los mapas necesarios: punto de encuentro, entradas, almacén, oficina, bancos y transporte.",
+      "Narito ang mga kailangan na mapa: meeting point, pasukan, bodega, opisina, bangko at transportasyon.",
+      "Di sini ada peta yang dibutuhkan: titik temu, pintu masuk, gudang, kantor, bank dan transportasi.",
+      "यहाँ आवश्यक नक्साहरू छन्: भेट्ने ठाउँ, प्रवेश, गोदाम, कार्यालय, बैंक र यातायात।"
+    )
+  );
 
   setPageText(
     "magazyn",
@@ -3384,7 +3410,7 @@
   setMapText("warehouseZgorzelec", tr("Magazyn bananowy - Zgorzelec", "Banana warehouse - Zgorzelec", "Банановий склад - Zgorzelec", "Банановый склад - Zgorzelec", "Banan anbari - Zgorzelec", "Almacen de bananas - Zgorzelec", "Banana warehouse - Zgorzelec", "Gudang pisang - Zgorzelec", "केरा गोदाम - Zgorzelec"), zgorzelecBananaNote);
   setMapText("workplaceBogatynia", tr("Szklarnia / miejsce pracy - Bogatynia", "Greenhouse / workplace - Bogatynia", "Теплиця / місце роботи - Bogatynia", "Теплица / место работы - Bogatynia", "Istixana / is yeri - Bogatynia", "Invernadero / lugar de trabajo - Bogatynia", "Greenhouse / work place - Bogatynia", "Greenhouse / tempat kerja - Bogatynia", "ग्रीनहाउस / काम गर्ने ठाउँ - Bogatynia"), null);
 
-  D.maps = D.maps.filter((item) => !["warehouse", "oldWarehouse"].includes(item.key));
+  D.maps = D.maps.filter((item) => !["warehouse", "oldWarehouse", "workplaceZgorzelec"].includes(item.key));
 
   D.warehouseRules = [
     tr("Najpierw wybierz: Zgorzelec czy Bogatynia.", "First choose: Zgorzelec or Bogatynia.", "Спочатку оберіть: Zgorzelec чи Bogatynia.", "Сначала выберите: Zgorzelec или Bogatynia.", "Evvel secin: Zgorzelec yoxsa Bogatynia.", "Primero elige: Zgorzelec o Bogatynia.", "Piliin muna: Zgorzelec o Bogatynia.", "Pilih dulu: Zgorzelec atau Bogatynia.", "पहिले छान्नुहोस्: Zgorzelec कि Bogatynia।"),
@@ -3449,7 +3475,7 @@
       lead: tr("W Bogatyni tablet dziala na szklarni i magazynie. Zgorzelec ma osobny system magazynu bananowego.", "In Bogatynia the tablet works in greenhouse and warehouse. Zgorzelec has a separate banana warehouse system.", "У Bogatynia tablet працює на теплиці і складі. Zgorzelec має окрему систему бананового складу.", "В Bogatynia tablet работает на теплице и складе. Zgorzelec имеет отдельную систему бананового склада.", "Bogatynia-da tablet istixana ve anbarda isleyir. Zgorzelec-in banan anbari ucun ayri sistemi var.", "En Bogatynia tablet funciona en invernadero y almacen. Zgorzelec tiene sistema separado.", "Sa Bogatynia gumagana ang tablet sa greenhouse at warehouse. Ang Zgorzelec ay may hiwalay na sistema.", "Di Bogatynia tablet berlaku di greenhouse dan gudang. Zgorzelec punya sistem terpisah.", "Bogatynia मा tablet ग्रीनहाउस र गोदाममा चल्छ। Zgorzelec मा अलग प्रणाली छ।")
     }
   };
-  D.meta.version = "20260715-zb-home-routing1";
+  D.meta.version = "20260715-zb-data-quality1";
 
   D.homeModeUi = {
     eyebrow: tr("Najpierw", "First", "Спочатку", "Сначала", "Əvvəlcə", "Primero", "Una muna", "Pertama", "पहिले"),
