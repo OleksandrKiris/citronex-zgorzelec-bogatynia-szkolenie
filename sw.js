@@ -1,5 +1,5 @@
 ﻿const CACHE_PREFIX = "citronex-zgorzelec-bogatynia-szkolenie-";
-const CACHE_NAME = CACHE_PREFIX + "20260715-frontend-clarity4-zb";
+const CACHE_NAME = CACHE_PREFIX + "20260715-frontend-nav5-zb";
 
 const CORE_ASSETS = [
   "./",
@@ -18,10 +18,10 @@ const CORE_ASSETS = [
   "./zakazy.html",
   "./test.html",
   "./manifest.webmanifest",
-  "./assets/css/training.css?v=20260715-frontend-clarity4-zb",
-  "./assets/js/training-data.js?v=20260715-frontend-clarity4-zb",
-  "./assets/js/location-custom.js?v=20260715-frontend-clarity4-zb",
-  "./assets/js/training-app.js?v=20260715-frontend-clarity4-zb",
+  "./assets/css/training.css?v=20260715-frontend-nav5-zb",
+  "./assets/js/training-data.js?v=20260715-frontend-nav5-zb",
+  "./assets/js/location-custom.js?v=20260715-frontend-nav5-zb",
+  "./assets/js/training-app.js?v=20260715-frontend-nav5-zb",
   "./assets/brand/polskie-pomidory-logo.png",
   "./assets/brand/polskie-pomidory-icon.png",
   "./assets/orientation/sklarnia-etap-excel.png"

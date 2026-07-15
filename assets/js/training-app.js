@@ -1858,6 +1858,7 @@
   }
 
   let frontendObserverReady = false;
+  let scrollHelpersReady = false;
 
   function enhanceFrontend(root = document) {
     root.querySelectorAll("img").forEach((image) => {
@@ -1890,6 +1891,65 @@
     observer.observe(app, { childList: true, subtree: true });
   }
 
+  function scrollTopLabel() {
+    return text(tx(
+      "Do góry",
+      "Back to top",
+      "Нагору",
+      "Наверх",
+      "Yuxarı",
+      "Arriba",
+      "Pataas",
+      "Ke atas",
+      "माथि"
+    ));
+  }
+
+  function setupScrollHelpers() {
+    let progress = document.querySelector(".app-scroll-progress");
+    let button = document.querySelector(".app-to-top");
+
+    if (!progress) {
+      progress = document.createElement("div");
+      progress.className = "app-scroll-progress";
+      progress.setAttribute("aria-hidden", "true");
+      document.body.appendChild(progress);
+    }
+
+    if (!button) {
+      button = document.createElement("button");
+      button.className = "app-to-top";
+      button.type = "button";
+      button.innerHTML = "<span aria-hidden=\"true\">↑</span>";
+      button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+      document.body.appendChild(button);
+    }
+
+    button.setAttribute("aria-label", scrollTopLabel());
+
+    if (scrollHelpersReady) return;
+    scrollHelpersReady = true;
+
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const doc = document.documentElement;
+      const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+      const percent = Math.min(100, Math.max(0, (window.scrollY / max) * 100));
+      document.body.style.setProperty("--scroll-progress", `${percent}%`);
+      const useful = doc.scrollHeight > window.innerHeight * 1.35;
+      button.classList.toggle("is-visible", useful && window.scrollY > 360);
+    };
+    const requestUpdate = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    requestUpdate();
+  }
+
   function renderPage() {
     renderHeader();
     focusActiveTopNav();
@@ -1914,6 +1974,7 @@
     renderVersionFooter();
     setupFrontendEnhancements();
     enhanceFrontend(document);
+    setupScrollHelpers();
     showHydraEntrySplash();
   }
 

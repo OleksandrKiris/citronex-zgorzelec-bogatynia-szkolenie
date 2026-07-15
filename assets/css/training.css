@@ -7227,3 +7227,72 @@ details.card[open] > summary::after {
     font-size: 11px;
   }
 }
+
+/* Frontend navigation aid 2026-07-15 */
+.app-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 120;
+  width: 100%;
+  height: 3px;
+  pointer-events: none;
+  background: transparent;
+}
+
+.app-scroll-progress::before {
+  content: "";
+  display: block;
+  width: var(--scroll-progress, 0%);
+  height: 100%;
+  border-radius: 0 999px 999px 0;
+  background: linear-gradient(90deg, var(--accent), var(--brand));
+  box-shadow: 0 0 14px var(--accent-shadow);
+}
+
+.app-to-top {
+  position: fixed;
+  right: max(14px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--accent-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .94);
+  color: var(--accent);
+  box-shadow: 0 12px 28px rgba(17, 24, 39, .16);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.app-to-top span {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.app-to-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+@media (max-width: 430px) {
+  .app-to-top {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+    width: 46px;
+    height: 46px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-to-top {
+    transition: none !important;
+  }
+}
