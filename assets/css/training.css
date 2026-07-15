@@ -7663,5 +7663,5 @@ body[data-page="zakazy"] .ban-section { border-left-color: #dc2626; }
 }
 
 .page-loader.is-visible {
-  pointer-events: auto;
+  pointer-events: none;
 }

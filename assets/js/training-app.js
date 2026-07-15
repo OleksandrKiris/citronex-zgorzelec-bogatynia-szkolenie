@@ -1989,6 +1989,7 @@
 
 
   let pageLoadingReady = false;
+  let pageLoadingTimer = 0;
 
   function loadingLabel() {
     return text(tx("\u0141aduj\u0119 aktualn\u0105 wersj\u0119", "Loading the current version", "\u0417\u0430\u0432\u0430\u043d\u0442\u0430\u0436\u0443\u044e \u0430\u043a\u0442\u0443\u0430\u043b\u044c\u043d\u0443 \u0432\u0435\u0440\u0441\u0456\u044e", "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u044e \u0430\u043a\u0442\u0443\u0430\u043b\u044c\u043d\u0443\u044e \u0432\u0435\u0440\u0441\u0438\u044e", "Aktual versiya y\u00fckl\u0259nir", "Cargando versi\u00f3n actual", "Nilo-load ang kasalukuyang bersyon", "Memuat versi terbaru", "\u0939\u093e\u0932\u0915\u094b \u0938\u0902\u0938\u094d\u0915\u0930\u0923 \u0932\u094b\u0921 \u0939\u0941\u0901\u0926\u0948\u091b"));
@@ -2010,7 +2011,29 @@
     `;
     document.body.appendChild(overlay);
 
+    const hideLoader = () => {
+      window.clearTimeout(pageLoadingTimer);
+      overlay.classList.remove("is-visible");
+      overlay.hidden = true;
+      document.querySelectorAll(".is-loading").forEach((item) => item.classList.remove("is-loading"));
+    };
+
+    const showLoader = (link) => {
+      window.clearTimeout(pageLoadingTimer);
+      if (link) link.classList.add("is-loading");
+      overlay.hidden = false;
+      requestAnimationFrame(() => overlay.classList.add("is-visible"));
+      pageLoadingTimer = window.setTimeout(hideLoader, 1800);
+    };
+
+    window.addEventListener("pageshow", hideLoader);
+    window.addEventListener("pagehide", hideLoader);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) hideLoader();
+    });
+
     document.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       const link = event.target.closest("a[href]");
       if (!link || link.target || link.hasAttribute("download")) return;
       if (link.closest(".map-action-group") || link.href.startsWith("tel:") || link.href.startsWith("mailto:")) return;
@@ -2019,11 +2042,7 @@
       if (url.hash && url.pathname === location.pathname && url.search === location.search) return;
       const isPage = url.pathname.endsWith(".html") || url.pathname.endsWith("/") || url.pathname === location.pathname;
       if (!isPage) return;
-      event.preventDefault();
-      link.classList.add("is-loading");
-      overlay.hidden = false;
-      requestAnimationFrame(() => overlay.classList.add("is-visible"));
-      window.setTimeout(() => { location.href = url.href; }, 180);
+      showLoader(link);
     }, { capture: true });
   }
 

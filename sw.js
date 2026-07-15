@@ -1,5 +1,5 @@
-const CACHE_PREFIX = "citronex-zgorzelec-bogatynia-szkolenie-";
-const CACHE_NAME = CACHE_PREFIX + "20260715-loader-hotfix1-zb";
+﻿const CACHE_PREFIX = "citronex-zgorzelec-bogatynia-szkolenie-";
+const CACHE_NAME = CACHE_PREFIX + "20260715-nav-stability1-zb";
 
 const CORE_ASSETS = [
   "./",
@@ -18,10 +18,10 @@ const CORE_ASSETS = [
   "./zakazy.html",
   "./test.html",
   "./manifest.webmanifest",
-  "./assets/css/training.css?v=20260715-loader-hotfix1-zb",
-  "./assets/js/training-data.js?v=20260715-loader-hotfix1-zb",
-  "./assets/js/location-custom.js?v=20260715-loader-hotfix1-zb",
-  "./assets/js/training-app.js?v=20260715-loader-hotfix1-zb",
+  "./assets/css/training.css?v=20260715-nav-stability1-zb",
+  "./assets/js/training-data.js?v=20260715-nav-stability1-zb",
+  "./assets/js/location-custom.js?v=20260715-nav-stability1-zb",
+  "./assets/js/training-app.js?v=20260715-nav-stability1-zb",
   "./assets/brand/polskie-pomidory-logo.png",
   "./assets/brand/polskie-pomidory-icon.png",
   "./assets/orientation/sklarnia-etap-excel.png"
@@ -51,6 +51,19 @@ self.addEventListener("activate", (event) => {
   })());
 });
 
+function networkTimeout(ms = 1400) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(null), ms);
+  });
+}
+
+async function cacheMatch(cache, request, fallback = "./index.html") {
+  const cached = await cache.match(request, { ignoreSearch: true }) || await caches.match(request, { ignoreSearch: true });
+  if (cached) return cached;
+  if (!fallback) return null;
+  return cache.match(fallback, { ignoreSearch: true }) || caches.match(fallback, { ignoreSearch: true });
+}
+
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   const requestUrl = new URL(event.request.url);
@@ -58,16 +71,22 @@ self.addEventListener("fetch", (event) => {
 
   event.respondWith((async () => {
     const cache = await caches.open(CACHE_NAME);
-    const cached = await cache.match(event.request);
-    if (cached) return cached;
+    const cached = await cacheMatch(cache, event.request, null);
+    if (cached) {
+      fetch(event.request).then((response) => {
+        if (response && response.ok) cache.put(event.request, response.clone());
+      }).catch(() => {});
+      return cached;
+    }
     try {
-      const response = await fetch(event.request);
+      const response = await Promise.race([fetch(event.request), networkTimeout()]);
+      if (!response) return cacheMatch(cache, event.request);
       if (response && response.ok) {
         cache.put(event.request, response.clone());
       }
       return response;
     } catch (error) {
-      return cache.match("./index.html");
+      return cacheMatch(cache, event.request);
     }
   })());
 });
