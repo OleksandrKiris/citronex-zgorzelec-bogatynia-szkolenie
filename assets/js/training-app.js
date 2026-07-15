@@ -1859,6 +1859,7 @@
 
   let frontendObserverReady = false;
   let scrollHelpersReady = false;
+  let scrollHelperUpdate = null;
 
   function enhanceFrontend(root = document) {
     root.querySelectorAll("img").forEach((image) => {
@@ -1908,6 +1909,8 @@
   function setupScrollHelpers() {
     let progress = document.querySelector(".app-scroll-progress");
     let button = document.querySelector(".app-to-top");
+    const scrollRoot = () => document.scrollingElement || document.documentElement || document.body;
+    const scrollTop = () => window.pageYOffset || scrollRoot().scrollTop || document.body.scrollTop || 0;
 
     if (!progress) {
       progress = document.createElement("div");
@@ -1921,33 +1924,59 @@
       button.className = "app-to-top";
       button.type = "button";
       button.innerHTML = "<span aria-hidden=\"true\">↑</span>";
-      button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+      button.addEventListener("click", () => {
+        const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        try {
+          window.scrollTo({ top: 0, left: 0, behavior: reduceMotion ? "auto" : "smooth" });
+        } catch (error) {
+          window.scrollTo(0, 0);
+        }
+        scrollRoot().scrollTop = 0;
+        document.body.scrollTop = 0;
+        scrollHelperUpdate?.();
+      });
       document.body.appendChild(button);
     }
 
     button.setAttribute("aria-label", scrollTopLabel());
 
-    if (scrollHelpersReady) return;
+    if (scrollHelpersReady) {
+      scrollHelperUpdate?.();
+      return;
+    }
     scrollHelpersReady = true;
 
     let ticking = false;
     const update = () => {
       ticking = false;
       const doc = document.documentElement;
-      const max = Math.max(1, doc.scrollHeight - window.innerHeight);
-      const percent = Math.min(100, Math.max(0, (window.scrollY / max) * 100));
+      const root = scrollRoot();
+      const fullHeight = Math.max(root.scrollHeight, doc.scrollHeight, document.body.scrollHeight);
+      const top = scrollTop();
+      const max = Math.max(1, fullHeight - window.innerHeight);
+      const percent = Math.min(100, Math.max(0, (top / max) * 100));
       document.body.style.setProperty("--scroll-progress", `${percent}%`);
-      const useful = doc.scrollHeight > window.innerHeight * 1.35;
-      button.classList.toggle("is-visible", useful && window.scrollY > 360);
+      const useful = max > 120;
+      button.classList.toggle("is-visible", useful && top > 180);
     };
     const requestUpdate = () => {
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(update);
     };
+    scrollHelperUpdate = requestUpdate;
     window.addEventListener("scroll", requestUpdate, { passive: true });
+    document.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);
+    window.addEventListener("orientationchange", requestUpdate);
+    window.addEventListener("wheel", requestUpdate, { passive: true });
+    window.addEventListener("touchmove", requestUpdate, { passive: true });
+    window.addEventListener("touchend", requestUpdate, { passive: true });
+    document.addEventListener("wheel", requestUpdate, { passive: true });
+    document.addEventListener("touchmove", requestUpdate, { passive: true });
     requestUpdate();
+    window.setTimeout(requestUpdate, 250);
+    window.setInterval(requestUpdate, 700);
   }
 
   function renderPage() {
