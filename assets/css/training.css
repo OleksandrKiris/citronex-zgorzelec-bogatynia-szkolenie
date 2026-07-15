@@ -7300,3 +7300,353 @@ details.card[open] > summary::after {
     transition: none !important;
   }
 }
+
+
+/* Master mobile frontend layer 2026-07-15 */
+:root {
+  --tap-size: 54px;
+  --section-gap: clamp(12px, 3.4vw, 18px);
+}
+
+body { text-rendering: optimizeLegibility; }
+
+.app-header { border-bottom: 1px solid rgba(17, 24, 39, .08); }
+.header-inner { gap: 10px; }
+.back-link { min-width: 44px; min-height: 44px; font-weight: 900; }
+
+.home-return-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 50px;
+  margin: 7px clamp(10px, 3vw, 18px) 9px;
+  padding: 10px 14px;
+  border: 1px solid var(--accent-line);
+  border-radius: 14px;
+  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 82%, #111827));
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow: 0 12px 26px var(--accent-shadow);
+  transition: transform .16s ease, filter .16s ease;
+}
+.home-return-cta:active { transform: scale(.985); filter: brightness(.97); }
+.home-return-icon { display: grid; place-items: center; width: 25px; height: 25px; }
+.home-return-icon svg { width: 22px; height: 22px; stroke-width: 2.4; }
+
+.page { gap: var(--section-gap); }
+.hero { margin-bottom: clamp(10px, 3vw, 16px); padding: clamp(15px, 4vw, 22px); }
+body[data-page="home"] .hero { padding-bottom: clamp(12px, 3.2vw, 18px); }
+.hero .lead, .hero p.lead { max-width: 64ch; }
+
+.tiles { gap: clamp(10px, 3vw, 14px); }
+.tile {
+  min-height: 132px;
+  padding: clamp(13px, 3.6vw, 17px);
+  border-radius: 16px;
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, filter .16s ease;
+}
+.tile.tile-priority { border-color: var(--accent-line); box-shadow: 0 14px 30px var(--accent-shadow); }
+.tile.tile-priority::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.72);
+}
+.tile .icon-box { width: 52px; height: 52px; }
+.tile .icon-box svg { width: 29px; height: 29px; }
+.tile-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.12;
+}
+.tile-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-height: 2.75em;
+  overflow: hidden;
+}
+
+.card, .step-card, .notice, details.card, .city-simple-item, .contact-person, .medical-card, .ban-section, .reader-panel, .tablet-guide {
+  border-radius: 15px;
+  box-shadow: 0 10px 24px rgba(17, 24, 39, .075);
+}
+.card, .step-card, .notice { padding: clamp(13px, 3.5vw, 18px); }
+.module-grid, .card-grid, .steps, .city-simple-list, .contact-group { gap: clamp(10px, 3vw, 15px); }
+
+.btn, .pill, .city-category-btn, .intro-action, .reopen-intro {
+  min-height: var(--tap-size);
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease, background-color .16s ease;
+}
+.btn:active, .pill:active, .city-category-btn:active, .intro-action:active, .reopen-intro:active, .tile:active, .card:active, .step-card:active, .home-return-cta:active { transform: scale(.985); }
+.is-loading { pointer-events: none; filter: brightness(.94); }
+
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(248, 250, 252, .72);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: opacity .16s ease;
+}
+.page-loader.is-visible { opacity: 1; }
+.page-loader-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 310px;
+  min-height: 64px;
+  padding: 14px 17px;
+  border: 1px solid var(--accent-line);
+  border-radius: 16px;
+  background: #fff;
+  color: var(--text);
+  box-shadow: 0 18px 42px rgba(17, 24, 39, .16);
+}
+.loader-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 var(--accent-shadow);
+  animation: loaderPulse 1s ease-in-out infinite;
+}
+@keyframes loaderPulse {
+  0%, 100% { transform: scale(.8); box-shadow: 0 0 0 0 var(--accent-shadow); }
+  50% { transform: scale(1); box-shadow: 0 0 0 12px rgba(0,0,0,0); }
+}
+.contrast-guard { color: var(--text) !important; background-color: #fff !important; }
+
+.greenhouse-steps { gap: 14px; }
+.greenhouse-step-tabs {
+  position: sticky;
+  top: calc(86px + env(safe-area-inset-top));
+  z-index: 12;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.95);
+  box-shadow: 0 10px 22px rgba(17, 24, 39, .08);
+}
+.greenhouse-steps .step-card h3 { font-size: clamp(18px, 5.2vw, 24px); }
+.greenhouse-steps .step-card p { max-width: 62ch; }
+
+@media (max-width: 430px) {
+  :root { --tap-size: 56px; }
+  .header-inner { grid-template-columns: 44px minmax(0, 1fr) minmax(92px, 34vw); padding: 7px 9px; }
+  .brand img { max-width: 32px; max-height: 32px; }
+  .brand-title { font-size: clamp(12px, 3.35vw, 14px); }
+  .brand-subtitle { font-size: 10.5px; }
+  .lang-select { min-height: 42px; padding-inline: 8px; font-size: 13px; }
+  .top-nav-link { min-width: 78px; min-height: 48px; padding: 7px 9px; font-size: 12px; }
+  .home-return-cta { min-height: 48px; margin-top: 5px; font-size: 13px; }
+  .page { padding-inline: clamp(10px, 3vw, 14px); }
+  .hero { padding: 14px; border-radius: 16px; }
+  .hero h1 { font-size: clamp(23px, 7.3vw, 29px) !important; }
+  .hero .lead, .hero p.lead { font-size: 14.5px; }
+  .tiles { grid-template-columns: 1fr 1fr !important; }
+  .tile { min-height: 126px; padding: 12px; }
+  .tile .icon-box { width: 46px; height: 46px; }
+  .tile .icon-box svg { width: 25px; height: 25px; }
+  .tile-title { font-size: clamp(15px, 4.4vw, 18px); }
+  .tile-text { font-size: 12.5px; }
+  .card, .step-card, .notice, .city-simple-item, .contact-person { padding: 13px; }
+  .greenhouse-step-tabs { top: calc(138px + env(safe-area-inset-top)); }
+}
+
+@media (max-width: 360px) {
+  .tiles { gap: 9px; }
+  .tile { min-height: 118px; padding: 10px; }
+  .tile .icon-box { width: 42px; height: 42px; }
+  .tile-title { font-size: 15px; }
+  .tile-text { font-size: 12px; -webkit-line-clamp: 2; }
+  .top-nav-link { min-width: 72px; }
+}
+
+
+/* Master compact module layer 2026-07-15 */
+body[data-page="reader"] .hero,
+body[data-page="tablet"] .hero,
+body[data-page="lekarz"] .hero,
+body[data-page="miasto"] .hero,
+body[data-page="kontakty"] .hero,
+body[data-page="zakazy"] .hero,
+body[data-page="slownik"] .hero,
+body[data-page="mowa"] .hero,
+body[data-page="test"] .hero {
+  padding-block: clamp(13px, 3.4vw, 20px);
+}
+
+body[data-page="reader"] .hero h1,
+body[data-page="tablet"] .hero h1,
+body[data-page="lekarz"] .hero h1,
+body[data-page="miasto"] .hero h1,
+body[data-page="kontakty"] .hero h1,
+body[data-page="zakazy"] .hero h1,
+body[data-page="slownik"] .hero h1,
+body[data-page="mowa"] .hero h1,
+body[data-page="test"] .hero h1 {
+  font-size: clamp(25px, 7vw, 36px);
+  line-height: 1.04;
+}
+
+body[data-page="home"] .tile[data-tone="blue"] { --tile-glow: rgba(37, 99, 235, .12); }
+body[data-page="home"] .tile[data-tone="green"] { --tile-glow: rgba(22, 163, 74, .12); }
+body[data-page="home"] .tile[data-tone="yellow"] { --tile-glow: rgba(217, 119, 6, .12); }
+body[data-page="home"] .tile[data-tone="red"] { --tile-glow: rgba(220, 38, 38, .12); }
+body[data-page="home"] .tile { background: linear-gradient(145deg, #fff, #fff 55%, var(--tile-glow, rgba(15, 23, 42, .035))); }
+
+:where(.reader-panel, .tablet-guide, .medical-card, .city-simple-group, .city-simple-item, .contact-person, .ban-section, .test-shell, .glossary-help, .speech-intro) {
+  border: 1px solid rgba(15, 23, 42, .08);
+  background: #fff;
+}
+
+:where(.reader-panel, .tablet-guide, .medical-card, .city-simple-item, .contact-person, .ban-section) h2,
+:where(.reader-panel, .tablet-guide, .medical-card, .city-simple-item, .contact-person, .ban-section) h3 {
+  margin-top: 0;
+  color: #0f172a;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+:where(.reader-panel, .tablet-guide, .medical-card, .city-simple-item, .contact-person, .ban-section) p,
+:where(.reader-panel, .tablet-guide, .medical-card, .city-simple-item, .contact-person, .ban-section) li {
+  color: #334155;
+  line-height: 1.42;
+}
+
+details.card > summary,
+.city-simple-group > summary,
+details.ban-section > summary {
+  min-height: 56px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #f8fafc;
+  color: #0f172a;
+  font-weight: 950;
+}
+
+details.card[open] > summary,
+.city-simple-group[open] > summary,
+details.ban-section[open] > summary {
+  background: #eff6ff;
+}
+
+.reader-panel-head,
+.tablet-guide .guide-head,
+.ban-section-head {
+  gap: 10px;
+}
+
+.reader-step,
+.step-card.reader-step {
+  min-height: 76px;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 10px;
+  padding: 12px;
+}
+
+.reader-step .step-number,
+.step-card.reader-step .step-number {
+  width: 34px;
+  height: 34px;
+  font-size: 15px;
+}
+
+.reader-step p,
+.step-card.reader-step p {
+  margin: 0;
+  font-size: clamp(14px, 3.8vw, 16px);
+}
+
+.medical-card,
+.city-simple-item,
+.contact-person {
+  border-left: 5px solid var(--accent);
+}
+
+body[data-page="lekarz"] .medical-card { border-left-color: #dc2626; }
+body[data-page="miasto"] .city-simple-item { border-left-color: #64748b; }
+body[data-page="kontakty"] .contact-person { border-left-color: #16a34a; }
+body[data-page="zakazy"] .ban-section { border-left-color: #dc2626; }
+
+.btn-row,
+.city-links,
+.city-links-stack {
+  gap: 8px;
+}
+
+.btn-row .btn,
+.city-links .btn,
+.city-links-stack .btn {
+  min-height: 54px;
+  justify-content: center;
+  text-align: center;
+}
+
+@media (max-width: 430px) {
+  .module-grid,
+  .card-grid,
+  .contact-group,
+  .city-simple-list {
+    gap: 10px !important;
+  }
+
+  .reader-panel,
+  .tablet-guide,
+  .medical-card,
+  .city-simple-group,
+  .city-simple-item,
+  .contact-person,
+  .ban-section,
+  .test-shell,
+  .test-question {
+    border-radius: 14px !important;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, .07) !important;
+  }
+
+  details.card > summary,
+  .city-simple-group > summary,
+  details.ban-section > summary {
+    min-height: 54px;
+    padding: 13px 14px;
+  }
+
+  .btn-row .btn,
+  .city-links .btn,
+  .city-links-stack .btn {
+    min-height: 56px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  body[data-page="reader"] .hero h1,
+  body[data-page="tablet"] .hero h1,
+  body[data-page="lekarz"] .hero h1,
+  body[data-page="miasto"] .hero h1,
+  body[data-page="kontakty"] .hero h1,
+  body[data-page="zakazy"] .hero h1,
+  body[data-page="slownik"] .hero h1,
+  body[data-page="mowa"] .hero h1,
+  body[data-page="test"] .hero h1 {
+    font-size: 24px !important;
+  }
+
+  .home-return-cta {
+    min-height: 46px;
+    padding: 9px 10px;
+  }
+}

@@ -232,6 +232,12 @@
         <span>HYDRA</span>
       </a>
     `;
+    const homeReturn = isHome ? "" : `
+      <a class="home-return-cta" href="${esc(href("home"))}">
+        <span class="home-return-icon">${iconMap.home}</span>
+        <span>${esc(text(tx("Powr\u00f3t do kafelk\u00f3w", "Back to tiles", "\u041d\u0430\u0437\u0430\u0434 \u0434\u043e \u043f\u043b\u0438\u0442\u043e\u043a", "\u041d\u0430\u0437\u0430\u0434 \u043a \u043f\u043b\u0438\u0442\u043a\u0430\u043c", "Kafel se\u00e7iml\u0259rin\u0259 qay\u0131t", "Volver a tarjetas", "Bumalik sa mga tile", "Kembali ke kartu", "\u0915\u093e\u0930\u094d\u0921\u0939\u0930\u0942\u092e\u093e \u092b\u0930\u094d\u0915\u0928\u0941\u0939\u094b\u0938\u094d")))}</span>
+      </a>
+    `;
 
     document.body.insertAdjacentHTML("afterbegin", `
       <header class="app-header">
@@ -249,6 +255,7 @@
         <nav class="top-nav" aria-label="${esc(text(tx("Szybkie przyciski", "Quick buttons", "Швидкі кнопки", "Быстрые кнопки", "Sürətli düymələr", "Botones rápidos", "Mabilis na buttons", "Tombol cepat", "छिटो बटनहरू")))}">
           <div class="top-nav-scroll">${navHtml}${hydraHtml}</div>
         </nav>
+        ${homeReturn}
       </header>
     `);
 
@@ -383,8 +390,9 @@
     const modeId = getHomeMode();
     const modes = DATA.homeModes || [];
     const selectedModeRequired = modes.length && !modeId;
+    const priorityPages = new Set(["mapa", "szklarnia", "reader", "lekarz"]);
     const tiles = (selectedModeRequired ? [] : modeFilteredTiles(modeId)).map((tile) => `
-      <a class="tile" data-tone="${esc(tile.tone)}" href="${esc(href(tile.page))}">
+      <a class="tile${priorityPages.has(tile.page) ? " tile-priority" : ""}" data-tone="${esc(tile.tone)}" href="${esc(href(tile.page))}">
         <div class="tile-top">
           <div>
             <div class="icon-box">${iconMap[tile.icon] || iconMap.test}</div>
@@ -1979,6 +1987,61 @@
     window.setInterval(requestUpdate, 700);
   }
 
+
+  let pageLoadingReady = false;
+
+  function loadingLabel() {
+    return text(tx("\u0141aduj\u0119 aktualn\u0105 wersj\u0119", "Loading the current version", "\u0417\u0430\u0432\u0430\u043d\u0442\u0430\u0436\u0443\u044e \u0430\u043a\u0442\u0443\u0430\u043b\u044c\u043d\u0443 \u0432\u0435\u0440\u0441\u0456\u044e", "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u044e \u0430\u043a\u0442\u0443\u0430\u043b\u044c\u043d\u0443\u044e \u0432\u0435\u0440\u0441\u0438\u044e", "Aktual versiya y\u00fckl\u0259nir", "Cargando versi\u00f3n actual", "Nilo-load ang kasalukuyang bersyon", "Memuat versi terbaru", "\u0939\u093e\u0932\u0915\u094b \u0938\u0902\u0938\u094d\u0915\u0930\u0923 \u0932\u094b\u0921 \u0939\u0941\u0901\u0926\u0948\u091b"));
+  }
+
+  function setupPageLoading() {
+    if (pageLoadingReady) return;
+    pageLoadingReady = true;
+    const overlay = document.createElement("div");
+    overlay.className = "page-loader";
+    overlay.setAttribute("role", "status");
+    overlay.setAttribute("aria-live", "polite");
+    overlay.hidden = true;
+    overlay.innerHTML = `
+      <div class="page-loader-card">
+        <span class="loader-dot" aria-hidden="true"></span>
+        <strong>${esc(loadingLabel())}</strong>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href]");
+      if (!link || link.target || link.hasAttribute("download")) return;
+      if (link.closest(".map-action-group") || link.href.startsWith("tel:") || link.href.startsWith("mailto:")) return;
+      const url = new URL(link.getAttribute("href"), location.href);
+      if (url.origin !== location.origin) return;
+      if (url.hash && url.pathname === location.pathname && url.search === location.search) return;
+      const isPage = url.pathname.endsWith(".html") || url.pathname.endsWith("/") || url.pathname === location.pathname;
+      if (!isPage) return;
+      event.preventDefault();
+      link.classList.add("is-loading");
+      overlay.hidden = false;
+      requestAnimationFrame(() => overlay.classList.add("is-visible"));
+      window.setTimeout(() => { location.href = url.href; }, 180);
+    }, { capture: true });
+  }
+
+  function setupContrastGuard() {
+    const checked = [];
+    const targets = document.querySelectorAll(".tile, .card, .step-card, .notice, .btn, .pill, .city-simple-item, .contact-person");
+    targets.forEach((item) => {
+      const style = getComputedStyle(item);
+      const color = style.color;
+      const background = style.backgroundColor;
+      if ((color.includes("255, 255, 255") || color.includes("255,255,255")) && background.includes("255, 255, 255")) {
+        item.classList.add("contrast-guard");
+        checked.push(item);
+      }
+    });
+    if (checked.length) console.warn("Contrast guard adjusted elements:", checked.length);
+  }
+
   function renderPage() {
     renderHeader();
     focusActiveTopNav();
@@ -2004,6 +2067,8 @@
     setupFrontendEnhancements();
     enhanceFrontend(document);
     setupScrollHelpers();
+    setupPageLoading();
+    setupContrastGuard();
     showHydraEntrySplash();
   }
 
