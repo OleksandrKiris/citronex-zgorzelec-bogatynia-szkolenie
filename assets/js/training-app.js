@@ -2046,6 +2046,17 @@
     }, { capture: true });
   }
 
+  function setupFrontendStandard() {
+    if (document.body.dataset.frontendStandardReady === "1") return;
+    document.body.dataset.frontendStandardReady = "1";
+    document.addEventListener("click", (event) => {
+      const target = event.target.closest(".tile, .btn, .top-nav-link, .home-return-cta, summary, .mode-card, .contact-person");
+      if (!target) return;
+      target.classList.add("is-pressed");
+      window.setTimeout(() => target.classList.remove("is-pressed"), 220);
+    }, { capture: true });
+  }
+
   function setupContrastGuard() {
     const checked = [];
     const targets = document.querySelectorAll(".tile, .card, .step-card, .notice, .btn, .pill, .city-simple-item, .contact-person");
@@ -2087,6 +2098,7 @@
     enhanceFrontend(document);
     setupScrollHelpers();
     setupPageLoading();
+    setupFrontendStandard();
     setupContrastGuard();
     showHydraEntrySplash();
   }
