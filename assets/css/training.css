@@ -7098,3 +7098,132 @@ summary {
     gap: 10px !important;
   }
 }
+
+/* Frontend clarity 2026-07-15 */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+.hero {
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: var(--accent);
+  opacity: .82;
+}
+
+body[data-page="home"] .hero::after {
+  width: 72px;
+}
+
+.top-nav-link.is-active {
+  box-shadow: 0 8px 18px var(--accent-shadow) !important;
+}
+
+.top-nav-link.is-active .top-nav-icon {
+  background: rgba(255, 255, 255, .22);
+}
+
+.tile,
+.card,
+.step-card,
+.notice,
+.mode-card,
+details.card {
+  isolation: isolate;
+}
+
+.tile .arrow {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .72);
+}
+
+.tile:active,
+.mode-card:active,
+.btn:active,
+.pill:active,
+details.card > summary:active {
+  transform: scale(.992);
+}
+
+details.card > summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+details.card > summary::after {
+  box-shadow: inset 0 0 0 1px rgba(17, 24, 39, .08);
+}
+
+details.card[open] > summary::after {
+  background: var(--accent);
+  color: #fff;
+}
+
+.media,
+.photo-card,
+.tablet-shot,
+.reader-visual {
+  overflow: hidden;
+  background: #fff;
+}
+
+.media figcaption,
+.photo-card figcaption,
+.tablet-shot figcaption,
+.reader-visual figcaption {
+  line-height: 1.35;
+}
+
+.btn-row .btn,
+.map-action-group .btn,
+.speech-actions .btn {
+  text-align: center;
+}
+
+.app-version-footer {
+  opacity: .76;
+}
+
+@media (max-width: 430px) {
+  body {
+    overscroll-behavior-y: contain;
+  }
+
+  .hero::after {
+    margin-top: 10px;
+  }
+
+  details.card > summary {
+    gap: 10px !important;
+  }
+
+  .tile .arrow {
+    width: 26px;
+    height: 26px;
+  }
+
+  .app-version-footer {
+    font-size: 11px;
+  }
+}
