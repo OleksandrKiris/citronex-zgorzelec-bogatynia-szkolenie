@@ -3197,6 +3197,257 @@
         }
       : map);
   }
+
+  const tr = (pl, en, ua, ru, az, es, fil, idText, ne) => ({ pl, en, ua, ru, az, es, fil, id: idText, ne });
+  const setPageText = (page, title, lead) => {
+    if (!D.pages[page]) D.pages[page] = {};
+    D.pages[page].title = title;
+    D.pages[page].lead = lead;
+  };
+  const setTileText = (page, title, text, tone, icon) => {
+    const tile = D.tiles.find((item) => item.page === page);
+    if (!tile) return;
+    tile.title = title;
+    tile.text = text;
+    if (tone) tile.tone = tone;
+    if (icon) tile.icon = icon;
+  };
+  const setMapText = (key, title, note) => {
+    const item = D.maps.find((entry) => entry.key === key);
+    if (!item) return;
+    if (title) item.title = title;
+    if (note) {
+      item.note = note;
+      item.confirmText = note;
+    }
+  };
+
+  D.meta.version = "20260715-zb-location-systems1";
+  D.meta.displayVersion = "2026-07-15";
+
+  setPageText(
+    "magazyn",
+    tr(
+      "Magazyn - Zgorzelec / Bogatynia",
+      "Warehouse - Zgorzelec / Bogatynia",
+      "Склад - Zgorzelec / Bogatynia",
+      "Склад - Zgorzelec / Bogatynia",
+      "Anbar - Zgorzelec / Bogatynia",
+      "Almacen - Zgorzelec / Bogatynia",
+      "Bodega - Zgorzelec / Bogatynia",
+      "Gudang - Zgorzelec / Bogatynia",
+      "गोदाम - Zgorzelec / Bogatynia"
+    ),
+    tr(
+      "Zgorzelec dotyczy tylko magazynu bananowego i ma osobny system. Bogatynia ma szklarnie i magazyn: tam obowiazuje reader i tablet.",
+      "Zgorzelec is only for the banana warehouse and has a separate system. Bogatynia has greenhouse and warehouse: reader and tablet apply there.",
+      "Zgorzelec стосується тільки бананового складу і має окрему систему. Bogatynia має теплицю і склад: там діють reader і tablet.",
+      "Zgorzelec относится только к банановому складу и имеет отдельную систему. Bogatynia имеет теплицу и склад: там действуют reader и tablet.",
+      "Zgorzelec yalniz banan anbarina aiddir ve ayri sistemi var. Bogatynia-da istixana ve anbar var: orada reader ve tablet isleyir.",
+      "Zgorzelec es solo almacen de bananas y tiene sistema separado. Bogatynia tiene invernadero y almacen: alli se usa reader y tablet.",
+      "Ang Zgorzelec ay para lamang sa banana warehouse at may hiwalay na sistema. Ang Bogatynia ay may greenhouse at warehouse: doon ginagamit ang reader at tablet.",
+      "Zgorzelec hanya untuk gudang pisang dan punya sistem terpisah. Bogatynia punya greenhouse dan gudang: reader dan tablet berlaku di sana.",
+      "Zgorzelec केवल केरा गोदामका लागि हो र अलग प्रणाली छ। Bogatynia मा ग्रीनहाउस र गोदाम छ: त्यहाँ reader र tablet प्रयोग हुन्छ।"
+    )
+  );
+
+  setPageText(
+    "szklarnia",
+    tr(
+      "Szklarnia - tylko Bogatynia",
+      "Greenhouse - Bogatynia only",
+      "Теплиця - тільки Bogatynia",
+      "Теплица - только Bogatynia",
+      "Istixana - yalniz Bogatynia",
+      "Invernadero - solo Bogatynia",
+      "Greenhouse - Bogatynia lang",
+      "Greenhouse - hanya Bogatynia",
+      "ग्रीनहाउस - Bogatynia मात्र"
+    ),
+    tr(
+      "Ten modul dotyczy Bogatyni. Zgorzelec w tym projekcie to magazyn bananowy, bez szkolenia szklarniowego.",
+      "This module is for Bogatynia. In this project Zgorzelec is the banana warehouse, without greenhouse training.",
+      "Цей модуль стосується Bogatynia. У цьому проекті Zgorzelec - це банановий склад, без навчання по теплиці.",
+      "Этот модуль относится к Bogatynia. В этом проекте Zgorzelec - это банановый склад, без обучения по теплице.",
+      "Bu modul Bogatynia ucundur. Bu layihede Zgorzelec banan anbaridir, istixana telimi yoxdur.",
+      "Este modulo es para Bogatynia. En este proyecto Zgorzelec es almacen de bananas, sin formacion de invernadero.",
+      "Ang module na ito ay para sa Bogatynia. Sa proyektong ito, ang Zgorzelec ay banana warehouse, walang greenhouse training.",
+      "Modul ini untuk Bogatynia. Dalam proyek ini Zgorzelec adalah gudang pisang, tanpa pelatihan greenhouse.",
+      "यो मोड्युल Bogatynia का लागि हो। यस परियोजनामा Zgorzelec केरा गोदाम हो, ग्रीनहाउस तालिम होइन।"
+    )
+  );
+
+  setPageText(
+    "reader",
+    tr(
+      "Reader - Bogatynia",
+      "Reader - Bogatynia",
+      "Reader - Bogatynia",
+      "Reader - Bogatynia",
+      "Reader - Bogatynia",
+      "Reader - Bogatynia",
+      "Reader - Bogatynia",
+      "Reader - Bogatynia",
+      "Reader - Bogatynia"
+    ),
+    tr(
+      "Reader dotyczy Bogatyni: szklarnia i magazyn. Zgorzelec ma osobny system magazynu bananowego.",
+      "Reader applies to Bogatynia: greenhouse and warehouse. Zgorzelec has a separate banana warehouse system.",
+      "Reader стосується Bogatynia: теплиця і склад. Zgorzelec має окрему систему бананового складу.",
+      "Reader относится к Bogatynia: теплица и склад. Zgorzelec имеет отдельную систему бананового склада.",
+      "Reader Bogatynia ucundur: istixana ve anbar. Zgorzelec-in banan anbari ucun ayri sistemi var.",
+      "Reader aplica en Bogatynia: invernadero y almacen. Zgorzelec tiene sistema separado para almacen de bananas.",
+      "Ang reader ay para sa Bogatynia: greenhouse at warehouse. Ang Zgorzelec ay may hiwalay na banana warehouse system.",
+      "Reader berlaku di Bogatynia: greenhouse dan gudang. Zgorzelec punya sistem gudang pisang terpisah.",
+      "Reader Bogatynia का लागि हो: ग्रीनहाउस र गोदाम। Zgorzelec मा केरा गोदामको अलग प्रणाली छ।"
+    )
+  );
+
+  setPageText(
+    "tablet",
+    tr(
+      "Tablet - Bogatynia",
+      "Tablet - Bogatynia",
+      "Tablet - Bogatynia",
+      "Tablet - Bogatynia",
+      "Tablet - Bogatynia",
+      "Tablet - Bogatynia",
+      "Tablet - Bogatynia",
+      "Tablet - Bogatynia",
+      "Tablet - Bogatynia"
+    ),
+    tr(
+      "Tablet dotyczy Bogatyni: szklarnia i magazyn. Zgorzelec ma osobny system magazynu bananowego.",
+      "Tablet applies to Bogatynia: greenhouse and warehouse. Zgorzelec has a separate banana warehouse system.",
+      "Tablet стосується Bogatynia: теплиця і склад. Zgorzelec має окрему систему бананового складу.",
+      "Tablet относится к Bogatynia: теплица и склад. Zgorzelec имеет отдельную систему бананового склада.",
+      "Tablet Bogatynia ucundur: istixana ve anbar. Zgorzelec-in banan anbari ucun ayri sistemi var.",
+      "Tablet aplica en Bogatynia: invernadero y almacen. Zgorzelec tiene sistema separado para almacen de bananas.",
+      "Ang tablet ay para sa Bogatynia: greenhouse at warehouse. Ang Zgorzelec ay may hiwalay na banana warehouse system.",
+      "Tablet berlaku di Bogatynia: greenhouse dan gudang. Zgorzelec punya sistem gudang pisang terpisah.",
+      "Tablet Bogatynia का लागि हो: ग्रीनहाउस र गोदाम। Zgorzelec मा केरा गोदामको अलग प्रणाली छ।"
+    )
+  );
+
+  setTileText(
+    "magazyn",
+    tr("Magazyn", "Warehouse", "Склад", "Склад", "Anbar", "Almacen", "Bodega", "Gudang", "गोदाम"),
+    tr(
+      "Zgorzelec: magazyn bananowy i osobny system. Bogatynia: magazyn z readerem i tabletem.",
+      "Zgorzelec: banana warehouse and separate system. Bogatynia: warehouse with reader and tablet.",
+      "Zgorzelec: банановий склад і окрема система. Bogatynia: склад з reader і tablet.",
+      "Zgorzelec: банановый склад и отдельная система. Bogatynia: склад с reader и tablet.",
+      "Zgorzelec: banan anbari ve ayri sistem. Bogatynia: reader ve tablet olan anbar.",
+      "Zgorzelec: almacen de bananas y sistema separado. Bogatynia: almacen con reader y tablet.",
+      "Zgorzelec: banana warehouse at hiwalay na sistema. Bogatynia: warehouse na may reader at tablet.",
+      "Zgorzelec: gudang pisang dan sistem terpisah. Bogatynia: gudang dengan reader dan tablet.",
+      "Zgorzelec: केरा गोदाम र अलग प्रणाली। Bogatynia: reader र tablet भएको गोदाम।"
+    ),
+    "green",
+    "warehouse"
+  );
+  setTileText(
+    "szklarnia",
+    tr("Szklarnia Bogatynia", "Bogatynia greenhouse", "Теплиця Bogatynia", "Теплица Bogatynia", "Bogatynia istixana", "Invernadero Bogatynia", "Bogatynia greenhouse", "Greenhouse Bogatynia", "Bogatynia ग्रीनहाउस"),
+    tr("Tylko Bogatynia. Orientacja w szklarni w 3 krokach.", "Bogatynia only. Greenhouse orientation in 3 steps.", "Тільки Bogatynia. Орієнтація в теплиці за 3 кроки.", "Только Bogatynia. Ориентация в теплице за 3 шага.", "Yalniz Bogatynia. Istixana istiqameti 3 addimda.", "Solo Bogatynia. Orientacion en 3 pasos.", "Bogatynia lang. Orientation sa greenhouse sa 3 hakbang.", "Hanya Bogatynia. Orientasi greenhouse dalam 3 langkah.", "Bogatynia मात्र। ३ चरणमा ग्रीनहाउस बुझ्ने।"),
+    "green",
+    "greenhouse"
+  );
+  setTileText(
+    "reader",
+    tr("Reader Bogatynia", "Reader Bogatynia", "Reader Bogatynia", "Reader Bogatynia", "Reader Bogatynia", "Reader Bogatynia", "Reader Bogatynia", "Reader Bogatynia", "Reader Bogatynia"),
+    tr("Dotyczy Bogatyni: szklarnia i magazyn. Nie dotyczy Zgorzelca.", "Applies to Bogatynia: greenhouse and warehouse. Not for Zgorzelec.", "Для Bogatynia: теплиця і склад. Не стосується Zgorzelec.", "Для Bogatynia: теплица и склад. Не относится к Zgorzelec.", "Bogatynia ucundur: istixana ve anbar. Zgorzelec ucun deyil.", "Para Bogatynia: invernadero y almacen. No es para Zgorzelec.", "Para sa Bogatynia: greenhouse at warehouse. Hindi para sa Zgorzelec.", "Untuk Bogatynia: greenhouse dan gudang. Bukan untuk Zgorzelec.", "Bogatynia का लागि: ग्रीनहाउस र गोदाम। Zgorzelec का लागि होइन।"),
+    "yellow",
+    "reader"
+  );
+  setTileText(
+    "tablet",
+    tr("Tablet Bogatynia", "Tablet Bogatynia", "Tablet Bogatynia", "Tablet Bogatynia", "Tablet Bogatynia", "Tablet Bogatynia", "Tablet Bogatynia", "Tablet Bogatynia", "Tablet Bogatynia"),
+    tr("Dotyczy Bogatyni: szklarnia i magazyn. Zgorzelec ma osobny system.", "Applies to Bogatynia: greenhouse and warehouse. Zgorzelec has a separate system.", "Для Bogatynia: теплиця і склад. Zgorzelec має окрему систему.", "Для Bogatynia: теплица и склад. Zgorzelec имеет отдельную систему.", "Bogatynia ucundur: istixana ve anbar. Zgorzelec-de ayri sistem var.", "Para Bogatynia: invernadero y almacen. Zgorzelec tiene sistema separado.", "Para sa Bogatynia: greenhouse at warehouse. May hiwalay na sistema ang Zgorzelec.", "Untuk Bogatynia: greenhouse dan gudang. Zgorzelec punya sistem terpisah.", "Bogatynia का लागि: ग्रीनहाउस र गोदाम। Zgorzelec मा अलग प्रणाली छ।"),
+    "yellow",
+    "tablet"
+  );
+
+  const zgorzelecBananaNote = tr(
+    "Zgorzelec: tylko magazyn bananowy. To jest osobny system pracy. Nie korzystaj z instrukcji reader/tablet z Bogatyni, dopoki przelozony nie powie inaczej.",
+    "Zgorzelec: banana warehouse only. This is a separate work system. Do not use Bogatynia reader/tablet instructions unless your supervisor says otherwise.",
+    "Zgorzelec: тільки банановий склад. Це окрема система роботи. Не використовуйте інструкції reader/tablet з Bogatynia, якщо керівник не скаже інакше.",
+    "Zgorzelec: только банановый склад. Это отдельная система работы. Не используйте инструкции reader/tablet из Bogatynia, если руководитель не скажет иначе.",
+    "Zgorzelec: yalniz banan anbari. Bu ayri is sistemidir. Rehber basqa cur demese, Bogatynia reader/tablet telimatindan istifade etmeyin.",
+    "Zgorzelec: solo almacen de bananas. Es un sistema de trabajo separado. No uses instrucciones reader/tablet de Bogatynia salvo que el encargado lo diga.",
+    "Zgorzelec: banana warehouse lamang. Hiwalay ito na sistema sa trabaho. Huwag gamitin ang reader/tablet instructions ng Bogatynia maliban kung sabihin ng supervisor.",
+    "Zgorzelec: hanya gudang pisang. Ini sistem kerja terpisah. Jangan pakai instruksi reader/tablet Bogatynia kecuali atasan memberi tahu.",
+    "Zgorzelec: केरा गोदाम मात्र। यो अलग काम प्रणाली हो। सुपरभाइजरले नभनेसम्म Bogatynia को reader/tablet निर्देशन प्रयोग नगर्नुहोस्।"
+  );
+  setMapText("workplaceZgorzelec", tr("Magazyn bananowy - Zgorzelec", "Banana warehouse - Zgorzelec", "Банановий склад - Zgorzelec", "Банановый склад - Zgorzelec", "Banan anbari - Zgorzelec", "Almacen de bananas - Zgorzelec", "Banana warehouse - Zgorzelec", "Gudang pisang - Zgorzelec", "केरा गोदाम - Zgorzelec"), zgorzelecBananaNote);
+  setMapText("warehouseZgorzelec", tr("Magazyn bananowy - Zgorzelec", "Banana warehouse - Zgorzelec", "Банановий склад - Zgorzelec", "Банановый склад - Zgorzelec", "Banan anbari - Zgorzelec", "Almacen de bananas - Zgorzelec", "Banana warehouse - Zgorzelec", "Gudang pisang - Zgorzelec", "केरा गोदाम - Zgorzelec"), zgorzelecBananaNote);
+  setMapText("workplaceBogatynia", tr("Szklarnia / miejsce pracy - Bogatynia", "Greenhouse / workplace - Bogatynia", "Теплиця / місце роботи - Bogatynia", "Теплица / место работы - Bogatynia", "Istixana / is yeri - Bogatynia", "Invernadero / lugar de trabajo - Bogatynia", "Greenhouse / work place - Bogatynia", "Greenhouse / tempat kerja - Bogatynia", "ग्रीनहाउस / काम गर्ने ठाउँ - Bogatynia"), null);
+
+  D.maps = D.maps.filter((item) => !["warehouse", "oldWarehouse"].includes(item.key));
+
+  D.warehouseRules = [
+    tr("Najpierw wybierz: Zgorzelec czy Bogatynia.", "First choose: Zgorzelec or Bogatynia.", "Спочатку оберіть: Zgorzelec чи Bogatynia.", "Сначала выберите: Zgorzelec или Bogatynia.", "Evvel secin: Zgorzelec yoxsa Bogatynia.", "Primero elige: Zgorzelec o Bogatynia.", "Piliin muna: Zgorzelec o Bogatynia.", "Pilih dulu: Zgorzelec atau Bogatynia.", "पहिले छान्नुहोस्: Zgorzelec कि Bogatynia।"),
+    tr("Zgorzelec to magazyn bananowy i osobny system.", "Zgorzelec is banana warehouse and separate system.", "Zgorzelec - це банановий склад і окрема система.", "Zgorzelec - это банановый склад и отдельная система.", "Zgorzelec banan anbari ve ayri sistemdir.", "Zgorzelec es almacen de bananas y sistema separado.", "Ang Zgorzelec ay banana warehouse at hiwalay na sistema.", "Zgorzelec adalah gudang pisang dan sistem terpisah.", "Zgorzelec केरा गोदाम र अलग प्रणाली हो।"),
+    tr("Bogatynia ma szklarnie i magazyn; tam dziala reader i tablet.", "Bogatynia has greenhouse and warehouse; reader and tablet work there.", "Bogatynia має теплицю і склад; там працюють reader і tablet.", "Bogatynia имеет теплицу и склад; там работают reader и tablet.", "Bogatynia-da istixana ve anbar var; orada reader ve tablet isleyir.", "Bogatynia tiene invernadero y almacen; alli funcionan reader y tablet.", "May greenhouse at warehouse sa Bogatynia; doon ginagamit ang reader at tablet.", "Bogatynia punya greenhouse dan gudang; reader dan tablet berlaku di sana.", "Bogatynia मा ग्रीनहाउस र गोदाम छ; त्यहाँ reader र tablet चल्छ।")
+  ];
+
+  D.warehouseLocations = [
+    {
+      key: "zgorzelec-banana",
+      tone: "yellow",
+      icon: "warehouse",
+      tag: tr("Zgorzelec", "Zgorzelec", "Zgorzelec", "Zgorzelec", "Zgorzelec", "Zgorzelec", "Zgorzelec", "Zgorzelec", "Zgorzelec"),
+      title: tr("Magazyn bananowy", "Banana warehouse", "Банановий склад", "Банановый склад", "Banan anbari", "Almacen de bananas", "Banana warehouse", "Gudang pisang", "केरा गोदाम"),
+      lead: zgorzelecBananaNote,
+      mapKeys: ["warehouseZgorzelec", "staffEntranceZgorzelec"],
+      rules: [
+        tr("To nie jest szklarnia.", "This is not greenhouse.", "Це не теплиця.", "Это не теплица.", "Bu istixana deyil.", "No es invernadero.", "Hindi ito greenhouse.", "Ini bukan greenhouse.", "यो ग्रीनहाउस होइन।"),
+        tr("Nie uzywaj instrukcji reader/tablet z Bogatyni, jesli przelozony nie powie inaczej.", "Do not use Bogatynia reader/tablet instructions unless your supervisor says otherwise.", "Не використовуйте інструкції reader/tablet з Bogatynia, якщо керівник не скаже інакше.", "Не используйте инструкции reader/tablet из Bogatynia, если руководитель не скажет иначе.", "Rehber basqa cur demese, Bogatynia reader/tablet telimatindan istifade etmeyin.", "No uses instrucciones reader/tablet de Bogatynia salvo indicacion.", "Huwag gamitin ang reader/tablet instructions ng Bogatynia maliban kung sabihin ng supervisor.", "Jangan gunakan instruksi reader/tablet Bogatynia kecuali diberi tahu atasan.", "सुपरभाइजरले नभनेसम्म Bogatynia को reader/tablet निर्देशन प्रयोग नगर्नुहोस्।")
+      ]
+    },
+    {
+      key: "bogatynia-priva",
+      tone: "green",
+      icon: "greenhouse",
+      tag: tr("Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia"),
+      title: tr("Szklarnia i magazyn", "Greenhouse and warehouse", "Теплиця і склад", "Теплица и склад", "Istixana ve anbar", "Invernadero y almacen", "Greenhouse at warehouse", "Greenhouse dan gudang", "ग्रीनहाउस र गोदाम"),
+      lead: tr("W Bogatyni jest szklarnia i magazyn. Tutaj obowiazuje system Priva: reader i tablet.", "Bogatynia has greenhouse and warehouse. Priva system applies here: reader and tablet.", "У Bogatynia є теплиця і склад. Тут діє система Priva: reader і tablet.", "В Bogatynia есть теплица и склад. Здесь действует система Priva: reader и tablet.", "Bogatynia-da istixana ve anbar var. Burada Priva sistemi isleyir: reader ve tablet.", "En Bogatynia hay invernadero y almacen. Aqui funciona sistema Priva: reader y tablet.", "Sa Bogatynia may greenhouse at warehouse. Dito ang Priva system: reader at tablet.", "Di Bogatynia ada greenhouse dan gudang. Di sini berlaku sistem Priva: reader dan tablet.", "Bogatynia मा ग्रीनहाउस र गोदाम छ। यहाँ Priva प्रणाली लागू हुन्छ: reader र tablet।"),
+      mapKeys: ["workplaceBogatynia", "warehouseBogatynia", "staffEntranceBogatynia"],
+      rules: [
+        tr("Szklarnia: sprawdz orientacje i instrukcje readera.", "Greenhouse: check orientation and reader instructions.", "Теплиця: перевірте орієнтацію і інструкцію reader.", "Теплица: проверьте ориентацию и инструкцию reader.", "Istixana: istiqameti ve reader telimatini yoxlayin.", "Invernadero: revisa orientacion e instrucciones reader.", "Greenhouse: tingnan ang orientation at reader instructions.", "Greenhouse: cek orientasi dan instruksi reader.", "ग्रीनहाउस: orientation र reader निर्देशन हेर्नुहोस्।"),
+        tr("Magazyn Bogatynia: tablet i reader wedlug instrukcji lokalnej.", "Bogatynia warehouse: tablet and reader according to local instruction.", "Склад Bogatynia: tablet і reader згідно з місцевою інструкцією.", "Склад Bogatynia: tablet и reader по местной инструкции.", "Bogatynia anbari: tablet ve reader yerli telimata gore.", "Almacen Bogatynia: tablet y reader segun instruccion local.", "Warehouse Bogatynia: tablet at reader ayon sa lokal na instruction.", "Gudang Bogatynia: tablet dan reader sesuai instruksi lokal.", "Bogatynia गोदाम: स्थानीय निर्देशन अनुसार tablet र reader।")
+      ],
+      actions: [
+        { page: "szklarnia", tone: "green", label: tr("Otworz szklarnie", "Open greenhouse", "Відкрити теплицю", "Открыть теплицу", "Istixanani ac", "Abrir invernadero", "Buksan ang greenhouse", "Buka greenhouse", "ग्रीनहाउस खोल्नुहोस्") },
+        { page: "reader", tone: "yellow", label: tr("Instrukcja readera", "Reader instruction", "Інструкція reader", "Инструкция reader", "Reader telimati", "Instruccion reader", "Reader instruction", "Instruksi reader", "Reader निर्देशन") },
+        { page: "tablet", tone: "yellow", label: tr("Instrukcja tabletu", "Tablet instruction", "Інструкція tablet", "Инструкция tablet", "Tablet telimati", "Instruccion tablet", "Tablet instruction", "Instruksi tablet", "Tablet निर्देशन") }
+      ]
+    }
+  ];
+
+  D.moduleNotices = {
+    szklarnia: {
+      tone: "green",
+      icon: "greenhouse",
+      tag: tr("Tylko Bogatynia", "Bogatynia only", "Тільки Bogatynia", "Только Bogatynia", "Yalniz Bogatynia", "Solo Bogatynia", "Bogatynia lang", "Hanya Bogatynia", "Bogatynia मात्र"),
+      title: tr("Ten modul nie dotyczy Zgorzelca", "This module is not for Zgorzelec", "Цей модуль не стосується Zgorzelec", "Этот модуль не относится к Zgorzelec", "Bu modul Zgorzelec ucun deyil", "Este modulo no es para Zgorzelec", "Hindi ito para sa Zgorzelec", "Modul ini bukan untuk Zgorzelec", "यो मोड्युल Zgorzelec का लागि होइन"),
+      lead: tr("Zgorzelec ma tylko magazyn bananowy i osobny system. Szklarnia jest w Bogatyni.", "Zgorzelec has only the banana warehouse and a separate system. The greenhouse is in Bogatynia.", "Zgorzelec має тільки банановий склад і окрему систему. Теплиця є в Bogatynia.", "Zgorzelec имеет только банановый склад и отдельную систему. Теплица находится в Bogatynia.", "Zgorzelec-de yalniz banan anbari ve ayri sistem var. Istixana Bogatynia-dadir.", "Zgorzelec tiene solo almacen de bananas y sistema separado. El invernadero esta en Bogatynia.", "Ang Zgorzelec ay banana warehouse lang at hiwalay ang sistema. Ang greenhouse ay nasa Bogatynia.", "Zgorzelec hanya gudang pisang dan sistem terpisah. Greenhouse ada di Bogatynia.", "Zgorzelec मा केरा गोदाम मात्र छ र अलग प्रणाली छ। ग्रीनहाउस Bogatynia मा छ।")
+    },
+    reader: {
+      tone: "yellow",
+      icon: "reader",
+      tag: tr("Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia"),
+      title: tr("Reader tylko dla systemu Bogatynia", "Reader only for Bogatynia system", "Reader тільки для системи Bogatynia", "Reader только для системы Bogatynia", "Reader yalniz Bogatynia sistemi ucundur", "Reader solo para sistema Bogatynia", "Reader para lang sa Bogatynia system", "Reader hanya untuk sistem Bogatynia", "Reader Bogatynia प्रणालीका लागि मात्र"),
+      lead: tr("W Bogatyni reader obowiazuje na szklarni i magazynie. Zgorzelec ma osobny system magazynu bananowego.", "In Bogatynia reader applies to greenhouse and warehouse. Zgorzelec has a separate banana warehouse system.", "У Bogatynia reader діє на теплиці і складі. Zgorzelec має окрему систему бананового складу.", "В Bogatynia reader действует на теплице и складе. Zgorzelec имеет отдельную систему бананового склада.", "Bogatynia-da reader istixana ve anbarda isleyir. Zgorzelec-in banan anbari ucun ayri sistemi var.", "En Bogatynia reader aplica en invernadero y almacen. Zgorzelec tiene sistema separado.", "Sa Bogatynia ginagamit ang reader sa greenhouse at warehouse. Ang Zgorzelec ay may hiwalay na sistema.", "Di Bogatynia reader berlaku di greenhouse dan gudang. Zgorzelec punya sistem terpisah.", "Bogatynia मा reader ग्रीनहाउस र गोदाममा लागू हुन्छ। Zgorzelec मा अलग प्रणाली छ।")
+    },
+    tablet: {
+      tone: "yellow",
+      icon: "tablet",
+      tag: tr("Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia", "Bogatynia"),
+      title: tr("Tablet tylko dla systemu Bogatynia", "Tablet only for Bogatynia system", "Tablet тільки для системи Bogatynia", "Tablet только для системы Bogatynia", "Tablet yalniz Bogatynia sistemi ucundur", "Tablet solo para sistema Bogatynia", "Tablet para lang sa Bogatynia system", "Tablet hanya untuk sistem Bogatynia", "Tablet Bogatynia प्रणालीका लागि मात्र"),
+      lead: tr("W Bogatyni tablet dziala na szklarni i magazynie. Zgorzelec ma osobny system magazynu bananowego.", "In Bogatynia the tablet works in greenhouse and warehouse. Zgorzelec has a separate banana warehouse system.", "У Bogatynia tablet працює на теплиці і складі. Zgorzelec має окрему систему бананового складу.", "В Bogatynia tablet работает на теплице и складе. Zgorzelec имеет отдельную систему бананового склада.", "Bogatynia-da tablet istixana ve anbarda isleyir. Zgorzelec-in banan anbari ucun ayri sistemi var.", "En Bogatynia tablet funciona en invernadero y almacen. Zgorzelec tiene sistema separado.", "Sa Bogatynia gumagana ang tablet sa greenhouse at warehouse. Ang Zgorzelec ay may hiwalay na sistema.", "Di Bogatynia tablet berlaku di greenhouse dan gudang. Zgorzelec punya sistem terpisah.", "Bogatynia मा tablet ग्रीनहाउस र गोदाममा चल्छ। Zgorzelec मा अलग प्रणाली छ।")
+    }
+  };
 })();
 
 

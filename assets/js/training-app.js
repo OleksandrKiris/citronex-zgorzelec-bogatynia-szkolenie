@@ -444,6 +444,43 @@
   }
 
   function renderWarehouse() {
+    if (Array.isArray(DATA.warehouseLocations) && DATA.warehouseLocations.length) {
+      const cards = DATA.warehouseLocations.map((locationItem) => {
+        const rules = (locationItem.rules || []).map((item) => `<li>${esc(text(item))}</li>`).join("");
+        const mapButtons = (locationItem.mapKeys || [])
+          .map((key) => DATA.maps.find((item) => item.key === key))
+          .filter(Boolean)
+          .map((item) => mapActionGroup(item, ui("openMap") + " - " + text(item.title), item.tone === "red" ? "red" : item.tone === "yellow" ? "yellow" : "blue"))
+          .join("");
+        const actions = (locationItem.actions || []).map((item) => {
+          const url = item.page ? href(item.page) : item.url;
+          const tone = item.tone || locationItem.tone || "secondary";
+          return url ? `<a class="btn ${esc(tone)}" href="${esc(url)}">${esc(text(item.label))}</a>` : "";
+        }).join("");
+        return `
+          <article class="${cardClass(locationItem.tone || "yellow")} warehouse-location-card">
+            <div class="city-card-head">
+              <span class="city-card-icon">${iconMap[locationItem.icon] || iconMap.warehouse}</span>
+              <div>
+                <span class="city-card-tag">${esc(text(locationItem.tag))}</span>
+                <h2>${esc(text(locationItem.title))}</h2>
+              </div>
+            </div>
+            <p>${esc(text(locationItem.lead))}</p>
+            ${rules ? `<ul class="list">${rules}</ul>` : ""}
+            ${mapButtons ? `<div class="map-action-list">${mapButtons}</div>` : ""}
+            ${actions ? `<div class="btn-row">${actions}</div>` : ""}
+          </article>
+        `;
+      }).join("");
+      app.innerHTML = `
+        <main class="page">
+          ${pageHero()}
+          <section class="module-grid two section">${cards}</section>
+        </main>
+      `;
+      return;
+    }
     const rules = DATA.warehouseRules.map((item) => `<li>${esc(text(item))}</li>`).join("");
     const warehouseMap = DATA.maps.find((item) => item.key === "warehouse");
     const oldWarehouseMap = DATA.maps.find((item) => item.key === "oldWarehouse");
@@ -464,6 +501,25 @@
         </section>
         ${tabletLinkCard("yellow")}
       </main>
+    `;
+  }
+
+  function moduleNotice(key, fallbackTone = "blue") {
+    const info = DATA.moduleNotices && DATA.moduleNotices[key];
+    if (!info) return "";
+    const items = (info.items || []).map((item) => `<li>${esc(text(item))}</li>`).join("");
+    return `
+      <section class="${cardClass(info.tone || fallbackTone)} module-notice">
+        <div class="city-card-head">
+          <span class="city-card-icon">${iconMap[info.icon] || iconMap.home}</span>
+          <div>
+            <span class="city-card-tag">${esc(text(info.tag))}</span>
+            <h2>${esc(text(info.title))}</h2>
+          </div>
+        </div>
+        <p>${esc(text(info.lead))}</p>
+        ${items ? `<ul class="list">${items}</ul>` : ""}
+      </section>
     `;
   }
 
@@ -532,6 +588,7 @@
     app.innerHTML = `
       <main class="page">
         ${pageHero()}
+        ${moduleNotice("tablet", "yellow")}
         <section class="card blue">
           <h2>${esc(text(tx("Jedna instrukcja dla szklarni i magazynu", "One instruction for greenhouse and warehouse", "Одна інструкція для теплиці і складу", "Одна инструкция для теплицы и склада", "İstixana və anbar üçün bir təlimat", "Una instrucción para invernadero y almacén", "Isang instruction para sa greenhouse at bodega", "Satu instruksi untuk rumah kaca dan gudang", "ग्रीनहाउस र गोदामका लागि एउटै निर्देशन")))}</h2>
           <p>${esc(text(DATA.pages.tablet.lead))}</p>
@@ -617,6 +674,7 @@
     app.innerHTML = `
       <main class="page">
         ${pageHero()}
+        ${moduleNotice("szklarnia", "green")}
         <section class="steps greenhouse-steps">
           <div class="orientation-legend">
             <strong>${esc(text(tx("Legenda kolorów", "Color legend", "Легенда кольорів", "Легенда цветов", "Rəng izahı", "Leyenda de colores", "Legend ng kulay", "Legenda warna", "रङको अर्थ")))}</strong>
@@ -1049,6 +1107,7 @@
     app.innerHTML = `
       <main class="page">
         ${pageHero()}
+        ${moduleNotice("reader", "yellow")}
         <section class="card yellow">
           <p><strong>${esc(ui("important"))}:</strong> ${esc(text(DATA.pages.reader.lead))}</p>
         </section>
