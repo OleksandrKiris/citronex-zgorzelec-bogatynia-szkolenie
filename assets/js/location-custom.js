@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260714-zb-stable-public-maps1",
+    "version": "20260715-zb-pharmacy-link-fix1",
     "displayVersion": "2026-07-13",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
@@ -2786,17 +2786,32 @@
         },
         {
           "label": {
-            "pl": "Apteki",
-            "en": "Pharmacies",
-            "ua": "Аптеки",
-            "ru": "Аптеки",
-            "az": "Apteklər",
-            "es": "Farmacias",
-            "fil": "Botika",
-            "id": "Apotek",
-            "ne": "फार्मेसी"
+            "pl": "Apteka Zgorzelec",
+            "en": "Pharmacy Zgorzelec",
+            "ua": "Аптека Zgorzelec",
+            "ru": "Аптека Zgorzelec",
+            "az": "Zgorzelec apteki",
+            "es": "Farmacia Zgorzelec",
+            "fil": "Botika Zgorzelec",
+            "id": "Apotek Zgorzelec",
+            "ne": "Zgorzelec फार्मेसी"
           },
-          "url": "https://maps.google.com?q=51.1493741,15.0061189%20Bogatynia",
+          "url": "https://maps.google.com?q=51.1493741,15.0061189",
+          "tone": "blue"
+        },
+        {
+          "label": {
+            "pl": "Apteka Bogatynia",
+            "en": "Pharmacy Bogatynia",
+            "ua": "Аптека Bogatynia",
+            "ru": "Аптека Bogatynia",
+            "az": "Bogatynia apteki",
+            "es": "Farmacia Bogatynia",
+            "fil": "Botika Bogatynia",
+            "id": "Apotek Bogatynia",
+            "ne": "Bogatynia फार्मेसी"
+          },
+          "url": "https://maps.google.com?q=50.9015758,14.9719648",
           "tone": "blue"
         },
         {
