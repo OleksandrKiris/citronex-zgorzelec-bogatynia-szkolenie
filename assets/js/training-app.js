@@ -1857,6 +1857,39 @@
     renderQuestion();
   }
 
+  let frontendObserverReady = false;
+
+  function enhanceFrontend(root = document) {
+    root.querySelectorAll("img").forEach((image) => {
+      const importantImage = image.closest(".brand, .location-splash-card");
+      if (!image.hasAttribute("loading")) image.setAttribute("loading", importantImage ? "eager" : "lazy");
+      image.setAttribute("decoding", "async");
+      image.setAttribute("draggable", "false");
+    });
+
+    root.querySelectorAll('a[target="_blank"]').forEach((link) => {
+      const rel = new Set((link.getAttribute("rel") || "").split(/\s+/).filter(Boolean));
+      rel.add("noopener");
+      rel.add("noreferrer");
+      link.setAttribute("rel", Array.from(rel).join(" "));
+    });
+  }
+
+  function setupFrontendEnhancements() {
+    if (frontendObserverReady || !("MutationObserver" in window)) return;
+    frontendObserverReady = true;
+    let scheduled = false;
+    const observer = new MutationObserver(() => {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(() => {
+        scheduled = false;
+        enhanceFrontend();
+      });
+    });
+    observer.observe(app, { childList: true, subtree: true });
+  }
+
   function renderPage() {
     renderHeader();
     focusActiveTopNav();
@@ -1879,6 +1912,8 @@
     (renderers[page] || renderHome)();
     bindCopyLinks();
     renderVersionFooter();
+    setupFrontendEnhancements();
+    enhanceFrontend(document);
     showHydraEntrySplash();
   }
 

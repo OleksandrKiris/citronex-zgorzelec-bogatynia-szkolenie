@@ -6996,3 +6996,105 @@ details.card > summary {
     min-height: 104px !important;
   }
 }
+
+/* Frontend comfort 2026-07-15 */
+.page,
+.card,
+.step-card,
+.notice,
+.tile,
+.btn,
+.top-nav-link,
+.mode-card,
+details.card > summary {
+  overflow-wrap: anywhere;
+}
+
+.btn,
+.tile,
+.top-nav-link,
+.pill,
+.mode-card,
+summary {
+  touch-action: manipulation;
+}
+
+.media,
+.tablet-shot,
+.reader-visual,
+.photo-card,
+.location-photo,
+.ban-symbol,
+.orientation-modal-panel {
+  contain: content;
+}
+
+@supports (content-visibility: auto) {
+  .module-grid > article,
+  .module-grid > section,
+  .card-grid > article,
+  .card-grid > section,
+  .speech-group,
+  .glossary-group,
+  .ban-group,
+  .reader-step,
+  .tablet-step {
+    content-visibility: auto;
+    contain-intrinsic-size: 260px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover,
+  .pill:hover,
+  .top-nav-link:hover {
+    filter: brightness(.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .module-grid,
+  .card-grid,
+  .photo-grid {
+    gap: 12px !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(24px, 7.8vw, 32px) !important;
+  }
+
+  .hero p,
+  .card p,
+  .step-card p,
+  .notice p {
+    line-height: 1.42 !important;
+  }
+
+  .card h2,
+  .step-card h2,
+  .notice h2 {
+    font-size: clamp(17px, 5vw, 20px) !important;
+    line-height: 1.18 !important;
+  }
+
+  .btn-row,
+  .map-action-group,
+  .speech-actions {
+    gap: 10px !important;
+  }
+}
