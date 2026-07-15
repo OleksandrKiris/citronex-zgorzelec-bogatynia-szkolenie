@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260715-zb-data-quality1",
+    "version": "20260715-zb-release-img1",
     "displayVersion": "2026-07-13",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
@@ -3223,7 +3223,7 @@
     }
   };
 
-  D.meta.version = "20260715-zb-data-quality1";
+  D.meta.version = "20260715-zb-release-img1";
   D.meta.displayVersion = "2026-07-15";
 
   setPageText(
@@ -3475,7 +3475,7 @@
       lead: tr("W Bogatyni tablet dziala na szklarni i magazynie. Zgorzelec ma osobny system magazynu bananowego.", "In Bogatynia the tablet works in greenhouse and warehouse. Zgorzelec has a separate banana warehouse system.", "У Bogatynia tablet працює на теплиці і складі. Zgorzelec має окрему систему бананового складу.", "В Bogatynia tablet работает на теплице и складе. Zgorzelec имеет отдельную систему бананового склада.", "Bogatynia-da tablet istixana ve anbarda isleyir. Zgorzelec-in banan anbari ucun ayri sistemi var.", "En Bogatynia tablet funciona en invernadero y almacen. Zgorzelec tiene sistema separado.", "Sa Bogatynia gumagana ang tablet sa greenhouse at warehouse. Ang Zgorzelec ay may hiwalay na sistema.", "Di Bogatynia tablet berlaku di greenhouse dan gudang. Zgorzelec punya sistem terpisah.", "Bogatynia मा tablet ग्रीनहाउस र गोदाममा चल्छ। Zgorzelec मा अलग प्रणाली छ।")
     }
   };
-  D.meta.version = "20260715-zb-data-quality1";
+  D.meta.version = "20260715-zb-release-img1";
 
   D.homeModeUi = {
     eyebrow: tr("Najpierw", "First", "Спочатку", "Сначала", "Əvvəlcə", "Primero", "Una muna", "Pertama", "पहिले"),

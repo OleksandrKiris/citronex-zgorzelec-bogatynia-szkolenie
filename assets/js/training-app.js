@@ -503,7 +503,7 @@
     const photoGroups = (DATA.mapPhotos || []).filter((group) => group.photos && group.photos.length).map((group) => {
       const photos = group.photos.map((src, index) => `
         <figure class="media">
-          <img loading="lazy" src="${esc(src)}" alt="${esc(text(group.title))}">
+          <img loading="eager" src="${esc(src)}" alt="${esc(text(group.title))}">
           <figcaption><strong>${esc(text(group.title))}</strong><span>${esc(text(photoWord))} ${index + 1}. ${esc(text(placeHint))}</span></figcaption>
         </figure>
       `).join("");
@@ -647,10 +647,10 @@
           <span>${esc(text(item.title))}</span>
         </summary>
         <div class="tablet-step-body">
-          <p>${esc(text(item.note))}</p>
+        ${item.confirmRequired ? "" : `<p>${esc(text(item.note))}</p>`}
           ${item.image ? `
             <figure class="tablet-shot">
-              <img loading="lazy" src="${esc(item.image)}" alt="${esc(text(item.screen))}">
+              <img loading="eager" src="${esc(item.image)}" alt="${esc(text(item.screen))}">
               <figcaption>${esc(text(item.screen))}</figcaption>
             </figure>
           ` : `
@@ -1192,7 +1192,7 @@
       return `
       <figure class="media reader-visual">
         <div class="reader-visual-frame">
-          <img loading="lazy" src="${esc(image.src)}" alt="${esc(text(image.caption))}">
+          <img loading="eager" src="${esc(image.src)}" alt="${esc(text(image.caption))}">
         </div>
         ${overlay}
         <figcaption>${esc(text(image.caption))}</figcaption>
