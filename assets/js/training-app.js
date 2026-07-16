@@ -40,9 +40,11 @@
     const params = new URLSearchParams(location.search);
     const fromUrl = (params.get("lang") || "").toLowerCase();
     const fromStorage = (localStorage.getItem("cx-lang") || "").toLowerCase();
+    const browserLanguages = [navigator.language, ...(Array.isArray(navigator.languages) ? navigator.languages : [])];
+    const fromBrowser = browserLanguages.map((value) => String(value || "").toLowerCase().split(/[-_]/)[0]).map((value) => value === "uk" ? "ua" : value).find((value) => validLangs.has(value));
     if (validLangs.has(fromUrl)) return fromUrl;
     if (validLangs.has(fromStorage)) return fromStorage;
-    return "pl";
+    return fromBrowser || "en";
   }
 
   let lang = getLang();
