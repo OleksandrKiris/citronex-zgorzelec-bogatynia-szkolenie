@@ -45,6 +45,7 @@
   }
 
   let lang = getLang();
+  document.documentElement.lang = lang === "ua" ? "uk" : lang;
 
   function text(value) {
     if (!value) return "";
@@ -222,7 +223,7 @@
 
   function renderHeader() {
     const isHome = page === "home";
-    const logoSrc = DATA.meta && DATA.meta.logo ? DATA.meta.logo : "assets/logo-citronex.svg";
+    const logoSrc = DATA.meta && (DATA.meta.headerLogo || DATA.meta.logo) ? (DATA.meta.headerLogo || DATA.meta.logo) : "assets/logo-citronex.svg";
     const logoAlt = DATA.meta && DATA.meta.logoAlt ? DATA.meta.logoAlt : "Citronex";
     const selected = DATA.languages.map((item) => (
       `<option value="${esc(item.id)}"${item.id === lang ? " selected" : ""}>${esc(item.label)}</option>`
@@ -1532,7 +1533,7 @@
           <strong class="glossary-count">${entries.length} ${esc(text(labels.count))}</strong>
         </section>
         <section class="glossary-search-box">
-          <input class="glossary-search" type="search" inputmode="search" autocomplete="off" placeholder="${esc(text(labels.search))}" data-glossary-search>
+          <input class="glossary-search" type="search" inputmode="search" autocomplete="off" placeholder="${esc(text(labels.search))}" aria-label="${esc(text(labels.search))}" data-glossary-search>
           <div class="glossary-empty is-hidden" data-glossary-empty>${esc(text(labels.empty))}</div>
         </section>
         <section class="stack section">${groupHtml}</section>
@@ -1600,16 +1601,15 @@
     };
     const groupHtml = groups.map((group, index) => {
       const groupPhrases = phrases.filter((item) => item.group === group.id);
-      const cards = groupPhrases.map(phraseCard).join("");
-      if (!cards) return "";
+      if (!groupPhrases.length) return "";
       return `
-        <details class="${cardClass(group.tone)} speech-group"${index === 0 ? " open" : ""} data-speech-group>
+        <details class="${cardClass(group.tone)} speech-group"${index === 0 ? " open" : ""} data-speech-group data-group-id="${esc(group.id)}">
           <summary>
             <span class="city-card-icon">${iconMap[group.icon] || iconMap.speech}</span>
             <span>${esc(text(group.title))}</span>
             <span class="speech-count">${groupPhrases.length}</span>
           </summary>
-          <div class="speech-list">${cards}</div>
+          <div class="speech-list" data-speech-list></div>
         </details>
       `;
     }).join("");
@@ -1632,6 +1632,14 @@
     const status = app.querySelector("#speechStatus");
     const setStatus = (value) => {
       if (status) status.textContent = value;
+    };
+    const renderSpeechGroup = (group) => {
+      if (!group || group.dataset.rendered === "true") return;
+      const list = group.querySelector("[data-speech-list]");
+      if (!list) return;
+      const groupPhrases = phrases.filter((item) => item.group === group.dataset.groupId);
+      list.innerHTML = groupPhrases.map(phraseCard).join("");
+      group.dataset.rendered = "true";
     };
     const speakPolish = (value) => {
       if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
@@ -1659,11 +1667,20 @@
         setStatus(value);
       }
     };
-    app.querySelectorAll("[data-speech]").forEach((button) => {
-      button.addEventListener("click", () => speakPolish(button.dataset.speech || ""));
+    app.addEventListener("click", (event) => {
+      const speechButton = event.target.closest("[data-speech]");
+      if (speechButton) {
+        speakPolish(speechButton.dataset.speech || "");
+        return;
+      }
+      const copyButton = event.target.closest("[data-copy]");
+      if (copyButton) copyPolish(copyButton.dataset.copy || "");
     });
-    app.querySelectorAll("[data-copy]").forEach((button) => {
-      button.addEventListener("click", () => copyPolish(button.dataset.copy || ""));
+    app.querySelectorAll("[data-speech-group]").forEach((group) => {
+      if (group.open) renderSpeechGroup(group);
+      group.addEventListener("toggle", () => {
+        if (group.open) renderSpeechGroup(group);
+      });
     });
     const searchInput = app.querySelector("#speechSearch");
     const empty = app.querySelector(".speech-empty");
@@ -1671,6 +1688,7 @@
       const query = searchInput.value.trim().toLowerCase();
       let visibleTotal = 0;
       app.querySelectorAll("[data-speech-group]").forEach((group) => {
+        if (query) renderSpeechGroup(group);
         let groupVisible = 0;
         group.querySelectorAll("[data-speech-card]").forEach((card) => {
           const match = !query || (card.dataset.key || "").includes(query);
@@ -2001,7 +2019,6 @@
     document.addEventListener("touchmove", requestUpdate, { passive: true });
     requestUpdate();
     window.setTimeout(requestUpdate, 250);
-    window.setInterval(requestUpdate, 700);
   }
 
 

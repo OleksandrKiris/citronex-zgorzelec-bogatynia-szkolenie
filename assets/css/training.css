@@ -7070,6 +7070,88 @@ summary {
     transition-duration: .01ms !important;
   }
 }
++
+/* 2026-07-16: final compact header for small phones */
+@media (max-width: 430px) {
+  .header-inner {
+    grid-template-columns: 44px minmax(0, 1fr) minmax(84px, 27vw);
+    gap: 7px;
+    width: 100%;
+    padding: 6px 8px;
+  }
+
+  .brand {
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 7px;
+    min-width: 0;
+  }
+
+  .brand > div {
+    min-width: 0;
+  }
+
+  .brand img {
+    width: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    height: 32px;
+    min-height: 32px;
+    max-height: 32px;
+    object-fit: contain;
+  }
+
+  .brand-title {
+    font-size: 11px;
+    line-height: 1.08;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .lang-select {
+    grid-column: auto;
+    width: 100%;
+    max-width: 100%;
+    min-height: 42px;
+    padding: 0 24px 0 8px;
+    font-size: 12px;
+  }
+
+  .home-return-cta {
+    min-height: 48px;
+    margin: 5px 8px 7px;
+  }
+}
+
+@media (max-width: 340px) {
+  .header-inner {
+    grid-template-columns: 42px minmax(0, 1fr) 80px;
+    gap: 6px;
+    padding-inline: 7px;
+  }
+
+  .brand {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .brand img {
+    width: 28px;
+    min-width: 28px;
+    max-width: 28px;
+    height: 28px;
+    min-height: 28px;
+    max-height: 28px;
+  }
+
+  .brand-title {
+    font-size: 10.5px;
+  }
+}
+
 
 @media (max-width: 430px) {
   .module-grid,
@@ -7843,5 +7925,96 @@ figure img,
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: .01ms !important;
+  }
+}
+
+/* Final compact phone header */
+@media (max-width: 430px) {
+  body {
+    overscroll-behavior-y: auto !important;
+  }
+
+  .page,
+  .section {
+    overflow-x: clip !important;
+    overflow-y: visible !important;
+  }
+
+  .header-inner {
+    grid-template-columns: 44px minmax(0, 1fr) minmax(84px, 27vw);
+    gap: 7px;
+    width: 100%;
+    padding: 6px 8px;
+  }
+
+  .brand {
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 7px;
+    min-width: 0;
+  }
+
+  .brand > div {
+    min-width: 0;
+  }
+
+  .brand img {
+    width: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    height: 32px;
+    min-height: 32px;
+    max-height: 32px;
+    object-fit: contain;
+  }
+
+  .brand-title {
+    font-size: 11px;
+    line-height: 1.08;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .lang-select {
+    grid-column: auto;
+    width: 100%;
+    max-width: 100%;
+    min-height: 42px;
+    padding: 0 24px 0 8px;
+    font-size: 12px;
+  }
+
+  .home-return-cta {
+    min-height: 48px;
+    margin: 5px 8px 7px;
+  }
+}
+
+@media (max-width: 340px) {
+  .header-inner {
+    grid-template-columns: 42px minmax(0, 1fr) 80px;
+    gap: 6px;
+    padding-inline: 7px;
+  }
+
+  .brand {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .brand img {
+    width: 28px;
+    min-width: 28px;
+    max-width: 28px;
+    height: 28px;
+    min-height: 28px;
+    max-height: 28px;
+  }
+
+  .brand-title {
+    font-size: 10.5px;
   }
 }
