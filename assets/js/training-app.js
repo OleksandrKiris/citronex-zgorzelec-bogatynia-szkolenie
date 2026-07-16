@@ -62,9 +62,9 @@
 
   const voiceLocales = { pl: "pl-PL", en: "en-US", ua: "uk-UA", ru: "ru-RU", az: "az-AZ", es: "es-ES", fil: "fil-PH", id: "id-ID", ne: "ne-NP" };
   const voiceProfiles = {
-    pl: { rate: .78, pitch: 1 }, en: { rate: .82, pitch: 1 }, ua: { rate: .76, pitch: 1 },
-    ru: { rate: .76, pitch: 1 }, az: { rate: .72, pitch: 1 }, es: { rate: .80, pitch: 1 },
-    fil: { rate: .76, pitch: 1 }, id: { rate: .76, pitch: 1 }, ne: { rate: .70, pitch: 1 }
+    pl: { rate: .94, pitch: 1 }, en: { rate: .96, pitch: 1 }, ua: { rate: .92, pitch: 1 },
+    ru: { rate: .92, pitch: 1 }, az: { rate: .94, pitch: 1 }, es: { rate: .96, pitch: 1 },
+    fil: { rate: .94, pitch: 1 }, id: { rate: .94, pitch: 1 }, ne: { rate: .90, pitch: 1 }
   };
   function speechReady(value, selectedLang = "pl") {
     let result = String(value || "")
@@ -132,34 +132,56 @@
     return subtitle.split(/\s+-\s+/)[0].trim() || "Citronex";
   }
   const speechGuideTemplates = {
-    pl: ["Witaj. To jest system szkoleniowy dla {location}.", "Nie wiesz, gdzie iść? Otwórz mapę i wybierz miejsce pracy.", "Po przyjściu wybierz potrzebną sekcję."],
-    en: ["Welcome. This is the training system for {location}.", "Do not know where to go? Open the map and choose your workplace.", "When you arrive, choose the section you need."],
-    ua: ["Вітаємо. Це система навчання для {location}.", "Не знаєте, куди йти? Відкрийте карту і виберіть місце роботи.", "Після прибуття виберіть потрібний розділ."],
-    ru: ["Добро пожаловать. Это система обучения для {location}.", "Не знаете, куда идти? Откройте карту и выберите место работы.", "После прибытия выберите нужный раздел."],
-    az: ["Xoş gəlmisiniz. Bu, {location} üçün təlim sistemidir.", "Hara gedəcəyinizi bilmirsiniz? Xəritəni açın və iş yerinizi seçin.", "Çatdıqdan sonra lazım olan bölməni seçin."],
-    es: ["Bienvenido. Este es el sistema de formación para {location}.", "¿No sabes adónde ir? Abre el mapa y elige tu lugar de trabajo.", "Cuando llegues, elige la sección que necesitas."],
-    fil: ["Maligayang pagdating. Ito ang training system para sa {location}.", "Hindi mo alam kung saan pupunta? Buksan ang mapa at piliin ang lugar ng trabaho.", "Pagdating mo, piliin ang seksiyong kailangan mo."],
-    id: ["Selamat datang. Ini adalah sistem pelatihan untuk {location}.", "Tidak tahu harus pergi ke mana? Buka peta dan pilih tempat kerja Anda.", "Setelah tiba, pilih bagian yang Anda perlukan."],
-    ne: ["स्वागत छ। यो {location} का लागि तालिम प्रणाली हो।", "कहाँ जाने थाहा छैन? नक्सा खोल्नुहोस् र आफ्नो काम गर्ने ठाउँ छान्नुहोस्।", "पुगेपछि आवश्यक भाग छान्नुहोस्।"]
-  };
+  "pl": [
+    "Witaj. To jest system szkoleniowy dla {location}.",
+    "Nie wiesz, gdzie iść? Otwórz mapę i wybierz miejsce pracy.",
+    "Po przyjściu wybierz potrzebną sekcję."
+  ],
+  "en": [
+    "Welcome. This is the training system for {location}.",
+    "Do not know where to go? Open the map and choose your workplace.",
+    "When you arrive, choose the section you need."
+  ],
+  "ua": [
+    "Вітаємо. Це система навчання для {location}.",
+    "Не знаєте, куди йти? Відкрийте карту та виберіть місце роботи.",
+    "Після приходу виберіть потрібний розділ."
+  ],
+  "ru": [
+    "Добро пожаловать. Это система обучения для {location}.",
+    "Не знаете, куда идти? Откройте карту и выберите место работы.",
+    "После прихода выберите нужный раздел."
+  ],
+  "az": [
+    "Salam. Bu, {location} üçün təlim sistemidir.",
+    "Hara gedəcəyinizi bilmirsiniz? Xəritəni açın və iş yerinizi seçin.",
+    "Gəldikdən sonra lazım olan bölməni seçin."
+  ],
+  "es": [
+    "Bienvenido. Este es el sistema de formación para {location}.",
+    "¿No sabes adónde ir? Abre el mapa y elige tu lugar de trabajo.",
+    "Cuando llegues, elige la sección que necesitas."
+  ],
+  "fil": [
+    "Maligayang pagdating. Ito ang training system para sa {location}.",
+    "Hindi mo alam kung saan pupunta? Buksan ang mapa at piliin ang lugar ng trabaho.",
+    "Pagdating mo, piliin ang seksiyong kailangan mo."
+  ],
+  "id": [
+    "Selamat datang. Ini adalah sistem pelatihan untuk {location}.",
+    "Tidak tahu harus pergi ke mana? Buka peta dan pilih tempat kerja Anda.",
+    "Setelah tiba, pilih bagian yang Anda perlukan."
+  ],
+  "ne": [
+    "{location} का लागि स्वागत छ। यो प्रशिक्षण प्रणाली हो।",
+    "कहाँ जाने थाहा छैन? नक्सा खोल्नुहोस् र काम गर्ने ठाउँ छान्नुहोस्।",
+    "पुगेपछि आवश्यक भाग छान्नुहोस्।"
+  ]
+};
   function getWelcomeSpeech(selectedLang) {
     const simple = speechGuideTemplates[selectedLang] || speechGuideTemplates.pl;
     return simple.map((line) => line.replace("{location}", getLocationName())).join(" ");
-    const location = getLocationName();
-    const copy = {
-      pl: "Witaj. To jest system informacyjno-ucz\u0105cy dla lokalizacji " + location + ". Znajdziesz tu mapy, informacje o pracy, instrukcje readera i tabletu, kontakty, pomoc medyczn\u0105, zasady bezpiecze\u0144stwa oraz test. Wybierz potrzebny kafelek.",
-      en: "Welcome. This is the information and training system for " + location + ". Here you can find maps, work information, reader and tablet instructions, contacts, medical help, safety rules and a test. Choose the tile you need.",
-      ua: "\u0412\u0456\u0442\u0430\u0454\u043c\u043e. \u0426\u0435 \u0456\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0456\u0439\u043d\u043e-\u043d\u0430\u0432\u0447\u0430\u043b\u044c\u043d\u0430 \u0441\u0438\u0441\u0442\u0435\u043c\u0430 \u0434\u043b\u044f " + location + ". \u0422\u0443\u0442 \u0454 \u043a\u0430\u0440\u0442\u0438, \u0456\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0456\u044f \u043f\u0440\u043e \u0440\u043e\u0431\u043e\u0442\u0443, \u0456\u043d\u0441\u0442\u0440\u0443\u043a\u0446\u0456\u0457, \u043a\u043e\u043d\u0442\u0430\u043a\u0442\u0438, \u043c\u0435\u0434\u0438\u0447\u043d\u0430 \u0434\u043e\u043f\u043e\u043c\u043e\u0433\u0430, \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u0442\u0430 \u0442\u0435\u0441\u0442. \u041e\u0431\u0435\u0440\u0456\u0442\u044c \u043f\u043e\u0442\u0440\u0456\u0431\u043d\u0438\u0439 \u0440\u043e\u0437\u0434\u0456\u043b.",
-      ru: "\u0414\u043e\u0431\u0440\u043e \u043f\u043e\u0436\u0430\u043b\u043e\u0432\u0430\u0442\u044c. \u042d\u0442\u043e \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u043e\u043d\u043d\u043e-\u043e\u0431\u0443\u0447\u0430\u044e\u0449\u0430\u044f \u0441\u0438\u0441\u0442\u0435\u043c\u0430 \u0434\u043b\u044f " + location + ". \u0417\u0434\u0435\u0441\u044c \u0435\u0441\u0442\u044c \u043a\u0430\u0440\u0442\u044b, \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0440\u0430\u0431\u043e\u0442\u0435, \u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0446\u0438\u0438, \u043a\u043e\u043d\u0442\u0430\u043a\u0442\u044b, \u043c\u0435\u0434\u0438\u0446\u0438\u043d\u0441\u043a\u0430\u044f \u043f\u043e\u043c\u043e\u0449\u044c, \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u0438 \u0442\u0435\u0441\u0442. \u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043d\u0443\u0436\u043d\u044b\u0439 \u0440\u0430\u0437\u0434\u0435\u043b.",
-      az: "Xo\u0159 g\u0259lmisiniz. Bu, " + location + " m\u0259nt\u0259q\u0259si \u00fc\u00e7\u00fcn m\u0259lumat v\u0259 t\u0259lim sistemidir. Burada x\u0259rit\u0259l\u0259r, i\u015f haqq\u0131nda m\u0259lumat, reader v\u0259 plan\u015fet t\u0259limatlar\u0131, kontaktlar, tibbi yard\u0131m, t\u0259hl\u00fck\u0259sizlik qaydalar\u0131 v\u0259 test var. Laz\u0131m olan b\u00f6lm\u0259ni se\u00e7in.",
-      es: "Bienvenido. Este es el sistema de informaci\u00f3n y formaci\u00f3n para " + location + ". Aqu\u00ed hay mapas, informaci\u00f3n de trabajo, instrucciones, contactos, ayuda m\u00e9dica, normas y un test. Elige la secci\u00f3n que necesitas.",
-      fil: "Maligayang pagdating. Ito ang information at training system para sa " + location + ". Narito ang mapa, impormasyon sa trabaho, mga tagubilin, contact, tulong medikal, mga patakaran at pagsusulit. Piliin ang kailangan mong seksiyon.",
-      id: "Selamat datang. Ini adalah sistem informasi dan pelatihan untuk " + location + ". Tersedia peta, informasi kerja, petunjuk, kontak, bantuan medis, aturan keselamatan dan tes. Pilih bagian yang Anda perlukan.",
-      ne: "\u0938\u094d\u0935\u093e\u0917\u0924 \u091b। यो " + location + " का लागि जानकारी तथा प्रशिक्षण प्रणाली हो। यहाँ नक्सा, कामसम्बन्धी जानकारी, निर्देशन, सम्पर्क, स्वास्थ्य सहायता, सुरक्षा नियम र परीक्षण छन्। आवश्यक भाग छान्नुहोस्।"
-    };
-    return copy[selectedLang] || copy.pl;
   }
-
   function esc(value) {
     return String(value ?? "")
       .replaceAll("&", "&amp;")
