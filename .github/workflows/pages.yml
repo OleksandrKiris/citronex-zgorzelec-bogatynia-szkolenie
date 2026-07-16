@@ -25,8 +25,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Wait for GitHub Pages source job
-        run: sleep 60
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate JavaScript and project data
+        run: |
+          find . -type f -name "*.js" -not -path "./.git/*" -not -path "./wersje/*" -print0 | xargs -0 -n1 node --check
+          node tools/audit-project.js
+          node tools/audit-buttons.js
+          node tools/audit-map-links.js
+
+      - name: Prepare public site
+        run: |
+          mkdir -p _site
+          rsync -a +            --exclude ".git/" +            --exclude ".github/" +            --exclude "_site/" +            --exclude "node_modules/" +            --exclude "tools/" +            --exclude "wersje/" +            ./ _site/
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -34,7 +48,7 @@ jobs:
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment
