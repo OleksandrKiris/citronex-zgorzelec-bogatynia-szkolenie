@@ -7152,6 +7152,354 @@ summary {
   }
 }
 
+/* Final top-menu icon system: one stable icon well on every phone. */
+.top-nav-link {
+  min-height: 52px;
+  gap: 8px;
+  padding: 7px 12px 7px 8px;
+  align-items: center;
+}
+
+.top-nav-icon {
+  width: 32px !important;
+  height: 32px !important;
+  flex: 0 0 32px !important;
+  display: inline-grid !important;
+  place-items: center;
+  border: 1px solid rgba(15, 23, 42, .09);
+  border-radius: 10px;
+  background: var(--surface-soft, #f1f5f2);
+  color: var(--accent, #167f3a);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
+}
+
+.top-nav-icon svg {
+  width: 20px !important;
+  height: 20px !important;
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.top-nav-link[data-tone="blue"] .top-nav-icon {
+  background: var(--blue-soft, #eaf2ff);
+  color: var(--blue, #2563eb);
+}
+
+.top-nav-link[data-tone="red"] .top-nav-icon {
+  background: var(--red-soft, #fff0f0);
+  color: var(--red, #dc2626);
+}
+
+.top-nav-link[data-tone="green"] .top-nav-icon {
+  background: var(--green-soft, #eaf7ee);
+  color: var(--green, #15803d);
+}
+
+.top-nav-link.is-active .top-nav-icon {
+  border-color: rgba(255, 255, 255, .38);
+  background: rgba(255, 255, 255, .2);
+  color: #fff;
+  box-shadow: none;
+}
+
+.top-nav-link.hydra-link .top-nav-icon {
+  border-color: rgba(255, 255, 255, .24);
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+}
+
+@media (max-width: 430px) {
+  .top-nav-link {
+    min-width: 82px !important;
+    max-width: none !important;
+    min-height: 52px !important;
+    padding: 6px 9px !important;
+    gap: 4px;
+  }
+
+  .top-nav-icon {
+    width: 28px !important;
+    height: 28px !important;
+    flex-basis: 28px !important;
+    border-radius: 9px;
+  }
+
+  .top-nav-icon svg {
+    width: 17px !important;
+    height: 17px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .top-nav-link {
+    min-width: 76px !important;
+    padding-inline: 7px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* Animated multilingual welcome guide shown once per location session. */
+body.welcome-modal-open {
+  overflow: hidden;
+}
+
+.welcome-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: grid;
+  place-items: center;
+  padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
+  background: rgba(15, 23, 42, .58);
+  backdrop-filter: blur(9px);
+  animation: welcome-modal-in .22s ease-out both;
+}
+
+.welcome-dialog {
+  width: min(460px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 20px 18px 18px;
+  border: 1px solid rgba(255, 255, 255, .78);
+  border-radius: 24px;
+  background: linear-gradient(155deg, #fff, #fff8f1 58%, #f3fbf5);
+  box-shadow: 0 28px 80px rgba(15, 23, 42, .28);
+  text-align: center;
+}
+
+.welcome-location {
+  max-width: 100%;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #eaf7ee;
+  color: #166534;
+  font-size: 12px;
+  font-weight: 950;
+  overflow-wrap: anywhere;
+}
+
+.welcome-kicker {
+  margin: 0;
+  color: #dc2626;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .12em;
+}
+
+.welcome-dragon {
+  width: 100%;
+  height: 142px;
+  display: grid;
+  place-items: center;
+}
+
+.welcome-dragon svg {
+  width: min(220px, 58vw);
+  height: 142px;
+  overflow: visible;
+  animation: welcome-dragon-float 2.8s ease-in-out infinite;
+}
+
+.welcome-dragon .dragon-body,
+.welcome-dragon .dragon-head {
+  fill: #ef4444;
+  stroke: #991b1b;
+  stroke-width: 3;
+}
+
+.welcome-dragon .dragon-wing {
+  fill: #f59e0b;
+  stroke: #b45309;
+  stroke-width: 3;
+  transform-box: fill-box;
+}
+
+.welcome-dragon .dragon-wing-left {
+  transform-origin: right bottom;
+  animation: welcome-wing-left 1.45s ease-in-out infinite;
+}
+
+.welcome-dragon .dragon-wing-right {
+  transform-origin: left bottom;
+  animation: welcome-wing-right 1.45s ease-in-out infinite;
+}
+
+.welcome-dragon .dragon-tail,
+.welcome-dragon .dragon-horn,
+.welcome-dragon .dragon-foot {
+  stroke: #991b1b;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.welcome-dragon .dragon-horn {
+  stroke: #f59e0b;
+  stroke-width: 5;
+}
+
+.welcome-dragon .dragon-snout {
+  stroke: #7f1d1d;
+  stroke-width: 2.7;
+  stroke-linecap: round;
+}
+
+.welcome-dragon .dragon-eye {
+  fill: #111827;
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.welcome-dragon .dragon-spark {
+  fill: #fbbf24;
+  animation: welcome-spark 1.7s ease-in-out infinite;
+}
+
+.welcome-dragon .dragon-spark:nth-last-child(2) {
+  animation-delay: .35s;
+}
+
+.welcome-dialog h2 {
+  max-width: 100%;
+  margin: 0;
+  color: #111827;
+  font-size: clamp(22px, 6vw, 30px);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.welcome-lead {
+  max-width: 42ch;
+  margin: 0;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.42;
+  overflow-wrap: anywhere;
+}
+
+.welcome-language-label {
+  width: 100%;
+  margin-top: 3px;
+  color: #1f2937;
+  font-size: 13px;
+  font-weight: 900;
+  text-align: left;
+}
+
+.welcome-language {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 42px 0 14px;
+  border: 2px solid #d7e4da;
+  border-radius: 14px;
+  background-color: #fff;
+  color: #111827;
+  font: inherit;
+  font-weight: 850;
+}
+
+.welcome-language:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, .28);
+  outline-offset: 2px;
+  border-color: #2563eb;
+}
+
+.welcome-status {
+  min-height: 20px;
+  margin: 0;
+  color: #166534;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.welcome-actions {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, .85fr);
+  gap: 8px;
+}
+
+.welcome-actions .btn {
+  min-height: 54px;
+  margin: 0;
+}
+
+@keyframes welcome-modal-in {
+  from { opacity: 0; transform: scale(.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes welcome-dragon-float {
+  0%, 100% { transform: translateY(2px) rotate(-1deg); }
+  50% { transform: translateY(-7px) rotate(1deg); }
+}
+
+@keyframes welcome-wing-left {
+  0%, 100% { transform: rotate(3deg); }
+  50% { transform: rotate(-12deg); }
+}
+
+@keyframes welcome-wing-right {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(12deg); }
+}
+
+@keyframes welcome-spark {
+  0%, 100% { opacity: .35; transform: scale(.8); }
+  50% { opacity: 1; transform: scale(1.25); }
+}
+
+@media (max-width: 430px) {
+  .welcome-dialog {
+    width: min(100%, 410px);
+    max-height: calc(100dvh - 16px);
+    padding: 16px 14px 14px;
+    border-radius: 20px;
+  }
+
+  .welcome-dragon,
+  .welcome-dragon svg {
+    height: 120px;
+  }
+
+  .welcome-dialog h2 {
+    font-size: 23px;
+  }
+
+  .welcome-lead {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .welcome-dialog {
+    gap: 8px;
+    padding: 13px 11px 11px;
+  }
+
+  .welcome-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-actions .btn {
+    min-height: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-modal,
+  .welcome-dragon svg,
+  .welcome-dragon .dragon-wing,
+  .welcome-dragon .dragon-spark {
+    animation: none !important;
+  }
+}
+
 
 @media (max-width: 430px) {
   .module-grid,
