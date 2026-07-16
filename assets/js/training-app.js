@@ -323,6 +323,7 @@
     localStorage.setItem("cx-lang", lang);
     const url = new URL(location.href);
     url.searchParams.set("lang", lang);
+    url.searchParams.delete("welcome");
     location.href = url.toString();
   }
 
@@ -2177,7 +2178,7 @@
     }
   }
 
-  function showLocationWelcome() {
+  function showLocationWelcomeLegacy() {
     if (page !== "home") return;
     const locationKey = DATA.meta && DATA.meta.repo ? DATA.meta.repo : getLocationName();
     const seenKey = `cx-location-welcome:welcome-dragon1:${locationKey}`;
@@ -2328,6 +2329,321 @@
     }
   }
 
+  const welcomeGuideUi = {
+    pl: { title: "Witaj w systemie", lead: "Wybierz j\u0119zyk. Przewodnik poka\u017ce Ci, gdzie szuka\u0107 informacji i jak znale\u017a\u0107 drog\u0119.", choose: "Wybierz j\u0119zyk", start: "Pos\u0142uchaj przewodnika", pause: "Pauza", resume: "Wzn\u00f3w", repeat: "Powt\u00f3rz", next: "Dalej", skip: "Pomi\u0144 g\u0142os", open: "Otw\u00f3rz system", speaking: "Przewodnik m\u00f3wi", unavailable: "G\u0142os jest niedost\u0119pny. Przeczytaj tekst i otw\u00f3rz system.", step: "Krok" },
+    en: { title: "Welcome to the system", lead: "Choose a language. The guide will show you where to find information and how to find your way.", choose: "Choose a language", start: "Listen to the guide", pause: "Pause", resume: "Resume", repeat: "Repeat", next: "Next", skip: "Skip voice", open: "Open the system", speaking: "The guide is speaking", unavailable: "Voice is not available. Read the text and open the system.", step: "Step" },
+    ua: { title: "\u0412\u0456\u0442\u0430\u0454\u043c\u043e \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0456", lead: "\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u043c\u043e\u0432\u0443. \u041f\u0440\u043e\u0432\u0456\u0434\u043d\u0438\u043a \u043f\u043e\u043a\u0430\u0436\u0435, \u0434\u0435 \u0448\u0443\u043a\u0430\u0442\u0438 \u0456\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0456\u044e \u0442\u0430 \u044f\u043a \u0437\u043d\u0430\u0439\u0442\u0438 \u0434\u043e\u0440\u043e\u0433\u0443.", choose: "\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u043c\u043e\u0432\u0443", start: "\u041f\u043e\u0441\u043b\u0443\u0445\u0430\u0442\u0438 \u043f\u0440\u043e\u0432\u0456\u0434\u043d\u0438\u043a\u0430", pause: "\u041f\u0430\u0443\u0437\u0430", resume: "\u041f\u0440\u043e\u0434\u043e\u0432\u0436\u0438\u0442\u0438", repeat: "\u041f\u043e\u0432\u0442\u043e\u0440\u0438\u0442\u0438", next: "\u0414\u0430\u043b\u0456", skip: "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u0438 \u0433\u043e\u043b\u043e\u0441", open: "\u0412\u0456\u0434\u043a\u0440\u0438\u0442\u0438 \u0441\u0438\u0441\u0442\u0435\u043c\u0443", speaking: "\u041f\u0440\u043e\u0432\u0456\u0434\u043d\u0438\u043a \u0433\u043e\u0432\u043e\u0440\u0438\u0442\u044c", unavailable: "\u0413\u043e\u043b\u043e\u0441 \u043d\u0435\u0434\u043e\u0441\u0442\u0443\u043f\u043d\u0456\u0439. \u041f\u0440\u043e\u0447\u0438\u0442\u0430\u0439\u0442\u0435 \u0442\u0435\u043a\u0441\u0442 \u0456 \u0432\u0456\u0434\u043a\u0440\u0438\u0439\u0442\u0435 \u0441\u0438\u0441\u0442\u0435\u043c\u0443.", step: "\u041a\u0440\u043e\u043a" },
+    ru: { title: "\u0414\u043e\u0431\u0440\u043e \u043f\u043e\u0436\u0430\u043b\u043e\u0432\u0430\u0442\u044c \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0443", lead: "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u044f\u0437\u044b\u043a. \u041f\u043e\u043c\u043e\u0449\u043d\u0438\u043a \u043f\u043e\u043a\u0430\u0436\u0435\u0442, \u0433\u0434\u0435 \u0438\u0441\u043a\u0430\u0442\u044c \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044e \u0438 \u043a\u0430\u043a \u043d\u0430\u0439\u0442\u0438 \u0434\u043e\u0440\u043e\u0433\u0443.", choose: "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u044f\u0437\u044b\u043a", start: "\u041f\u043e\u0441\u043b\u0443\u0448\u0430\u0442\u044c \u043f\u043e\u043c\u043e\u0449\u043d\u0438\u043a\u0430", pause: "\u041f\u0430\u0443\u0437\u0430", resume: "\u041f\u0440\u043e\u0434\u043e\u043b\u0436\u0438\u0442\u044c", repeat: "\u041f\u043e\u0432\u0442\u043e\u0440\u0438\u0442\u044c", next: "\u0414\u0430\u043b\u0435\u0435", skip: "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u0433\u043e\u043b\u043e\u0441", open: "\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0441\u0438\u0441\u0442\u0435\u043c\u0443", speaking: "\u041f\u043e\u043c\u043e\u0449\u043d\u0438\u043a \u0433\u043e\u0432\u043e\u0440\u0438\u0442", unavailable: "\u0413\u043e\u043b\u043e\u0441 \u043d\u0435\u0434\u043e\u0441\u0442\u0443\u043f\u0435\u043d. \u041f\u0440\u043e\u0447\u0438\u0442\u0430\u0439\u0442\u0435 \u0442\u0435\u043a\u0441\u0442 \u0438 \u043e\u0442\u043a\u0440\u043e\u0439\u0442\u0435 \u0441\u0438\u0441\u0442\u0435\u043c\u0443.", step: "\u0428\u0430\u0433" },
+    az: { title: "Sistem\u0259 xo\u0159 g\u0259lmisiniz", lead: "Dil se\u00e7in. B\u0259l\u0259d\u00e7i m\u0259lumat\u0131 harada tapma\u011f\u0131 v\u0259 yolu nec\u0259 tapma\u011f\u0131 g\u00f6st\u0259r\u0259c\u0259k.", choose: "Dil se\u00e7in", start: "B\u0259l\u0259d\u00e7ini dinl\u0259yin", pause: "Pauza", resume: "Davam et", repeat: "T\u0259krarla", next: "N\u00f6vb\u0259ti", skip: "S\u0259si ke\u00e7", open: "Sistemi a\u00e7", speaking: "B\u0259l\u0259d\u00e7i dan\u0131\u015f\u0131r", unavailable: "S\u0259s m\u00f6vcud deyil. M\u0259tni oxuyun v\u0259 sistemi a\u00e7\u0131n.", step: "Add\u0131m" },
+    es: { title: "Bienvenido al sistema", lead: "Elige un idioma. El gu\u00eda te mostrar\u00e1 d\u00f3nde encontrar informaci\u00f3n y c\u00f3mo llegar.", choose: "Elige un idioma", start: "Escuchar al gu\u00eda", pause: "Pausa", resume: "Continuar", repeat: "Repetir", next: "Siguiente", skip: "Omitir voz", open: "Abrir el sistema", speaking: "El gu\u00eda est\u00e1 hablando", unavailable: "La voz no est\u00e1 disponible. Lee el texto y abre el sistema.", step: "Paso" },
+    fil: { title: "Maligayang pagdating sa system", lead: "Pumili ng wika. Ipapakita ng gabay kung saan makikita ang impormasyon at kung paano pupunta sa tamang lugar.", choose: "Pumili ng wika", start: "Pakinggan ang gabay", pause: "I-pause", resume: "Ipagpatuloy", repeat: "Ulitin", next: "Susunod", skip: "Laktawan ang boses", open: "Buksan ang system", speaking: "Nagsasalita ang gabay", unavailable: "Walang boses. Basahin ang teksto at buksan ang system.", step: "Hakbang" },
+    id: { title: "Selamat datang di sistem", lead: "Pilih bahasa. Pemandu akan menunjukkan tempat mencari informasi dan cara menemukan jalan.", choose: "Pilih bahasa", start: "Dengarkan pemandu", pause: "Jeda", resume: "Lanjutkan", repeat: "Ulangi", next: "Berikutnya", skip: "Lewati suara", open: "Buka sistem", speaking: "Pemandu sedang berbicara", unavailable: "Suara tidak tersedia. Baca teks lalu buka sistem.", step: "Langkah" },
+    ne: { title: "\u0938\u093f\u0938\u094d\u091f\u092e\u092e\u093e \u0938\u094d\u0935\u093e\u0917\u0924 \u091b", lead: "\u092d\u093e\u0937\u093e \u091b\u093e\u0928\u094d\u0928\u0941\u0939\u094b\u0938\u094d\u0964 \u092c\u093e\u091f\u094b\u0932\u0947 \u0915\u0939\u093e\u0901 \u091c\u093e\u0928\u0947 \u0930 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0915\u0939\u093e\u0901 \u092a\u093e\u0909\u0928\u0947 \u0926\u0947\u0916\u093e\u0909\u0928\u0947\u091b\u0964", choose: "\u092d\u093e\u0937\u093e \u091b\u093e\u0928\u094d\u0928\u0941\u0939\u094b\u0938\u094d", start: "\u092c\u093e\u091f\u094b\u0932\u0947\u0915\u094b \u0915\u0941\u0930\u093e \u0938\u0941\u0928\u094d\u0928\u0941\u0939\u094b\u0938\u094d", pause: "\u0930\u094b\u0915\u094d\u0928\u0941\u0939\u094b\u0938\u094d", resume: "\u091c\u093e\u0930\u0940 \u0930\u093e\u0916\u094d\u0928\u0941\u0939\u094b\u0938\u094d", repeat: "\u092b\u0947\u0930\u093f \u0938\u0941\u0928\u094d\u0928\u0941\u0939\u094b\u0938\u094d", next: "\u0905\u0917\u093e\u0921\u093f", skip: "\u0938\u094d\u0935\u0930 \u091b\u094b\u0921\u094d\u0928\u0941\u0939\u094b\u0938\u094d", open: "\u0938\u093f\u0938\u094d\u091f\u092e \u0916\u094b\u0932\u094d\u0928\u0941\u0939\u094b\u0938\u094d", speaking: "\u092c\u093e\u091f\u094b\u0932\u0947 \u092c\u094b\u0932\u093f\u0930\u0939\u0947\u0915\u094b \u091b", unavailable: "\u0938\u094d\u0935\u0930 \u0909\u092a\u0932\u092c\u094d\u0927 \u091b\u0948\u0928\u0964 \u092f\u094b \u092a\u093e\u0920 \u092a\u0922\u094d\u0928\u0941\u0939\u094b\u0938\u094d \u0930 \u0938\u093f\u0938\u094d\u091f\u092e \u0916\u094b\u0932\u094d\u0928\u0941\u0939\u094b\u0938\u094d\u0964", step: "\u091a\u0930\u0923" }
+  };
+
+  function guideText(selectedLang, location) {
+    const name = String(location || "Citronex");
+    const copies = {
+      pl: [
+        "Witaj. To jest system informacyjno-ucz\u0105cy dla lokalizacji " + name + ".",
+        "Nie wiesz, gdzie i\u015b\u0107? Otw\u00f3rz kafelk\u0119 Dojazd / mapa i wybierz swoje miejsce pracy.",
+        "Po przyj\u015bciu wybierz potrzebny modu\u0142: Szklarnia, Magazyn, Reader, Tablet, Lekarz lub Kontakty."
+      ],
+      en: [
+        "Welcome. This is the information and training system for " + name + ".",
+        "Do not know where to go? Open the Route / map tile and choose your workplace.",
+        "After you arrive, choose the module you need: Greenhouse, Warehouse, Reader, Tablet, Doctor or Contacts."
+      ],
+      ua: [
+        "\u0412\u0456\u0442\u0430\u0454\u043c\u043e. \u0426\u0435 \u0456\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0456\u0439\u043d\u043e-\u043d\u0430\u0432\u0447\u0430\u043b\u044c\u043d\u0430 \u0441\u0438\u0441\u0442\u0435\u043c\u0430 \u0434\u043b\u044f \u043b\u043e\u043a\u0430\u0446\u0456\u0457 " + name + ".",
+        "\u041d\u0435 \u0437\u043d\u0430\u0454\u0442\u0435, \u043a\u0443\u0434\u0438 \u0439\u0442\u0438? \u0412\u0456\u0434\u043a\u0440\u0438\u0439\u0442\u0435 \u0440\u043e\u0437\u0434\u0456\u043b \u00ab\u0414\u043e\u0440\u043e\u0433\u0430 / \u043a\u0430\u0440\u0442\u0430\u00bb \u0456 \u0432\u0438\u0431\u0435\u0440\u0456\u0442\u044c \u0441\u0432\u043e\u0454 \u043c\u0456\u0441\u0446\u0435 \u0440\u043e\u0431\u043e\u0442\u0438.",
+        "\u041f\u0456\u0441\u043b\u044f \u043f\u0440\u0438\u0431\u0443\u0442\u0442\u044f \u0432\u0438\u0431\u0435\u0440\u0456\u0442\u044c \u043f\u043e\u0442\u0440\u0456\u0431\u043d\u0438\u0439 \u0440\u043e\u0437\u0434\u0456\u043b: \u0442\u0435\u043f\u043b\u0438\u0446\u044f, \u0441\u043a\u043b\u0430\u0434, \u0440\u0456\u0434\u0435\u0440, \u043f\u043b\u0430\u043d\u0448\u0435\u0442, \u043b\u0456\u043a\u0430\u0440 \u0430\u0431\u043e \u043a\u043e\u043d\u0442\u0430\u043a\u0442\u0438."
+      ],
+      ru: [
+        "\u0414\u043e\u0431\u0440\u043e \u043f\u043e\u0436\u0430\u043b\u043e\u0432\u0430\u0442\u044c. \u042d\u0442\u043e \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u043e\u043d\u043d\u043e-\u043e\u0431\u0443\u0447\u0430\u044e\u0449\u0430\u044f \u0441\u0438\u0441\u0442\u0435\u043c\u0430 \u0434\u043b\u044f \u043b\u043e\u043a\u0430\u0446\u0438\u0438 " + name + ".",
+        "\u041d\u0435 \u0437\u043d\u0430\u0435\u0442\u0435, \u043a\u0443\u0434\u0430 \u0438\u0434\u0442\u0438? \u041e\u0442\u043a\u0440\u043e\u0439\u0442\u0435 \u0440\u0430\u0437\u0434\u0435\u043b \u00ab\u0414\u043e\u0440\u043e\u0433\u0430 / \u043a\u0430\u0440\u0442\u0430\u00bb \u0438 \u0432\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043c\u0435\u0441\u0442\u043e \u0440\u0430\u0431\u043e\u0442\u044b.",
+        "\u041f\u043e\u0441\u043b\u0435 \u043f\u0440\u0438\u0431\u044b\u0442\u0438\u044f \u0432\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043d\u0443\u0436\u043d\u044b\u0439 \u0440\u0430\u0437\u0434\u0435\u043b: \u0442\u0435\u043f\u043b\u0438\u0446\u0430, \u0441\u043a\u043b\u0430\u0434, \u0440\u0438\u0434\u0435\u0440, \u043f\u043b\u0430\u043d\u0448\u0435\u0442, \u0432\u0440\u0430\u0447 \u0438\u043b\u0438 \u043a\u043e\u043d\u0442\u0430\u043a\u0442\u044b."
+      ],
+      az: [
+        "Xo\u015f g\u0259lmisiniz. Bu, " + name + " m\u0259nt\u0259q\u0259si \u00fc\u00e7\u00fcn m\u0259lumat v\u0259 t\u0259lim sistemidir.",
+        "Hara getm\u0259li oldu\u011funuzu bilmirsiniz? Yol / x\u0259rit\u0259 b\u00f6lm\u0259sini a\u00e7\u0131n v\u0259 i\u015f yerinizi se\u00e7in.",
+        "G\u0259ldikd\u0259n sonra laz\u0131m olan b\u00f6lm\u0259ni se\u00e7in: istixana, anbar, reader, plan\u015fet, h\u0259kim v\u0259 ya kontaktlar."
+      ],
+      es: [
+        "Bienvenido. Este es el sistema de informaci\u00f3n y formaci\u00f3n de la ubicaci\u00f3n " + name + ".",
+        "\u00bfNo sabes ad\u00f3nde ir? Abre la secci\u00f3n Ruta / mapa y elige tu lugar de trabajo.",
+        "Cuando llegues, elige la secci\u00f3n que necesitas: Invernadero, Almac\u00e9n, Lector, Tableta, M\u00e9dico o Contactos."
+      ],
+      fil: [
+        "Maligayang pagdating. Ito ang information at training system para sa lokasyon na " + name + ".",
+        "Hindi mo alam kung saan pupunta? Buksan ang seksyong Daan / mapa at piliin ang lugar ng trabaho.",
+        "Pagdating mo, piliin ang kailangan mong seksyon: Greenhouse, Warehouse, Reader, Tablet, Doktor o Mga Contact."
+      ],
+      id: [
+        "Selamat datang. Ini adalah sistem informasi dan pelatihan untuk lokasi " + name + ".",
+        "Tidak tahu harus pergi ke mana? Buka bagian Rute / peta dan pilih tempat kerja Anda.",
+        "Setelah tiba, pilih bagian yang Anda perlukan: Rumah kaca, Gudang, Reader, Tablet, Dokter, atau Kontak."
+      ],
+      ne: [
+        "\u0938\u094d\u0935\u093e\u0917\u0924 \u091b\u0964 \u092f\u094b " + name + " \u0915\u093e \u0932\u093e\u0917\u093f \u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0930 \u0924\u093e\u0932\u093f\u092e \u092a\u094d\u0930\u0923\u093e\u0932\u0940 \u0939\u094b\u0964",
+        "\u0915\u0939\u093e\u0901 \u091c\u093e\u0928\u0947 \u0925\u093e\u0939\u093e \u091b\u0948\u0928? \u092c\u093e\u091f\u094b / \u0928\u0915\u094d\u0938\u093e \u0916\u0923\u094d\u0921 \u0916\u094b\u0932\u094d\u0928\u0941\u0939\u094b\u0938\u094d \u0930 \u0906\u092b\u094d\u0928\u094b \u0915\u093e\u092e \u0917\u0930\u094d\u0928\u0947 \u0920\u093e\u0909\u0901 \u091b\u093e\u0928\u094d\u0928\u0941\u0939\u094b\u0938\u094d\u0964",
+        "\u092a\u0941\u0917\u0947\u092a\u091b\u093f \u0906\u0935\u0936\u094d\u092f\u0915 \u0916\u0923\u094d\u0921 \u091b\u093e\u0928\u094d\u0928\u0941\u0939\u094b\u0938\u094d: \u0917\u094d\u0930\u0940\u0928\u0939\u093e\u0909\u0938, \u0917\u094b\u0926\u093e\u092e, \u0930\u093f\u0921\u0930, \u091f\u094d\u092f\u093e\u092c\u0932\u0947\u091f, \u0921\u093e\u0915\u094d\u091f\u0930 \u0935\u093e \u0938\u092e\u094d\u092a\u0930\u094d\u0915\u0964"
+      ]
+    };
+    return copies[selectedLang] || copies.pl;
+  }
+
+  function createGuideSpeaker(sentences, selectedLang, update, done) {
+    const synth = window.speechSynthesis;
+    const supported = Boolean(synth && typeof SpeechSynthesisUtterance !== "undefined");
+    const locale = voiceLocales[selectedLang] || "pl-PL";
+    let index = 0;
+    let run = 0;
+    let active = false;
+
+    function pickVoice() {
+      const voices = synth && synth.getVoices ? synth.getVoices() : [];
+      const exact = locale.toLowerCase();
+      const prefix = exact.split("-")[0];
+      return voices.find((voice) => String(voice.lang || "").toLowerCase() === exact)
+        || voices.find((voice) => String(voice.lang || "").toLowerCase().startsWith(prefix));
+    }
+
+    function play(nextIndex) {
+      if (!supported || !active) return;
+      index = Math.max(0, Math.min(nextIndex, sentences.length - 1));
+      const token = ++run;
+      synth.cancel();
+      update(index, sentences[index]);
+      const utterance = new SpeechSynthesisUtterance(sentences[index]);
+      utterance.lang = locale;
+      utterance.rate = 0.8;
+      utterance.pitch = 1;
+      const voice = pickVoice();
+      if (voice) utterance.voice = voice;
+      const finishSentence = (moveNext) => {
+        if (token !== run) return;
+        if (moveNext && index < sentences.length - 1) {
+          window.setTimeout(() => play(index + 1), 100);
+        } else {
+          active = false;
+          done();
+        }
+      };
+      utterance.onend = () => finishSentence(true);
+      utterance.onerror = () => finishSentence(false);
+      try {
+        synth.speak(utterance);
+      } catch {
+        active = false;
+        done();
+      }
+    }
+
+    return {
+      supported,
+      start() {
+        if (!supported) return false;
+        active = true;
+        play(0);
+        return true;
+      },
+      pause() {
+        if (!supported || !active) return false;
+        if (synth.paused) {
+          synth.resume();
+          return false;
+        }
+        synth.pause();
+        return true;
+      },
+      repeat() {
+        if (!supported) return;
+        active = true;
+        play(index);
+      },
+      next() {
+        if (!supported) return;
+        active = true;
+        play(Math.min(index + 1, sentences.length - 1));
+      },
+      cancel() {
+        active = false;
+        run += 1;
+        if (synth) synth.cancel();
+      }
+    };
+  }
+  function showLocationWelcome() {
+    if (page !== "home") return;
+    const locationKey = DATA.meta && DATA.meta.repo ? DATA.meta.repo : getLocationName();
+    const seenKey = "cx-location-welcome:welcome-dragon1:" + locationKey;
+    const forceWelcome = new URLSearchParams(location.search).get("welcome") === "1";
+    if (sessionValue(seenKey) && !forceWelcome) return;
+    const delay = document.body.classList.contains("location-splash-open") ? 2400 : 0;
+
+    window.setTimeout(() => {
+      if (document.querySelector(".welcome-modal")) return;
+      let selectedLang = lang;
+      let labels = welcomeGuideUi[selectedLang] || welcomeGuideUi.pl;
+      let started = false;
+      let finished = false;
+      let guide = null;
+      let sentences = guideText(selectedLang, getLocationName());
+      const modal = document.createElement("div");
+      modal.className = "welcome-modal";
+      modal.setAttribute("role", "dialog");
+      modal.setAttribute("aria-modal", "true");
+      modal.setAttribute("aria-labelledby", "welcomeTitle");
+      modal.innerHTML = [
+        '<div class="welcome-dialog">',
+        '<div class="welcome-location">' + esc(getLocationName()) + '</div>',
+        '<div class="welcome-dragon" data-welcome-dragon aria-hidden="true">',
+        '<svg viewBox="0 0 220 170" fill="none" xmlns="http://www.w3.org/2000/svg">',
+        '<path class="dragon-tail" d="M76 126C43 151 18 137 31 116c7-11 21-13 34-3"/>',
+        '<path class="dragon-wing dragon-wing-left" d="M82 74C50 42 38 43 25 53c16 2 28 12 35 28 8-9 14-12 22-7Z"/>',
+        '<path class="dragon-wing dragon-wing-right" d="M138 74c32-32 44-31 57-21-16 2-28 12-35 28-8-9-14-12-22-7Z"/>',
+        '<path class="dragon-body" d="M72 82c0-25 17-41 38-41s38 16 38 41v28c0 20-16 34-38 34s-38-14-38-34V82Z"/>',
+        '<path class="dragon-horn" d="M92 48 83 28l18 14M128 48l9-20-18 14"/>',
+        '<circle class="dragon-head" cx="110" cy="67" r="30"/>',
+        '<circle class="dragon-eye" cx="99" cy="64" r="4"/>',
+        '<circle class="dragon-eye" cx="121" cy="64" r="4"/>',
+        '<path class="dragon-snout dragon-mouth" d="M102 76c5 4 11 4 16 0M106 83c3 3 7 3 10 0"/>',
+        '<path class="dragon-foot" d="M86 132v15M134 132v15"/>',
+        '<circle class="dragon-spark" cx="53" cy="28" r="4"/>',
+        '<circle class="dragon-spark" cx="169" cy="29" r="3"/>',
+        '</svg></div>',
+        '<p class="welcome-kicker">CITRONEX</p>',
+        '<h2 id="welcomeTitle" data-welcome-title></h2>',
+        '<p class="welcome-lead" data-welcome-lead></p>',
+        '<label class="welcome-language-label" for="welcomeLanguage" data-welcome-choose></label>',
+        '<select class="welcome-language" id="welcomeLanguage"></select>',
+        '<div class="welcome-speech-bubble" data-welcome-speech aria-live="polite"></div>',
+        '<p class="welcome-status" data-welcome-status aria-live="polite"></p>',
+        '<div class="welcome-actions">',
+        '<button type="button" class="btn welcome-start" data-welcome-start></button>',
+        '<button type="button" class="btn secondary welcome-control" data-welcome-pause hidden></button>',
+        '<button type="button" class="btn secondary welcome-control" data-welcome-repeat hidden></button>',
+        '<button type="button" class="btn secondary welcome-control" data-welcome-next hidden></button>',
+        '<button type="button" class="btn secondary welcome-skip" data-welcome-skip></button>',
+        '</div>',
+        '</div>'
+      ].join("");
+      document.body.appendChild(modal);
+      document.body.classList.add("welcome-modal-open");
+
+      const language = modal.querySelector("#welcomeLanguage");
+      const title = modal.querySelector("[data-welcome-title]");
+      const lead = modal.querySelector("[data-welcome-lead]");
+      const choose = modal.querySelector("[data-welcome-choose]");
+      const start = modal.querySelector("[data-welcome-start]");
+      const pause = modal.querySelector("[data-welcome-pause]");
+      const repeat = modal.querySelector("[data-welcome-repeat]");
+      const next = modal.querySelector("[data-welcome-next]");
+      const skip = modal.querySelector("[data-welcome-skip]");
+      const speech = modal.querySelector("[data-welcome-speech]");
+      const status = modal.querySelector("[data-welcome-status]");
+      const dragon = modal.querySelector("[data-welcome-dragon]");
+      const options = DATA.languages.map((item) => (
+        '<option value="' + esc(item.id) + '">' + esc(welcomeLanguageNames[item.id] || item.label) + '</option>'
+      )).join("");
+      language.innerHTML = options;
+      language.value = selectedLang;
+
+      function applyLabels() {
+        labels = welcomeGuideUi[selectedLang] || welcomeGuideUi.pl;
+        title.textContent = labels.title;
+        lead.textContent = labels.lead;
+        choose.textContent = labels.choose;
+        start.textContent = finished ? labels.open : labels.start;
+        pause.textContent = labels.pause;
+        repeat.textContent = labels.repeat;
+        next.textContent = labels.next;
+        skip.textContent = labels.skip;
+      }
+
+      function updateSpeech(step, sentence) {
+        speech.textContent = sentence;
+        status.textContent = labels.step + " " + (step + 1) + "/" + sentences.length + " - " + labels.speaking;
+        dragon.classList.add("is-speaking");
+        dragon.classList.remove("is-paused");
+      }
+
+      function openSystem() {
+        if (guide) guide.cancel();
+        setSessionValue(seenKey, "1");
+        modal.remove();
+        document.body.classList.remove("welcome-modal-open");
+        reloadWithLanguage(selectedLang);
+      }
+
+      function finishGuide() {
+        finished = true;
+        dragon.classList.remove("is-speaking", "is-paused");
+        pause.hidden = true;
+        repeat.hidden = true;
+        next.hidden = true;
+        start.disabled = false;
+        start.textContent = labels.open;
+        status.textContent = labels.step + " " + sentences.length + "/" + sentences.length;
+      }
+
+      DATA.languages.forEach((item) => {
+        if (item.id === selectedLang) language.value = selectedLang;
+      });
+      applyLabels();
+      speech.textContent = sentences[0];
+      language.addEventListener("change", () => {
+        if (started) return;
+        selectedLang = language.value;
+        sentences = guideText(selectedLang, getLocationName());
+        applyLabels();
+        speech.textContent = sentences[0];
+      });
+      start.addEventListener("click", () => {
+        if (finished) {
+          openSystem();
+          return;
+        }
+        if (started) return;
+        started = true;
+        selectedLang = language.value;
+        sentences = guideText(selectedLang, getLocationName());
+        language.disabled = true;
+        applyLabels();
+        guide = createGuideSpeaker(sentences, selectedLang, updateSpeech, finishGuide);
+        if (!guide.start()) {
+          speech.textContent = sentences.join(" ");
+          status.textContent = labels.unavailable;
+          finished = true;
+          start.textContent = labels.open;
+          return;
+        }
+        pause.hidden = false;
+        repeat.hidden = false;
+        next.hidden = false;
+        start.textContent = labels.speaking;
+      });
+      pause.addEventListener("click", () => {
+        if (!guide) return;
+        const paused = guide.pause();
+        pause.textContent = paused ? labels.resume : labels.pause;
+        dragon.classList.toggle("is-paused", paused);
+      });
+      repeat.addEventListener("click", () => {
+        if (!guide) return;
+        guide.repeat();
+        pause.textContent = labels.pause;
+      });
+      next.addEventListener("click", () => {
+        if (!guide) return;
+        guide.next();
+        pause.textContent = labels.pause;
+      });
+      skip.addEventListener("click", openSystem);
+      start.focus({ preventScroll: true });
+    }, delay);
+  }
   renderPage();
   upgradeCache();
 })();

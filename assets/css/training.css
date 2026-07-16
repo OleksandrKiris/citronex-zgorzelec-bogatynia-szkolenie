@@ -8366,3 +8366,83 @@ figure img,
     font-size: 10.5px;
   }
 }
+
+
+/* Compact guide controls: the text stays visible while the dragon speaks. */
+.welcome-speech-bubble {
+  width: 100%;
+  min-height: 64px;
+  display: grid;
+  align-items: center;
+  padding: 12px 13px;
+  border: 1px solid #d7e4da;
+  border-left: 4px solid #dc2626;
+  border-radius: 14px;
+  background: #fff;
+  color: #1f2937;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.42;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.welcome-actions [hidden] {
+  display: none !important;
+}
+
+.welcome-actions {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.welcome-actions .welcome-start,
+.welcome-actions .welcome-skip {
+  grid-column: 1 / -1;
+}
+
+.welcome-actions .welcome-control {
+  min-width: 0;
+  padding-inline: 8px;
+}
+
+.welcome-dragon.is-speaking .dragon-mouth {
+  animation: welcome-dragon-mouth .28s ease-in-out infinite alternate;
+}
+
+.welcome-dragon.is-speaking svg {
+  animation-duration: 2.4s;
+}
+
+.welcome-dragon.is-paused svg,
+.welcome-dragon.is-paused .dragon-wing,
+.welcome-dragon.is-paused .dragon-spark {
+  animation-play-state: paused;
+}
+
+@keyframes welcome-dragon-mouth {
+  from { transform: translateY(0) scaleY(1); }
+  to { transform: translateY(2px) scaleY(.72); }
+}
+
+@media (max-width: 360px) {
+  .welcome-speech-bubble {
+    min-height: 58px;
+    padding: 10px 11px;
+    font-size: 13px;
+  }
+
+  .welcome-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .welcome-actions .welcome-start,
+  .welcome-actions .welcome-skip {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-dragon.is-speaking .dragon-mouth {
+    animation: none !important;
+  }
+}
