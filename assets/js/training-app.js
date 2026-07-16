@@ -2180,8 +2180,9 @@
   function showLocationWelcome() {
     if (page !== "home") return;
     const locationKey = DATA.meta && DATA.meta.repo ? DATA.meta.repo : getLocationName();
-    const seenKey = `cx-location-welcome:${locationKey}`;
-    if (sessionValue(seenKey)) return;
+    const seenKey = `cx-location-welcome:welcome-dragon1:${locationKey}`;
+    const forceWelcome = new URLSearchParams(location.search).get("welcome") === "1";
+    if (sessionValue(seenKey) && !forceWelcome) return;
     const delay = document.body.classList.contains("location-splash-open") ? 2400 : 0;
     window.setTimeout(() => {
       if (document.querySelector(".welcome-modal")) return;
