@@ -61,6 +61,34 @@
   }
 
   const voiceLocales = { pl: "pl-PL", en: "en-US", ua: "uk-UA", ru: "ru-RU", az: "az-AZ", es: "es-ES", fil: "fil-PH", id: "id-ID", ne: "ne-NP" };
+  const voiceProfiles = {
+    pl: { rate: .84, pitch: 1 }, en: { rate: .88, pitch: 1 }, ua: { rate: .82, pitch: 1.02 },
+    ru: { rate: .82, pitch: 1 }, az: { rate: .78, pitch: 1 }, es: { rate: .86, pitch: 1.02 },
+    fil: { rate: .82, pitch: 1.03 }, id: { rate: .82, pitch: 1.02 }, ne: { rate: .76, pitch: 1.05 }
+  };
+  function findSpeechVoice(locale) {
+    const voices = window.speechSynthesis?.getVoices?.() || [];
+    const exact = locale.toLowerCase();
+    const prefix = exact.split("-")[0];
+    return voices.find((voice) => String(voice.lang || "").toLowerCase() === exact)
+      || voices.find((voice) => String(voice.lang || "").toLowerCase().startsWith(`${prefix}-`))
+      || null;
+  }
+  function waitForSpeechVoice(locale, callback) {
+    const synth = window.speechSynthesis;
+    if (!synth) { callback(null); return; }
+    const immediate = findSpeechVoice(locale);
+    if (immediate) { callback(immediate); return; }
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      synth.removeEventListener?.("voiceschanged", finish);
+      callback(findSpeechVoice(locale));
+    };
+    synth.addEventListener?.("voiceschanged", finish, { once: true });
+    window.setTimeout(finish, 450);
+  }
   const welcomeLanguageNames = {
     pl: "Polski", en: "English", ua: "\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430", ru: "\u0420\u0443\u0441\u0441\u043a\u0438\u0439", az: "Az\u0259rbaycanca", es: "Espa\u00f1ol", fil: "Filipino", id: "Bahasa Indonesia", ne: "\u0928\u0947\u092a\u093e\u0932\u0940"
   };
@@ -1692,18 +1720,18 @@
         setStatus(`${text(labels.noVoice)} ${value}`);
         return;
       }
-      const utterance = new SpeechSynthesisUtterance(value);
-      utterance.lang = "pl-PL";
-      utterance.rate = 0.92;
-      utterance.pitch = 1;
-      const voices = window.speechSynthesis.getVoices ? window.speechSynthesis.getVoices() : [];
-      const polishVoice = voices.find((voice) => voice.lang && voice.lang.toLowerCase().startsWith("pl"));
-      if (polishVoice) utterance.voice = polishVoice;
-      utterance.onstart = () => setStatus(`${text(labels.speaking)} ${value}`);
-      utterance.onerror = () => setStatus(`${text(labels.noVoice)} ${value}`);
-      utterance.onend = () => setStatus(value);
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utterance);
+      waitForSpeechVoice("pl-PL", (polishVoice) => {
+        const utterance = new SpeechSynthesisUtterance(value);
+        utterance.lang = "pl-PL";
+        utterance.rate = voiceProfiles.pl.rate;
+        utterance.pitch = voiceProfiles.pl.pitch;
+        if (polishVoice) utterance.voice = polishVoice;
+        utterance.onstart = () => setStatus(`${text(labels.speaking)} ${value}`);
+        utterance.onerror = () => setStatus(`${text(labels.noVoice)} ${value}`);
+        utterance.onend = () => setStatus(value);
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+      });
     };
     const copyPolish = async (value) => {
       try {
@@ -2153,31 +2181,28 @@
       return;
     }
     const locale = voiceLocales[selectedLang] || "pl-PL";
-    const utterance = new SpeechSynthesisUtterance(value);
-    utterance.lang = locale;
-    utterance.rate = 0.88;
-    utterance.pitch = 1.06;
-    try {
-      const voices = synth.getVoices ? synth.getVoices() : [];
-      const prefix = locale.split("-")[0].toLowerCase();
-      const voice = voices.find((item) => item.lang && item.lang.toLowerCase() === locale.toLowerCase())
-        || voices.find((item) => item.lang && item.lang.toLowerCase().startsWith(prefix));
-      if (voice) utterance.voice = voice;
-    } catch { /* the browser can expose voices asynchronously */ }
     let finished = false;
     const finish = () => {
       if (finished) return;
       finished = true;
       window.setTimeout(done, 260);
     };
-    utterance.onend = finish;
-    utterance.onerror = finish;
-    try {
-      synth.cancel();
-      synth.speak(utterance);
-    } catch {
-      finish();
-    }
+    const profile = voiceProfiles[selectedLang] || voiceProfiles.en;
+    waitForSpeechVoice(locale, (voice) => {
+      const utterance = new SpeechSynthesisUtterance(value);
+      utterance.lang = locale;
+      utterance.rate = profile.rate;
+      utterance.pitch = profile.pitch;
+      if (voice) utterance.voice = voice;
+      utterance.onend = finish;
+      utterance.onerror = finish;
+      try {
+        synth.cancel();
+        synth.speak(utterance);
+      } catch {
+        finish();
+      }
+    });
   }
 
   function showLocationWelcomeLegacy() {
@@ -2405,43 +2430,37 @@
     let run = 0;
     let active = false;
 
-    function pickVoice() {
-      const voices = synth && synth.getVoices ? synth.getVoices() : [];
-      const exact = locale.toLowerCase();
-      const prefix = exact.split("-")[0];
-      return voices.find((voice) => String(voice.lang || "").toLowerCase() === exact)
-        || voices.find((voice) => String(voice.lang || "").toLowerCase().startsWith(prefix));
-    }
-
     function play(nextIndex) {
       if (!supported || !active) return;
       index = Math.max(0, Math.min(nextIndex, sentences.length - 1));
       const token = ++run;
       synth.cancel();
       update(index, sentences[index]);
-      const utterance = new SpeechSynthesisUtterance(sentences[index]);
-      utterance.lang = locale;
-      utterance.rate = 0.8;
-      utterance.pitch = 1;
-      const voice = pickVoice();
-      if (voice) utterance.voice = voice;
-      const finishSentence = (moveNext) => {
-        if (token !== run) return;
-        if (moveNext && index < sentences.length - 1) {
-          window.setTimeout(() => play(index + 1), 100);
-        } else {
+      waitForSpeechVoice(locale, (voice) => {
+        if (token !== run || !active) return;
+        const utterance = new SpeechSynthesisUtterance(sentences[index]);
+        utterance.lang = locale;
+        utterance.rate = (voiceProfiles[selectedLang] || voiceProfiles.en).rate;
+        utterance.pitch = (voiceProfiles[selectedLang] || voiceProfiles.en).pitch;
+        if (voice) utterance.voice = voice;
+        const finishSentence = (moveNext) => {
+          if (token !== run) return;
+          if (moveNext && index < sentences.length - 1) {
+            window.setTimeout(() => play(index + 1), 100);
+          } else {
+            active = false;
+            done();
+          }
+        };
+        utterance.onend = () => finishSentence(true);
+        utterance.onerror = () => finishSentence(false);
+        try {
+          synth.speak(utterance);
+        } catch {
           active = false;
           done();
         }
-      };
-      utterance.onend = () => finishSentence(true);
-      utterance.onerror = () => finishSentence(false);
-      try {
-        synth.speak(utterance);
-      } catch {
-        active = false;
-        done();
-      }
+      });
     }
 
     return {
