@@ -40,7 +40,14 @@ jobs:
       - name: Prepare public site
         run: |
           mkdir -p _site
-          rsync -a +            --exclude ".git/" +            --exclude ".github/" +            --exclude "_site/" +            --exclude "node_modules/" +            --exclude "tools/" +            --exclude "wersje/" +            ./ _site/
+          rsync -a \
+            --exclude ".git/" \
+            --exclude ".github/" \
+            --exclude "_site/" \
+            --exclude "node_modules/" \
+            --exclude "tools/" \
+            --exclude "wersje/" \
+            ./ _site/
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
