@@ -2179,6 +2179,8 @@
   }
 
   function showLocationWelcomeLegacy() {
+    // The standalone dragon guide is the only welcome screen.
+    return;
     if (page !== "home") return;
     const locationKey = DATA.meta && DATA.meta.repo ? DATA.meta.repo : getLocationName();
     const seenKey = `cx-location-welcome:welcome-dragon1:${locationKey}`;
@@ -2475,6 +2477,8 @@
     };
   }
   function showLocationWelcome() {
+    // The standalone dragon guide is the only welcome screen.
+    return;
     const entryParams = new URLSearchParams(location.search);
     if (entryParams.get("from") === "dragon" || entryParams.get("intro") === "done") return;
     if (page !== "home") return;
