@@ -2264,6 +2264,8 @@
 
   function showLocationWelcomeLegacy() {
     // The standalone dragon guide is the only welcome screen.
+    document.querySelectorAll(".welcome-modal").forEach((modal) => modal.remove());
+    document.body.classList.remove("welcome-modal-open");
     return;
     if (page !== "home") return;
     const locationKey = DATA.meta && DATA.meta.repo ? DATA.meta.repo : getLocationName();
@@ -2559,6 +2561,8 @@
   }
   function showLocationWelcome() {
     // The standalone dragon guide is the only welcome screen.
+    document.querySelectorAll(".welcome-modal").forEach((modal) => modal.remove());
+    document.body.classList.remove("welcome-modal-open");
     return;
     const entryParams = new URLSearchParams(location.search);
     if (entryParams.get("from") === "dragon" || entryParams.get("intro") === "done") return;
