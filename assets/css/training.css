@@ -8516,3 +8516,32 @@ img, svg, video { max-width: 100%; }
   .top-nav-link, .btn, .home-return-cta { min-height: 50px; }
   .tile { min-height: 124px; }
 }
+
+/* Final shared palette and density pass. */
+:root {
+  --bg: #f3f6f4 !important; --surface: #ffffff !important; --surface-soft: #f7faf8 !important;
+  --text: #16211b !important; --muted: #5c6b62 !important; --line: #dbe5de !important;
+  --green: #19713f !important; --green-soft: #eef8f1 !important; --green-line: #b9ddc6 !important;
+  --blue: #2f6fca !important; --blue-soft: #eef5ff !important; --blue-line: #c6d9f4 !important;
+  --yellow: #a86408 !important; --yellow-soft: #fff8e8 !important; --yellow-line: #ead39b !important;
+  --red: #c63d36 !important; --red-soft: #fff3f1 !important; --red-line: #e7bdb8 !important;
+  --shadow: 0 8px 20px rgba(22,33,27,.08) !important; --shadow-sm: 0 4px 12px rgba(22,33,27,.06) !important;
+}
+body { background: var(--bg) !important; color: var(--text) !important; }
+.app-header, .top-nav { background: rgba(255,255,255,.96) !important; box-shadow: 0 5px 16px rgba(22,33,27,.07) !important; }
+.page { padding-top: 14px; }
+.hero { background: #fff !important; border: 1px solid var(--line); border-radius: 14px !important; box-shadow: var(--shadow-sm) !important; }
+.hero h1 { max-width: 18ch; font-size: clamp(25px,6vw,38px) !important; }
+.tiles, .module-grid, .card-grid { gap: 10px !important; }
+.tile, .card, .step-card, .notice, .reader-panel, .tablet-guide, .medical-card, .city-simple-item, .contact-person, .ban-section, .test-shell, .test-question { border-radius: 14px !important; box-shadow: var(--shadow-sm) !important; }
+.tile { background: #fff !important; min-height: 132px !important; }
+.tile[data-tone="blue"], .card.blue { border-color: var(--blue-line) !important; }
+.tile[data-tone="green"], .card.green { border-color: var(--green-line) !important; }
+.tile[data-tone="yellow"], .card.yellow { border-color: var(--yellow-line) !important; }
+.tile[data-tone="red"], .card.red { border-color: var(--red-line) !important; }
+.card.green { background: var(--green-soft) !important; } .card.blue { background: var(--blue-soft) !important; }
+.card.yellow { background: var(--yellow-soft) !important; } .card.red { background: var(--red-soft) !important; }
+.btn { min-height: 52px; border-radius: 12px !important; box-shadow: none !important; }
+.btn.secondary, .btn.ghost { background: #fff !important; color: var(--text) !important; border-color: var(--line) !important; }
+.btn.yellow { color: #241a05 !important; }
+@media (max-width: 430px) { .page { padding-top: 10px; } .hero { padding: 14px !important; } .tile { min-height: 128px !important; padding: 12px !important; } }
