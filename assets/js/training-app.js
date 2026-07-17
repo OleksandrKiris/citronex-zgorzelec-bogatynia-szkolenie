@@ -1,6 +1,7 @@
 (() => {
   const DATA = window.CX_DATA;
   const tx = (pl, en, ua, ru, az, es, fil, id, ne) => ({ pl, en, ua, ru, az, es, fil, id, ne });
+  const hydraBrand = "CITRONEX hydra S.R.Z.B.";
   const validLangs = new Set(DATA.languages.map((item) => item.id));
   const page = document.body.dataset.page || "home";
   const app = document.getElementById("app");
@@ -386,7 +387,7 @@
           <div class="brand">
             <img src="${esc(logoSrc)}" alt="${esc(logoAlt)}">
             <div>
-              <p class="brand-title">${esc(ui("brand"))}</p>
+              <p class="brand-title">${esc(hydraBrand)}</p>
               <p class="brand-subtitle">${esc(ui("subtitle"))}</p>
             </div>
           </div>
@@ -457,7 +458,7 @@
 
   function pageHero(pageName = page) {
     const info = DATA.pages[pageName] || DATA.pages.home;
-    const appTitle = DATA.meta && DATA.meta.appTitle ? DATA.meta.appTitle : "Citronex";
+    const appTitle = DATA.meta && DATA.meta.appTitle ? DATA.meta.appTitle : hydraBrand;
     document.title = `${text(info.title)} - ${appTitle}`;
     return `
       <section class="hero">

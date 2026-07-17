@@ -8544,4 +8544,14 @@ body { background: var(--bg) !important; color: var(--text) !important; }
 .btn { min-height: 52px; border-radius: 12px !important; box-shadow: none !important; }
 .btn.secondary, .btn.ghost { background: #fff !important; color: var(--text) !important; border-color: var(--line) !important; }
 .btn.yellow { color: #241a05 !important; }
+/* Compact reading layer: keep full instructions inside modules, shorten only previews. */
+body[data-page="home"] .hero .lead,
+body[data-page="home"] .tile-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+body[data-page="home"] .hero .lead { -webkit-line-clamp: 2; }
+body[data-page="home"] .tile-text { -webkit-line-clamp: 2; }
+body[data-page="home"] .tile-title { overflow-wrap: anywhere; }
 @media (max-width: 430px) { .page { padding-top: 10px; } .hero { padding: 14px !important; } .tile { min-height: 128px !important; padding: 12px !important; } }

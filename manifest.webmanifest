@@ -1,7 +1,7 @@
 {
-  "name": "Polskie Pomidory Zgorzelec / Bogatynia - szkolenie",
-  "short_name": "Zgorzelec",
-  "description": "System informacyjno-uczący Polskie Pomidory Zgorzelec / Bogatynia",
+  "name": "CITRONEX hydra S.R.Z.B. - Bogatynia / Zgorzelec",
+  "short_name": "CITRONEX hydra",
+  "description": "Szkolenie CITRONEX hydra S.R.Z.B. dla Bogatyni i Zgorzelca",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
