@@ -23,9 +23,10 @@ const urls = new Set();
 
 function isTranslationObject(value) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
-  return ["pl", "en", "ua", "ru", "az", "es", "fil", "ne"].some((lang) => (
-    Object.prototype.hasOwnProperty.call(value, lang)
-  ));
+  // A language option has an `id` field, but it is not a translation object.
+  // Requiring the two base languages prevents the audit from reporting the
+  // language selector itself as hundreds of missing translations.
+  return ["pl", "en"].every((lang) => Object.prototype.hasOwnProperty.call(value, lang));
 }
 
 function walk(value, trail = "DATA") {

@@ -3,7 +3,7 @@
   if (!D) return;
   const T = {
   "meta": {
-    "version": "20260716-hardening1-zb",
+    "version": "20260716-data-audit1-zb",
     "displayVersion": "2026-07-13",
     "location": "Zgorzelec / Bogatynia",
     "appTitle": "Polskie Pomidory Zgorzelec / Bogatynia",
@@ -953,21 +953,6 @@
     ],
     "coordinators": [
       {
-        "name": "Anastasiia Derepa",
-        "role": {
-          "pl": "Bogatynia / Zgorzelec - rekrutacja i koordynacja",
-          "en": "Bogatynia / Zgorzelec - recruitment and coordination",
-          "ua": "Bogatynia / Zgorzelec - рекрутація і координація",
-          "ru": "Bogatynia / Zgorzelec - рекрутация и координация",
-          "az": "Bogatynia / Zgorzelec - işə qəbul və koordinasiya",
-          "es": "Bogatynia / Zgorzelec - reclutamiento y coordinación",
-          "fil": "Bogatynia / Zgorzelec - recruitment at coordination",
-          "id": "Bogatynia / Zgorzelec - rekrutmen dan koordinasi",
-          "ne": "Bogatynia / Zgorzelec - भर्ना र समन्वय"
-        },
-        "phone": "+48 797 684 159"
-      },
-      {
         "name": "Oleksandr Kiris",
         "role": {
           "pl": "Bogatynia / Zgorzelec - koordynacja",
@@ -984,25 +969,7 @@
       }
     ],
     "warehouse": [],
-    "greenhouse": {
-      "Zakwaterowanie": [
-        {
-          "name": "Nataliia",
-          "phone": "+48609809601",
-          "role": {
-            "pl": "Zakwaterowanie - Bogatynia",
-            "en": "Accommodation - Bogatynia",
-            "ua": "Житло - Bogatynia",
-            "ru": "Жильё - Bogatynia",
-            "az": "Yaşayış yeri - Bogatynia",
-            "es": "Alojamiento - Bogatynia",
-            "fil": "Tirahan - Bogatynia",
-            "id": "Akomodasi - Bogatynia",
-            "ne": "बसोबास - Bogatynia"
-          }
-        }
-      ]
-    }
+    "greenhouse": {}
   },
   "groups": [
     {
@@ -1054,7 +1021,7 @@
         "id": "Kanal informasi.",
         "ne": "सूचना च्यानल।"
       },
-      "url": "https://telegram.me/robota_citronex",
+      "url": "https://t.me/robota_citronex",
       "tone": "blue"
     },
     {
@@ -1080,7 +1047,7 @@
         "id": "Kanal untuk penutur Azerbaijan.",
         "ne": "अजरबैजानी भाषीका लागि च्यानल।"
       },
-      "url": "https://telegram.me/poloniawork_citronex",
+      "url": "https://t.me/poloniawork_citronex",
       "tone": "blue"
     }
   ],
@@ -1111,15 +1078,15 @@
           "ne": "ठेगाना: ul. Lubańska 11-12, 59-900 Zgorzelec।"
         },
         {
-          "pl": "SOR / izba przyjęć: nagły przypadek, uraz, silny ból, problemy z oddychaniem, omdlenie albo poważne pogorszenie stanu zdrowia.",
-          "en": "ER / admission room: emergency, injury, strong pain, breathing problems, fainting or serious health deterioration.",
-          "ua": "SOR / приймальне відділення: невідкладний випадок, травма, сильний біль, проблеми з диханням, втрата свідомості або серйозне погіршення стану.",
-          "ru": "SOR / приёмное отделение: срочный случай, травма, сильная боль, проблемы с дыханием, обморок или серьёзное ухудшение состояния.",
-          "az": "Təcili / qəbul otağı: təcili hal, zədə, güclü ağrı, nəfəs problemi, huş itirmə və ya ciddi pisləşmə.",
-          "es": "Urgencias / admisión: emergencia, lesión, dolor fuerte, problemas para respirar, desmayo o empeoramiento grave.",
-          "fil": "ER / admission: emergency, injury, matinding sakit, hirap huminga, nahimatay o seryosong paglala.",
-          "id": "IGD / penerimaan: darurat, cedera, nyeri kuat, sulit bernapas, pingsan atau kondisi memburuk serius.",
-          "ne": "आपतकालीन / भर्ना कक्ष: आकस्मिक अवस्था, चोट, धेरै दुखाइ, सास फेर्न समस्या, बेहोस वा स्वास्थ्य धेरै बिग्रिनु।"
+          "pl": "SOR: nagły przypadek, uraz, silny ból, problemy z oddychaniem, omdlenie albo poważne pogorszenie stanu zdrowia.",
+          "en": "ER: emergency, injury, strong pain, breathing problems, fainting or serious health deterioration.",
+          "ua": "SOR: невідкладний випадок, травма, сильний біль, проблеми з диханням, втрата свідомості або серйозне погіршення стану.",
+          "ru": "SOR: срочный случай, травма, сильная боль, проблемы с дыханием, обморок или серьёзное ухудшение состояния.",
+          "az": "Təcili yardım şöbəsi: təcili hal, zədə, güclü ağrı, nəfəs problemi, huş itirmə və ya ciddi pisləşmə.",
+          "es": "Urgencias: emergencia, lesión, dolor fuerte, problemas para respirar, desmayo o empeoramiento grave.",
+          "fil": "ER: emergency, injury, matinding sakit, hirap huminga, nahimatay o seryosong paglala.",
+          "id": "IGD: darurat, cedera, nyeri kuat, sulit bernapas, pingsan atau kondisi memburuk serius.",
+          "ne": "आपतकालीन विभाग: आकस्मिक अवस्था, चोट, धेरै दुखाइ, सास फेर्न समस्या, बेहोस वा स्वास्थ्य धेरै बिग्रिनु।"
         },
         {
           "pl": "Nocna i świąteczna opieka: gdy POZ jest zamknięty, ale to nie jest zagrożenie życia.",
@@ -1165,27 +1132,27 @@
           "label": {
             "pl": "Centrala / informacja",
             "en": "Main line / information",
-            "ua": "Централа / інформація",
+            "ua": "Центральний номер / інформація",
             "ru": "Центральный номер / информация",
-            "az": "Mərkəz / məlumat",
+            "az": "Mərkəzi telefon / məlumat",
             "es": "Central / información",
             "fil": "Main line / impormasyon",
-            "id": "Pusat / informasi",
-            "ne": "मुख्य लाइन / जानकारी"
+            "id": "Nomor utama / informasi",
+            "ne": "मुख्य फोन / जानकारी"
           },
           "phone": "+48 75 772 29 00"
         },
         {
           "label": {
-            "pl": "SOR / izba przyjęć",
-            "en": "ER / admission room",
-            "ua": "SOR / приймальне відділення",
-            "ru": "SOR / приёмное отделение",
-            "az": "Təcili / qəbul otağı",
-            "es": "Urgencias / admisión",
-            "fil": "ER / admission room",
-            "id": "IGD / ruang penerimaan",
-            "ne": "आपतकालीन / भर्ना कक्ष"
+            "pl": "SOR",
+            "en": "ER",
+            "ua": "SOR",
+            "ru": "SOR",
+            "az": "Təcili yardım şöbəsi",
+            "es": "Urgencias",
+            "fil": "ER",
+            "id": "IGD",
+            "ne": "आपतकालीन विभाग"
           },
           "phone": "+48 571 334 945"
         },
@@ -1392,15 +1359,15 @@
         },
         {
           "label": {
-            "pl": "Centrala / informacja",
-            "en": "Main line / information",
-            "ua": "Централа / інформація",
-            "ru": "Центральный номер / информация",
-            "az": "Mərkəz / məlumat",
-            "es": "Central / información",
-            "fil": "Main line / impormasyon",
-            "id": "Pusat / informasi",
-            "ne": "मुख्य लाइन / जानकारी"
+            "pl": "Izba przyjęć",
+            "en": "Admission room",
+            "ua": "Приймальне відділення",
+            "ru": "Приёмное отделение",
+            "az": "Qəbul otağı",
+            "es": "Admisión",
+            "fil": "Admission room",
+            "id": "Ruang penerimaan",
+            "ne": "भर्ना कक्ष"
           },
           "phone": "+48 75 773 93 21"
         },
@@ -1420,15 +1387,15 @@
         },
         {
           "label": {
-            "pl": "Izba przyjęć",
-            "en": "Admission room",
-            "ua": "Приймальне відділення",
-            "ru": "Приёмное отделение",
-            "az": "Qəbul otağı",
-            "es": "Admisión",
-            "fil": "Admission room",
-            "id": "Ruang penerimaan",
-            "ne": "भर्ना कक्ष"
+            "pl": "Centrala szpitala",
+            "en": "Hospital main line",
+            "ua": "Центральний номер лікарні",
+            "ru": "Центральный номер больницы",
+            "az": "Xəstəxananın əsas telefonu",
+            "es": "Central del hospital",
+            "fil": "Hospital main line",
+            "id": "Nomor utama rumah sakit",
+            "ne": "अस्पतालको मुख्य फोन"
           },
           "phone": "+48 75 773 20 31"
         }
@@ -2977,6 +2944,56 @@
   D.city = T.city;
   D.citySections = T.citySections || [];
   D.cityExtras = [];
+  const fixLocationTranslation = (target, lang, value) => {
+    if (target && typeof target === "object" && Object.prototype.hasOwnProperty.call(target, lang)) target[lang] = value;
+  };
+  fixLocationTranslation(D.tiles[3].title, "fil", "Greenhouse ng Bogatynia");
+  ["Lugar ng pagkikita - Zgorzelec", "Lugar ng pagkikita - Bogatynia", "Bodega ng saging - Zgorzelec", "Pasukan ng staff - Zgorzelec", "Pasukan ng staff - Bogatynia", "PKO / ATM - Zgorzelec", "PKO / ATM - Bogatynia", "Tindahan - Zgorzelec", "Tindahan - Bogatynia"].forEach((value, index) => {
+    const mapIndex = [0, 1, 3, 5, 6, 12, 13, 14, 15][index];
+    fixLocationTranslation(D.maps[mapIndex].title, "fil", value);
+  });
+  fixLocationTranslation(D.readerTabs[3].imageSteps[1], "fil", "Tag ng hanay");
+  fixLocationTranslation(D.contacts.coordinators[0].role, "fil", "Bogatynia / Zgorzelec - koordynasyon");
+  fixLocationTranslation(D.medical[0].body[0], "fil", "Tirahan: ul. Lubańska 11-12, 59-900 Zgorzelec.");
+  fixLocationTranslation(D.medical[0].maps[0].label, "fil", "Ospital / ER Zgorzelec");
+  fixLocationTranslation(D.medical[0].phones[2].label, "fil", "Pangangalaga sa gabi at pista opisyal");
+  fixLocationTranslation(D.medical[1].title, "fil", "Zgorzelec - doktor ng pamilya (POZ)");
+  fixLocationTranslation(D.medical[1].body[0], "fil", "Tirahan: ul. Lubańska 11-12, 59-900 Zgorzelec.");
+  fixLocationTranslation(D.medical[1].phones[0].label, "fil", "POZ / linya ng tulong");
+  fixLocationTranslation(D.medical[1].phones[1].label, "fil", "Pagpaparehistro");
+  fixLocationTranslation(D.medical[2].body[0], "fil", "Tirahan: ul. Szpitalna 16, 59-920 Bogatynia.");
+  fixLocationTranslation(D.medical[2].phones[0].label, "fil", "Pangangalaga sa gabi at pista opisyal");
+  fixLocationTranslation(D.medical[2].phones[1].label, "fil", "Silid ng pagtanggap");
+  fixLocationTranslation(D.medical[2].phones[2].label, "fil", "Pagpaparehistro");
+  fixLocationTranslation(D.medical[2].phones[3].label, "fil", "Pangunahing linya ng ospital");
+  fixLocationTranslation(D.medical[3].title, "fil", "Bogatynia - doktor ng pamilya MegaMed (POZ)");
+  fixLocationTranslation(D.medical[3].body[0], "fil", "Tirahan: ul. Pocztowa 13, 59-920 Bogatynia.");
+  fixLocationTranslation(D.medical[3].phones[0].label, "fil", "Pagpaparehistro");
+  fixLocationTranslation(D.medical[3].phones[1].label, "fil", "Pagpaparehistro");
+  fixLocationTranslation(D.medical[3].phones[2].label, "fil", "Pagpaparehistro ng pediatric");
+  fixLocationTranslation(D.medical[4].maps[1].label, "fil", "Dentista NFZ Zgorzelec");
+  fixLocationTranslation(D.medical[4].phones[0].label, "fil", "Pagpaparehistro Fabryczna 1");
+  fixLocationTranslation(D.groups[1].note, "fil", "Channel ng impormasyon.");
+  fixLocationTranslation(D.city[0].title, "fil", "Tanggapan ng Lungsod ng Zgorzelec");
+  fixLocationTranslation(D.city[0].links[2].label, "fil", "BIP / pakikipag-ugnayan");
+  fixLocationTranslation(D.city[1].title, "fil", "Tanggapan ng Bayan at Komuna ng Bogatynia");
+  fixLocationTranslation(D.city[1].links[2].label, "fil", "Bogatynia e-urząd");
+  fixLocationTranslation(D.city[1].links[2].label, "ne", "Bogatynia e-कार्यालय");
+  fixLocationTranslation(D.city[3].links[2].label, "fil", "Mga alok na trabaho");
+  fixLocationTranslation(D.city[6].title, "fil", "DUW Wrocław / card ng paninirahan");
+  fixLocationTranslation(D.city[7].title, "fil", "Sangay ng DUW Jelenia Góra");
+  fixLocationTranslation(D.city[9].links[1].label, "fil", "Palitan ng pera - Wolności 1");
+  fixLocationTranslation(D.city[10].links[1].label, "fil", "Palitan ng pera");
+  fixLocationTranslation(D.city[11].title, "fil", "Post office Zgorzelec / Bogatynia");
+  fixLocationTranslation(D.city[11].links[0].label, "fil", "Post office Zgorzelec");
+  fixLocationTranslation(D.city[11].links[1].label, "fil", "Post office Bogatynia");
+  fixLocationTranslation(D.city[12].title, "fil", "Transportasyon Zgorzelec / Bogatynia");
+  fixLocationTranslation(D.city[13].links[0].label, "fil", "Tindahan Zgorzelec");
+  fixLocationTranslation(D.city[13].links[1].label, "fil", "Tindahan Bogatynia");
+  fixLocationTranslation(D.cityRules[2].tag, "fil", "Mga pakete");
+  fixLocationTranslation(D.warehouseLocations?.[0]?.title, "fil", "Bodega ng saging");
+  fixLocationTranslation(D.warehouseLocations?.[1]?.actions?.[1]?.label, "fil", "Instruksiyon reader");
+  fixLocationTranslation(D.warehouseLocations?.[1]?.actions?.[2]?.label, "fil", "Instruksiyon tablet");
 
   const confirmText = {
     pl: "Punkt firmowy do potwierdzenia z koordynatorem. Nie jedź samodzielnie, dopóki nie dostaniesz dokładnej lokalizacji.",
@@ -3224,7 +3241,7 @@
     }
   };
 
-  D.meta.version = "20260716-hardening1-zb";
+  D.meta.version = "20260716-data-audit1-zb";
   D.meta.displayVersion = "2026-07-15";
 
   setPageText(
@@ -3476,7 +3493,7 @@
       lead: tr("W Bogatyni tablet dziala na szklarni i magazynie. Zgorzelec ma osobny system magazynu bananowego.", "In Bogatynia the tablet works in greenhouse and warehouse. Zgorzelec has a separate banana warehouse system.", "У Bogatynia tablet працює на теплиці і складі. Zgorzelec має окрему систему бананового складу.", "В Bogatynia tablet работает на теплице и складе. Zgorzelec имеет отдельную систему бананового склада.", "Bogatynia-da tablet istixana ve anbarda isleyir. Zgorzelec-in banan anbari ucun ayri sistemi var.", "En Bogatynia tablet funciona en invernadero y almacen. Zgorzelec tiene sistema separado.", "Sa Bogatynia gumagana ang tablet sa greenhouse at warehouse. Ang Zgorzelec ay may hiwalay na sistema.", "Di Bogatynia tablet berlaku di greenhouse dan gudang. Zgorzelec punya sistem terpisah.", "Bogatynia मा tablet ग्रीनहाउस र गोदाममा चल्छ। Zgorzelec मा अलग प्रणाली छ।")
     }
   };
-  D.meta.version = "20260716-hardening1-zb";
+  D.meta.version = "20260716-data-audit1-zb";
 
   D.homeModeUi = {
     eyebrow: tr("Najpierw", "First", "Спочатку", "Сначала", "Əvvəlcə", "Primero", "Una muna", "Pertama", "पहिले"),
@@ -3538,6 +3555,74 @@
       pages: ["mapa", "magazyn", "szklarnia", "reader", "tablet", "kontakty", "lekarz", "grupy", "miasto", "zakazy", "mowa", "slownik", "test"]
     }
   ];
+  fixLocationTranslation(D.homeModes[1].selectedTitle, "fil", "Mode ng trabaho: Zgorzelec");
+  fixLocationTranslation(D.homeModes[1].selectedTitle, "id", "Mode kerja: Zgorzelec");
+  fixLocationTranslation(D.homeModes[2].selectedTitle, "fil", "Mode ng trabaho: Bogatynia");
+  fixLocationTranslation(D.homeModes[2].selectedTitle, "id", "Mode kerja: Bogatynia");
+  fixLocationTranslation(D.tiles[3].title, "fil", "Greenhouse ng Bogatynia");
+  fixLocationTranslation(D.maps[3].title, "fil", "Bodega ng saging - Zgorzelec");
+  fixLocationTranslation(D.maps[5].title, "fil", "Pasukan ng staff - Zgorzelec");
+  fixLocationTranslation(D.maps[6].title, "fil", "Pasukan ng staff - Bogatynia");
+  fixLocationTranslation(D.maps[12].title, "fil", "PKO / ATM - Zgorzelec");
+  fixLocationTranslation(D.maps[13].title, "fil", "PKO / ATM - Bogatynia");
+  fixLocationTranslation(D.maps[14].title, "fil", "Tindahan - Zgorzelec");
+  fixLocationTranslation(D.maps[15].title, "fil", "Tindahan - Bogatynia");
+  fixLocationTranslation(D.medical[0].phones[1].label, "fil", "ER / emergency");
+  fixLocationTranslation(D.medical[4].maps[1].label, "fil", "Dentista NFZ Zgorzelec");
+  fixLocationTranslation(D.city[9].links[0].label, "fil", "PKO / ATM");
+  fixLocationTranslation(D.city[10].links[0].label, "fil", "PKO / ATM");
+  fixLocationTranslation(D.city[9].links[1].label, "fil", "Palitan ng pera - Wolności 1");
+  fixLocationTranslation(D.city[10].links[1].label, "fil", "Palitan ng pera");
+  fixLocationTranslation(D.city[11].title, "fil", "Post office Zgorzelec / Bogatynia");
+  fixLocationTranslation(D.city[13].links[0].label, "fil", "Tindahan Zgorzelec");
+  fixLocationTranslation(D.city[13].links[1].label, "fil", "Tindahan Bogatynia");
+  fixLocationTranslation(D.citySections[3].title, "fil", "Transportasyon");
+  fixLocationTranslation(D.warehouseLocations[0].title, "fil", "Bodega ng saging");
+  fixLocationTranslation(D.warehouseLocations[1].actions[1].label, "fil", "Instruksiyon reader");
+  fixLocationTranslation(D.warehouseLocations[1].actions[2].label, "fil", "Instruksiyon tablet");
+  fixLocationTranslation(D.city[11].title, "fil", "Post office sa Zgorzelec / Bogatynia");
+  const commonReplacements = {
+    fil: [
+      [/\bfirst day\b/gi, "unang araw"], [/\bwork maps\b/gi, "mga mapa ng trabaho"], [/\baddress registration\b/gi, "pagpaparehistro ng tirahan"],
+      [/\bnear\b/gi, "malapit sa"], [/\bworking\b/gi, "nagtatrabaho"], [/\boffices?\b/gi, "mga opisina"], [/\bshared\b/gi, "magkasanib"],
+      [/\bstep by step\b/gi, "sunod-sunod"], [/\bstop\b/gi, "hinto"], [/\bresident matters\b/gi, "mga usapin ng residente"],
+      [/\bdocuments?\b/gi, "mga dokumento"], [/\btaxes?\b/gi, "mga buwis"], [/\bphone\b/gi, "telepono"],
+      [/\bjob offers\b/gi, "mga alok na trabaho"], [/\bstaff entrance\b/gi, "pasukan ng staff"], [/\bmeeting point\b/gi, "lugar ng pagkikita"],
+      [/\bpost office\b/gi, "tanggapan ng koreo"], [/\bteam leader\b/gi, "pinuno ng pangkat"], [/\barea leader\b/gi, "lider ng lugar"],
+      [/\bgreenhouses?\b/gi, "bahay-taniman"], [/\bwarehouses?\b/gi, "bodega"], [/\bworkplace\b/gi, "lugar ng trabaho"],
+      [/\bwork\b/gi, "trabaho"], [/\brows\b/gi, "mga hanay"], [/\brow\b/gi, "hanay"], [/\bbreak\b/gi, "pahinga"],
+      [/\bactivity\b/gi, "gawain"], [/\bregistration\b/gi, "pagpaparehistro"], [/\baddress\b/gi, "tirahan"], [/\boffice\b/gi, "opisina"],
+      [/\bshop\b/gi, "tindahan"], [/\btransport\b/gi, "transportasyon"], [/\bheadphones\b/gi, "mga headphone"], [/\bscreen\b/gi, "ekran"],
+      [/\binstruction\b/gi, "instruksiyon"], [/\bbutton\b/gi, "pindutan"], [/\bpediatric\b/gi, "pambata"], [/\bsystem\b/gi, "sistema"],
+      [/\bcoordinators?\b/gi, "tagapag-ugnay"], [/\brecruitment\b/gi, "rekrutment"], [/\bemergency\b/gi, "emerhensiya"], [/\bcontact\b/gi, "ugnayan"]
+    ],
+    id: [
+      [/\bfirst day\b/gi, "hari pertama"], [/\bwork maps\b/gi, "peta kerja"], [/\baddress registration\b/gi, "pendaftaran alamat"],
+      [/\bnear\b/gi, "dekat"], [/\bworking\b/gi, "bekerja"], [/\boffices?\b/gi, "kantor"], [/\bshared\b/gi, "bersama"],
+      [/\bstep by step\b/gi, "langkah demi langkah"], [/\bstop\b/gi, "halte"], [/\bresident matters\b/gi, "urusan penduduk"],
+      [/\bdocuments?\b/gi, "dokumen"], [/\btaxes?\b/gi, "pajak"], [/\bphone\b/gi, "telepon"],
+      [/\bmeeting point\b/gi, "titik pertemuan"], [/\bstaff entrance\b/gi, "pintu masuk staf"], [/\bpost office\b/gi, "kantor pos"],
+      [/\bgreenhouses?\b/gi, "rumah kaca"], [/\bwarehouses?\b/gi, "gudang"], [/\bworkplace\b/gi, "tempat kerja"], [/\bwork\b/gi, "kerja"],
+      [/\brows?\b/gi, "baris"], [/\bbreak\b/gi, "istirahat"], [/\bactivity\b/gi, "aktivitas"], [/\bregistration\b/gi, "pendaftaran"],
+      [/\baddress\b/gi, "alamat"], [/\boffice\b/gi, "kantor"], [/\bshop\b/gi, "toko"], [/\btransport\b/gi, "transportasi"],
+      [/\bheadphones\b/gi, "headphone"], [/\bscreen\b/gi, "layar"], [/\binstruction\b/gi, "instruksi"], [/\bbutton\b/gi, "tombol"],
+      [/\bpediatric\b/gi, "anak"], [/\bsystem\b/gi, "sistem"], [/\bcoordinators?\b/gi, "koordinator"], [/\brecruitment\b/gi, "rekrutmen"],
+      [/\bemergency\b/gi, "darurat"], [/\bcontact\b/gi, "kontak"]
+    ]
+  };
+  const normalizeLocationTranslations = (value) => {
+    if (!value || typeof value !== "object") return;
+    if (Object.prototype.hasOwnProperty.call(value, "pl") && Object.prototype.hasOwnProperty.call(value, "en")) {
+      for (const [lang, replacements] of Object.entries(commonReplacements)) {
+        if (typeof value[lang] !== "string") continue;
+        replacements.forEach(([pattern, replacement]) => {
+          value[lang] = value[lang].replace(pattern, (match) => /^[A-ZĄĆĘŁŃÓŚŹŻ]/.test(match) ? replacement[0].toUpperCase() + replacement.slice(1) : replacement);
+        });
+      }
+    }
+    Object.values(value).forEach(normalizeLocationTranslations);
+  };
+  normalizeLocationTranslations(D);
 })();
 
 

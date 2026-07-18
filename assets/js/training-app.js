@@ -51,10 +51,34 @@
   let lang = getLang();
   document.documentElement.lang = lang === "ua" ? "uk" : lang;
 
+  const visibleTranslationFixes = {
+    fil: [
+      [/\bshared step-by-step instruction\b/gi, "iisang sunod-sunod na instruksyon"], [/\bgreenhouse\b/gi, "bahay-taniman"],
+      [/\bwarehouse\b/gi, "bodega"], [/\binstruction\b/gi, "instruksyon"], [/\bstep-by-step\b/gi, "sunod-sunod"],
+      [/\bnear\b/gi, "malapit sa"], [/\bmeeting point\b/gi, "lugar ng pagkikita"], [/\bcoordinator\b/gi, "tagapag-ugnay"],
+      [/\bcity\b/gi, "lungsod"], [/\bshared\b/gi, "iisang"], [/\boffices?\b/gi, "mga opisina"],
+      [/\bdocuments?\b/gi, "mga dokumento"], [/\btaxes?\b/gi, "mga buwis"], [/\bphone\b/gi, "telepono"]
+    ],
+    id: [
+      [/\bgreenhouse\b/gi, "rumah kaca"], [/\bwarehouse\b/gi, "gudang"], [/\binstruction\b/gi, "instruksi"],
+      [/\bstep-by-step\b/gi, "langkah demi langkah"], [/\bnear\b/gi, "dekat"], [/\bmeeting point\b/gi, "titik pertemuan"],
+      [/\bcoordinator\b/gi, "koordinator"], [/\bcity\b/gi, "kota"], [/\bshared\b/gi, "bersama"],
+      [/\boffices?\b/gi, "kantor"], [/\bdocuments?\b/gi, "dokumen"], [/\btaxes?\b/gi, "pajak"], [/\bphone\b/gi, "telepon"]
+    ]
+  };
+
+  function cleanVisibleTranslation(value) {
+    let result = String(value ?? "");
+    (visibleTranslationFixes[lang] || []).forEach(([pattern, replacement]) => {
+      result = result.replace(pattern, replacement);
+    });
+    return result;
+  }
+
   function text(value) {
     if (!value) return "";
-    if (typeof value === "string") return value;
-    return value[lang] || value.pl || value.en || "";
+    if (typeof value === "string") return cleanVisibleTranslation(value);
+    return cleanVisibleTranslation(value[lang] || value.pl || value.en || "");
   }
 
   function ui(key) {
@@ -193,6 +217,7 @@
   }
 
   function href(pageName) {
+    if (pageName === "szklarnia3d") return "https://oleksandrkiris.github.io/citronex-szklarnia-3d/";
     const base = pageName === "home" ? "index.html" : `${pageName}.html`;
     return `${base}?lang=${encodeURIComponent(lang)}`;
   }
@@ -537,7 +562,7 @@
     const modeId = getHomeMode();
     const modes = DATA.homeModes || [];
     const selectedModeRequired = modes.length && !modeId;
-    const priorityPages = new Set(["mapa", "szklarnia", "reader", "lekarz"]);
+    const priorityPages = new Set(["mapa", "szklarnia", "szklarnia3d", "reader", "lekarz"]);
     const tiles = (selectedModeRequired ? [] : modeFilteredTiles(modeId)).map((tile) => `
       <a class="tile${priorityPages.has(tile.page) ? " tile-priority" : ""}" data-tone="${esc(tile.tone)}" href="${esc(href(tile.page))}">
         <div class="tile-top">
@@ -574,6 +599,36 @@
     ` : "";
 
     app.innerHTML = `<main class="page">${pageHero("home")}${renderHomeModeSelector(modeId)}${emptyHint}${tiles ? `<section class="tiles">${tiles}</section>` : ""}${selectedModeRequired ? "" : installCard}</main>`;
+  }
+
+  function renderHomeCompact() {
+    const priorityPages = new Set(["mapa", "szklarnia", "szklarnia3d", "reader", "lekarz"]);
+    const primaryPages = new Set(["mapa", "magazyn", "szklarnia", "szklarnia3d", "reader", "lekarz", "kontakty", "zakazy", "test"]);
+    const renderTile = (tile) => `
+      <a class="tile${priorityPages.has(tile.page) ? " tile-priority" : ""}" data-tone="${esc(tile.tone)}" href="${esc(href(tile.page))}">
+        <div class="tile-top"><span class="icon-box">${iconMap[tile.icon] || iconMap.test}</span><span class="arrow">›</span></div>
+        <div><p class="tile-title">${esc(text(tile.title))}</p><p class="tile-text">${esc(text(tile.text))}</p></div>
+      </a>
+    `;
+    const primaryTiles = DATA.tiles.filter((tile) => primaryPages.has(tile.page));
+    const extraTiles = DATA.tiles.filter((tile) => !primaryPages.has(tile.page));
+    const moreLinks = extraTiles.map((tile) => `
+      <a class="more-link" href="${esc(href(tile.page))}">
+        <span class="more-link-icon">${iconMap[tile.icon] || iconMap.test}</span>
+        <span>${esc(text(tile.title))}</span>
+      </a>
+    `).join("");
+    const moreTile = extraTiles.length ? `
+      <details class="tile more-tile">
+        <summary>
+          <span class="tile-top"><span class="icon-box">${iconMap.hub}</span><span class="arrow">+</span></span>
+          <span class="tile-title">${esc(text(tx("Więcej", "More", "Більше", "Больше", "Daha çox", "Más", "Higit pa", "Lainnya", "थप")))}</span>
+          <span class="tile-text">${esc(text(tx("Słownik, grupy, miasto i komunikaty.", "Glossary, groups, city and phrases.", "Словник, групи, місто та фрази.", "Словарь, группы, город и фразы.", "Lüğət, qruplar, şəhər və ifadələr.", "Glosario, grupos, ciudad y frases.", "Talasalitaan, grupo, lungsod at mga parirala.", "Kamus, grup, kota, dan kalimat.", "शब्दकोश, समूह, शहर र वाक्यहरू।")))}</span>
+        </summary>
+        <span class="more-links">${moreLinks}</span>
+      </details>
+    ` : "";
+    app.innerHTML = `<main class="page">${pageHero("home")}<section class="tiles">${primaryTiles.map(renderTile).join("")}${moreTile}</section></main>`;
   }
 
   function renderVersionFooter() {
@@ -825,6 +880,37 @@
         ${tabletInstructionMarkup()}
       </main>
     `;
+  }
+
+  function renderGreenhouseGuide() {
+    const guide = tx(
+      "Otwórz osobny projekt z wizualizacją szklarni, rzędów, pomidorów, pracowników i wózków.",
+      "Open the separate project with the greenhouse, rows, tomatoes, workers and carts.",
+      "Відкрийте окремий проєкт із візуалізацією теплиці, рядів, помідорів, працівників і візків.",
+      "Откройте отдельный проект с визуализацией теплицы, рядов, помидоров, работников и тележек.",
+      "İstixana, sıralar, pomidorlar, işçilər və arabaların vizualizasiyası üçün ayrıca layihəni açın.",
+      "Abre el proyecto independiente con la visualización del invernadero, las filas, los tomates, los trabajadores y los carros.",
+      "Buksan ang hiwalay na proyekto na may visualization ng bahay-taniman, mga hanay, kamatis, manggagawa at kariton.",
+      "Buka proyek terpisah dengan visualisasi rumah kaca, baris, tomat, pekerja dan troli.",
+      "ग्रीनहाउस, लाइन, गोलभेडा, कामदार र गाडीको दृश्य भएको अलग परियोजना खोल्नुहोस्।"
+    );
+    const open = tx(
+      "Otwórz wizualizację szklarni 3D", "Open greenhouse 3D visualization",
+      "Відкрити 3D-візуалізацію теплиці", "Открыть 3D-визуализацию теплицы",
+      "İstixananın 3D görünüşünü aç", "Abrir visualización 3D del invernadero",
+      "Buksan ang 3D visualization ng bahay-taniman", "Buka visualisasi 3D rumah kaca",
+      "ग्रीनहाउस 3D दृश्य खोल्नुहोस्"
+    );
+    app.innerHTML = `
+      <main class="page">
+        ${pageHero()}
+        <section class="card green">
+          <h2>${esc(text(DATA.pages.szklarnia.title))}</h2>
+          <p>${esc(text(DATA.pages.szklarnia.lead))}</p>
+          <p>${esc(text(guide))}</p>
+          <a class="btn primary" href="${esc(href("szklarnia3d"))}" target="_blank" rel="noopener">${esc(text(open))}</a>
+        </section>
+      </main>`;
   }
 
   function renderGreenhouse() {
@@ -2377,11 +2463,11 @@
     renderHeader();
     focusActiveTopNav();
     const renderers = {
-      home: renderHome,
+      home: renderHomeCompact,
       mapa: renderMap,
       magazyn: renderWarehouse,
       tablet: renderTablet,
-      szklarnia: renderGreenhouse,
+      szklarnia: renderGreenhouseGuide,
       reader: renderReader,
       lekarz: renderMedical,
       kontakty: renderContacts,
@@ -2392,7 +2478,7 @@
       zakazy: renderBans,
       test: renderTest
     };
-    (renderers[page] || renderHome)();
+    (renderers[page] || renderHomeCompact)();
     bindCopyLinks();
     renderVersionFooter();
     setupFrontendEnhancements();
