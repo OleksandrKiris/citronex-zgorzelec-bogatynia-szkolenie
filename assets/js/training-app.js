@@ -1335,6 +1335,7 @@
       modal.className = "orientation-modal";
       modal.setAttribute("role", "dialog");
       modal.setAttribute("aria-modal", "true");
+      modal.setAttribute("aria-label", labels.open);
       modal.setAttribute("aria-hidden", "true");
       modal.innerHTML = `
         <div class="orientation-modal-panel">
@@ -1347,15 +1348,23 @@
 
     const content = modal.querySelector(".orientation-modal-content");
     const closeButton = modal.querySelector(".orientation-modal-close");
+    let opener = null;
     const closeModal = () => {
       modal.classList.remove("is-open");
       modal.setAttribute("aria-hidden", "true");
       document.body.classList.remove("orientation-modal-open");
       content.innerHTML = "";
+      if (opener && opener.isConnected) opener.focus({ preventScroll: true });
+      opener = null;
     };
-    const openModal = (step) => {
+    const openModal = (step, trigger) => {
+      opener = trigger;
       const copy = step.cloneNode(true);
       copy.querySelectorAll(".orientation-zoom-pill").forEach((item) => item.remove());
+      // The copied diagram is already enlarged; only its real controls stay tabbable.
+      copy.querySelectorAll('.schema[role="button"]').forEach((schema) => {
+        ["role", "tabindex", "aria-label", "title"].forEach((name) => schema.removeAttribute(name));
+      });
       copy.querySelectorAll(".nave-3d-view").forEach((diagram) => {
         delete diagram.dataset.navePickerReady;
       });
@@ -1377,7 +1386,25 @@
       if (event.target === modal) closeModal();
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+      if (!modal.classList.contains("is-open")) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeModal();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const controls = Array.from(modal.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'))
+        .filter((node) => node.getClientRects().length > 0);
+      const first = controls[0] || closeButton;
+      const last = controls[controls.length - 1] || closeButton;
+      const outside = !modal.contains(document.activeElement);
+      if (event.shiftKey && (document.activeElement === first || outside)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || outside)) {
+        event.preventDefault();
+        first.focus();
+      }
     });
 
     steps.forEach((step) => {
@@ -1394,13 +1421,13 @@
       schema.appendChild(pill);
       schema.addEventListener("click", (event) => {
         if (event.target.closest(".nave-pick-btn")) return;
-        openModal(step);
+        openModal(step, schema);
       });
       schema.addEventListener("keydown", (event) => {
         if (event.target.closest(".nave-pick-btn")) return;
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          openModal(step);
+          openModal(step, schema);
         }
       });
     });
