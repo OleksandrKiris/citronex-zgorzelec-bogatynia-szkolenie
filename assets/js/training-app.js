@@ -1946,11 +1946,24 @@
     });
     const searchInput = app.querySelector("#speechSearch");
     const empty = app.querySelector(".speech-empty");
+    let groupsBeforeSearch = null;
     searchInput?.addEventListener("input", () => {
       const query = searchInput.value.trim().toLowerCase();
+      const speechGroups = Array.from(app.querySelectorAll("[data-speech-group]"));
+      if (!query) {
+        speechGroups.forEach((group) => {
+          group.hidden = false;
+          group.querySelectorAll("[data-speech-card]").forEach((card) => { card.hidden = false; });
+          if (groupsBeforeSearch) group.open = groupsBeforeSearch.get(group);
+        });
+        groupsBeforeSearch = null;
+        if (empty) empty.hidden = true;
+        return;
+      }
+      if (!groupsBeforeSearch) groupsBeforeSearch = new Map(speechGroups.map((group) => [group, group.open]));
       let visibleTotal = 0;
-      app.querySelectorAll("[data-speech-group]").forEach((group) => {
-        if (query) renderSpeechGroup(group);
+      speechGroups.forEach((group) => {
+        renderSpeechGroup(group);
         let groupVisible = 0;
         group.querySelectorAll("[data-speech-card]").forEach((card) => {
           const match = !query || (card.dataset.key || "").includes(query);
