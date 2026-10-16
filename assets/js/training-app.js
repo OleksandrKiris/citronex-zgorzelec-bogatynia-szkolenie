@@ -2097,12 +2097,55 @@
     `;
   }
 
+  // Anonymous answers remain on this device only and expire after seven days.
+  function createTestSession() {
+    const mode = typeof getHomeMode === "function" ? getHomeMode() : "";
+    const key = `primserv:training-test:v1:${new URL(".", location.href).pathname}:${mode}`;
+    const signature = JSON.stringify(DATA.test.map(item => [item.text.pl, item.ok]));
+    const empty = () => ({ answers: Array(DATA.test.length).fill(null), current: 0, completed: false });
+    let state = empty();
+    let restored = false;
+    try {
+      const saved = JSON.parse(localStorage.getItem(key));
+      if (saved && saved.signature === signature && Array.isArray(saved.answers)
+        && saved.answers.length === DATA.test.length
+        && saved.answers.every(answer => answer === null || typeof answer === "boolean")
+        && Number.isInteger(saved.current) && saved.current >= 0 && saved.current < DATA.test.length
+        && typeof saved.completed === "boolean" && Number.isFinite(saved.savedAt)
+        && Date.now() - saved.savedAt >= 0 && Date.now() - saved.savedAt < 7 * 86400000
+        && (!saved.completed || saved.answers.every(answer => answer !== null))) {
+        state = { answers: saved.answers, current: saved.current, completed: saved.completed };
+        restored = state.answers.some(answer => answer !== null);
+      }
+    } catch { /* Optional storage must never block the test. */ }
+    return {
+      get state() { return state; }, restored,
+      save() {
+        try { localStorage.setItem(key, JSON.stringify({ ...state, signature, savedAt: Date.now() })); }
+        catch { /* The current attempt remains usable in memory. */ }
+      },
+      reset() {
+        state = empty();
+        try { localStorage.removeItem(key); } catch { /* Storage is optional. */ }
+      }
+    };
+  }
+
   function renderTest() {
     const total = DATA.test.length;
-    const answers = new Array(total).fill(null);
-    let current = 0;
+    const session = createTestSession();
+    let answers = session.state.answers;
+    let current = session.state.current;
 
     const label = {
+      resume: tx("Kontynuuj test", "Continue test", "Продовжити тест", "Продолжить тест", "Testə davam et", "Continuar el test", "Ipagpatuloy ang pagsusulit", "Lanjutkan tes", "परीक्षण जारी राख्नुहोस्"),
+      restart: tx("Zacznij od nowa", "Start again", "Почати заново", "Начать заново", "Yenidən başla", "Empezar de nuevo", "Magsimula muli", "Mulai lagi", "फेरि सुरु गर्नुहोस्"),
+      saved: tx("Znaleziono zapisany test na tym urządzeniu.", "A saved test was found on this device.", "На цьому пристрої знайдено збережений тест.", "На этом устройстве найден сохранённый тест.", "Bu cihazda saxlanmış test tapıldı.", "Se encontró un test guardado en este dispositivo.", "May naka-save na pagsusulit sa device na ito.", "Tes tersimpan ditemukan di perangkat ini.", "यस उपकरणमा सुरक्षित गरिएको परीक्षण भेटियो।"),
+      review: tx("Sprawdź błędne odpowiedzi", "Review incorrect answers", "Переглянути помилки", "Разобрать ошибки", "Səhv cavabları yoxla", "Revisar los errores", "Suriin ang mga maling sagot", "Tinjau jawaban yang salah", "गलत उत्तरहरू समीक्षा गर्नुहोस्"),
+      your: tx("Twoja odpowiedź", "Your answer", "Ваша відповідь", "Ваш ответ", "Cavabınız", "Tu respuesta", "Sagot mo", "Jawaban Anda", "तपाईंको उत्तर"),
+      correct: tx("Prawidłowa odpowiedź", "Correct answer", "Правильна відповідь", "Правильный ответ", "Düzgün cavab", "Respuesta correcta", "Tamang sagot", "Jawaban yang benar", "सही उत्तर"),
+      material: tx("Otwórz materiał", "Open learning material", "Відкрити матеріал", "Открыть материал", "Təlim materialını aç", "Abrir el material", "Buksan ang materyal", "Buka materi", "सिकाइ सामग्री खोल्नुहोस्"),
+
       prev: tx("Wstecz", "Back", "Назад", "Назад", "Geri", "Atrás", "Bumalik", "Kembali", "पछाडि"),
       next: tx("Dalej", "Next", "Далі", "Далее", "İrəli", "Siguiente", "Susunod", "Lanjut", "अगाडि"),
       finish: tx("Zakończ test", "Finish test", "Завершити тест", "Завершить тест", "Testi bitir", "Terminar test", "Tapusin ang test", "Selesai tes", "टेस्ट समाप्त गर्नुहोस्"),
@@ -2123,14 +2166,28 @@
           <div class="test-progress-bar" aria-hidden="true"><span id="testProgressBar"></span></div>
           <form id="testForm" class="test-step-form"></form>
         </section>
-        <div id="testResult"></div>
+        <div id="testResult" tabindex="-1" aria-live="polite"></div>
       </main>
     `;
 
     const form = document.getElementById("testForm");
     const result = document.getElementById("testResult");
 
-    function renderQuestion() {
+    function persist(completed = false) {
+      session.state.current = current;
+      session.state.completed = completed;
+      session.save();
+    }
+
+    function restart() {
+      session.reset();
+      answers = session.state.answers;
+      current = 0;
+      result.innerHTML = "";
+      renderQuestion(true);
+    }
+
+    function renderQuestion(moveFocus = false) {
       const item = DATA.test[current];
       const selected = answers[current];
       const answered = answers.filter((answer) => answer !== null).length;
@@ -2141,8 +2198,8 @@
       form.innerHTML = `
         <article class="test-question is-single" data-q="${current}" data-ok="${item.ok ? "1" : "0"}">
           <p class="test-helper">${esc(text(label.choose))}</p>
-          <h3>${current + 1}. ${esc(text(item.text))}</h3>
-          <div class="test-answer-grid">
+          <h3 id="testQuestionTitle" tabindex="-1">${current + 1}. ${esc(text(item.text))}</h3>
+          <div class="test-answer-grid" role="radiogroup" aria-labelledby="testQuestionTitle">
             <label class="${selected === true ? "is-picked" : ""}">
               <input type="radio" name="testAnswer" value="1"${selected === true ? " checked" : ""}> 
               <span>${esc(ui("yes"))}</span>
@@ -2162,41 +2219,65 @@
       form.querySelectorAll("input[name='testAnswer']").forEach((input) => {
         input.addEventListener("change", () => {
           answers[current] = input.value === "1";
-          renderQuestion();
+          persist();
+          form.querySelectorAll("input[name='testAnswer']").forEach(radio => {
+            radio.closest("label").classList.toggle("is-picked", radio.checked);
+          });
+          document.getElementById("testAnsweredText").textContent = `${answers.filter(answer => answer !== null).length}/${total}`;
+          result.innerHTML = "";
         });
       });
       document.getElementById("testPrev").addEventListener("click", () => {
+        result.innerHTML = "";
         if (current > 0) {
           current -= 1;
-          renderQuestion();
+          persist();
+          renderQuestion(true);
           form.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       });
       document.getElementById("testNext").addEventListener("click", () => {
+        result.innerHTML = "";
         if (current < total - 1) {
           current += 1;
-          renderQuestion();
+          persist();
+          renderQuestion(true);
           form.scrollIntoView({ behavior: "smooth", block: "start" });
           return;
         }
         showResult();
       });
+      if (moveFocus) document.getElementById("testQuestionTitle").focus({ preventScroll: true });
     }
 
     function showResult() {
       const answered = answers.filter((answer) => answer !== null).length;
       if (answered < total) {
         result.innerHTML = `<section class="notice yellow"><strong>${esc(ui("important"))}:</strong> ${esc(text(label.missing))}</section>`;
-        result.scrollIntoView({ behavior: "smooth", block: "start" });
+        current = answers.findIndex(answer => answer === null);
+        persist();
+        renderQuestion(true);
+        form.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
 
       const score = DATA.test.reduce((sum, item, index) => sum + (answers[index] === item.ok ? 1 : 0), 0);
       const appTitle = DATA.meta && DATA.meta.appTitle ? DATA.meta.appTitle : "Citronex";
       const message = `Wynik testu ${appTitle}: ${score}/${total}. Odpowiedzi: ${answered}/${total}. Jezyk: ${lang.toUpperCase()}.`;
+      persist(true);
+      const sourcePages = ["magazyn", "home", "szklarnia", "kontakty", "reader", "reader", "reader", "reader", "reader", "reader", "reader", "reader", "reader", "lekarz", "lekarz", "lekarz", "zakazy", "zakazy", "zakazy", "szklarnia", "szklarnia", "szklarnia", "szklarnia", "szklarnia", "szklarnia", "reader", "reader", "lekarz", "kontakty", "kontakty"];
+      const mistakes = DATA.test.map((item, index) => ({ item, index })).filter(({ item, index }) => answers[index] !== item.ok);
+      const review = mistakes.length ? `<section class="test-review"><h3>${esc(text(label.review))} (${mistakes.length})</h3>${mistakes.map(({ item, index }) => `
+        <article class="test-review-item">
+          <h4>${index + 1}. ${esc(text(item.text))}</h4>
+          <p>${esc(text(label.your))}: ${esc(ui(answers[index] ? "yes" : "no"))}. <strong>${esc(text(label.correct))}: ${esc(ui(item.ok ? "yes" : "no"))}.</strong></p>
+          <a class="btn secondary" href="${esc(href(sourcePages[index] || "home"))}">${esc(text(label.material))}</a>
+        </article>`).join("")}</section>` : "";
       result.innerHTML = `
         <section class="result-box">
           <h2>${esc(ui("score"))}: ${score}/${total}</h2>
+          ${review}
+          <button type="button" class="btn secondary" id="testRestart">${esc(text(label.restart))}</button>
           <p>${esc(text(label.send))}</p>
           <div class="btn-row">
             <a class="btn" target="_blank" rel="noopener" href="${esc(waHref("+48502251384", message))}">${esc(ui("sendResult"))} WhatsApp</a>
@@ -2204,10 +2285,21 @@
           </div>
         </section>
       `;
+      document.getElementById("testRestart").addEventListener("click", restart);
+      result.focus({ preventScroll: true });
       result.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
-    renderQuestion();
+    if (session.restored) {
+      document.getElementById("testProgressText").textContent = `${text(label.progress)} ${current + 1}/${total}`;
+      document.getElementById("testAnsweredText").textContent = `${answers.filter(answer => answer !== null).length}/${total}`;
+      form.innerHTML = `<p>${esc(text(label.saved))}</p><div class="btn-row"><button type="button" class="btn" id="testResume">${esc(text(label.resume))}</button><button type="button" class="btn secondary" id="testRestart">${esc(text(label.restart))}</button></div>`;
+      document.getElementById("testResume").addEventListener("click", () => {
+        renderQuestion(true);
+        if (session.state.completed) showResult();
+      });
+      document.getElementById("testRestart").addEventListener("click", restart);
+    } else renderQuestion();
   }
 
   let frontendObserverReady = false;
@@ -2582,6 +2674,7 @@
     setupPageLoading();
     setupFrontendStandard();
     setupContrastGuard();
+    document.getElementById("trainingFallback")?.remove();
     // Location pages open directly. No automatic splash or dragon welcome.
   }
 

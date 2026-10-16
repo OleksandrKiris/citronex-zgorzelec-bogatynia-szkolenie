@@ -35,3 +35,10 @@
   .primserv-services { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-inline: 12px; }
   .primserv-services a:last-child { grid-column: 1 / -1; }
 }
+
+/* Shared training result layout: readable on narrow screens. */
+.test-review { margin-block: 1.5rem; text-align: left; }
+.test-review-item { padding-block: 1rem; border-top: 1px solid #dbe2e9; overflow-wrap: anywhere; }
+.test-review-item h4 { margin: 0 0 .5rem; font-size: 1rem; line-height: 1.5; }
+.test-review-item p { line-height: 1.6; }
+#testQuestionTitle:focus-visible, #testResult:focus-visible { outline: 3px solid #b51620; outline-offset: 4px; }
