@@ -9,6 +9,78 @@ const source = await fs.readFile(new URL("assets/js/training-app.js", root), "ut
 const data = await fs.readFile(new URL("assets/js/training-data.js", root), "utf8");
 const custom = await fs.readFile(new URL("assets/js/location-custom.js", root), "utf8");
 const worker = await fs.readFile(new URL("sw.js", root), "utf8");
+// These scenarios run real contact rendering/handlers, without opening contact links.
+function contactHarness({lang="en", group="", blocked=false, blockedHistory=false, url=""}={}) {
+  const location=new URL(url || `https://example.test/training/kontakty.html?lang=${lang}&mode=bogatynia&section=fixture${group?'&group='+encodeURIComponent(group):''}#contacts`);
+  const decode=value=>value.replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+  let buttons=[];
+  const document={documentElement:{},body:{dataset:{page:'kontakty'}},currentScript:{src:'https://example.test/training-app.js?v=fixture'}};
+  const app={html:'',set innerHTML(value){
+    if(buttons.includes(document.activeElement))document.activeElement=document.body;
+    this.html=value;
+    buttons=[...value.matchAll(/<button\b([^>]*\bdata-contact-group="[^"]*"[^>]*)>/g)].map(([,attrs])=>{
+      const attributes=Object.fromEntries([...attrs.matchAll(/([\w-]+)="([^"]*)"/g)].map(([,k,v])=>[k,decode(v)]));
+      return {attributes,dataset:{contactGroup:attributes['data-contact-group']},handlers:{},
+        addEventListener(type,handler){this.handlers[type]=handler;},focus(){document.activeElement=this;}};
+    });
+  },get innerHTML(){return this.html;},querySelectorAll(){return buttons;}};
+  document.getElementById=id=>id==='app'?app:null;
+  const storage={getItem(){if(blocked)throw Error('Storage blocked');return '';},setItem(){if(blocked)throw Error('Storage blocked');}};
+  const window={};
+  const forbidden=()=>{throw Error('Contact/network actions forbidden');};
+  const c=vm.createContext({window,document,location,URL,URLSearchParams,localStorage:storage,navigator:{language:'en'},
+    history:{state:{keep:true},replaceState(state,_title,value){if(blockedHistory)throw Error('History blocked');assert.equal(state.keep,true);location.href=value.toString();}},fetch:forbidden,open:forbidden});
+  vm.runInContext(data,c);
+  const custom=new URL('assets/js/location-custom.js',root);
+  return fs.readFile(custom,'utf8').catch(error=>{if(error.code!=='ENOENT')throw error;return '';}).then(customSource=>{
+    if(customSource)vm.runInContext(customSource,c);
+    const original=JSON.stringify(window.CX_DATA);
+    const instrumentedContacts=source.replace(/  renderPage\(\);\n  upgradeCache\(\);\n\}\)\(\);\s*$/,'  window.contactsTest = { renderContacts, reloadWithLanguage };\n})();');
+    assert.notEqual(instrumentedContacts,source);
+    vm.runInContext(instrumentedContacts,c);
+    window.contactsTest.renderContacts();
+    return {location,document,app,api:window.contactsTest,get buttons(){return buttons;},
+      get selected(){return buttons.find(button=>button.attributes.class.split(/\s+/).includes('active'));},
+      click(id){const button=buttons.find(b=>b.dataset.contactGroup===id);assert.ok(button);button.focus();button.handlers.click();assert.equal(JSON.stringify(window.CX_DATA),original);}};
+  });
+}
+
+for(const lang of ['pl','en','ua','ru','az','es','fil','id','ne'])test(`${lang}: contact button retains focus and active state without losing city/language context`,async()=>{
+  const h=await contactHarness({lang});
+  const target=h.buttons[0].dataset.contactGroup;
+  h.click(target);
+  assert.equal(h.selected.dataset.contactGroup,target);
+  assert.equal(h.document.activeElement,h.selected,'Focus must return to the new selected button');
+  assert.equal(h.location.searchParams.get('section'),'fixture');
+  assert.equal(h.location.searchParams.get('mode'),'bogatynia');
+  assert.equal(h.location.hash,'#contacts');
+  h.api.reloadWithLanguage(lang==='ua'?'en':'ua');
+  const next=await contactHarness({url:h.location.href});
+  assert.equal(next.selected.dataset.contactGroup,target);
+  assert.equal(next.buttons.filter(b=>b.attributes['aria-pressed']==='true').length,1);
+  assert.equal(next.selected.attributes['aria-pressed'],'true');
+});
+test('the existing single contact group exposes its selection state',async()=>{
+  const h=await contactHarness();
+  assert.equal(h.buttons.length,1);
+  assert.equal(h.selected.dataset.contactGroup,'coordinators');
+  assert.equal(h.selected.attributes['aria-pressed'],'true');
+});
+test('unknown contact group uses the existing default without inserting query content',async()=>{
+  const h=await contactHarness({group:'<script>invalid-group</script>'});
+  assert.equal(h.selected.dataset.contactGroup,'coordinators');
+  assert.equal(h.app.html.includes('invalid-group'),false);
+});
+test('denied storage/history keep contact focus and city/language context usable',async()=>{
+  const h=await contactHarness({blocked:true,blockedHistory:true});
+  const target=h.buttons[0].dataset.contactGroup;
+  assert.doesNotThrow(()=>h.click(target));
+  assert.equal(h.document.activeElement,h.selected);
+  h.api.reloadWithLanguage('ua');
+  assert.equal(h.location.searchParams.get('mode'),'bogatynia');
+  assert.equal((await contactHarness({url:h.location.href,blocked:true})).selected.dataset.contactGroup,target);
+});
+
 const instrumented = source.replace(/  renderPage\(\);\n  upgradeCache\(\);\n\}\)\(\);\s*$/, "  window.navigationTest = { renderHeader, reloadWithLanguage, href, getHomeMode, modeFilteredTiles };\n})();");
 assert.notEqual(source, instrumented, "Only instrument startup; never execute operational UI, audio or network actions");
 const langs = ["pl", "en", "ua", "ru", "az", "es", "fil", "id", "ne"];
@@ -132,7 +204,7 @@ test("official logo and every production page use the new worker/UI entry", asyn
     assert.match(html, /<title>[^<]*PrimServ<\/title>/, file);
     if (html.includes('data-standalone-tool=')) continue;
     assert.ok(html.includes('property="og:site_name"'), file);
-    assert.ok(html.includes("assets/js/training-app.js?v=20261016-progress1"), file);
+    assert.ok(html.includes("assets/js/training-app.js?v=20261016-contacts1"), file);
     assert.ok(html.includes("assets/css/primserv.css?v=20261016-progress1"), file);
     assert.match(html, /assets\/js\/training-data\.js\?v=[^\"\s]+/, file);
   }
@@ -149,7 +221,7 @@ function workerHarness() {
     self: { location: { origin }, addEventListener(name, handler) { handlers[name] = handler; }, skipWaiting() { lifecycle.push("skip"); }, clients: { claim() { lifecycle.push("claim"); } } },
     caches: {
       async open() { return { async add(request) { added.push(request.url); }, async put(request) { copied.push(request.url); } }; },
-      async match(request) { return (request.url.includes("primserv") || request.url.includes("20261016-progress1") || request.url.includes("20261016-language1") || request.url.includes("20261016-locationquiz1")) ? null : new Response("old valid asset"); },
+      async match(request) { return (request.url.includes("primserv") || request.url.includes("20261016-contacts1") || request.url.includes("20261016-language1") || request.url.includes("20261016-locationquiz1")) ? null : new Response("old valid asset"); },
       async keys() { return ["unrelated", "citronex-zgorzelec-bogatynia-szkolenie-older", "citronex-zgorzelec-bogatynia-szkolenie-another", vm.runInContext("CACHE_NAME", context)]; },
       async delete(name) { deleted.push(name); }
     },
@@ -169,7 +241,7 @@ test("worker migrates exact unchanged cached assets but refreshes documents and 
   assert.ok(w.added.some(url => url.endsWith("/assets/js/location-custom.js?v=20261016-locationquiz1")));
   assert.ok(w.added.some(url => url.endsWith("/index.html")));
   assert.ok(w.added.some(url => url.endsWith("/manifest.webmanifest")));
-  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261016-progress1")));
+  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261016-contacts1")));
   assert.ok(w.added.some(url => url.endsWith("/assets/js/instruction-update.js?v=20261016-language1")));
   assert.ok(w.added.some(url => url.endsWith("/assets/primserv-logo.svg")));
   assert.equal(w.added.some(url => url.includes(".mp3")), false);
