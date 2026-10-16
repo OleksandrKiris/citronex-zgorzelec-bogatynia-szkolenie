@@ -1,0 +1,209 @@
+{
+  "sourceLanguages": [
+    "pl",
+    "en",
+    "ua"
+  ],
+  "inputs": [
+    {
+      "name": "TABLET - uruchamieanie PRIVY UKR.pdf",
+      "sha256": "64219c0e091bc92cb93edf4f4d912e951897e1f857cd3aa9bcbeec2ff9dda7bb",
+      "bytes": 270824
+    },
+    {
+      "name": "READER -  odbijanie wózków.bmp",
+      "sha256": "d7dfd6d70c25e2164404b7531619565347b04da703ea13fec4290d5829233f6f",
+      "bytes": 2303222
+    },
+    {
+      "name": "READER -  odbijanie wózków UKR.png",
+      "sha256": "85f29994bc616f6393b958000b04cc132dfe2ccb433d0e74f5628537b64ea34d",
+      "bytes": 171612
+    },
+    {
+      "name": "READERY - odbijanie się.docx",
+      "sha256": "9b72e0f9eb12e1f5672b04dd04e22e7faf1c45a22a935b9802cec3139ff9109a",
+      "bytes": 2284698
+    },
+    {
+      "name": "TABLET warsztat instrukcja ANG.pdf",
+      "sha256": "aac28a0dfafd55e454697d9035e7232e912080fb84bdf10f39730def7104edec",
+      "bytes": 309763
+    },
+    {
+      "name": "READER - początek i zakończenie pracy UKR.png",
+      "sha256": "a2ef44c5e6c615ef8234d7c152c4f3e4b1985ca00fbc70885ed5e881f5819c05",
+      "bytes": 2231217
+    },
+    {
+      "name": "TABLET produkcja instrukcja.pdf",
+      "sha256": "e7839abcbe3ae41752e7a0fc657d31759719ecb223e392fe1e9ab462ff9993f2",
+      "bytes": 253394
+    },
+    {
+      "name": "READER - restart.pdf",
+      "sha256": "99e95a70bceeed1e86a8cc7776b08033866f25bdc3972afefe6f5382073abbde",
+      "bytes": 240098
+    },
+    {
+      "name": "TABLET warsztat instrukcja UKR.pdf",
+      "sha256": "d5ffee64bee08592d5820b5fe9a0f3147cf590c6eb4e4883dfcebba5983593ef",
+      "bytes": 302269
+    },
+    {
+      "name": "READER - INNE CZYNNOŚCI UKR.jpeg",
+      "sha256": "bf70294afd23e8a3cd8e4ea48fdd95126e886d296695e16d4a9c0b89c3d248ff",
+      "bytes": 86260
+    },
+    {
+      "name": "READER - restart ENG.pdf",
+      "sha256": "2b7f565a666c42c80d29a271e310499bf8a9bd737429f8f31e4cdbdbb9964772",
+      "bytes": 316500
+    },
+    {
+      "name": "TABLET produkcja instrukcja UKR.pdf",
+      "sha256": "11b0ed6218a88890570a81ab83e72c7d3d77f2a8445ad9e27ecb4fe250a43662",
+      "bytes": 387070
+    },
+    {
+      "name": "READER -  odbijanie wózków ANG.png",
+      "sha256": "a9c924e24b6cecf5565870251a5d313e837d3fbc45287737a2853cafe339a6e4",
+      "bytes": 176191
+    },
+    {
+      "name": "TABLET - uruchamieanie PRIVY ENG.pdf",
+      "sha256": "becd6a7a59d50d542cbb4cd9fe3b6da44f625b5f9614bad20366c51d3ecf721e",
+      "bytes": 202668
+    },
+    {
+      "name": "TABLET produkcja instrukcja ANG.pdf",
+      "sha256": "9836a325eb9687e71c2d7251f44b6448844f3ae70d5794709477d944688fc0ea",
+      "bytes": 413157
+    },
+    {
+      "name": "READER - Procedura rejestracji czas pracy UKR.pdf",
+      "sha256": "ba93df8608e6f492eb49edaff7fdb197813c7b529cc805d69012f4f292997522",
+      "bytes": 225701
+    },
+    {
+      "name": "READERY - odbijanie się  ANG.docx",
+      "sha256": "e5248df4c8baff53906a4f035816f33d87ed19a6f4dfa98dbebbfa437bc643de",
+      "bytes": 2212815
+    },
+    {
+      "name": "READER - początek i zakończenie pracy.jpg",
+      "sha256": "fba891fc92421026af88e6ff97e8bbc9498849f865ccba2588be25c5a392d700",
+      "bytes": 308600
+    },
+    {
+      "name": "READER - INNE CZYNNOŚCI.bmp",
+      "sha256": "fe58ff2cd5a1dac5beab46150185362470c420cff7c3157b7a06a3a5c9071758",
+      "bytes": 1811574
+    },
+    {
+      "name": "READER - początek i zakończenie pracy ANG.png",
+      "sha256": "9da2ec07f147f8b34cdf63c38ea2f840e93f54faee63c91d172e039817a69a97",
+      "bytes": 2284157
+    },
+    {
+      "name": "READER - INNE CZYNNOŚCI ANG.jpeg",
+      "sha256": "c69d49f7e7896f730e64406b25f74838f1cc198c3e7c4b6241bebe3a0eb387af",
+      "bytes": 100208
+    },
+    {
+      "name": "TABLET warsztat instrukcja.pdf",
+      "sha256": "158f18fc27d35ea4e64bf7f1bfe82e530a43d1c6c93864c1983d2acc19201e6c",
+      "bytes": 234866
+    },
+    {
+      "name": "READER - Procedura rejestracji czas pracy.docx",
+      "sha256": "ddf5d2a449f812885b6b5645e699653a90af99c5949fe2680e09d14464190429",
+      "bytes": 19538
+    },
+    {
+      "name": "READER - Procedura rejestracji czas pracy ENG.pdf",
+      "sha256": "e7147242e4df883fa3e14a4fe7db17498ca125b272a48abc25a2b702950000d0",
+      "bytes": 267957
+    },
+    {
+      "name": "TABLET - uruchamieanie PRIVY.pdf",
+      "sha256": "6298138d9970de9326526266a607f278978789c7d6c70d8508ccd241456092b1",
+      "bytes": 123412
+    },
+    {
+      "name": "READERY - odbijanie się UKR.docx",
+      "sha256": "94e6af3afe64551f22078acdef6af49c878ba8d67a8512f6c05951ba874f8f7c",
+      "bytes": 2253170
+    },
+    {
+      "name": "READER - restart UKR.pdf",
+      "sha256": "1b44cb7ff704e13918f1c46da9a93088496e2adebc6fca8cde3f962d69ebfb50",
+      "bytes": 316466
+    }
+  ],
+  "published": [
+    {
+      "path": "assets/instructions/priva-pl.pdf",
+      "source": "TABLET - uruchamieanie PRIVY.pdf",
+      "size": 123412,
+      "sha256": "6298138d9970de9326526266a607f278978789c7d6c70d8508ccd241456092b1",
+      "sha": "250b0f6fd42d4fd3d9b46fe956594225ccea6276"
+    },
+    {
+      "path": "assets/instructions/restart-pl.pdf",
+      "source": "READER - restart.pdf",
+      "size": 240098,
+      "sha256": "99e95a70bceeed1e86a8cc7776b08033866f25bdc3972afefe6f5382073abbde",
+      "sha": "9acf21e4b214c88c6fd31f14fa01193f26551b34"
+    },
+    {
+      "path": "assets/instructions/workshop-pl.pdf",
+      "source": "TABLET warsztat instrukcja.pdf",
+      "size": 234866,
+      "sha256": "158f18fc27d35ea4e64bf7f1bfe82e530a43d1c6c93864c1983d2acc19201e6c",
+      "sha": "0888aab2bf62dd3ea09c500b9114d432b64e2a7b"
+    },
+    {
+      "path": "assets/instructions/priva-en.pdf",
+      "source": "TABLET - uruchamieanie PRIVY ENG.pdf",
+      "size": 202668,
+      "sha256": "becd6a7a59d50d542cbb4cd9fe3b6da44f625b5f9614bad20366c51d3ecf721e",
+      "sha": "c932d3b8d3315b96959e48a4fc0940fae494611b"
+    },
+    {
+      "path": "assets/instructions/restart-en.pdf",
+      "source": "READER - restart ENG.pdf",
+      "size": 316500,
+      "sha256": "2b7f565a666c42c80d29a271e310499bf8a9bd737429f8f31e4cdbdbb9964772",
+      "sha": "b71edbddceeb63dc7e6b54f692c1e0a6842c0ec0"
+    },
+    {
+      "path": "assets/instructions/workshop-en.pdf",
+      "source": "TABLET warsztat instrukcja ANG.pdf",
+      "size": 309763,
+      "sha256": "aac28a0dfafd55e454697d9035e7232e912080fb84bdf10f39730def7104edec",
+      "sha": "6e419e4205c050d7d83179af05c4ed3c4b33591a"
+    },
+    {
+      "path": "assets/instructions/priva-ua.pdf",
+      "source": "TABLET - uruchamieanie PRIVY UKR.pdf",
+      "size": 270824,
+      "sha256": "64219c0e091bc92cb93edf4f4d912e951897e1f857cd3aa9bcbeec2ff9dda7bb",
+      "sha": "5940519dea59e2a55599b8185051358a21e5a6c5"
+    },
+    {
+      "path": "assets/instructions/restart-ua.pdf",
+      "source": "READER - restart UKR.pdf",
+      "size": 316466,
+      "sha256": "1b44cb7ff704e13918f1c46da9a93088496e2adebc6fca8cde3f962d69ebfb50",
+      "sha": "851f651ef421d2d344310fa9c7820797ff659229"
+    },
+    {
+      "path": "assets/instructions/workshop-ua.pdf",
+      "source": "TABLET warsztat instrukcja UKR.pdf",
+      "size": 302269,
+      "sha256": "d5ffee64bee08592d5820b5fe9a0f3147cf590c6eb4e4883dfcebba5983593ef",
+      "sha": "4aaa0d2be24e952da1b6063f897dcd5f97062845"
+    }
+  ]
+}

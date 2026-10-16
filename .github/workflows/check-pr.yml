@@ -15,4 +15,4 @@ jobs:
       - run: node tools/audit-project.js
       - run: node tools/audit-buttons.js
       - run: node tools/audit-map-links.js
-      - run: node --test tools/primserv-navigation.test.mjs
+      - run: node --test tools/primserv-navigation.test.mjs tools/instruction-update.test.mjs

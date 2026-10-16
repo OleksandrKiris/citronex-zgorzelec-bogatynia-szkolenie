@@ -850,8 +850,7 @@
     `;
   }
 
-  function tabletInstructionMarkup() {
-    const tablet = DATA.tabletGuide;
+  function tabletInstructionMarkup(tablet = DATA.tabletGuide) {
     const stepsSource = tablet.steps || [];
     const steps = stepsSource.map((item, index) => `
       <details class="tablet-step">
@@ -888,21 +887,39 @@
         <p>${esc(text(tablet.lead))}</p>
         <div class="notice yellow"><strong>${esc(ui("important"))}:</strong> ${esc(text(tablet.important))}</div>
         <div class="tablet-steps">${steps}</div>
+        ${tablet.sourceDocument ? instructionDocumentMarkup(tablet.sourceDocument) : ""}
         ${tips ? `<details class="card section module-details"><summary>${esc(ui("important"))}</summary><div class="details-body"><ul class="list">${tips}</ul></div></details>` : ""}
       </section>
     `;
+  }
+
+  function instructionDocumentMarkup(kind) {
+    if (!DATA.instructionDocuments?.includes(kind)) return "";
+    const documentLang = DATA.instructionSourceLanguages.includes(lang) ? lang : "en";
+    const name = { pl: "Polski", en: "English", ua: "Українська" }[documentLang];
+    const url = `assets/instructions/${kind}-${documentLang}.pdf`;
+    return `<p><a class="btn secondary" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(kind.toUpperCase())} · PDF · ${esc(name)}</a></p>`;
+  }
+
+  function instructionUpdateNotice() {
+    if (!DATA.instructionRevision) return "";
+    const fallback = !DATA.instructionSourceLanguages.includes(lang);
+    return `<p class="notice yellow" lang="en">2026-10-16 · Polski / English / Українська${fallback ? " · Updated steps: English" : ""}</p>`;
   }
 
   function renderTablet() {
     app.innerHTML = `
       <main class="page">
         ${pageHero()}
+        ${instructionUpdateNotice()}
+        ${DATA.tabletStartup ? `<section class="card section">${readerSection(DATA.tabletStartup)}${instructionDocumentMarkup("priva")}</section>` : ""}
         ${moduleNotice("tablet", "yellow")}
         <section class="card blue">
           <h2>${esc(text(tx("Jedna instrukcja dla szklarni i magazynu", "One instruction for greenhouse and warehouse", "Одна інструкція для теплиці і складу", "Одна инструкция для теплицы и склада", "İstixana və anbar üçün bir təlimat", "Una instrucción para invernadero y almacén", "Isang instruction para sa greenhouse at bodega", "Satu instruksi untuk rumah kaca dan gudang", "ग्रीनहाउस र गोदामका लागि एउटै निर्देशन")))}</h2>
           <p>${esc(text(DATA.pages.tablet.lead))}</p>
         </section>
         ${tabletInstructionMarkup()}
+        ${DATA.tabletWorkshop ? tabletInstructionMarkup(DATA.tabletWorkshop) : ""}
       </main>
     `;
   }
@@ -1414,9 +1431,9 @@
     `;
   }
 
-  function renderReader(activeId = "start") {
+  function renderReader(activeId = DATA.instructionRevision ? "prepare" : "start") {
     const active = DATA.readerTabs.find((tab) => tab.id === activeId) || DATA.readerTabs[0];
-    const tabs = DATA.readerTabs.map((tab) => readerTabButton(tab, tab.id === active.id)).join("");
+    const tabs = [...DATA.readerTabs].sort((a, b) => Number(b.id === "prepare") - Number(a.id === "prepare")).map((tab) => readerTabButton(tab, tab.id === active.id)).join("");
     const steps = active.sections
       ? active.sections.map(readerSection).join("")
       : `<div class="steps">${readerStepList(active.steps)}</div>`;
@@ -1447,6 +1464,7 @@
     app.innerHTML = `
       <main class="page">
         ${pageHero()}
+        ${instructionUpdateNotice()}
         ${moduleNotice("reader", "yellow")}
         <section class="card yellow">
           <p><strong>${esc(ui("important"))}:</strong> ${esc(text(DATA.pages.reader.lead))}</p>
@@ -1462,6 +1480,7 @@
               </div>
             </div>
             ${steps}
+            ${active.id === "restart" ? instructionDocumentMarkup("restart") : ""}
             ${tips ? `<div class="reader-tips"><strong>${esc(ui("important"))}</strong><ul>${tips}</ul></div>` : ""}
           </section>
           ${imageBlocks ? `<details class="card section media-details"><summary>${esc(text(tx("Zdj\u0119cia i t\u0142umaczenia", "Photos and translations", "\u0424\u043e\u0442\u043e \u0456 \u043f\u0435\u0440\u0435\u043a\u043b\u0430\u0434", "\u0424\u043e\u0442\u043e \u0438 \u043f\u0435\u0440\u0435\u0432\u043e\u0434", "\u015e\u0259kill\u0259r v\u0259 t\u0259rc\u00fcm\u0259l\u0259r", "Fotos y traducciones", "Mga larawan at salin", "Foto dan terjemahan", "\u092b\u094b\u091f\u094b \u0930 \u0905\u0928\u0941\u0935\u093e\u0926")))}</summary><div class="details-body photo-grid">${imageBlocks}</div></details>` : ""}
