@@ -2934,6 +2934,25 @@
   D.meta = { ...D.meta, ...T.meta };
   D.ui = { ...D.ui, ...T.ui };
   D.pages = { ...D.pages, ...T.pages };
+  // The shared test contains a Siechnice-only clinic question. This location
+  // teaches where its own existing medical contacts can be found, without
+  // copying another city's clinic or inventing opening hours.
+  const clinicQuestion = D.test.find((item) => item.text.pl === "Do GOZ Siechnice najlepiej przyjść o 8:00.");
+  if (clinicQuestion) {
+    const section = D.pages.lekarz.title;
+    clinicQuestion.text = {
+      pl: `Kontakty do pomocy medycznej dla tej lokalizacji znajdziesz w sekcji „${section.pl}”.`,
+      en: `Medical contacts for this location are in the “${section.en}” section.`,
+      ua: `Контакти медичної допомоги для цієї локації є в розділі «${section.ua}».`,
+      ru: `Контакты медицинской помощи для этой локации находятся в разделе «${section.ru}».`,
+      az: `Bu məkan üçün tibbi yardım əlaqələri “${section.az}” bölməsindədir.`,
+      es: `Los contactos de asistencia médica de esta ubicación están en la sección «${section.es}».`,
+      fil: `Nasa seksyong “${section.fil}” ang mga contact para sa tulong medikal sa lokasyong ito.`,
+      id: `Kontak bantuan medis untuk lokasi ini ada di bagian “${section.id}”.`,
+      ne: `यस स्थानका स्वास्थ्य सहायता सम्पर्कहरू “${section.ne}” खण्डमा छन्।`
+    };
+  }
+
   D.firstDay = T.firstDay;
   D.maps = T.maps;
   D.mapPhotos = T.mapPhotos;
