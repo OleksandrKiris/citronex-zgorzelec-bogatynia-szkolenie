@@ -36,7 +36,7 @@ jobs:
           node tools/audit-project.js
           node tools/audit-buttons.js
           node tools/audit-map-links.js
-          node --test tools/primserv-navigation.test.mjs
+          node --test tools/primserv-navigation.test.mjs tools/instruction-update.test.mjs
 
       - name: Prepare public site
         run: |
