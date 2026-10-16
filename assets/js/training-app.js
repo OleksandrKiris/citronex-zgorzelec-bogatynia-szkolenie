@@ -1598,7 +1598,7 @@
     ].filter((group) => Array.isArray(group.people) && group.people.length);
 
     const current = groups.find((group) => group.id === activeGroup) || groups[0];
-    const pills = groups.map((group) => `<button class="pill${group.id === current.id ? " active" : ""}" type="button" data-contact-group="${esc(group.id)}">${esc(group.label)}</button>`).join("");
+    const pills = groups.map((group) => `<button class="pill${group.id === current.id ? " active" : ""}" type="button" data-contact-group="${esc(group.id)}" aria-pressed="${group.id === current.id}">${esc(group.label)}</button>`).join("");
     const people = current.people.map((person) => personCard(person, current.tag)).join("");
     const priorityContacts = Array.isArray(DATA.contacts.priority) ? DATA.contacts.priority : [];
     const priorityTitle = text(tx("Najważniejsze kontakty", "Most important contacts", "Найважливіші контакти", "Самые важные контакты", "Ən vacib kontaktlar", "Contactos más importantes", "Pinakamahalagang contact", "Kontak paling penting", "सबैभन्दा महत्वपूर्ण सम्पर्क"));
@@ -1634,7 +1634,11 @@
     `;
 
     app.querySelectorAll("[data-contact-group]").forEach((button) => {
-      button.addEventListener("click", () => renderContacts(button.dataset.contactGroup));
+      button.addEventListener("click", () => {
+        renderContacts(button.dataset.contactGroup);
+        Array.from(app.querySelectorAll("[data-contact-group]"))
+          .find(item => item.dataset.contactGroup === button.dataset.contactGroup)?.focus({ preventScroll: true });
+      });
     });
   }
 
