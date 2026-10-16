@@ -1527,7 +1527,15 @@
     `;
 
     app.querySelectorAll("[data-reader-tab]").forEach((button) => {
-      button.addEventListener("click", () => renderReader(button.dataset.readerTab));
+      button.addEventListener("click", () => {
+        renderReader(button.dataset.readerTab);
+        const url = new URL(location.href);
+        url.searchParams.set("topic", readerTopic);
+        try { history.replaceState(history.state, "", url); }
+        catch { /* Language changes still carry the selected topic if history is denied. */ }
+        Array.from(app.querySelectorAll("[data-reader-tab]"))
+          .find(item => item.dataset.readerTab === readerTopic)?.focus({ preventScroll: true });
+      });
     });
   }
 

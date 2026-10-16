@@ -9,6 +9,89 @@ const source = await fs.readFile(new URL("assets/js/training-app.js", root), "ut
 const data = await fs.readFile(new URL("assets/js/training-data.js", root), "utf8");
 const custom = await fs.readFile(new URL("assets/js/location-custom.js", root), "utf8");
 const worker = await fs.readFile(new URL("sw.js", root), "utf8");
+
+const readerLocationCustom = await fs.readFile(new URL("assets/js/location-custom.js", root), "utf8");
+const instructionUpdate = await fs.readFile(new URL("assets/js/instruction-update.js", root), "utf8");
+function readerHarness({lang="en", url="", blockedHistory=false, blockedStorage=false}={}) {
+  const location = new URL(url || `https://example.test/training/reader.html?lang=${lang}&mode=bogatynia&from=qa#instructions`);
+  let buttons = [];
+  const document = { documentElement: {}, body: { dataset: { page: "reader" } }, currentScript: { src: "https://example.test/training-app.js?v=fixture" } };
+  const app = { html: "", set innerHTML(value) {
+    if (buttons.includes(document.activeElement)) document.activeElement = document.body;
+    this.html = value;
+    buttons = [...value.matchAll(/<button\b([^>]*\bdata-reader-tab="[^"]*"[^>]*)>/g)].map(([,attrs]) => {
+      const attributes = Object.fromEntries([...attrs.matchAll(/([\w-]+)="([^"]*)"/g)].map(([,key,value]) => [key,value]));
+      return { attributes, dataset: { readerTab: attributes["data-reader-tab"] }, handlers: {},
+        addEventListener(type, handler) { this.handlers[type] = handler; },
+        focus(options) { document.activeElement = this; this.focusOptions = options; } };
+    });
+  }, get innerHTML() { return this.html; }, querySelectorAll(selector) { return selector === "[data-reader-tab]" ? buttons : []; } };
+  document.getElementById = id => id === "app" ? app : null;
+  const window = {};
+  const historyCalls = [];
+  const storage = { getItem() { if (blockedStorage) throw Error("Storage denied"); return ""; }, setItem() { if (blockedStorage) throw Error("Storage denied"); } };
+  const forbidden = () => { throw Error("Network and operational actions forbidden"); };
+  const context = vm.createContext({ window, document, location, URL, URLSearchParams, navigator: {language:lang}, localStorage:storage,
+    history: { state: { preserve: true }, replaceState(state, title, url) {
+      if (blockedHistory) throw Error("History denied");
+      assert.equal(state.preserve, true);
+      historyCalls.push(url.toString()); location.href = url.toString();
+    } }, fetch: forbidden, open: forbidden });
+  vm.runInContext(data, context);
+  vm.runInContext(readerLocationCustom, context);
+  vm.runInContext(instructionUpdate, context);
+  const original = JSON.stringify(window.CX_DATA);
+  const instrumentedReader = source.replace(/  renderPage\(\);\n  upgradeCache\(\);\n\}\)\(\);\s*$/, "  window.readerTest = { renderReader, reloadWithLanguage };\n})();");
+  assert.notEqual(instrumentedReader, source);
+  vm.runInContext(instrumentedReader, context);
+  window.readerTest.renderReader();
+  return { location, document, app, historyCalls, api:window.readerTest, get buttons(){return buttons;},
+    get selected(){return buttons.find(b => b.attributes["aria-pressed"] === "true");},
+    click(id) { const b = buttons.find(b => b.dataset.readerTab === id); assert.ok(b); b.focus(); b.handlers.click(); assert.equal(JSON.stringify(window.CX_DATA), original); }
+  };
+}
+
+for (const lang of ["pl","en","ua","ru","az","es","fil","id","ne"]) test(`${lang}: reader selection survives reload and language change with keyboard focus intact`, () => {
+  const h = readerHarness({lang});
+  for (const id of h.buttons.map(b => b.dataset.readerTab)) {
+    h.click(id);
+    assert.equal(h.selected.dataset.readerTab, id);
+    assert.equal(h.document.activeElement, h.selected);
+    assert.equal(h.selected.focusOptions.preventScroll, true);
+    assert.equal(h.location.searchParams.get("topic"), id);
+    assert.equal(h.location.searchParams.get("mode"), "bogatynia");
+    assert.equal(h.location.searchParams.get("from"), "qa");
+    assert.equal(h.location.hash, "#instructions");
+    assert.equal(readerHarness({url:h.location.href}).selected.dataset.readerTab, id);
+    assert.equal(h.buttons.filter(b => b.attributes["aria-pressed"] === "true").length, 1);
+  }
+  h.api.reloadWithLanguage(lang === "ua" ? "en" : "ua");
+  assert.equal(readerHarness({url:h.location.href}).selected.dataset.readerTab, h.selected.dataset.readerTab);
+  assert.equal(h.historyCalls.length, h.buttons.length, "Replace one entry per selection; do not add Back steps");
+});
+test("reader rejects unknown URL topics without injecting query values", () => {
+  const h = readerHarness({url:"https://example.test/reader.html?lang=en&topic=%3Cscript%3Ebad-topic%3C/script%3E"});
+  assert.equal(h.selected.dataset.readerTab, "prepare");
+  assert.ok(!h.app.html.includes("bad-topic"));
+});
+test("reader controls and language context work when history and storage are denied", () => {
+  const h = readerHarness({blockedHistory:true, blockedStorage:true});
+  assert.doesNotThrow(() => h.click("carts"));
+  assert.equal(h.document.activeElement, h.selected);
+  h.api.reloadWithLanguage("ua");
+  assert.equal(h.location.searchParams.get("topic"), "carts");
+  assert.equal(readerHarness({url:h.location.href}).selected.dataset.readerTab, "carts");
+});
+test("reader focus stays on the next control when navigating sections with the keyboard", () => {
+  const h = readerHarness();
+  h.click("start");
+  h.click("restart");
+  h.click("rows");
+  assert.equal(h.document.activeElement.dataset.readerTab, "rows");
+  assert.equal(readerHarness({url:h.location.href}).selected.dataset.readerTab, "rows");
+});
+
+
 // These scenarios run real contact rendering/handlers, without opening contact links.
 function contactHarness({lang="en", group="", blocked=false, blockedHistory=false, url=""}={}) {
   const location=new URL(url || `https://example.test/training/kontakty.html?lang=${lang}&mode=bogatynia&section=fixture${group?'&group='+encodeURIComponent(group):''}#contacts`);
@@ -204,7 +287,7 @@ test("official logo and every production page use the new worker/UI entry", asyn
     assert.match(html, /<title>[^<]*PrimServ<\/title>/, file);
     if (html.includes('data-standalone-tool=')) continue;
     assert.ok(html.includes('property="og:site_name"'), file);
-    assert.ok(html.includes("assets/js/training-app.js?v=20261016-contacts1"), file);
+    assert.ok(html.includes("assets/js/training-app.js?v=20261016-reader-context1"), file);
     assert.ok(html.includes("assets/css/primserv.css?v=20261016-progress1"), file);
     assert.match(html, /assets\/js\/training-data\.js\?v=[^\"\s]+/, file);
   }
@@ -221,7 +304,7 @@ function workerHarness() {
     self: { location: { origin }, addEventListener(name, handler) { handlers[name] = handler; }, skipWaiting() { lifecycle.push("skip"); }, clients: { claim() { lifecycle.push("claim"); } } },
     caches: {
       async open() { return { async add(request) { added.push(request.url); }, async put(request) { copied.push(request.url); } }; },
-      async match(request) { return (request.url.includes("primserv") || request.url.includes("20261016-contacts1") || request.url.includes("20261016-language1") || request.url.includes("20261016-locationquiz1")) ? null : new Response("old valid asset"); },
+      async match(request) { return (request.url.includes("primserv") || request.url.includes("20261016-reader-context1") || request.url.includes("20261016-language1") || request.url.includes("20261016-locationquiz1")) ? null : new Response("old valid asset"); },
       async keys() { return ["unrelated", "citronex-zgorzelec-bogatynia-szkolenie-older", "citronex-zgorzelec-bogatynia-szkolenie-another", vm.runInContext("CACHE_NAME", context)]; },
       async delete(name) { deleted.push(name); }
     },
@@ -241,7 +324,7 @@ test("worker migrates exact unchanged cached assets but refreshes documents and 
   assert.ok(w.added.some(url => url.endsWith("/assets/js/location-custom.js?v=20261016-locationquiz1")));
   assert.ok(w.added.some(url => url.endsWith("/index.html")));
   assert.ok(w.added.some(url => url.endsWith("/manifest.webmanifest")));
-  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261016-contacts1")));
+  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261016-reader-context1")));
   assert.ok(w.added.some(url => url.endsWith("/assets/js/instruction-update.js?v=20261016-language1")));
   assert.ok(w.added.some(url => url.endsWith("/assets/primserv-logo.svg")));
   assert.equal(w.added.some(url => url.includes(".mp3")), false);
