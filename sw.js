@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "citronex-zgorzelec-bogatynia-szkolenie-";
-const CACHE_NAME = CACHE_PREFIX + "20260718-greenhouse-separate1";
+const CACHE_NAME = CACHE_PREFIX + "20261016-primserv-zgorzelec-bogatynia1";
 
 const CORE_ASSETS = [
   "./",
@@ -21,7 +21,10 @@ const CORE_ASSETS = [
   "./assets/css/training.css?v=20260718-greenhouse-separate1",
   "./assets/js/training-data.js?v=20260718-greenhouse-separate1",
   "./assets/js/location-custom.js?v=20260718-greenhouse-separate1",
-  "./assets/js/training-app.js?v=20260718-greenhouse-separate1",
+  "./assets/js/training-app.js?v=20261016-primserv-zgorzelec-bogatynia1",
+  "./assets/css/primserv.css?v=20261016-primserv-zgorzelec-bogatynia1",
+  "./assets/primserv-logo.svg",
+  "./assets/primserv-icon-192.png",
   "./assets/brand/polskie-pomidory-logo.png",
   "./assets/brand/polskie-pomidory-icon.png",
   "./assets/orientation/sklarnia-etap-excel.png"
@@ -32,7 +35,11 @@ self.addEventListener("install", (event) => {
     const cache = await caches.open(CACHE_NAME);
     await Promise.all(CORE_ASSETS.map(async (asset) => {
       try {
-        await cache.add(new Request(asset, { cache: "reload" }));
+        const request = new Request(asset, { cache: "reload" });
+        const documentAsset = asset === "./" || asset.endsWith(".html") || asset.endsWith(".webmanifest");
+        const previous = !documentAsset && await caches.match(request);
+        if (previous) await cache.put(request, previous.clone());
+        else await cache.add(request);
       } catch (error) {
         // One missing optional asset cannot block the whole offline cache.
       }
