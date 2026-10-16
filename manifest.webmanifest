@@ -1,6 +1,6 @@
 {
-  "name": "CITRONEX hydra S.R.Z.B. - Bogatynia / Zgorzelec",
-  "short_name": "CITRONEX hydra",
+  "name": "PrimServ · HYDRA · Zgorzelec / Bogatynia",
+  "short_name": "PrimServ",
   "description": "Szkolenie CITRONEX hydra S.R.Z.B. dla Bogatyni i Zgorzelca",
   "start_url": "./index.html",
   "scope": "./",
@@ -9,8 +9,8 @@
   "theme_color": "#166534",
   "icons": [
     {
-      "src": "assets/brand/polskie-pomidory-icon.png",
-      "sizes": "256x256",
+      "src": "assets/primserv-icon-192.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     }
