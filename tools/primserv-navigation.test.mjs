@@ -130,7 +130,7 @@ test("official logo and every production page use the new worker/UI entry", asyn
     assert.match(html, /<title>[^<]*PrimServ<\/title>/, file);
     if (html.includes('data-standalone-tool=')) continue;
     assert.ok(html.includes('property="og:site_name"'), file);
-    assert.ok(html.includes("assets/js/training-app.js?v=20261016-instructions1"), file);
+    assert.ok(html.includes("assets/js/training-app.js?v=20261016-search1"), file);
     assert.ok(html.includes("assets/css/primserv.css?v=20261016-primserv-zgorzelec-bogatynia2"), file);
     assert.match(html, /assets\/js\/training-data\.js\?v=[^\"\s]+/, file);
   }
@@ -147,7 +147,7 @@ function workerHarness() {
     self: { location: { origin }, addEventListener(name, handler) { handlers[name] = handler; }, skipWaiting() { lifecycle.push("skip"); }, clients: { claim() { lifecycle.push("claim"); } } },
     caches: {
       async open() { return { async add(request) { added.push(request.url); }, async put(request) { copied.push(request.url); } }; },
-      async match(request) { return (request.url.includes("primserv") || request.url.includes("20261016-instructions1")) ? null : new Response("old valid asset"); },
+      async match(request) { return (request.url.includes("primserv") || request.url.includes("20261016-instructions1") || request.url.includes("20261016-search1")) ? null : new Response("old valid asset"); },
       async keys() { return ["unrelated", "citronex-zgorzelec-bogatynia-szkolenie-older", "citronex-zgorzelec-bogatynia-szkolenie-another", vm.runInContext("CACHE_NAME", context)]; },
       async delete(name) { deleted.push(name); }
     },
@@ -167,7 +167,7 @@ test("worker migrates exact unchanged cached assets but refreshes documents and 
   assert.ok(w.copied.some(url => url.endsWith("/assets/js/location-custom.js?v=20260718-greenhouse-separate1")));
   assert.ok(w.added.some(url => url.endsWith("/index.html")));
   assert.ok(w.added.some(url => url.endsWith("/manifest.webmanifest")));
-  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261016-instructions1")));
+  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261016-search1")));
   assert.ok(w.added.some(url => url.endsWith("/assets/js/instruction-update.js?v=20261016-instructions1")));
   assert.ok(w.added.some(url => url.endsWith("/assets/primserv-logo.svg")));
   assert.equal(w.added.some(url => url.includes(".mp3")), false);
@@ -179,4 +179,109 @@ test("activation clears only old location caches", async () => {
   await w.run("activate");
   assert.deepEqual(w.deleted, ["citronex-zgorzelec-bogatynia-szkolenie-older", "citronex-zgorzelec-bogatynia-szkolenie-another"]);
   assert.ok(w.lifecycle.includes("claim"));
+});
+
+const speechSource = source.replace(/  renderPage\(\);\n  upgradeCache\(\);\n\}\)\(\);\s*$/, "  window.speechTest = { renderSpeech };\n})();");
+assert.notEqual(source, speechSource);
+const decodeAttribute = value => value.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+
+function speechHarness(lang) {
+  const groups = [];
+  const search = { value: "", addEventListener(_type, handler) { this.input = handler; } };
+  const empty = { hidden: true };
+  const status = {};
+  const app = {
+    addEventListener() {},
+    set innerHTML(html) {
+      this.html = html;
+      for (const match of html.matchAll(/<details class="[^"]*speech-group"([^>]*)data-group-id="([^"]+)"/g)) {
+        const group = { dataset: { groupId: match[2] }, open: /\bopen\b/.test(match[1]), hidden: false, cards: [],
+          addEventListener(_type, handler) { this.toggle = handler; },
+          querySelector: () => list,
+          querySelectorAll: () => group.cards
+        };
+        const list = { set innerHTML(value) {
+          group.cards = [...value.matchAll(/data-key="([^"]*)"/g)].map(m => ({ dataset: { key: decodeAttribute(m[1]) }, hidden: false }));
+        } };
+        groups.push(group);
+      }
+    },
+    querySelector(selector) { return ({ '#speechSearch': search, '.speech-empty': empty, '#speechStatus': status })[selector] || null; },
+    querySelectorAll: () => groups
+  };
+  const document = { documentElement: {}, body: { dataset: { page: 'mowa' } }, getElementById: () => app,
+    activeElement: search, currentScript: { src: 'https://example.invalid/training-app.js?v=fixture' } };
+  const window = {};
+  const location = new URL(`https://oleksandrkiris.github.io/citronex-zgorzelec-bogatynia-szkolenie/mowa.html?lang=${lang}`);
+  const forbidden = () => { throw Error('Voice, clipboard, network and navigation actions forbidden'); };
+  const context = vm.createContext({ window, document, location, URL, URLSearchParams,
+    localStorage: { getItem: () => null }, navigator: { language: lang, clipboard: { writeText: forbidden } },
+    fetch: forbidden, open: forbidden, setTimeout: forbidden });
+  vm.runInContext(data, context);
+  vm.runInContext(custom, context);
+  const originalData = JSON.stringify(window.CX_DATA);
+  vm.runInContext(speechSource, context);
+  window.speechTest.renderSpeech();
+  assert.ok(groups.length > 1, 'Use real production phrase groups');
+  return { groups, empty, search, app, document, phrases: window.CX_DATA.speechPhrases,
+    input(value) { search.value = value; search.input(); assert.equal(document.activeElement, search); assert.equal(JSON.stringify(window.CX_DATA), originalData); },
+    expand(group, open) { group.open = open; group.toggle(); }
+  };
+}
+
+for (const lang of langs) {
+  test(`${lang}: empty or whitespace search keeps all lazy phrase groups visible`, () => {
+    const c = speechHarness(lang);
+    const initial = c.groups.map(g => ({ open: g.open, rendered: g.dataset.rendered, count: g.cards.length }));
+    for (const query of ['', ' ', '\t \n']) {
+      c.input(query);
+      assert.ok(c.groups.every(g => !g.hidden));
+      assert.deepEqual(c.groups.map(g => ({ open: g.open, rendered: g.dataset.rendered, count: g.cards.length })), initial);
+      assert.equal(c.empty.hidden, true);
+    }
+    c.expand(c.groups[1], true);
+    assert.ok(c.groups[1].cards.length > 0, 'Lazy opening still renders phrases');
+  });
+
+  test(`${lang}: clearing no-results restores all phrases and the pre-search expanded groups`, () => {
+    const c = speechHarness(lang);
+    c.expand(c.groups[0], false);
+    c.expand(c.groups[1], true);
+    const original = c.groups.map(g => g.open);
+    c.input('___no_phrase_matches_this___');
+    assert.ok(c.groups.every(g => g.hidden));
+    assert.equal(c.empty.hidden, false);
+    c.input('  ');
+    assert.ok(c.groups.every(g => !g.hidden && g.cards.every(card => !card.hidden)));
+    assert.deepEqual(c.groups.map(g => g.open), original);
+    assert.equal(c.empty.hidden, true);
+  });
+}
+
+test('Polish and translated phrase matches still filter correctly across consecutive searches', () => {
+  const c = speechHarness('ua');
+  const phrase = c.phrases.find(p => p.say && p.label.ua);
+  const original = c.groups.map(g => g.open);
+  for (const query of [phrase.say, phrase.label.ua]) {
+    c.input(query.toUpperCase());
+    const visible = c.groups.flatMap(g => g.hidden ? [] : g.cards.filter(card => !card.hidden));
+    assert.ok(visible.length > 0);
+    assert.ok(visible.every(card => card.dataset.key.includes(query.toLowerCase())));
+    assert.equal(c.empty.hidden, true);
+  }
+  c.input('');
+  assert.deepEqual(c.groups.map(g => g.open), original);
+});
+
+test('a second search remembers the newly chosen group state, not the first snapshot', () => {
+  const c = speechHarness('en');
+  c.input('___no_match___');
+  c.input('');
+  c.expand(c.groups[0], false);
+  c.expand(c.groups.at(-1), true);
+  const selected = c.groups.map(g => g.open);
+  c.input(c.phrases[0].say);
+  c.input('');
+  assert.deepEqual(c.groups.map(g => g.open), selected);
+  assert.ok(c.groups.every(g => !g.hidden));
 });
