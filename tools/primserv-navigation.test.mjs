@@ -287,7 +287,7 @@ test("official logo and every production page use the new worker/UI entry", asyn
     assert.match(html, /<title>[^<]*PrimServ<\/title>/, file);
     if (html.includes('data-standalone-tool=')) continue;
     assert.ok(html.includes('property="og:site_name"'), file);
-    assert.ok(html.includes("assets/js/training-app.js?v=20261016-reader-context1"), file);
+    assert.ok(html.includes("assets/js/training-app.js?v=20261017-glossary-context1"), file);
     assert.ok(html.includes("assets/css/primserv.css?v=20261016-progress1"), file);
     assert.match(html, /assets\/js\/training-data\.js\?v=[^\"\s]+/, file);
   }
@@ -304,7 +304,7 @@ function workerHarness() {
     self: { location: { origin }, addEventListener(name, handler) { handlers[name] = handler; }, skipWaiting() { lifecycle.push("skip"); }, clients: { claim() { lifecycle.push("claim"); } } },
     caches: {
       async open() { return { async add(request) { added.push(request.url); }, async put(request) { copied.push(request.url); } }; },
-      async match(request) { return (request.url.includes("primserv") || request.url.includes("20261016-reader-context1") || request.url.includes("20261016-language1") || request.url.includes("20261016-locationquiz1")) ? null : new Response("old valid asset"); },
+      async match(request) { return (request.url.includes("primserv") || request.url.includes("20261017-glossary-context1") || request.url.includes("20261016-language1") || request.url.includes("20261016-locationquiz1")) ? null : new Response("old valid asset"); },
       async keys() { return ["unrelated", "citronex-zgorzelec-bogatynia-szkolenie-older", "citronex-zgorzelec-bogatynia-szkolenie-another", vm.runInContext("CACHE_NAME", context)]; },
       async delete(name) { deleted.push(name); }
     },
@@ -324,7 +324,7 @@ test("worker migrates exact unchanged cached assets but refreshes documents and 
   assert.ok(w.added.some(url => url.endsWith("/assets/js/location-custom.js?v=20261016-locationquiz1")));
   assert.ok(w.added.some(url => url.endsWith("/index.html")));
   assert.ok(w.added.some(url => url.endsWith("/manifest.webmanifest")));
-  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261016-reader-context1")));
+  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261017-glossary-context1")));
   assert.ok(w.added.some(url => url.endsWith("/assets/js/instruction-update.js?v=20261016-language1")));
   assert.ok(w.added.some(url => url.endsWith("/assets/primserv-logo.svg")));
   assert.equal(w.added.some(url => url.includes(".mp3")), false);
@@ -585,4 +585,66 @@ test('single-control diagram wraps to Close and safely closes after its trigger 
   f.schema.isConnected = false;
   assert.doesNotThrow(() => f.close.listeners.click());
   assert.equal(f.modal.classList.contains('is-open'), false);
+});
+
+function glossaryHarness({lang='en', mode='bogatynia', url='', blockedHistory=false, blockedStorage=false}={}) {
+  const location = new URL(url || `https://example.test/bogatynia/slownik.html?lang=${lang}&mode=${mode}&from=fixture#terms`);
+  const calls = [];
+  const document = {documentElement:{}, body:{dataset:{page:'slownik'}}, currentScript:{src:'https://example.test/training-app.js?v=fixture'}};
+  const classes = () => ({hidden:false,toggle(name,on){if(name==='is-hidden')this.hidden=on;}});
+  const search = {value:'',handlers:{},addEventListener(type,fn){this.handlers[type]=fn;}};
+  const empty = {classList:classes()}; let cards = [], groups = [];
+  const app = {html:'',set innerHTML(value) {
+    this.html=value; cards=[];
+    groups=[...value.matchAll(/<details[^>]*data-glossary-group[^>]*>([\s\S]*?)<\/details>/g)].map(([,body],index)=>{
+      const own=[...body.matchAll(/data-search="([^"]*)"/g)].map(([,key])=>({dataset:{search:key},classList:classes()}));cards.push(...own);
+      return {open:false,dataset:{first:index===0?'true':'false'},classList:classes(),addEventListener(){},querySelector(){return own.find(c=>!c.classList.hidden)||null;}};
+    });
+  },get innerHTML(){return this.html;},querySelector(s){return s==='[data-glossary-search]'?search:s==='[data-glossary-empty]'?empty:null;},querySelectorAll(s){return s==='[data-glossary-card]'?cards:s==='[data-glossary-group]'?groups:[];}};
+  document.getElementById = id => id==='app'?app:null;
+  const window={};const forbidden=()=>{throw Error('Network and operational actions forbidden');};
+  const localStorage={getItem(){if(blockedStorage)throw Error('denied');return '';},setItem(){if(blockedStorage)throw Error('denied');}};
+  const context=vm.createContext({window,document,location,URL,URLSearchParams,navigator:{language:lang},localStorage,fetch:forbidden,open:forbidden,
+    history:{state:{keep:true},replaceState(state,title,url){if(blockedHistory)throw Error('denied');assert.equal(state.keep,true);calls.push(String(url));location.href=String(url);}}});
+  vm.runInContext(data,context);
+  vm.runInContext(custom,context);
+  const original=JSON.stringify(window.CX_DATA);
+  const instrumented=source.replace(/  renderPage\(\);\n  upgradeCache\(\);\n\}\)\(\);\s*$/, '  window.glossaryTest={renderGlossary,reloadWithLanguage};\n})();');
+  assert.notEqual(instrumented,source);vm.runInContext(instrumented,context);
+  window.glossaryTest.renderGlossary();
+  return {app,search,empty,groups,location,calls,document,api:window.glossaryTest,
+    get visible(){return cards.filter(c=>!c.classList.hidden);},
+    type(value){document.activeElement=search;search.value=value;search.handlers.input();assert.equal(document.activeElement,search);assert.equal(JSON.stringify(window.CX_DATA),original);}};
+}
+for(const mode of ['bogatynia','zgorzelec']) for(const lang of ['pl','en','ua','ru','az','es','fil','id','ne'])test(`${mode}/${lang}: glossary query survives language change, reload and browser-return URL`,()=>{
+ const h=glossaryHarness({lang,mode});h.type('reader');assert.ok(h.visible.length > 0 && h.visible.length < 54);assert.ok(h.visible.every(c=>c.dataset.search.includes('reader')));
+ assert.equal(h.location.searchParams.get('mode'),mode);assert.equal(h.location.searchParams.get('q'),'reader');assert.equal(h.location.hash,'#terms');assert.equal(h.location.searchParams.get('from'),'fixture');
+ const returnURL=h.location.href;h.api.reloadWithLanguage(lang==='en'?'ua':'en');
+ const next=glossaryHarness({url:h.location.href});assert.equal(next.location.searchParams.get('mode'),mode);assert.equal(next.search.value,'reader');assert.ok(next.visible.length > 0 && next.visible.length < 54);assert.ok(next.visible.every(c=>c.dataset.search.includes('reader')));
+ const back=glossaryHarness({url:returnURL});assert.equal(back.location.searchParams.get('mode'),mode);assert.equal(back.search.value,'reader');assert.ok(back.visible.length > 0 && back.visible.length < 54);assert.ok(back.visible.every(c=>c.dataset.search.includes('reader')));
+ assert.equal(h.calls.length,1,'uses replaceState once per edit, no extra navigation');
+});
+test('glossary clearing removes only its query; empty results are announced without changing focus',()=>{
+ const h=glossaryHarness();h.type('does-not-exist-xyz');assert.equal(h.visible.length,0);assert.equal(h.empty.classList.hidden,false);
+ assert.match(h.app.html,/role="status" data-glossary-empty/);
+ h.type('');assert.equal(h.location.searchParams.has('q'),false);assert.equal(h.visible.length,54);assert.equal(h.empty.classList.hidden,true);
+ assert.equal(h.location.hash,'#terms');assert.equal(h.location.searchParams.get('from'),'fixture');
+ assert.equal(h.groups[0].open,true);assert.ok(h.groups.slice(1).every(g=>!g.open));
+});
+test('glossary handles unavailable history/storage and still carries current text into language navigation',()=>{
+ const h=glossaryHarness({blockedHistory:true,blockedStorage:true});h.type('reader');assert.ok(h.visible.length > 0 && h.visible.length < 54);assert.ok(h.visible.every(c=>c.dataset.search.includes('reader')));assert.equal(h.calls.length,0);
+ h.api.reloadWithLanguage('ua');assert.equal(h.location.searchParams.get('q'),'reader');
+ h.type('');h.api.reloadWithLanguage('en');assert.equal(h.location.searchParams.has('q'),false);
+});
+test('glossary URL input is bounded and assigned as a value, never interpolated as markup',()=>{
+ const payload='<img src=x onerror=alert(1)>';
+ const h=glossaryHarness({url:'https://example.test/slownik.html?lang=en&q='+encodeURIComponent(payload)});
+ assert.equal(h.search.value,payload);assert.ok(!h.app.html.includes(payload));assert.equal(h.visible.length,0);
+ h.type('x'.repeat(1000));assert.equal(h.search.value.length,160);assert.equal(h.location.searchParams.get('q').length,160);
+ assert.equal(glossaryHarness({url:h.location.href}).search.value.length,160);
+});
+test('glossary query restores with unsupported language fallback and empty legacy URLs',()=>{
+ const h=glossaryHarness({url:'https://example.test/slownik.html?lang=ka&q=reader'});
+ assert.equal(h.search.value,'reader');assert.ok(h.visible.length > 0 && h.visible.length < 54);assert.ok(h.visible.every(c=>c.dataset.search.includes('reader')));assert.match(h.app.html,/Search a word/);
+ const legacy=glossaryHarness();assert.equal(legacy.search.value,'');assert.equal(legacy.visible.length,54);assert.equal(legacy.calls.length,0);
 });
