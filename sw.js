@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "citronex-zgorzelec-bogatynia-szkolenie-";
-const CACHE_NAME = CACHE_PREFIX + "20261016-language1";
+const CACHE_NAME = CACHE_PREFIX + "20261016-locationquiz1";
 
 const CORE_ASSETS = [
   "./assets/js/instruction-update.js?v=20261016-language1",
@@ -21,7 +21,7 @@ const CORE_ASSETS = [
   "./manifest.webmanifest",
   "./assets/css/training.css?v=20260718-greenhouse-separate1",
   "./assets/js/training-data.js?v=20260718-greenhouse-separate1",
-  "./assets/js/location-custom.js?v=20260718-greenhouse-separate1",
+  "./assets/js/location-custom.js?v=20261016-locationquiz1",
   "./assets/js/training-app.js?v=20261016-language1",
   "./assets/css/primserv.css?v=20261016-primserv-zgorzelec-bogatynia2",
   "./assets/primserv-logo.svg",

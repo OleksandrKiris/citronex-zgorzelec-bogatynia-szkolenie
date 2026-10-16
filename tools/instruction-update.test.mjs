@@ -102,7 +102,7 @@ test('instruction update is loaded after local data and before renderer only on 
   }
   assert.ok(!read('index.html').includes('instruction-update.js'));
   assert.match(read('sw.js'),/instruction-update.js\?v=20261016-language1/);
-  assert.match(read('sw.js'),/CACHE_PREFIX \+ "20261016-language1"/);
+  assert.match(read('sw.js'),/CACHE_PREFIX \+ "20261016-locationquiz1"/);
 });
 
 for (const lang of ['pl','en','ua','ru','az','es','fil','id','ne']) {
