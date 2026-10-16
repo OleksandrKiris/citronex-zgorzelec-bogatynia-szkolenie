@@ -222,7 +222,9 @@
   function href(pageName) {
     if (pageName === "szklarnia3d") return "https://oleksandrkiris.github.io/citronex-szklarnia-3d/";
     const base = pageName === "home" ? "index.html" : `${pageName}.html`;
-    return `${base}?lang=${encodeURIComponent(lang)}`;
+    const mode = (new URLSearchParams(location.search).get("mode") || "").toLowerCase();
+    const modeQuery = (DATA.homeModes || []).some((item) => item.id === mode) ? `&mode=${encodeURIComponent(mode)}` : "";
+    return `${base}?lang=${encodeURIComponent(lang)}${modeQuery}`;
   }
 
   function assetSrc(src) {

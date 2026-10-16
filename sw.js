@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "citronex-zgorzelec-bogatynia-szkolenie-";
-const CACHE_NAME = CACHE_PREFIX + "20261016-primserv-zgorzelec-bogatynia1";
+const CACHE_NAME = CACHE_PREFIX + "20261016-primserv-zgorzelec-bogatynia2";
 
 const CORE_ASSETS = [
   "./",
@@ -21,8 +21,8 @@ const CORE_ASSETS = [
   "./assets/css/training.css?v=20260718-greenhouse-separate1",
   "./assets/js/training-data.js?v=20260718-greenhouse-separate1",
   "./assets/js/location-custom.js?v=20260718-greenhouse-separate1",
-  "./assets/js/training-app.js?v=20261016-primserv-zgorzelec-bogatynia1",
-  "./assets/css/primserv.css?v=20261016-primserv-zgorzelec-bogatynia1",
+  "./assets/js/training-app.js?v=20261016-primserv-zgorzelec-bogatynia2",
+  "./assets/css/primserv.css?v=20261016-primserv-zgorzelec-bogatynia2",
   "./assets/primserv-logo.svg",
   "./assets/primserv-icon-192.png",
   "./assets/brand/polskie-pomidory-logo.png",

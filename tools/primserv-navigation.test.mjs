@@ -91,6 +91,30 @@ test("work-city selection and language changes survive denied storage without ch
   }
 });
 
+for (const lang of langs) test(`${lang}: internal links retain the selected city without storage`, () => {
+  const c = header(lang, "home", true);
+  for (const mode of ["first", "zgorzelec", "bogatynia"]) {
+    c.location.searchParams.set("mode", mode);
+    const original = JSON.stringify(c.window.CX_DATA);
+    for (const page of ["mapa", "kontakty", "magazyn", "home"]) {
+      const target = new URL(c.window.navigationTest.href(page), c.location.href);
+      assert.equal(target.searchParams.get("mode"), mode);
+      assert.equal(target.searchParams.get("lang"), lang);
+      c.location.href = target.href;
+      assert.equal(c.window.navigationTest.getHomeMode(), mode, "The destination can recover the city from its URL");
+    }
+    assert.equal(JSON.stringify(c.window.CX_DATA), original);
+  }
+});
+
+test("unknown city values are not propagated and external 3D destination is unchanged", () => {
+  const c = header("ua", "home", true);
+  c.location.searchParams.set("mode", "not-a-city<script>");
+  const target = new URL(c.window.navigationTest.href("home"), c.location.href);
+  assert.equal(target.searchParams.has("mode"), false);
+  assert.equal(c.window.navigationTest.href("szklarnia3d"), "https://oleksandrkiris.github.io/citronex-szklarnia-3d/");
+});
+
 test("original instruction data and location customizations remain byte-for-byte unchanged", () => {
   const blob = value => crypto.createHash("sha1").update("blob " + Buffer.byteLength(value) + "\0").update(value).digest("hex");
   assert.equal(blob(data), "32d9b1650b156ea498e44727082e9dd8db99d8be");
@@ -106,8 +130,8 @@ test("official logo and every production page use the new worker/UI entry", asyn
     assert.match(html, /<title>[^<]*PrimServ<\/title>/, file);
     if (html.includes('data-standalone-tool=')) continue;
     assert.ok(html.includes('property="og:site_name"'), file);
-    assert.ok(html.includes("assets/js/training-app.js?v=20261016-primserv-zgorzelec-bogatynia1"), file);
-    assert.ok(html.includes("assets/css/primserv.css?v=20261016-primserv-zgorzelec-bogatynia1"), file);
+    assert.ok(html.includes("assets/js/training-app.js?v=20261016-primserv-zgorzelec-bogatynia2"), file);
+    assert.ok(html.includes("assets/css/primserv.css?v=20261016-primserv-zgorzelec-bogatynia2"), file);
     assert.match(html, /assets\/js\/training-data\.js\?v=[^\"\s]+/, file);
   }
   const css = await fs.readFile(new URL("assets/css/primserv.css", root), "utf8");
@@ -143,7 +167,7 @@ test("worker migrates exact unchanged cached assets but refreshes documents and 
   assert.ok(w.copied.some(url => url.endsWith("/assets/js/location-custom.js?v=20260718-greenhouse-separate1")));
   assert.ok(w.added.some(url => url.endsWith("/index.html")));
   assert.ok(w.added.some(url => url.endsWith("/manifest.webmanifest")));
-  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261016-primserv-zgorzelec-bogatynia1")));
+  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261016-primserv-zgorzelec-bogatynia2")));
   assert.ok(w.added.some(url => url.endsWith("/assets/primserv-logo.svg")));
   assert.equal(w.added.some(url => url.includes(".mp3")), false);
   assert.ok(w.lifecycle.includes("skip"));
