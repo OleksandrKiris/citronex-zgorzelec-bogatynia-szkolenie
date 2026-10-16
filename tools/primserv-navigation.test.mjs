@@ -130,7 +130,7 @@ test("official logo and every production page use the new worker/UI entry", asyn
     assert.match(html, /<title>[^<]*PrimServ<\/title>/, file);
     if (html.includes('data-standalone-tool=')) continue;
     assert.ok(html.includes('property="og:site_name"'), file);
-    assert.ok(html.includes("assets/js/training-app.js?v=20261016-search1"), file);
+    assert.ok(html.includes("assets/js/training-app.js?v=20261016-language1"), file);
     assert.ok(html.includes("assets/css/primserv.css?v=20261016-primserv-zgorzelec-bogatynia2"), file);
     assert.match(html, /assets\/js\/training-data\.js\?v=[^\"\s]+/, file);
   }
@@ -147,7 +147,7 @@ function workerHarness() {
     self: { location: { origin }, addEventListener(name, handler) { handlers[name] = handler; }, skipWaiting() { lifecycle.push("skip"); }, clients: { claim() { lifecycle.push("claim"); } } },
     caches: {
       async open() { return { async add(request) { added.push(request.url); }, async put(request) { copied.push(request.url); } }; },
-      async match(request) { return (request.url.includes("primserv") || request.url.includes("20261016-instructions1") || request.url.includes("20261016-search1")) ? null : new Response("old valid asset"); },
+      async match(request) { return (request.url.includes("primserv") || request.url.includes("20261016-language1")) ? null : new Response("old valid asset"); },
       async keys() { return ["unrelated", "citronex-zgorzelec-bogatynia-szkolenie-older", "citronex-zgorzelec-bogatynia-szkolenie-another", vm.runInContext("CACHE_NAME", context)]; },
       async delete(name) { deleted.push(name); }
     },
@@ -167,8 +167,8 @@ test("worker migrates exact unchanged cached assets but refreshes documents and 
   assert.ok(w.copied.some(url => url.endsWith("/assets/js/location-custom.js?v=20260718-greenhouse-separate1")));
   assert.ok(w.added.some(url => url.endsWith("/index.html")));
   assert.ok(w.added.some(url => url.endsWith("/manifest.webmanifest")));
-  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261016-search1")));
-  assert.ok(w.added.some(url => url.endsWith("/assets/js/instruction-update.js?v=20261016-instructions1")));
+  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261016-language1")));
+  assert.ok(w.added.some(url => url.endsWith("/assets/js/instruction-update.js?v=20261016-language1")));
   assert.ok(w.added.some(url => url.endsWith("/assets/primserv-logo.svg")));
   assert.equal(w.added.some(url => url.includes(".mp3")), false);
   assert.ok(w.lifecycle.includes("skip"));
@@ -285,3 +285,12 @@ test('a second search remembers the newly chosen group state, not the first snap
   assert.deepEqual(c.groups.map(g => g.open), selected);
   assert.ok(c.groups.every(g => !g.hidden));
 });
+
+const expectedLanguageLabels = ['Język','Language','Мова','Язык','Dil','Idioma','Wika','Bahasa','भाषा'];
+const expectedReturnLabels = ['Wszystkie sekcje','All sections','Усі розділи','Все разделы','Bütün bölmələr','Todas las secciones','Lahat ng seksyon','Semua bagian','सबै खण्डहरू'];
+langs.forEach((lang,index) => test(`${lang}: language picker and return control use the same clear training labels`, () => {
+  const h=header(lang,'reader');
+  assert.ok(h.html.includes('id="langSelect" aria-label="'+expectedLanguageLabels[index]+'"'));
+  assert.ok(h.html.includes(expectedReturnLabels[index]));
+  assert.match(h.html,/<option value="id"[^>]*>Bahasa Indonesia<\/option>/);
+}));

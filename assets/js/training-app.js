@@ -1,6 +1,12 @@
 (() => {
   const DATA = window.CX_DATA;
   const tx = (pl, en, ua, ru, az, es, fil, id, ne) => ({ pl, en, ua, ru, az, es, fil, id, ne });
+  const trainingLabels = {
+    backSections: tx("Wszystkie sekcje", "All sections", "Усі розділи", "Все разделы", "Bütün bölmələr", "Todas las secciones", "Lahat ng seksyon", "Semua bagian", "सबै खण्डहरू"),
+    language: tx("Język", "Language", "Мова", "Язык", "Dil", "Idioma", "Wika", "Bahasa", "भाषा"),
+    updated: tx("Zaktualizowane instrukcje", "Updated instructions", "Оновлені інструкції", "Обновлённые инструкции", "Yenilənmiş təlimatlar", "Instrucciones actualizadas", "Na-update na mga tagubilin", "Petunjuk yang diperbarui", "अद्यावधिक निर्देशनहरू"),
+    englishFallback: tx("Nowe kroki są dostępne po angielsku.", "Updated steps are available in English.", "Оновлені кроки доступні англійською.", "Обновлённые шаги доступны на английском.", "Yenilənmiş addımlar ingilis dilindədir.", "Los pasos actualizados están disponibles en inglés.", "Available sa Ingles ang mga na-update na hakbang.", "Langkah yang diperbarui tersedia dalam bahasa Inggris.", "अद्यावधिक चरणहरू अङ्ग्रेजीमा उपलब्ध छन्।")
+  };
   const hydraBrand = "PrimServ · HYDRA";
   const validLangs = new Set(DATA.languages.map((item) => item.id));
   const page = document.body.dataset.page || "home";
@@ -52,6 +58,7 @@
   }
 
   let lang = getLang();
+  let readerTopic = "";
   document.documentElement.lang = lang === "ua" ? "uk" : lang;
 
   const visibleTranslationFixes = {
@@ -72,6 +79,7 @@
 
   function cleanVisibleTranslation(value) {
     let result = String(value ?? "");
+    if (result.startsWith("[English] ")) return result;
     (visibleTranslationFixes[lang] || []).forEach(([pattern, replacement]) => {
       result = result.replace(pattern, replacement);
     });
@@ -143,10 +151,10 @@
     pl: "Polski", en: "English", ua: "\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430", ru: "\u0420\u0443\u0441\u0441\u043a\u0438\u0439", az: "Az\u0259rbaycanca", es: "Espa\u00f1ol", fil: "Filipino", id: "Bahasa Indonesia", ne: "\u0928\u0947\u092a\u093e\u0932\u0940"
   };
   const welcomeLabels = {
-    title: tx("Witaj w systemie", "Welcome to the system", "\u0412\u0456\u0442\u0430\u0454\u043c\u043e \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0456", "\u0414\u043e\u0431\u0440\u043e \u043f\u043e\u0436\u0430\u043b\u043e\u0432\u0430\u0442\u044c \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0443", "Sistem\u0259 xo\u0159 g\u0259lmisiniz", "Bienvenido al sistema", "Maligayang pagdating sa system", "Selamat datang di sistem", "\u0938\u093f\u0938\u094d\u091f\u092e\u092e\u093e \u0938\u094d\u0935\u093e\u0917\u0924 \u091b"),
+    title: tx("Witaj w systemie", "Welcome to the system", "\u0412\u0456\u0442\u0430\u0454\u043c\u043e \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0456", "\u0414\u043e\u0431\u0440\u043e \u043f\u043e\u0436\u0430\u043b\u043e\u0432\u0430\u0442\u044c \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0443", "Sistem\u0259 xo\u015f g\u0259lmisiniz", "Bienvenido al sistema", "Maligayang pagdating sa system", "Selamat datang di sistem", "\u0938\u093f\u0938\u094d\u091f\u092e\u092e\u093e \u0938\u094d\u0935\u093e\u0917\u0924 \u091b"),
     lead: tx("Wybierz j\u0119zyk. Mi\u0142y przewodnik opowie Ci, co znajdziesz na tej stronie.", "Choose a language. A friendly guide will explain this page.", "\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u043c\u043e\u0432\u0443. \u0414\u0440\u0443\u0436\u043d\u0456\u0439 \u043f\u0440\u043e\u0432\u0456\u0434\u043d\u0438\u043a \u043f\u043e\u044f\u0441\u043d\u0438\u0442\u044c \u0446\u044e \u0441\u0442\u043e\u0440\u0456\u043d\u043a\u0443.", "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u044f\u0437\u044b\u043a. \u041f\u043e\u043c\u043e\u0449\u043d\u0438\u043a \u043e\u0431\u044a\u044f\u0441\u043d\u0438\u0442 \u044d\u0442\u0443 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0443.", "Dil se\u00e7in. Mehriban b\u0259l\u0259d\u00e7i bu s\u0259hif\u0259ni izah ed\u0259c\u0259k.", "Elige un idioma. Un gu\u00eda amable explicar\u00e1 esta p\u00e1gina.", "Pumili ng wika. Ipaliwanag ng gabay ang page na ito.", "Pilih bahasa. Pemandu akan menjelaskan halaman ini.", "\u092d\u093e\u0937\u093e \u091b\u093e\u0928\u094d\u0928\u0941\u0939\u094b\u0938\u094d। \u092c\u093e\u091f\u094b\u0932\u0947 \u092f\u0938 \u092a\u0943\u0937\u094d\u0920\u0915\u094b \u092c\u093e\u0930\u0947\u092e\u093e \u092c\u0924\u093e\u0909\u0928\u0947\u091b\u0928\u094d\u091b।"),
     choose: tx("Wybierz j\u0119zyk", "Choose a language", "\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u043c\u043e\u0432\u0443", "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u044f\u0437\u044b\u043a", "Dil se\u00e7in", "Elige un idioma", "Pumili ng wika", "Pilih bahasa", "\u092d\u093e\u0937\u093e \u091b\u093e\u0928\u094d\u0928\u0941\u0939\u094b\u0938\u094d"),
-    start: tx("Pos\u0142uchaj i rozpocznij", "Listen and start", "\u0421\u043b\u0443\u0445\u0430\u0442\u0438 \u0439 \u043f\u043e\u0447\u0430\u0442\u0438", "\u041f\u043e\u0441\u043b\u0443\u0448\u0430\u0442\u044c \u0438 \u043d\u0430\u0447\u0430\u0442\u044c", "Dinl\u0259 v\u0259 ba\u0159la", "Escuchar y comenzar", "Makinig at magsimula", "Dengarkan dan mulai", "\u0938\u0941\u0928\u094d\u0928\u0941\u0939\u094b\u0938\u094d \u0930 \u0938\u0941\u0930\u0941 \u0917\u0930\u094d\u0928\u0941\u0939\u094b\u0938\u094d"),
+    start: tx("Pos\u0142uchaj i rozpocznij", "Listen and start", "\u0421\u043b\u0443\u0445\u0430\u0442\u0438 \u0439 \u043f\u043e\u0447\u0430\u0442\u0438", "\u041f\u043e\u0441\u043b\u0443\u0448\u0430\u0442\u044c \u0438 \u043d\u0430\u0447\u0430\u0442\u044c", "Dinl\u0259 v\u0259 ba\u015fla", "Escuchar y comenzar", "Makinig at magsimula", "Dengarkan dan mulai", "\u0938\u0941\u0928\u094d\u0928\u0941\u0939\u094b\u0938\u094d \u0930 \u0938\u0941\u0930\u0941 \u0917\u0930\u094d\u0928\u0941\u0939\u094b\u0938\u094d"),
     skip: tx("Pomi\u0144 g\u0142os", "Skip voice", "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u0438 \u0433\u043e\u043b\u043e\u0441", "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u0433\u043e\u043b\u043e\u0441", "S\u0259si ke\u00e7", "Omitir voz", "Laktawan ang boses", "Lewati suara", "\u0938\u094d\u0935\u0930 \u091b\u094b\u0921\u094d\u0928\u0941\u0939\u094b\u0938\u094d"),
     speaking: tx("Przewodnik m\u00f3wi...", "The guide is speaking...", "\u041f\u0440\u043e\u0432\u0456\u0434\u043d\u0438\u043a \u0433\u043e\u0432\u043e\u0440\u0438\u0442...", "\u041f\u043e\u043c\u043e\u0449\u043d\u0438\u043a \u0433\u043e\u0432\u043e\u0440\u0438\u0442...", "B\u0259l\u0259d\u00e7i dan\u0131\u0159\u0131r...", "El gu\u00eda est\u00e1 hablando...", "Nagsasalita ang gabay...", "Pemandu sedang berbicara...", "\u092c\u093e\u091f\u094b\u0932\u0947 \u092c\u094b\u0932\u093f\u0930\u0939\u0947\u0915\u094b \u091b..."),
     open: tx("Otw\u00f3rz system", "Open the system", "\u0412\u0456\u0434\u043a\u0440\u0438\u0442\u0438 \u0441\u0438\u0441\u0442\u0435\u043c\u0443", "\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0441\u0438\u0441\u0442\u0435\u043c\u0443", "Sistemi a\u00e7", "Abrir el sistema", "Buksan ang system", "Buka sistem", "\u0938\u093f\u0938\u094d\u091f\u092e \u0916\u094b\u0932\u094d\u0928\u0941\u0939\u094b\u0938\u094d")
@@ -380,7 +388,7 @@
   function renderHeader() {
     const isHome = page === "home";
     const selected = DATA.languages.map((item) => (
-      `<option value="${esc(item.id)}"${item.id === lang ? " selected" : ""}>${esc(item.label)}</option>`
+      `<option value="${esc(item.id)}"${item.id === lang ? " selected" : ""}>${esc(welcomeLanguageNames[item.id] || item.label)}</option>`
     )).join("");
     const navItems = [
       { page: "home", icon: "home", tone: "green", label: DATA.ui.home },
@@ -423,7 +431,7 @@
     const homeReturn = isHome ? "" : `
       <a class="home-return-cta" href="${esc(href("home"))}">
         <span class="home-return-icon">${iconMap.home}</span>
-        <span>${esc(text(tx("Powr\u00f3t do kafelk\u00f3w", "Back to tiles", "\u041d\u0430\u0437\u0430\u0434 \u0434\u043e \u043f\u043b\u0438\u0442\u043e\u043a", "\u041d\u0430\u0437\u0430\u0434 \u043a \u043f\u043b\u0438\u0442\u043a\u0430\u043c", "Kafel se\u00e7iml\u0259rin\u0259 qay\u0131t", "Volver a tarjetas", "Bumalik sa mga tile", "Kembali ke kartu", "\u0915\u093e\u0930\u094d\u0921\u0939\u0930\u0942\u092e\u093e \u092b\u0930\u094d\u0915\u0928\u0941\u0939\u094b\u0938\u094d")))}</span>
+        <span>${esc(text(trainingLabels.backSections))}</span>
       </a>
     `;
 
@@ -438,7 +446,7 @@
               <p class="brand-subtitle">${esc(ui("subtitle"))}</p>
             </div>
           </div>
-          <select class="lang-select" id="langSelect" aria-label="Language">${selected}</select>
+          <select class="lang-select" id="langSelect" aria-label="${esc(text(trainingLabels.language))}">${selected}</select>
         </div>
         <nav class="top-nav" aria-label="${esc(text(tx("Szybkie przyciski", "Quick buttons", "Швидкі кнопки", "Быстрые кнопки", "Sürətli düymələr", "Botones rápidos", "Mabilis na buttons", "Tombol cepat", "छिटो बटनहरू")))}">
           <div class="top-nav-scroll">${navHtml}${hydraHtml}</div>
@@ -460,6 +468,7 @@
     try { localStorage.setItem("cx-lang", lang); } catch { /* Navigation must work without storage. */ }
     const url = new URL(location.href);
     url.searchParams.set("lang", lang);
+    if (page === "reader" && readerTopic) url.searchParams.set("topic", readerTopic);
     url.searchParams.delete("welcome");
     location.href = url.toString();
   }
@@ -898,13 +907,14 @@
     const documentLang = DATA.instructionSourceLanguages.includes(lang) ? lang : "en";
     const name = { pl: "Polski", en: "English", ua: "Українська" }[documentLang];
     const url = `assets/instructions/${kind}-${documentLang}.pdf`;
-    return `<p><a class="btn secondary" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(kind.toUpperCase())} · PDF · ${esc(name)}</a></p>`;
+    const title = { priva: DATA.tabletStartup?.title, workshop: DATA.tabletWorkshop?.title, restart: DATA.readerTabs.find(tab => tab.id === "restart")?.title }[kind];
+    return `<p><a class="btn secondary" href="${esc(url)}" hreflang="${documentLang === "ua" ? "uk" : documentLang}" target="_blank" rel="noopener noreferrer">${esc(text(title) || kind.toUpperCase())} · PDF · ${esc(name)}</a></p>`;
   }
 
   function instructionUpdateNotice() {
     if (!DATA.instructionRevision) return "";
-    const fallback = !DATA.instructionSourceLanguages.includes(lang);
-    return `<p class="notice yellow" lang="en">2026-10-16 · Polski / English / Українська${fallback ? " · Updated steps: English" : ""}</p>`;
+    const fallback = !(DATA.instructionTextLanguages || DATA.instructionSourceLanguages).includes(lang);
+    return `<p class="notice yellow">${esc(text(trainingLabels.updated))} · <time datetime="2026-10-16">16.10.2026</time>${fallback ? ` · ${esc(text(trainingLabels.englishFallback))}` : ""}</p>`;
   }
 
   function renderTablet() {
@@ -1397,7 +1407,7 @@
   }
 
   function readerTabButton(tab, active) {
-    return `<button class="pill${active ? " active" : ""}" type="button" data-reader-tab="${esc(tab.id)}">${esc(text(tab.title))}</button>`;
+    return `<button class="pill${active ? " active" : ""}" type="button" aria-pressed="${active ? "true" : "false"}" data-reader-tab="${esc(tab.id)}">${esc(text(tab.title))}</button>`;
   }
 
   function readerStep(item, index) {
@@ -1431,8 +1441,9 @@
     `;
   }
 
-  function renderReader(activeId = DATA.instructionRevision ? "prepare" : "start") {
-    const active = DATA.readerTabs.find((tab) => tab.id === activeId) || DATA.readerTabs[0];
+  function renderReader(activeId = new URLSearchParams(location.search).get("topic") || (DATA.instructionRevision ? "prepare" : "start")) {
+    const active = DATA.readerTabs.find((tab) => tab.id === activeId) || DATA.readerTabs.find(tab => tab.id === "prepare") || DATA.readerTabs[0];
+    readerTopic = active.id;
     const tabs = [...DATA.readerTabs].sort((a, b) => Number(b.id === "prepare") - Number(a.id === "prepare")).map((tab) => readerTabButton(tab, tab.id === active.id)).join("");
     const steps = active.sections
       ? active.sections.map(readerSection).join("")
@@ -2565,7 +2576,7 @@
     en: { title: "Welcome to the system", lead: "Choose a language. The guide will show you where to find information and how to find your way.", choose: "Choose a language", start: "Listen to the guide", pause: "Pause", resume: "Resume", repeat: "Repeat", next: "Next", skip: "Skip voice", open: "Open the system", speaking: "The guide is speaking", unavailable: "Voice is not available. Read the text and open the system.", step: "Step" },
     ua: { title: "\u0412\u0456\u0442\u0430\u0454\u043c\u043e \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0456", lead: "\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u043c\u043e\u0432\u0443. \u041f\u0440\u043e\u0432\u0456\u0434\u043d\u0438\u043a \u043f\u043e\u043a\u0430\u0436\u0435, \u0434\u0435 \u0448\u0443\u043a\u0430\u0442\u0438 \u0456\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0456\u044e \u0442\u0430 \u044f\u043a \u0437\u043d\u0430\u0439\u0442\u0438 \u0434\u043e\u0440\u043e\u0433\u0443.", choose: "\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u043c\u043e\u0432\u0443", start: "\u041f\u043e\u0441\u043b\u0443\u0445\u0430\u0442\u0438 \u043f\u0440\u043e\u0432\u0456\u0434\u043d\u0438\u043a\u0430", pause: "\u041f\u0430\u0443\u0437\u0430", resume: "\u041f\u0440\u043e\u0434\u043e\u0432\u0436\u0438\u0442\u0438", repeat: "\u041f\u043e\u0432\u0442\u043e\u0440\u0438\u0442\u0438", next: "\u0414\u0430\u043b\u0456", skip: "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u0438 \u0433\u043e\u043b\u043e\u0441", open: "\u0412\u0456\u0434\u043a\u0440\u0438\u0442\u0438 \u0441\u0438\u0441\u0442\u0435\u043c\u0443", speaking: "\u041f\u0440\u043e\u0432\u0456\u0434\u043d\u0438\u043a \u0433\u043e\u0432\u043e\u0440\u0438\u0442\u044c", unavailable: "\u0413\u043e\u043b\u043e\u0441 \u043d\u0435\u0434\u043e\u0441\u0442\u0443\u043f\u043d\u0456\u0439. \u041f\u0440\u043e\u0447\u0438\u0442\u0430\u0439\u0442\u0435 \u0442\u0435\u043a\u0441\u0442 \u0456 \u0432\u0456\u0434\u043a\u0440\u0438\u0439\u0442\u0435 \u0441\u0438\u0441\u0442\u0435\u043c\u0443.", step: "\u041a\u0440\u043e\u043a" },
     ru: { title: "\u0414\u043e\u0431\u0440\u043e \u043f\u043e\u0436\u0430\u043b\u043e\u0432\u0430\u0442\u044c \u0432 \u0441\u0438\u0441\u0442\u0435\u043c\u0443", lead: "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u044f\u0437\u044b\u043a. \u041f\u043e\u043c\u043e\u0449\u043d\u0438\u043a \u043f\u043e\u043a\u0430\u0436\u0435\u0442, \u0433\u0434\u0435 \u0438\u0441\u043a\u0430\u0442\u044c \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044e \u0438 \u043a\u0430\u043a \u043d\u0430\u0439\u0442\u0438 \u0434\u043e\u0440\u043e\u0433\u0443.", choose: "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u044f\u0437\u044b\u043a", start: "\u041f\u043e\u0441\u043b\u0443\u0448\u0430\u0442\u044c \u043f\u043e\u043c\u043e\u0449\u043d\u0438\u043a\u0430", pause: "\u041f\u0430\u0443\u0437\u0430", resume: "\u041f\u0440\u043e\u0434\u043e\u043b\u0436\u0438\u0442\u044c", repeat: "\u041f\u043e\u0432\u0442\u043e\u0440\u0438\u0442\u044c", next: "\u0414\u0430\u043b\u0435\u0435", skip: "\u041f\u0440\u043e\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u0433\u043e\u043b\u043e\u0441", open: "\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0441\u0438\u0441\u0442\u0435\u043c\u0443", speaking: "\u041f\u043e\u043c\u043e\u0449\u043d\u0438\u043a \u0433\u043e\u0432\u043e\u0440\u0438\u0442", unavailable: "\u0413\u043e\u043b\u043e\u0441 \u043d\u0435\u0434\u043e\u0441\u0442\u0443\u043f\u0435\u043d. \u041f\u0440\u043e\u0447\u0438\u0442\u0430\u0439\u0442\u0435 \u0442\u0435\u043a\u0441\u0442 \u0438 \u043e\u0442\u043a\u0440\u043e\u0439\u0442\u0435 \u0441\u0438\u0441\u0442\u0435\u043c\u0443.", step: "\u0428\u0430\u0433" },
-    az: { title: "Sistem\u0259 xo\u0159 g\u0259lmisiniz", lead: "Dil se\u00e7in. B\u0259l\u0259d\u00e7i m\u0259lumat\u0131 harada tapma\u011f\u0131 v\u0259 yolu nec\u0259 tapma\u011f\u0131 g\u00f6st\u0259r\u0259c\u0259k.", choose: "Dil se\u00e7in", start: "B\u0259l\u0259d\u00e7ini dinl\u0259yin", pause: "Pauza", resume: "Davam et", repeat: "T\u0259krarla", next: "N\u00f6vb\u0259ti", skip: "S\u0259si ke\u00e7", open: "Sistemi a\u00e7", speaking: "B\u0259l\u0259d\u00e7i dan\u0131\u015f\u0131r", unavailable: "S\u0259s m\u00f6vcud deyil. M\u0259tni oxuyun v\u0259 sistemi a\u00e7\u0131n.", step: "Add\u0131m" },
+    az: { title: "Sistem\u0259 xo\u015f g\u0259lmisiniz", lead: "Dil se\u00e7in. B\u0259l\u0259d\u00e7i m\u0259lumat\u0131 harada tapma\u011f\u0131 v\u0259 yolu nec\u0259 tapma\u011f\u0131 g\u00f6st\u0259r\u0259c\u0259k.", choose: "Dil se\u00e7in", start: "B\u0259l\u0259d\u00e7ini dinl\u0259yin", pause: "Pauza", resume: "Davam et", repeat: "T\u0259krarla", next: "N\u00f6vb\u0259ti", skip: "S\u0259si ke\u00e7", open: "Sistemi a\u00e7", speaking: "B\u0259l\u0259d\u00e7i dan\u0131\u015f\u0131r", unavailable: "S\u0259s m\u00f6vcud deyil. M\u0259tni oxuyun v\u0259 sistemi a\u00e7\u0131n.", step: "Add\u0131m" },
     es: { title: "Bienvenido al sistema", lead: "Elige un idioma. El gu\u00eda te mostrar\u00e1 d\u00f3nde encontrar informaci\u00f3n y c\u00f3mo llegar.", choose: "Elige un idioma", start: "Escuchar al gu\u00eda", pause: "Pausa", resume: "Continuar", repeat: "Repetir", next: "Siguiente", skip: "Omitir voz", open: "Abrir el sistema", speaking: "El gu\u00eda est\u00e1 hablando", unavailable: "La voz no est\u00e1 disponible. Lee el texto y abre el sistema.", step: "Paso" },
     fil: { title: "Maligayang pagdating sa system", lead: "Pumili ng wika. Ipapakita ng gabay kung saan makikita ang impormasyon at kung paano pupunta sa tamang lugar.", choose: "Pumili ng wika", start: "Pakinggan ang gabay", pause: "I-pause", resume: "Ipagpatuloy", repeat: "Ulitin", next: "Susunod", skip: "Laktawan ang boses", open: "Buksan ang system", speaking: "Nagsasalita ang gabay", unavailable: "Walang boses. Basahin ang teksto at buksan ang system.", step: "Hakbang" },
     id: { title: "Selamat datang di sistem", lead: "Pilih bahasa. Pemandu akan menunjukkan tempat mencari informasi dan cara menemukan jalan.", choose: "Pilih bahasa", start: "Dengarkan pemandu", pause: "Jeda", resume: "Lanjutkan", repeat: "Ulangi", next: "Berikutnya", skip: "Lewati suara", open: "Buka sistem", speaking: "Pemandu sedang berbicara", unavailable: "Suara tidak tersedia. Baca teks lalu buka sistem.", step: "Langkah" },

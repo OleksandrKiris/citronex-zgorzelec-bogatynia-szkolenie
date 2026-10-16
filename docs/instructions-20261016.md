@@ -15,7 +15,7 @@ Owner supplied 27 READER / TABLET files and explicitly confirmed that they apply
 
 ## Languages and assets
 
-The supplied instruction languages are PL, EN and UA. Changed/new text in the six other supported locales explicitly uses [English], with a page-level notice. Their language selectors and original translation source data are preserved. No unsupported translation is presented as supplied or reviewed. All original repository images, audio, instructions and data files remain byte-identical; changes are a separate versioned instruction module plus small renderer integration.
+The supplied instruction languages are PL, EN and UA. The initial instruction release used an explicit English fallback for changed/new text in the six other supported locales. The subsequent 20261016-language1 release translates those 25 fragments from the reconciled source instructions; see training-language-review-20261016.md. Their language selectors and original translation source data are preserved. No unsupported translation is presented as supplied or reviewed. All original repository images, audio, instructions and data files remain byte-identical; changes are a separate versioned instruction module plus small renderer integration.
 
 Nine supplied PRIVA/workshop/restart PDFs are available on demand in their original bytes. They are not eagerly downloaded or added to the offline install list. Existing instructional screenshots are reused. See the source manifest for checksums of all 27 inputs and the 9 published PDFs.
 
