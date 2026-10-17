@@ -641,6 +641,12 @@
   }
 
   function renderHomeCompact() {
+    const modeId = getHomeMode();
+    if ((DATA.homeModes || []).length && !modeId) {
+      renderHome();
+      return;
+    }
+    const tiles = modeFilteredTiles(modeId);
     const priorityPages = new Set(["mapa", "szklarnia", "szklarnia3d", "reader", "lekarz"]);
     const primaryPages = new Set(["mapa", "magazyn", "szklarnia", "szklarnia3d", "reader", "lekarz", "kontakty", "zakazy", "test"]);
     const renderTile = (tile) => `
@@ -649,8 +655,8 @@
         <div><p class="tile-title">${esc(text(tile.title))}</p><p class="tile-text">${esc(text(tile.text))}</p></div>
       </a>
     `;
-    const primaryTiles = DATA.tiles.filter((tile) => primaryPages.has(tile.page));
-    const extraTiles = DATA.tiles.filter((tile) => !primaryPages.has(tile.page));
+    const primaryTiles = tiles.filter((tile) => primaryPages.has(tile.page));
+    const extraTiles = tiles.filter((tile) => !primaryPages.has(tile.page));
     const moreLinks = extraTiles.map((tile) => `
       <a class="more-link" href="${esc(href(tile.page))}">
         <span class="more-link-icon">${iconMap[tile.icon] || iconMap.test}</span>
@@ -667,7 +673,7 @@
         <span class="more-links">${moreLinks}</span>
       </details>
     ` : "";
-    app.innerHTML = `<main class="page">${pageHero("home")}<section class="tiles">${primaryTiles.map(renderTile).join("")}${moreTile}</section></main>`;
+    app.innerHTML = `<main class="page">${pageHero("home")}${renderHomeModeSelector(modeId)}<section class="tiles">${primaryTiles.map(renderTile).join("")}${moreTile}</section></main>`;
   }
 
   function renderVersionFooter() {

@@ -235,6 +235,64 @@ test("Zgorzelec stays warehouse-only; Bogatynia retains its greenhouse, reader a
   }
 });
 
+function compactHome({lang = "en", mode = "", saved = "", blocked = false} = {}) {
+  const location = new URL(`https://example.test/training/index.html?lang=${lang}&mode=${mode}`);
+  const app = {innerHTML: ""};
+  const document = {documentElement: {}, body: {dataset: {page: "home"}},
+    currentScript: {src: "https://example.test/training-app.js?v=fixture"}, getElementById: () => app};
+  const storage = new Map();
+  const window = {};
+  const context = vm.createContext({window, document, location, URL, URLSearchParams,
+    navigator: {language: lang}, localStorage: {
+      getItem(key) { if (blocked) throw Error("Storage denied"); return storage.get(key) || (key.startsWith("cx-home-mode-") ? saved : ""); },
+      setItem(key, value) { if (blocked) throw Error("Storage denied"); storage.set(key, value); }
+    }});
+  vm.runInContext(data, context); vm.runInContext(custom, context);
+  const before = JSON.stringify(window.CX_DATA);
+  const startup = source.replace(/  renderPage\(\);\n  upgradeCache\(\);\n\}\)\(\);\s*$/, "  renderHomeCompact();\n})();");
+  assert.notEqual(startup, source);
+  assert.match(source, /home: renderHomeCompact,/);
+  vm.runInContext(startup, context);
+  assert.equal(JSON.stringify(window.CX_DATA), before);
+  const links = [...app.innerHTML.matchAll(/<a class="(?:tile[^" ]*|tile[^\"]*|more-link)"[^>]*href="([^"]+)"/g)]
+    .map(([, href]) => new URL(href.replaceAll("&amp;", "&"), location));
+  return {html: app.innerHTML, links, data: window.CX_DATA};
+}
+
+for (const lang of langs) for (const mode of ["first", "bogatynia", "zgorzelec"]) {
+  test(`${lang}/${mode}: active compact home filters primary AND More links by location`, () => {
+    const h = compactHome({lang, mode, blocked: true});
+    const allowed = h.data.homeModes.find(item => item.id === mode).pages;
+    const expected = h.data.tiles.filter(tile => allowed.includes(tile.page)).length;
+    assert.equal(h.links.length, expected);
+    assert.match(h.html, /class="mode-summary"/);
+    assert.equal((h.html.match(/mode-card is-active/g) || []).length, 1);
+    for (const url of h.links.filter(url => url.origin === "https://example.test")) {
+      const page = url.pathname.split("/").pop().replace(".html", "");
+      assert.ok(allowed.includes(page), `${mode} must not show ${page}`);
+      assert.equal(url.searchParams.get("mode"), mode);
+      assert.equal(url.searchParams.get("lang"), lang);
+    }
+    if (mode === "zgorzelec") for (const page of ["szklarnia", "reader", "tablet"]) {
+      assert.equal(h.links.some(url => url.pathname.endsWith(`/${page}.html`)), false);
+    }
+  });
+}
+test("compact home requires selection when empty, corrupt or denied storage cannot restore a mode", () => {
+  for (const options of [{}, {saved: "{broken"}, {mode: "unknown", blocked: true}]) {
+    const h = compactHome(options);
+    assert.equal(h.links.length, 0);
+    assert.match(h.html, /mode-selector/);
+    assert.ok(h.html.includes(h.data.homeModeUi.emptyTitle.en));
+  }
+});
+test("compact home restores saved mode and explicit URL overrides it", () => {
+  const restored = compactHome({saved: "bogatynia"});
+  assert.ok(restored.links.some(url => url.pathname.endsWith("/reader.html")));
+  const overridden = compactHome({saved: "bogatynia", mode: "zgorzelec"});
+  assert.equal(overridden.links.some(url => url.pathname.endsWith("/reader.html")), false);
+});
+
 test("work-city selection and language changes survive denied storage without changing mode", () => {
   const c = header("ua", "home", true);
   assert.equal(c.window.navigationTest.getHomeMode(), "");
@@ -287,7 +345,7 @@ test("official logo and every production page use the new worker/UI entry", asyn
     assert.match(html, /<title>[^<]*PrimServ<\/title>/, file);
     if (html.includes('data-standalone-tool=')) continue;
     assert.ok(html.includes('property="og:site_name"'), file);
-    assert.ok(html.includes("assets/js/training-app.js?v=20261017-glossary-context1"), file);
+    assert.ok(html.includes("assets/js/training-app.js?v=20261017-glossary-context2"), file);
     assert.ok(html.includes("assets/css/primserv.css?v=20261016-progress1"), file);
     assert.match(html, /assets\/js\/training-data\.js\?v=[^\"\s]+/, file);
   }
@@ -304,7 +362,7 @@ function workerHarness() {
     self: { location: { origin }, addEventListener(name, handler) { handlers[name] = handler; }, skipWaiting() { lifecycle.push("skip"); }, clients: { claim() { lifecycle.push("claim"); } } },
     caches: {
       async open() { return { async add(request) { added.push(request.url); }, async put(request) { copied.push(request.url); } }; },
-      async match(request) { return (request.url.includes("primserv") || request.url.includes("20261017-glossary-context1") || request.url.includes("20261016-language1") || request.url.includes("20261016-locationquiz1")) ? null : new Response("old valid asset"); },
+      async match(request) { return (request.url.includes("primserv") || request.url.includes("20261017-glossary-context2") || request.url.includes("20261016-language1") || request.url.includes("20261016-locationquiz1")) ? null : new Response("old valid asset"); },
       async keys() { return ["unrelated", "citronex-zgorzelec-bogatynia-szkolenie-older", "citronex-zgorzelec-bogatynia-szkolenie-another", vm.runInContext("CACHE_NAME", context)]; },
       async delete(name) { deleted.push(name); }
     },
@@ -324,7 +382,7 @@ test("worker migrates exact unchanged cached assets but refreshes documents and 
   assert.ok(w.added.some(url => url.endsWith("/assets/js/location-custom.js?v=20261016-locationquiz1")));
   assert.ok(w.added.some(url => url.endsWith("/index.html")));
   assert.ok(w.added.some(url => url.endsWith("/manifest.webmanifest")));
-  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261017-glossary-context1")));
+  assert.ok(w.added.some(url => url.endsWith("/assets/js/training-app.js?v=20261017-glossary-context2")));
   assert.ok(w.added.some(url => url.endsWith("/assets/js/instruction-update.js?v=20261016-language1")));
   assert.ok(w.added.some(url => url.endsWith("/assets/primserv-logo.svg")));
   assert.equal(w.added.some(url => url.includes(".mp3")), false);

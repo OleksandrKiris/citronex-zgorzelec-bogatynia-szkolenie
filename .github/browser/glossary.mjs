@@ -180,7 +180,7 @@ try {
     const reg = await navigator.serviceWorker.ready; await reg.update(); await changed;
   });
   await page.waitForFunction(async () => {
-    const keys = await caches.keys(); return keys.includes('citronex-zgorzelec-bogatynia-szkolenie-20261017-glossary-context1') && !keys.includes('citronex-zgorzelec-bogatynia-szkolenie-20261016-reader-context1');
+    const keys = await caches.keys(); return keys.includes('citronex-zgorzelec-bogatynia-szkolenie-20261017-glossary-context2') && !keys.includes('citronex-zgorzelec-bogatynia-szkolenie-20261016-reader-context1');
   });
   await page.reload(); await retained(page); await controlled(page);
   for (const [key, value] of Object.entries(saved)) assert.equal(await page.evaluate(k => localStorage.getItem(k), key), value);
@@ -190,21 +190,62 @@ try {
   await page.goto(`${base}test.html?mode=${activeMode}&lang=ua`); await page.locator('#testResume').click();
   assert.match(await page.locator('#testProgressText').innerText(), /2\/30/);
   report.cache = await page.evaluate(async () => {
-    const c = await caches.open('citronex-zgorzelec-bogatynia-szkolenie-20261017-glossary-context1'); const rows = [];
+    const c = await caches.open('citronex-zgorzelec-bogatynia-szkolenie-20261017-glossary-context2'); const rows = [];
     for (const req of await c.keys()) { const res = await c.match(req); rows.push({ url: req.url, bytes: (await res.arrayBuffer()).byteLength }); }
     return rows;
   });
   report.results.push({ scenario: 'actual base → head SW, old defect reproduced, glossary restored, legacy quiz/unrelated storage and cache preserved, offline quiz resume', pass: true });
   await offline(ctx, false);
-  for (const mode of ['bogatynia', 'zgorzelec']) {
-    await page.goto(`${base}index.html?lang=en&mode=${mode}`);
-    await page.locator('.mode-summary').waitFor({ state: 'visible' });
-    const reader = page.locator('.tiles a[href*="reader.html"]');
-    assert.equal(await reader.count(), mode === 'bogatynia' ? 1 : 0);
-    await page.goto(`${base}magazyn.html?lang=en&mode=${mode}`);
-    assert.match(await page.locator('body').innerText(), /Do not use Bogatynia reader\/tablet instructions/);
+  await closeContext(ctx);
+  for (const width of [1280, 320]) {
+    const {ctx: homeCtx, page: home} = await context(width);
+    await home.goto(`${base}index.html?lang=en`); await controlled(home);
+    await home.locator('.mode-selector').waitFor({state: 'visible'});
+    assert.equal(await home.locator('.tiles a').count(), 0, 'Choose location before showing instruction tiles');
+    await shot(home, `home-empty-${width}`);
+    for (const mode of ['first', 'bogatynia', 'zgorzelec']) {
+      activeMode = mode;
+      const choice = `.mode-card[href*="mode=${mode}"]`;
+      await keyboardFocus(home, choice); await home.keyboard.press('Enter');
+      await home.waitForURL(url => url.searchParams.get('mode') === mode);
+      for (const lang of ['pl', 'en', 'ua', 'ru', 'az', 'es', 'fil', 'id', 'ne']) {
+        await home.locator('#langSelect').selectOption(lang);
+        await home.waitForURL(url => url.searchParams.get('lang') === lang);
+        await home.reload();
+        await home.locator('.mode-summary').waitFor({state: 'visible'});
+        assert.equal(new URL(home.url()).searchParams.get('mode'), mode);
+        assert.equal(await home.locator('.mode-card.is-active').count(), 1);
+        const expected = await home.evaluate(mode => window.CX_DATA.homeModes.find(item => item.id === mode).pages, mode);
+        const links = await home.locator('.tiles a').evaluateAll(els => els.map(el => el.href));
+        for (const link of links) {
+          const target = new URL(link);
+          if (target.origin === new URL(base).origin) {
+            assert.ok(expected.includes(target.pathname.split('/').pop().replace('.html', '')));
+            assert.equal(target.searchParams.get('mode'), mode);
+          }
+        }
+        assert.equal(await home.locator('.tiles a[href*="reader.html"]').count(), mode === 'bogatynia' ? 1 : 0);
+        if (lang === 'en' || lang === 'ua') await shot(home, `home-${lang}-${width}`);
+      }
+      await keyboardFocus(home, '.top-nav-link[href*="kontakty.html"]'); await home.keyboard.press('Enter');
+      await home.waitForURL(/kontakty\.html/); await home.goBack();
+      await home.locator('.mode-summary').waitFor({state: 'visible'});
+      assert.equal(new URL(home.url()).searchParams.get('mode'), mode);
+      await offline(homeCtx, true); await home.reload();
+      await home.locator('.mode-summary').waitFor({state: 'visible'});
+      assert.equal(await home.evaluate(() => navigator.onLine), false);
+      await shot(home, `home-offline-${width}`); await offline(homeCtx, false);
+    }
+    await home.goto(`${base}magazyn.html?lang=en&mode=zgorzelec`);
+    assert.match(await home.locator('body').innerText(), /Do not use Bogatynia reader\/tablet instructions/);
+    await home.goto(`${base}index.html?lang=ka&mode=bogatynia`);
+    await home.locator('.mode-summary').waitFor({state: 'visible'});
+    assert.equal(await home.locator('#langSelect').inputValue(), 'en');
+    assert.match(await home.locator('.primserv-language-fallback').innerText(), /English/);
+    await shot(home, `home-fallback-${width}`);
+    await closeContext(homeCtx);
   }
-  report.results.push({ scenario: 'mode-specific home tiles and warehouse routing warning retained', pass: true });
+  report.results.push({ scenario: 'home: empty selection, keyboard mode selection, primary/More links isolated, nine languages/reload, contacts/Back, real offline, ka fallback, warehouse warning; 1280 and 320', pass: true });
   assert.deepEqual(report.errors, []); assert.deepEqual(report.blocked, []);
   report.pass = true;
 } catch (err) {
