@@ -59,6 +59,7 @@
 
   let lang = getLang();
   let readerTopic = "";
+  let glossaryQuery = "";
   document.documentElement.lang = lang === "ua" ? "uk" : lang;
 
   const visibleTranslationFixes = {
@@ -469,6 +470,10 @@
     const url = new URL(location.href);
     url.searchParams.set("lang", lang);
     if (page === "reader" && readerTopic) url.searchParams.set("topic", readerTopic);
+    if (page === "slownik") {
+      if (glossaryQuery) url.searchParams.set("q", glossaryQuery);
+      else url.searchParams.delete("q");
+    }
     url.searchParams.delete("welcome");
     location.href = url.toString();
   }
@@ -636,6 +641,12 @@
   }
 
   function renderHomeCompact() {
+    const modeId = getHomeMode();
+    if ((DATA.homeModes || []).length && !modeId) {
+      renderHome();
+      return;
+    }
+    const tiles = modeFilteredTiles(modeId);
     const priorityPages = new Set(["mapa", "szklarnia", "szklarnia3d", "reader", "lekarz"]);
     const primaryPages = new Set(["mapa", "magazyn", "szklarnia", "szklarnia3d", "reader", "lekarz", "kontakty", "zakazy", "test"]);
     const renderTile = (tile) => `
@@ -644,8 +655,8 @@
         <div><p class="tile-title">${esc(text(tile.title))}</p><p class="tile-text">${esc(text(tile.text))}</p></div>
       </a>
     `;
-    const primaryTiles = DATA.tiles.filter((tile) => primaryPages.has(tile.page));
-    const extraTiles = DATA.tiles.filter((tile) => !primaryPages.has(tile.page));
+    const primaryTiles = tiles.filter((tile) => primaryPages.has(tile.page));
+    const extraTiles = tiles.filter((tile) => !primaryPages.has(tile.page));
     const moreLinks = extraTiles.map((tile) => `
       <a class="more-link" href="${esc(href(tile.page))}">
         <span class="more-link-icon">${iconMap[tile.icon] || iconMap.test}</span>
@@ -662,7 +673,7 @@
         <span class="more-links">${moreLinks}</span>
       </details>
     ` : "";
-    app.innerHTML = `<main class="page">${pageHero("home")}<section class="tiles">${primaryTiles.map(renderTile).join("")}${moreTile}</section></main>`;
+    app.innerHTML = `<main class="page">${pageHero("home")}${renderHomeModeSelector(modeId)}<section class="tiles">${primaryTiles.map(renderTile).join("")}${moreTile}</section></main>`;
   }
 
   function renderVersionFooter() {
@@ -1791,6 +1802,7 @@
   }
 
   function renderGlossary() {
+    glossaryQuery = (new URLSearchParams(location.search).get("q") || "").slice(0, 160);
     const groups = DATA.glossaryGroups || [];
     const entries = DATA.glossary || [];
     const labels = {
@@ -1845,8 +1857,8 @@
           <strong class="glossary-count">${entries.length} ${esc(text(labels.count))}</strong>
         </section>
         <section class="glossary-search-box">
-          <input class="glossary-search" type="search" inputmode="search" autocomplete="off" placeholder="${esc(text(labels.search))}" aria-label="${esc(text(labels.search))}" data-glossary-search>
-          <div class="glossary-empty is-hidden" data-glossary-empty>${esc(text(labels.empty))}</div>
+          <input class="glossary-search" type="search" inputmode="search" autocomplete="off" placeholder="${esc(text(labels.search))}" aria-label="${esc(text(labels.search))}" maxlength="160" data-glossary-search>
+          <div class="glossary-empty is-hidden" role="status" data-glossary-empty>${esc(text(labels.empty))}</div>
         </section>
         <section class="stack section">${groupHtml}</section>
       </main>
@@ -1856,7 +1868,8 @@
     const groupNodes = Array.from(app.querySelectorAll("[data-glossary-group]"));
     const empty = app.querySelector("[data-glossary-empty]");
     if (search) {
-      search.addEventListener("input", () => {
+      search.value = glossaryQuery;
+      const applySearch = () => {
         const query = search.value.trim().toLowerCase();
         let visible = 0;
         cards.forEach((card) => {
@@ -1874,7 +1887,19 @@
           }
         });
         if (empty) empty.classList.toggle("is-hidden", visible !== 0);
+      };
+      search.addEventListener("input", () => {
+        glossaryQuery = search.value.slice(0, 160);
+        search.value = glossaryQuery;
+        applySearch();
+        // Replace the current entry: typing must not add steps to browser Back.
+        const url = new URL(location.href);
+        if (glossaryQuery) url.searchParams.set("q", glossaryQuery);
+        else url.searchParams.delete("q");
+        try { history.replaceState(history.state, "", url); }
+        catch { /* Filtering and language changes still use the in-memory query. */ }
       });
+      if (glossaryQuery) applySearch();
     }
   }
 
