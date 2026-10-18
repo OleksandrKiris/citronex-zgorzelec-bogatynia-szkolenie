@@ -1801,10 +1801,34 @@
     }
   }
 
+  // Reuse the approved, explicitly named site policies; never apply one warehouse's rule to all sites.
+  function readerLocationPolicy() {
+    const mode = getHomeMode();
+    const locations = DATA.warehouseLocations || [];
+    const bogatynia = locations.find(item => item.key === "bogatynia-priva");
+    const zgorzelec = locations.find(item => item.key === "zgorzelec-banana");
+    if (mode === "bogatynia") return { meaning: DATA.pages.reader.lead, example: bogatynia.rules[1] };
+    if (mode === "zgorzelec") return { meaning: zgorzelec.lead, example: zgorzelec.rules[1] };
+    const meaning = Object.fromEntries(DATA.languages.map(({ id }) => [id, `${textFor(bogatynia.lead, id)} ${textFor(zgorzelec.lead, id)}`]));
+    return { meaning, example: DATA.warehouseRules[0] };
+  }
+
+  function textFor(value, language) {
+    return typeof value === "string" ? value : value[language] || value.en;
+  }
+
+  function quizQuestions() {
+    return DATA.test.map((item, index) => index === 0
+      ? { ...item, text: readerLocationPolicy().meaning, ok: true }
+      : item);
+  }
+
   function renderGlossary() {
     glossaryQuery = (new URLSearchParams(location.search).get("q") || "").slice(0, 160);
     const groups = DATA.glossaryGroups || [];
-    const entries = DATA.glossary || [];
+    const locationPolicy = readerLocationPolicy();
+    const entries = (DATA.glossary || []).map(item => item.term === "reader"
+      ? { ...item, ...locationPolicy, sourcePage: "magazyn" } : item);
     const labels = {
       search: tx("Szukaj słowa, np. reader, rząd, przerwa...", "Search a word, e.g. reader, row, break...", "Шукайте слово, напр. reader, ряд, перерва...", "Ищите слово, напр. reader, ряд, перерыв...", "Söz axtarın, məsələn reader, sıra, fasilə...", "Busca una palabra, por ejemplo reader, fila, pausa...", "Maghanap ng salita, hal. reader, row, break...", "Cari kata, mis. reader, baris, istirahat...", "शब्द खोज्नुहोस्, जस्तै reader, लाइन, ब्रेक..."),
       count: tx("haseł", "terms", "слів", "слов", "söz", "términos", "salita", "istilah", "शब्द"),
@@ -1827,6 +1851,7 @@
         </div>
         <p>${esc(text(item.meaning))}</p>
         <div class="glossary-example">${esc(text(item.example))}</div>
+        ${item.sourcePage ? `<a href="${esc(href(item.sourcePage))}">${esc(ui("open"))}: ${esc(text(DATA.pages.magazyn.title))}</a>` : ""}
       </article>
     `;
     };
@@ -1849,6 +1874,11 @@
     app.innerHTML = `
       <main class="page glossary-page">
         ${pageHero()}
+        <section class="card blue glossary-site-policy">
+          <h2>${esc(text(DATA.pages.magazyn.title))}</h2>
+          <p>${esc(text(locationPolicy.meaning))}</p>
+          <a href="${esc(href("magazyn"))}">${esc(ui("open"))}: ${esc(text(DATA.pages.magazyn.title))}</a>
+        </section>
         <section class="card blue glossary-help">
           <div>
             <h2>${esc(text(labels.tipTitle))}</h2>
@@ -2137,40 +2167,66 @@
   // Anonymous answers remain on this device only and expire after seven days.
   function createTestSession() {
     const mode = typeof getHomeMode === "function" ? getHomeMode() : "";
-    const key = `primserv:training-test:v1:${new URL(".", location.href).pathname}:${mode}`;
-    const signature = JSON.stringify(DATA.test.map(item => [item.text.pl, item.ok]));
-    const empty = () => ({ answers: Array(DATA.test.length).fill(null), current: 0, completed: false });
+    const suffix = `${new URL(".", location.href).pathname}:${mode}`;
+    const key = `primserv:training-test:v2:${suffix}`;
+    const legacyKey = `primserv:training-test:v1:${suffix}`;
+    const questions = quizQuestions();
+    const signature = JSON.stringify(questions.map(item => [item.text.pl, item.ok]));
+    const legacySignature = JSON.stringify(DATA.test.map(item => [item.text.pl, item.ok]));
+    const empty = () => ({ answers: Array(questions.length).fill(null), current: 0, completed: false });
     let state = empty();
     let restored = false;
+    let migrated = false;
+    let previous = null;
+    let canSave = true;
+    const valid = (saved, expected) => saved && saved.signature === expected && Array.isArray(saved.answers)
+      && saved.answers.length === questions.length
+      && saved.answers.every(answer => answer === null || typeof answer === "boolean")
+      && Number.isInteger(saved.current) && saved.current >= 0 && saved.current < questions.length
+      && typeof saved.completed === "boolean" && Number.isFinite(saved.savedAt)
+      && Date.now() - saved.savedAt >= 0 && Date.now() - saved.savedAt < 7 * 86400000
+      && (!saved.completed || saved.answers.every(answer => answer !== null));
     try {
-      const saved = JSON.parse(localStorage.getItem(key));
-      if (saved && saved.signature === signature && Array.isArray(saved.answers)
-        && saved.answers.length === DATA.test.length
-        && saved.answers.every(answer => answer === null || typeof answer === "boolean")
-        && Number.isInteger(saved.current) && saved.current >= 0 && saved.current < DATA.test.length
-        && typeof saved.completed === "boolean" && Number.isFinite(saved.savedAt)
-        && Date.now() - saved.savedAt >= 0 && Date.now() - saved.savedAt < 7 * 86400000
-        && (!saved.completed || saved.answers.every(answer => answer !== null))) {
-        state = { answers: saved.answers, current: saved.current, completed: saved.completed };
-        restored = state.answers.some(answer => answer !== null);
+      const legacy = JSON.parse(localStorage.getItem(legacyKey));
+      if (valid(legacy, legacySignature)) previous = legacy;
+    } catch { /* Keep the legacy key untouched, including unknown/corrupt records. */ }
+    try {
+      const raw = localStorage.getItem(key);
+      const saved = JSON.parse(raw);
+      if (saved?.questionBankVersion === "reader-location-v2" && valid(saved, signature)) {
+        state = { answers: saved.answers.slice(), current: saved.current, completed: saved.completed };
+      } else if (raw === null && previous) {
+        state = { answers: previous.answers.slice(), current: 0, completed: false };
+        state.answers[0] = null;
+        migrated = true;
+      } else if (raw !== null) {
+        // An explicit restart can replace this record; ordinary answering must not destroy it.
+        canSave = false;
       }
-    } catch { /* Optional storage must never block the test. */ }
+      restored = state.answers.some(answer => answer !== null);
+    } catch { canSave = false; /* Preserve unreadable records; this attempt can work in memory. */ }
     return {
-      get state() { return state; }, restored,
+      get state() { return state; }, restored, migrated, previous, questions, needsRestart: !canSave,
       save() {
-        try { localStorage.setItem(key, JSON.stringify({ ...state, signature, savedAt: Date.now() })); }
-        catch { /* The current attempt remains usable in memory. */ }
+        if (!canSave) return false;
+        try {
+          localStorage.setItem(key, JSON.stringify({ ...state, signature, questionBankVersion: "reader-location-v2", savedAt: Date.now() }));
+          return true;
+        } catch { return false; /* The old attempt remains intact; this attempt works in memory. */ }
       },
       reset() {
         state = empty();
-        try { localStorage.removeItem(key); } catch { /* Storage is optional. */ }
+        canSave = true;
+        // Persist an empty v2 attempt so reload never silently remigrates the untouched v1 history.
+        return this.save();
       }
     };
   }
 
   function renderTest() {
-    const total = DATA.test.length;
     const session = createTestSession();
+    const questions = session.questions;
+    const total = questions.length;
     let answers = session.state.answers;
     let current = session.state.current;
 
@@ -2178,6 +2234,9 @@
       resume: tx("Kontynuuj test", "Continue test", "Продовжити тест", "Продолжить тест", "Testə davam et", "Continuar el test", "Ipagpatuloy ang pagsusulit", "Lanjutkan tes", "परीक्षण जारी राख्नुहोस्"),
       restart: tx("Zacznij od nowa", "Start again", "Почати заново", "Начать заново", "Yenidən başla", "Empezar de nuevo", "Magsimula muli", "Mulai lagi", "फेरि सुरु गर्नुहोस्"),
       saved: tx("Znaleziono zapisany test na tym urządzeniu.", "A saved test was found on this device.", "На цьому пристрої знайдено збережений тест.", "На этом устройстве найден сохранённый тест.", "Bu cihazda saxlanmış test tapıldı.", "Se encontró un test guardado en este dispositivo.", "May naka-save na pagsusulit sa device na ito.", "Tes tersimpan ditemukan di perangkat ini.", "यस उपकरणमा सुरक्षित गरिएको परीक्षण भेटियो।"),
+      recheck: tx("Pytanie 1 zostało poprawione. Odpowiedz ponownie; pozostałe odpowiedzi zachowano.", "Question 1 was corrected. Answer it again; other answers were kept.", "Питання 1 виправлено. Дайте відповідь знову; інші відповіді збережено.", "Вопрос 1 исправлен. Ответьте заново; остальные ответы сохранены.", "1-ci sual düzəldildi. Yenidən cavab verin; digər cavablar saxlanıldı.", "Se corrigió la pregunta 1. Respóndela de nuevo; se conservaron las otras respuestas.", "Itinama ang tanong 1. Sagutin itong muli; pinanatili ang ibang sagot.", "Pertanyaan 1 diperbaiki. Jawab lagi; jawaban lain tetap disimpan.", "प्रश्न १ सच्याइएको छ। फेरि उत्तर दिनुहोस्; अरू उत्तर राखिएका छन्।"),
+      previous: tx("Poprzednia wersja pytań — zapis historyczny", "Previous question version — historical record", "Попередня версія питань — історичний запис", "Прежняя версия вопросов — историческая запись", "Əvvəlki sual versiyası — tarixi qeyd", "Versión anterior de preguntas — registro histórico", "Dating bersyon ng mga tanong — makasaysayang tala", "Versi pertanyaan sebelumnya — catatan historis", "प्रश्नहरूको अघिल्लो संस्करण — ऐतिहासिक अभिलेख"),
+      memory: tx("Nie zapisano zmian na urządzeniu. Bieżący test działa w pamięci; poprzedni zapis nie został usunięty.", "Changes were not saved on this device. This attempt works in memory; the previous record was not deleted.", "Зміни не збережено на пристрої. Тест працює в пам’яті; попередній запис не видалено.", "Изменения не сохранены на устройстве. Тест работает в памяти; прежняя запись не удалена.", "Dəyişikliklər cihazda saxlanılmadı. Bu cəhd yaddaşda işləyir; əvvəlki qeyd silinmədi.", "No se guardaron los cambios en el dispositivo. Este intento funciona en memoria; no se borró el registro anterior.", "Hindi na-save ang mga pagbabago sa device. Gumagana ang pagsubok sa memorya; hindi binura ang dating tala.", "Perubahan tidak tersimpan di perangkat. Percobaan ini bekerja dalam memori; catatan sebelumnya tidak dihapus.", "परिवर्तन उपकरणमा सुरक्षित भएनन्। यो प्रयास मेमोरीमा चल्छ; अघिल्लो अभिलेख मेटाइएको छैन।"),
       review: tx("Sprawdź błędne odpowiedzi", "Review incorrect answers", "Переглянути помилки", "Разобрать ошибки", "Səhv cavabları yoxla", "Revisar los errores", "Suriin ang mga maling sagot", "Tinjau jawaban yang salah", "गलत उत्तरहरू समीक्षा गर्नुहोस्"),
       your: tx("Twoja odpowiedź", "Your answer", "Ваша відповідь", "Ваш ответ", "Cavabınız", "Tu respuesta", "Sagot mo", "Jawaban Anda", "तपाईंको उत्तर"),
       correct: tx("Prawidłowa odpowiedź", "Correct answer", "Правильна відповідь", "Правильный ответ", "Düzgün cavab", "Respuesta correcta", "Tamang sagot", "Jawaban yang benar", "सही उत्तर"),
@@ -2195,6 +2254,9 @@
     app.innerHTML = `
       <main class="page">
         ${pageHero()}
+        ${session.migrated ? `<p class="notice yellow" role="status">${esc(text(label.recheck))}</p>` : ""}
+        ${session.needsRestart ? `<section class="notice yellow" id="testRecovery"><p role="status">${esc(text(label.memory))}</p><button type="button" class="btn secondary" id="testRecover">${esc(text(label.restart))}</button></section>` : ""}
+        ${session.previous ? `<details class="notice yellow"><summary>${esc(text(label.previous))}</summary><p>${session.previous.completed ? `${esc(ui("score"))}: ${session.previous.answers.reduce((sum, answer, index) => sum + (answer === DATA.test[index].ok ? 1 : 0), 0)}/${total}` : `${session.previous.answers.filter(answer => answer !== null).length}/${total}`}</p><p>${esc(text(DATA.test[0].text))} ${session.previous.answers[0] === null ? "—" : esc(ui(session.previous.answers[0] ? "yes" : "no"))}</p></details>` : ""}
         <section class="test-shell">
           <div class="test-progress-head">
             <span id="testProgressText"></span>
@@ -2204,6 +2266,7 @@
           <form id="testForm" class="test-step-form"></form>
         </section>
         <div id="testResult" tabindex="-1" aria-live="polite"></div>
+        <p id="testStorageStatus" role="status"></p>
       </main>
     `;
 
@@ -2213,19 +2276,21 @@
     function persist(completed = false) {
       session.state.current = current;
       session.state.completed = completed;
-      session.save();
+      document.getElementById("testStorageStatus").textContent = session.save() ? "" : text(label.memory);
     }
 
     function restart() {
-      session.reset();
+      const saved = session.reset();
       answers = session.state.answers;
       current = 0;
       result.innerHTML = "";
+      document.getElementById("testStorageStatus").textContent = saved ? "" : text(label.memory);
       renderQuestion(true);
+      return saved;
     }
 
     function renderQuestion(moveFocus = false) {
-      const item = DATA.test[current];
+      const item = questions[current];
       const selected = answers[current];
       const answered = answers.filter((answer) => answer !== null).length;
       document.getElementById("testProgressText").textContent = `${text(label.progress)} ${current + 1}/${total}`;
@@ -2298,12 +2363,12 @@
         return;
       }
 
-      const score = DATA.test.reduce((sum, item, index) => sum + (answers[index] === item.ok ? 1 : 0), 0);
+      const score = questions.reduce((sum, item, index) => sum + (answers[index] === item.ok ? 1 : 0), 0);
       const appTitle = DATA.meta && DATA.meta.appTitle ? DATA.meta.appTitle : "Citronex";
       const message = `Wynik testu ${appTitle}: ${score}/${total}. Odpowiedzi: ${answered}/${total}. Jezyk: ${lang.toUpperCase()}.`;
       persist(true);
       const sourcePages = ["magazyn", "home", "szklarnia", "kontakty", "reader", "reader", "reader", "reader", "reader", "reader", "reader", "reader", "reader", "lekarz", "lekarz", "lekarz", "zakazy", "zakazy", "zakazy", "szklarnia", "szklarnia", "szklarnia", "szklarnia", "szklarnia", "szklarnia", "reader", "reader", "lekarz", "kontakty", "kontakty"];
-      const mistakes = DATA.test.map((item, index) => ({ item, index })).filter(({ item, index }) => answers[index] !== item.ok);
+      const mistakes = questions.map((item, index) => ({ item, index })).filter(({ item, index }) => answers[index] !== item.ok);
       const review = mistakes.length ? `<section class="test-review"><h3>${esc(text(label.review))} (${mistakes.length})</h3>${mistakes.map(({ item, index }) => `
         <article class="test-review-item">
           <h4>${index + 1}. ${esc(text(item.text))}</h4>
@@ -2327,6 +2392,9 @@
       result.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    if (session.needsRestart) document.getElementById("testRecover").addEventListener("click", () => {
+      if (restart()) document.getElementById("testRecovery").hidden = true;
+    });
     if (session.restored) {
       document.getElementById("testProgressText").textContent = `${text(label.progress)} ${current + 1}/${total}`;
       document.getElementById("testAnsweredText").textContent = `${answers.filter(answer => answer !== null).length}/${total}`;
