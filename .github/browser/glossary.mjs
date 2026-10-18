@@ -19,6 +19,7 @@ const report = { head: process.env.TESTED_HEAD, base: process.env.TESTED_BASE,
   limits: ['Desktop Chromium; narrow viewport is not a physical phone.',
     'Glossary, location policy, Q1/history and home text routes; not all training photos/audio/PDFs.',
     'No external navigation, messages, calls or submissions.',
+    'Legacy worker cache name may reappear from in-flight old fetches; exact new shell bytes and offline flows are required.',
     'First installation requires HTTP access; file:// and never-opened-device offline are not promised.'] };
 assert.equal(report.checkout,report.head,'Acceptance must run the exact PR head');
 const current = new Map(), previous = new Map();
@@ -133,17 +134,96 @@ async function quizResume(page) {
   await page.locator('#testQuestionTitle').waitFor({state:'visible'});
 }
 async function exactCachedApp(page) {
+  const expectedFiles=[...current].filter(([file])=>file.endsWith('.html')||file==='assets/js/training-app.js').map(([file,bytes])=>({
+    file,url:file+(file==='assets/js/training-app.js'?'?v='+appVersion:''),bytes:bytes.length,hash:hash(bytes)
+  }));
   await page.waitForFunction(async expected=>{
     if(!(await caches.keys()).includes(expected.cache))return false;
-    const cache=await caches.open(expected.cache),response=await cache.match(new URL('assets/js/training-app.js?v='+expected.version,location.href).href);
-    if(!response)return false;const bytes=await response.arrayBuffer();
-    const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(x=>x.toString(16).padStart(2,'0')).join('');
-    return bytes.byteLength===expected.bytes&&digest===expected.hash;
-  },{cache:headCacheName,version:appVersion,bytes:current.get('assets/js/training-app.js').length,hash:hash(current.get('assets/js/training-app.js'))});
+    const cache=await caches.open(expected.cache);
+    for(const item of expected.files){
+      const response=await cache.match(new URL(item.url,location.href).href);if(!response)return false;
+      const bytes=await response.arrayBuffer();
+      const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(x=>x.toString(16).padStart(2,'0')).join('');
+      if(bytes.byteLength!==item.bytes||digest!==item.hash)return false;
+    }
+    return true;
+  },{cache:headCacheName,files:expectedFiles});
+  await page.waitForFunction(async()=>{const r=await navigator.serviceWorker.ready;return r.active?.state==='activated'&&navigator.serviceWorker.controller===r.active;});
+  return expectedFiles.length;
 }
+
 try {
   browser = await chromium.launch({ headless: true });
   report.browser = `Chromium ${browser.version()} / Playwright 1.56.1`;
+  for(const mode of ['first','bogatynia','zgorzelec'])for(const width of [1280,320])for(const completed of [false,true]) {
+    activeMode=mode;oldVersion=true;
+    const {ctx,page}=await context(width);
+    await page.goto(`${base}test.html?mode=${mode}&lang=ua`);await quizResume(page);await controlled(page);
+    const oldQuestions=await page.evaluate(()=>window.CX_DATA.test.map(item=>({ok:item.ok,text:item.text.ua})));
+    for(let i=0;i<(completed?30:3);i++) {
+      const value=completed?oldQuestions[i].ok:(i===1?!oldQuestions[i].ok:oldQuestions[i].ok);
+      await page.locator(`input[name="testAnswer"][value="${value?'1':'0'}"]`).check();await page.locator('#testNext').click();
+    }
+    if(completed)assert.match(await page.locator('#testResult').innerText(),/30\/30/);
+    const key=`primserv:training-test:v1:${prefix}:${mode}`,newKey=key.replace(':v1:',':v2:');
+    const raw=await page.evaluate(key=>localStorage.getItem(key),key);assert.ok(raw);
+    const legacy=JSON.parse(raw);assert.equal(legacy.completed,completed);
+    await page.goto(`${base}slownik.html?mode=${mode}&lang=ua&q=reader`);await retained(page);
+    const oldReader=page.locator('[data-glossary-card]').filter({has:page.getByText('reader',{exact:true})});
+    assert.equal(await oldReader.count(),1);
+    await oldReader.scrollIntoViewIfNeeded();
+    await page.waitForFunction(()=>Array.from(document.querySelectorAll('[data-glossary-card]')).find(el=>el.querySelector('.glossary-term')?.textContent==='reader')?.querySelector('p')?.innerText.trim().length>0);
+    const oldMeaning=await oldReader.locator('p').innerText(),expected=await approvedPolicy(page,mode,'ua');
+    assert.equal(oldMeaning,await page.evaluate(()=>window.CX_DATA.glossary.find(item=>item.term==='reader').meaning.ua),'The old rule must actually render on screen');
+    assert.notEqual(oldMeaning,expected,'The current published base exposes the location-policy contradiction');
+    await page.evaluate(async()=>{localStorage.setItem('unrelated','keep');await caches.open('unrelated-cache');});
+    oldVersion=false;
+    await page.evaluate(async()=>{
+      const changed=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('No new SW controller')),12000);
+        navigator.serviceWorker.addEventListener('controllerchange',()=>{clearTimeout(timer);resolve();},{once:true});});
+      const reg=await navigator.serviceWorker.ready;await reg.update();await changed;
+    });
+    const exactNewShellFiles=await exactCachedApp(page);
+    // An in-flight base-worker fetch can recreate its old cache after activation deleted it.
+    // Record that fact; acceptance requires exact current shell bytes and actual offline behavior.
+    const legacyCachePresentAfterUpgrade=await page.evaluate(name=>caches.has(name),oldCacheName);
+    assert.equal(await page.evaluate(()=>localStorage.getItem('unrelated')),'keep');
+    assert.equal(await page.evaluate(()=>caches.has('unrelated-cache')),true);
+    await page.reload();await retained(page);assert.equal(await page.locator('.glossary-site-policy p').innerText(),expected);
+    await offline(ctx,true);await page.reload();await retained(page);
+    await page.goto(`${base}test.html?mode=${mode}&lang=ua`);await page.locator('#testForm').waitFor();
+    assert.match(await page.locator('main > p.notice[role="status"]').innerText(),/Питання 1 виправлено/);
+    await page.locator('main > details.notice summary').click();
+    assert.match(await page.locator('main > details.notice').innerText(),completed?/30\/30/:/3\/30/);
+    assert.equal((await page.locator('#testResult').innerText()).trim(),'');
+    await quizResume(page);assert.match(await page.locator('#testProgressText').innerText(),/1\/30/);
+    assert.equal(await page.locator('input[name="testAnswer"]:checked').count(),0);
+    assert.equal(await page.locator('#testQuestionTitle').innerText(),'1. '+expected);
+    const wrongFeedback=mode==='bogatynia'&&width===320&&completed;
+    await page.locator(`input[name="testAnswer"][value="${wrongFeedback?'0':'1'}"]`).check();await page.locator('#testNext').click();
+    const saved=JSON.parse(await page.evaluate(key=>localStorage.getItem(key),newKey));
+    assert.equal(saved.questionBankVersion,'reader-location-v2');assert.equal(saved.answers[0],!wrongFeedback);
+    assert.deepEqual(saved.answers.slice(1),legacy.answers.slice(1));assert.equal(saved.current,1);assert.equal(saved.completed,false);
+    assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),raw,'Legacy record is byte-identical');
+    await page.reload();await quizResume(page);assert.match(await page.locator('#testProgressText').innerText(),/2\/30/);
+    if(wrongFeedback) {
+      for(let i=1;i<30;i++)await page.locator('#testNext').click();
+      assert.match(await page.locator('#testResult').innerText(),/29\/30/);
+      assert.equal(await page.locator('.test-review-item').count(),1);
+      const source=new URL(await page.locator('.test-review-item a').getAttribute('href'),base);
+      assert.equal(source.pathname,prefix+'magazyn.html');assert.equal(source.searchParams.get('mode'),mode);
+      await page.locator('main > details.notice summary').click();await shot(page,'historical30-current29-'+width);
+      await page.reload();await page.locator('#testRestart').click();
+      await page.reload();await page.locator('#testQuestionTitle').waitFor();
+      assert.equal(await page.locator('input[name="testAnswer"]:checked').count(),0);
+      assert.equal(await page.locator('main > p.notice[role="status"]').count(),0,'An empty v2 restart must not remigrate v1');
+      assert.ok(JSON.parse(await page.evaluate(key=>localStorage.getItem(key),newKey)).answers.every(x=>x===null));
+    }
+    assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),raw);
+    await shot(page,`legacy-${completed?'completed':'partial'}-${width}`);
+    report.migrations.push({mode,width,completed,pass:true,oldMeaning,expected,newAppSHA256:hash(current.get('assets/js/training-app.js')),exactNewShellFiles,legacyCachePresentAfterUpgrade,legacyBytesPreserved:true,other29Preserved:true,offline:true,wrongFeedbackAndRestart:wrongFeedback});
+    await offline(ctx,false);await closeContext(ctx);
+  }
   for (const mode of ['first','bogatynia', 'zgorzelec']) for (const width of [1280, 320]) {
     activeMode = mode;
     const { ctx, page } = await context(width);
@@ -211,73 +291,6 @@ try {
     await shot(page, `storage-${storage}`);
     report.results.push({ scenario: `${storage} storage/history: filter, language and URL reload`, pass: true });
     await closeContext(ctx);
-  }
-  for(const mode of ['first','bogatynia','zgorzelec'])for(const width of [1280,320])for(const completed of [false,true]) {
-    activeMode=mode;oldVersion=true;
-    const {ctx,page}=await context(width);
-    await page.goto(`${base}test.html?mode=${mode}&lang=ua`);await quizResume(page);await controlled(page);
-    const oldQuestions=await page.evaluate(()=>window.CX_DATA.test.map(item=>({ok:item.ok,text:item.text.ua})));
-    for(let i=0;i<(completed?30:3);i++) {
-      const value=completed?oldQuestions[i].ok:(i===1?!oldQuestions[i].ok:oldQuestions[i].ok);
-      await page.locator(`input[name="testAnswer"][value="${value?'1':'0'}"]`).check();await page.locator('#testNext').click();
-    }
-    if(completed)assert.match(await page.locator('#testResult').innerText(),/30\/30/);
-    const key=`primserv:training-test:v1:${prefix}:${mode}`,newKey=key.replace(':v1:',':v2:');
-    const raw=await page.evaluate(key=>localStorage.getItem(key),key);assert.ok(raw);
-    const legacy=JSON.parse(raw);assert.equal(legacy.completed,completed);
-    await page.goto(`${base}slownik.html?mode=${mode}&lang=ua&q=reader`);await retained(page);
-    const oldReader=page.locator('[data-glossary-card]').filter({has:page.getByText('reader',{exact:true})});
-    assert.equal(await oldReader.count(),1);
-    const oldMeaning=await oldReader.locator('p').innerText(),expected=await approvedPolicy(page,mode,'ua');
-    assert.notEqual(oldMeaning,expected,'The current published base exposes the location-policy contradiction');
-    await page.evaluate(async()=>{localStorage.setItem('unrelated','keep');await caches.open('unrelated-cache');});
-    oldVersion=false;
-    await page.evaluate(async()=>{
-      const changed=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('No new SW controller')),12000);
-        navigator.serviceWorker.addEventListener('controllerchange',()=>{clearTimeout(timer);resolve();},{once:true});});
-      const reg=await navigator.serviceWorker.ready;await reg.update();await changed;
-    });
-    await exactCachedApp(page);
-    // Cache installation and activation finish asynchronously after controllerchange.
-    try { await page.waitForFunction(async name=>!(await caches.keys()).includes(name),oldCacheName); }
-    catch(error){report.upgradeFailure=await page.evaluate(async()=>{const r=await navigator.serviceWorker.ready;return {keys:await caches.keys(),active:r.active?.state,waiting:r.waiting?.state,installing:r.installing?.state,controller:navigator.serviceWorker.controller?.state};});throw error;}
-    assert.equal(await page.evaluate(name=>caches.has(name),oldCacheName),false);
-    assert.equal(await page.evaluate(()=>localStorage.getItem('unrelated')),'keep');
-    assert.equal(await page.evaluate(()=>caches.has('unrelated-cache')),true);
-    await page.reload();await retained(page);assert.equal(await page.locator('.glossary-site-policy p').innerText(),expected);
-    await offline(ctx,true);await page.reload();await retained(page);
-    await page.goto(`${base}test.html?mode=${mode}&lang=ua`);await page.locator('#testForm').waitFor();
-    assert.match(await page.locator('main > p.notice[role="status"]').innerText(),/Питання 1 виправлено/);
-    await page.locator('main > details.notice summary').click();
-    assert.match(await page.locator('main > details.notice').innerText(),completed?/30\/30/:/3\/30/);
-    assert.equal((await page.locator('#testResult').innerText()).trim(),'');
-    await quizResume(page);assert.match(await page.locator('#testProgressText').innerText(),/1\/30/);
-    assert.equal(await page.locator('input[name="testAnswer"]:checked').count(),0);
-    assert.equal(await page.locator('#testQuestionTitle').innerText(),'1. '+expected);
-    const wrongFeedback=mode==='bogatynia'&&width===320&&completed;
-    await page.locator(`input[name="testAnswer"][value="${wrongFeedback?'0':'1'}"]`).check();await page.locator('#testNext').click();
-    const saved=JSON.parse(await page.evaluate(key=>localStorage.getItem(key),newKey));
-    assert.equal(saved.questionBankVersion,'reader-location-v2');assert.equal(saved.answers[0],!wrongFeedback);
-    assert.deepEqual(saved.answers.slice(1),legacy.answers.slice(1));assert.equal(saved.current,1);assert.equal(saved.completed,false);
-    assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),raw,'Legacy record is byte-identical');
-    await page.reload();await quizResume(page);assert.match(await page.locator('#testProgressText').innerText(),/2\/30/);
-    if(wrongFeedback) {
-      for(let i=1;i<30;i++)await page.locator('#testNext').click();
-      assert.match(await page.locator('#testResult').innerText(),/29\/30/);
-      assert.equal(await page.locator('.test-review-item').count(),1);
-      const source=new URL(await page.locator('.test-review-item a').getAttribute('href'),base);
-      assert.equal(source.pathname,prefix+'magazyn.html');assert.equal(source.searchParams.get('mode'),mode);
-      await page.locator('main > details.notice summary').click();await shot(page,'historical30-current29-'+width);
-      await page.reload();await page.locator('#testRestart').click();
-      await page.reload();await page.locator('#testQuestionTitle').waitFor();
-      assert.equal(await page.locator('input[name="testAnswer"]:checked').count(),0);
-      assert.equal(await page.locator('main > p.notice[role="status"]').count(),0,'An empty v2 restart must not remigrate v1');
-      assert.ok(JSON.parse(await page.evaluate(key=>localStorage.getItem(key),newKey)).answers.every(x=>x===null));
-    }
-    assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),raw);
-    await shot(page,`legacy-${completed?'completed':'partial'}-${width}`);
-    report.migrations.push({mode,width,completed,pass:true,oldMeaning,expected,newAppSHA256:hash(current.get('assets/js/training-app.js')),legacyBytesPreserved:true,other29Preserved:true,offline:true,wrongFeedbackAndRestart:wrongFeedback});
-    await offline(ctx,false);await closeContext(ctx);
   }
   for(const state of ['denied','quota','corrupt','future']) {
     activeMode='bogatynia';const {ctx,page}=await context(320,state==='denied'?'denied':'');
