@@ -238,6 +238,9 @@ try {
       const reg=await navigator.serviceWorker.ready;await reg.update();await changed;
     });
     await exactCachedApp(page);
+    // Cache installation and activation finish asynchronously after controllerchange.
+    try { await page.waitForFunction(async name=>!(await caches.keys()).includes(name),oldCacheName); }
+    catch(error){report.upgradeFailure=await page.evaluate(async()=>{const r=await navigator.serviceWorker.ready;return {keys:await caches.keys(),active:r.active?.state,waiting:r.waiting?.state,installing:r.installing?.state,controller:navigator.serviceWorker.controller?.state};});throw error;}
     assert.equal(await page.evaluate(name=>caches.has(name),oldCacheName),false);
     assert.equal(await page.evaluate(()=>localStorage.getItem('unrelated')),'keep');
     assert.equal(await page.evaluate(()=>caches.has('unrelated-cache')),true);
