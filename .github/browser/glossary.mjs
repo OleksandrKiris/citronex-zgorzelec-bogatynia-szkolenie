@@ -174,7 +174,7 @@ try {
       await page.locator('#testPrev').click();assert.equal(await page.locator('input[name="testAnswer"][value="1"]').isChecked(),true);
       if(lang==='ru')await shot(page,`Q1-${width}`);
       report.policyRows.push({mode,width,lang,pass:true,genericQuery:'ładowarka',sourceMode:true,quizReload:true});
-      await page.goto(`${base}slownik.html?mode=${mode}&lang=${lang}&q=reader`);await retained(page);
+      await page.goto(`${base}slownik.html?mode=${mode}&lang=${lang}&q=reader&from=fixture#terms`);await retained(page);
       await shot(page, `language-${lang}-${width}`);
     }
     await keyboardFocus(page, '.top-nav-link[href*="kontakty.html"]'); await page.keyboard.press('Enter');
