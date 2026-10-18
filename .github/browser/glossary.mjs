@@ -162,6 +162,7 @@ try {
       await page.locator(input).fill('ładowarka');
       assert.equal(await page.locator('[data-glossary-card]:not(.is-hidden)').count(),1);
       await page.locator('[data-glossary-card]:not(.is-hidden)').scrollIntoViewIfNeeded();
+      await page.waitForFunction(()=>document.querySelector('[data-glossary-card]:not(.is-hidden)')?.innerText.includes('ładowarka'));
       assert.match(await page.locator('[data-glossary-card]:not(.is-hidden)').innerText(),/ładowarka/);
       assert.equal(await page.locator('.glossary-site-policy p').innerText(),expected,'Generic examples retain the selected site policy');
       const sourceLink=new URL(await page.locator('.glossary-site-policy a').getAttribute('href'),base);
