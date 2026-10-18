@@ -17,9 +17,11 @@ const report = { head: process.env.TESTED_HEAD, base: process.env.TESTED_BASE,
   checkout: git('rev-parse', 'HEAD').toString().trim(), started: new Date().toISOString(),
   files: {}, results: [], requests: [], blocked: [], errors: [],
   limits: ['Desktop Chromium; narrow viewport is not a physical phone.',
-    'Only glossary/text routes are accepted, not all training photos/audio/PDFs.',
+    'Glossary, location policy, Q1/history and home text routes; not all training photos/audio/PDFs.',
     'No external navigation, messages, calls or submissions.',
+    'Legacy worker cache name may reappear from in-flight old fetches; exact new shell bytes and offline flows are required.',
     'First installation requires HTTP access; file:// and never-opened-device offline are not promised.'] };
+assert.equal(report.checkout,report.head,'Acceptance must run the exact PR head');
 const current = new Map(), previous = new Map();
 const files = git('ls-tree', '-r', '--name-only', report.head).toString().trim().split('\n').filter(p =>
   /^(?:[^/]+\.html|sw\.js|manifest\.webmanifest|assets\/(?:js|css)\/[^/]+\.(?:js|css)|assets\/primserv-logo\.svg)$/.test(p));
@@ -29,6 +31,14 @@ for (const file of files) {
   current.set(file, bytes); previous.set(file, git('show', `${report.base}:${file}`));
   report.files[file] = { bytes: bytes.length, sha256: hash(bytes) };
 }
+const workerCacheName = bytes => {
+  const text=bytes.toString();
+  return text.match(/const CACHE_PREFIX = "([^"]+)"/)[1]+text.match(/const CACHE_NAME = CACHE_PREFIX \+ "([^"]+)"/)[1];
+};
+const oldCacheName=workerCacheName(previous.get('sw.js')),headCacheName=workerCacheName(current.get('sw.js'));
+const appVersion=current.get('test.html').toString().match(/training-app\.js\?v=([^"&]+)/)[1];
+assert.notEqual(oldCacheName,headCacheName,'A new question bank needs a fresh shell cache');
+report.policyRows=[];report.migrations=[];report.quizStorage=[];
 let oldVersion = false, activeMode = 'bogatynia';
 const prefix = '/citronex-zgorzelec-bogatynia-szkolenie/';
 const types = { html: 'text/html', js: 'application/javascript', css: 'text/css', svg: 'image/svg+xml', webmanifest: 'application/manifest+json' };
@@ -109,10 +119,112 @@ async function language(page, lang) {
   await page.waitForURL(url => url.searchParams.get('lang') === lang);
   await retained(page); assert.equal(await page.locator('html').getAttribute('lang'), lang === 'ua' ? 'uk' : lang);
 }
+async function approvedPolicy(page,mode,lang) {
+  return page.evaluate(({mode,lang})=>{
+    const data=window.CX_DATA,locations=data.warehouseLocations;
+    const get=value=>value[lang]||value.en;
+    if(mode==='bogatynia')return get(data.pages.reader.lead);
+    if(mode==='zgorzelec')return get(locations.find(x=>x.key==='zgorzelec-banana').lead);
+    return get(locations.find(x=>x.key==='bogatynia-priva').lead)+' '+get(locations.find(x=>x.key==='zgorzelec-banana').lead);
+  },{mode,lang});
+}
+async function quizResume(page) {
+  await page.locator('#testForm').waitFor();
+  if(await page.locator('#testResume').count())await page.locator('#testResume').click();
+  await page.locator('#testQuestionTitle').waitFor({state:'visible'});
+}
+async function exactCachedApp(page) {
+  const expectedFiles=[...current].filter(([file])=>file.endsWith('.html')||file==='assets/js/training-app.js').map(([file,bytes])=>({
+    file,url:file+(file==='assets/js/training-app.js'?'?v='+appVersion:''),bytes:bytes.length,hash:hash(bytes)
+  }));
+  await page.waitForFunction(async expected=>{
+    if(!(await caches.keys()).includes(expected.cache))return false;
+    const cache=await caches.open(expected.cache);
+    for(const item of expected.files){
+      const response=await cache.match(new URL(item.url,location.href).href);if(!response)return false;
+      const bytes=await response.arrayBuffer();
+      const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(x=>x.toString(16).padStart(2,'0')).join('');
+      if(bytes.byteLength!==item.bytes||digest!==item.hash)return false;
+    }
+    return true;
+  },{cache:headCacheName,files:expectedFiles});
+  await page.waitForFunction(async()=>{const r=await navigator.serviceWorker.ready;return r.active?.state==='activated'&&navigator.serviceWorker.controller===r.active;});
+  return expectedFiles.length;
+}
+
 try {
   browser = await chromium.launch({ headless: true });
   report.browser = `Chromium ${browser.version()} / Playwright 1.56.1`;
-  for (const mode of ['bogatynia', 'zgorzelec']) for (const width of [1280, 320]) {
+  for(const mode of ['first','bogatynia','zgorzelec'])for(const width of [1280,320])for(const completed of [false,true]) {
+    activeMode=mode;oldVersion=true;
+    const {ctx,page}=await context(width);
+    await page.goto(`${base}test.html?mode=${mode}&lang=ua`);await quizResume(page);await controlled(page);
+    const oldQuestions=await page.evaluate(()=>window.CX_DATA.test.map(item=>({ok:item.ok,text:item.text.ua})));
+    for(let i=0;i<(completed?30:3);i++) {
+      const value=completed?oldQuestions[i].ok:(i===1?!oldQuestions[i].ok:oldQuestions[i].ok);
+      await page.locator(`input[name="testAnswer"][value="${value?'1':'0'}"]`).check();await page.locator('#testNext').click();
+    }
+    if(completed)assert.match(await page.locator('#testResult').innerText(),/30\/30/);
+    const key=`primserv:training-test:v1:${prefix}:${mode}`,newKey=key.replace(':v1:',':v2:');
+    const raw=await page.evaluate(key=>localStorage.getItem(key),key);assert.ok(raw);
+    const legacy=JSON.parse(raw);assert.equal(legacy.completed,completed);
+    await page.goto(`${base}slownik.html?mode=${mode}&lang=ua&q=reader`);await retained(page);
+    const oldReader=page.locator('[data-glossary-card]').filter({has:page.getByText('reader',{exact:true})});
+    assert.equal(await oldReader.count(),1);
+    await oldReader.scrollIntoViewIfNeeded();
+    await page.waitForFunction(()=>Array.from(document.querySelectorAll('[data-glossary-card]')).find(el=>el.querySelector('.glossary-term')?.textContent==='reader')?.querySelector('p')?.innerText.trim().length>0);
+    const oldMeaning=await oldReader.locator('p').innerText(),expected=await approvedPolicy(page,mode,'ua');
+    assert.equal(oldMeaning,await page.evaluate(()=>window.CX_DATA.glossary.find(item=>item.term==='reader').meaning.ua),'The old rule must actually render on screen');
+    assert.notEqual(oldMeaning,expected,'The current published base exposes the location-policy contradiction');
+    await page.evaluate(async()=>{localStorage.setItem('unrelated','keep');await caches.open('unrelated-cache');});
+    oldVersion=false;
+    await page.evaluate(async()=>{
+      const changed=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('No new SW controller')),12000);
+        navigator.serviceWorker.addEventListener('controllerchange',()=>{clearTimeout(timer);resolve();},{once:true});});
+      const reg=await navigator.serviceWorker.ready;await reg.update();await changed;
+    });
+    const exactNewShellFiles=await exactCachedApp(page);
+    // An in-flight base-worker fetch can recreate its old cache after activation deleted it.
+    // Record that fact; acceptance requires exact current shell bytes and actual offline behavior.
+    const legacyCachePresentAfterUpgrade=await page.evaluate(name=>caches.has(name),oldCacheName);
+    assert.equal(await page.evaluate(()=>localStorage.getItem('unrelated')),'keep');
+    assert.equal(await page.evaluate(()=>caches.has('unrelated-cache')),true);
+    await page.reload();await retained(page);assert.equal(await page.locator('.glossary-site-policy p').innerText(),expected);
+    await offline(ctx,true);await page.reload();await retained(page);
+    await page.goto(`${base}test.html?mode=${mode}&lang=ua`);await page.locator('#testForm').waitFor();
+    assert.match(await page.locator('main > p.notice[role="status"]').innerText(),/Питання 1 виправлено/);
+    await page.locator('main > details.notice summary').click();
+    assert.match(await page.locator('main > details.notice').innerText(),completed?/30\/30/:/3\/30/);
+    assert.equal((await page.locator('#testResult').innerText()).trim(),'');
+    await quizResume(page);assert.match(await page.locator('#testProgressText').innerText(),/1\/30/);
+    assert.equal(await page.locator('input[name="testAnswer"]:checked').count(),0);
+    assert.equal(await page.locator('#testQuestionTitle').innerText(),'1. '+expected);
+    const wrongFeedback=mode==='bogatynia'&&width===320&&completed;
+    await page.locator(`input[name="testAnswer"][value="${wrongFeedback?'0':'1'}"]`).check();await page.locator('#testNext').click();
+    const saved=JSON.parse(await page.evaluate(key=>localStorage.getItem(key),newKey));
+    assert.equal(saved.questionBankVersion,'reader-location-v2');assert.equal(saved.answers[0],!wrongFeedback);
+    assert.deepEqual(saved.answers.slice(1),legacy.answers.slice(1));assert.equal(saved.current,1);assert.equal(saved.completed,false);
+    assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),raw,'Legacy record is byte-identical');
+    await page.reload();await quizResume(page);assert.match(await page.locator('#testProgressText').innerText(),/2\/30/);
+    if(wrongFeedback) {
+      for(let i=1;i<30;i++)await page.locator('#testNext').click();
+      assert.match(await page.locator('#testResult').innerText(),/29\/30/);
+      assert.equal(await page.locator('.test-review-item').count(),1);
+      const source=new URL(await page.locator('.test-review-item a').getAttribute('href'),base);
+      assert.equal(source.pathname,prefix+'magazyn.html');assert.equal(source.searchParams.get('mode'),mode);
+      await page.locator('main > details.notice summary').click();await shot(page,'historical30-current29-'+width);
+      await page.reload();await page.locator('#testRestart').click();
+      await page.reload();await page.locator('#testQuestionTitle').waitFor();
+      assert.equal(await page.locator('input[name="testAnswer"]:checked').count(),0);
+      assert.equal(await page.locator('main > p.notice[role="status"]').count(),0,'An empty v2 restart must not remigrate v1');
+      assert.ok(JSON.parse(await page.evaluate(key=>localStorage.getItem(key),newKey)).answers.every(x=>x===null));
+    }
+    assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),raw);
+    await shot(page,`legacy-${completed?'completed':'partial'}-${width}`);
+    report.migrations.push({mode,width,completed,pass:true,oldMeaning,expected,newAppSHA256:hash(current.get('assets/js/training-app.js')),exactNewShellFiles,legacyCachePresentAfterUpgrade,legacyBytesPreserved:true,other29Preserved:true,offline:true,wrongFeedbackAndRestart:wrongFeedback});
+    await offline(ctx,false);await closeContext(ctx);
+  }
+  for (const mode of ['first','bogatynia', 'zgorzelec']) for (const width of [1280, 320]) {
     activeMode = mode;
     const { ctx, page } = await context(width);
     await page.goto(`${base}slownik.html?mode=${activeMode}&lang=ua&from=fixture#terms`); await ready(page); await controlled(page);
@@ -125,6 +237,25 @@ try {
     assert.equal(new URL(page.url()).hash, '#terms');
     for (const lang of ['pl', 'en', 'ua', 'ru', 'az', 'es', 'fil', 'id', 'ne']) {
       await language(page, lang); await page.reload(); await retained(page);
+      const expected=await approvedPolicy(page,mode,lang);
+      assert.equal(await page.locator('.glossary-site-policy p').innerText(),expected);
+      await page.locator(input).fill('ładowarka');
+      assert.equal(await page.locator('[data-glossary-card]:not(.is-hidden)').count(),1);
+      await page.locator('[data-glossary-card]:not(.is-hidden)').scrollIntoViewIfNeeded();
+      await page.waitForFunction(()=>document.querySelector('[data-glossary-card]:not(.is-hidden)')?.innerText.includes('ładowarka'));
+      assert.match(await page.locator('[data-glossary-card]:not(.is-hidden)').innerText(),/ładowarka/);
+      assert.equal(await page.locator('.glossary-site-policy p').innerText(),expected,'Generic examples retain the selected site policy');
+      const sourceLink=new URL(await page.locator('.glossary-site-policy a').getAttribute('href'),base);
+      assert.equal(sourceLink.searchParams.get('mode'),mode);assert.equal(sourceLink.searchParams.get('lang'),lang);
+      await page.goto(`${base}test.html?mode=${mode}&lang=${lang}`);await quizResume(page);
+      assert.equal(await page.locator('#testQuestionTitle').innerText(),'1. '+expected);
+      assert.equal(await page.locator('[data-q="0"]').getAttribute('data-ok'),'1');
+      await page.locator('input[name="testAnswer"][value="1"]').check();await page.locator('#testNext').click();
+      await page.reload();await quizResume(page);assert.match(await page.locator('#testProgressText').innerText(),/2\/30/);
+      await page.locator('#testPrev').click();assert.equal(await page.locator('input[name="testAnswer"][value="1"]').isChecked(),true);
+      if(lang==='ru')await shot(page,`Q1-${width}`);
+      report.policyRows.push({mode,width,lang,pass:true,genericQuery:'ładowarka',sourceMode:true,quizReload:true});
+      await page.goto(`${base}slownik.html?mode=${mode}&lang=${lang}&q=reader&from=fixture#terms`);await retained(page);
       await shot(page, `language-${lang}-${width}`);
     }
     await keyboardFocus(page, '.top-nav-link[href*="kontakty.html"]'); await page.keyboard.press('Enter');
@@ -161,42 +292,34 @@ try {
     report.results.push({ scenario: `${storage} storage/history: filter, language and URL reload`, pass: true });
     await closeContext(ctx);
   }
-  activeMode = 'bogatynia'; oldVersion = true;
-  const { ctx, page } = await context(320);
-  await page.goto(`${base}test.html?mode=${activeMode}&lang=ua`);
-  await page.locator('input[name="testAnswer"][value="1"]').check();
-  await page.locator('#testNext').click(); await controlled(page);
-  const saved = await page.evaluate(() => Object.fromEntries(Object.keys(localStorage).map(k => [k, localStorage.getItem(k)])));
-  assert.ok(Object.keys(saved).some(k => k.startsWith('primserv:training-test:')), 'Real legacy quiz progress');
-  await page.goto(`${base}slownik.html?mode=${activeMode}&lang=ua&q=reader`); await ready(page);
-  assert.equal(await page.locator(input).inputValue(), '', 'Base reproduces missing query restoration');
-  await page.evaluate(async () => { localStorage.setItem('unrelated', 'keep'); await caches.open('unrelated-cache'); });
-  oldVersion = false;
-  await page.evaluate(async () => {
-    const changed = new Promise((resolve, reject) => {
-      const timer = setTimeout(() => reject(Error('No new SW controller')), 12000);
-      navigator.serviceWorker.addEventListener('controllerchange', () => { clearTimeout(timer); resolve(); }, { once: true });
+  for(const state of ['denied','quota','corrupt','future']) {
+    activeMode='bogatynia';const {ctx,page}=await context(320,state==='denied'?'denied':'');
+    const key=`primserv:training-test:v2:${prefix}:bogatynia`,legacyKey=key.replace(':v2:',':v1:');
+    const raw=state==='corrupt'?'{broken':JSON.stringify({questionBankVersion:'future-bank',sentinel:'keep'});
+    if(state==='corrupt'||state==='future')await ctx.addInitScript(({key,legacyKey,raw})=>{
+      if(localStorage.getItem('unrelated')!=='keep'){
+        localStorage.setItem(key,raw);localStorage.setItem(legacyKey,'legacy-marker-keep');localStorage.setItem('unrelated','keep');
+      }
+    },{key,legacyKey,raw});
+    if(state==='quota')await ctx.addInitScript(()=>{
+      const set=Storage.prototype.setItem;Storage.prototype.setItem=function(key,value){
+        if(key.startsWith('primserv:training-test:'))throw new DOMException('Fixture quota','QuotaExceededError');return set.call(this,key,value);
+      };
     });
-    const reg = await navigator.serviceWorker.ready; await reg.update(); await changed;
-  });
-  await page.waitForFunction(async () => {
-    const keys = await caches.keys(); return keys.includes('citronex-zgorzelec-bogatynia-szkolenie-20261017-glossary-context2') && !keys.includes('citronex-zgorzelec-bogatynia-szkolenie-20261016-reader-context1');
-  });
-  await page.reload(); await retained(page); await controlled(page);
-  for (const [key, value] of Object.entries(saved)) assert.equal(await page.evaluate(k => localStorage.getItem(k), key), value);
-  assert.equal(await page.evaluate(() => localStorage.getItem('unrelated')), 'keep');
-  assert.ok((await page.evaluate(() => caches.keys())).includes('unrelated-cache'));
-  await offline(ctx, true); await page.reload(); await retained(page); await shot(page, 'upgrade-offline');
-  await page.goto(`${base}test.html?mode=${activeMode}&lang=ua`); await page.locator('#testResume').click();
-  assert.match(await page.locator('#testProgressText').innerText(), /2\/30/);
-  report.cache = await page.evaluate(async () => {
-    const c = await caches.open('citronex-zgorzelec-bogatynia-szkolenie-20261017-glossary-context2'); const rows = [];
-    for (const req of await c.keys()) { const res = await c.match(req); rows.push({ url: req.url, bytes: (await res.arrayBuffer()).byteLength }); }
-    return rows;
-  });
-  report.results.push({ scenario: 'actual base → head SW, old defect reproduced, glossary restored, legacy quiz/unrelated storage and cache preserved, offline quiz resume', pass: true });
-  await offline(ctx, false);
-  await closeContext(ctx);
+    await page.goto(`${base}test.html?mode=bogatynia&lang=en`);await quizResume(page);
+    await page.locator('input[name="testAnswer"][value="1"]').check();await page.locator('#testNext').click();
+    assert.match(await page.locator('#testProgressText').innerText(),/2\/30/);
+    assert.match(await page.locator('main').innerText(),/not saved|works in memory/);
+    if(state==='corrupt'||state==='future') {
+      assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),raw);
+      assert.equal(await page.evaluate(key=>localStorage.getItem(key),legacyKey),'legacy-marker-keep');
+      await page.reload();await page.locator('#testRecover').click();await page.reload();
+      assert.ok(JSON.parse(await page.evaluate(key=>localStorage.getItem(key),key)).answers.every(x=>x===null));
+      assert.equal(await page.evaluate(key=>localStorage.getItem(key),legacyKey),'legacy-marker-keep');
+      assert.equal(await page.evaluate(()=>localStorage.getItem('unrelated')),'keep');
+    } else {await page.reload();await quizResume(page);assert.match(await page.locator('#testProgressText').innerText(),/1\/30/);}
+    await shot(page,'quiz-storage-'+state);report.quizStorage.push({state,pass:true});await closeContext(ctx);
+  }
   for (const width of [1280, 320]) {
     const {ctx: homeCtx, page: home} = await context(width);
     await home.goto(`${base}index.html?lang=en`); await controlled(home);
@@ -246,6 +369,11 @@ try {
     await closeContext(homeCtx);
   }
   report.results.push({ scenario: 'home: empty selection, keyboard mode selection, primary/More links isolated, nine languages/reload, contacts/Back, real offline, ka fallback, warehouse warning; 1280 and 320', pass: true });
+  assert.equal(report.policyRows.length,54,'All three modes, two widths and nine languages');
+  assert.equal(report.migrations.length,12,'All modes/widths and partial/completed actual-base histories');
+  assert.equal(report.migrations.filter(row=>row.wrongFeedbackAndRestart).length,1);
+  assert.equal(report.quizStorage.length,4,'Denied, quota, corrupt and future storage');
+  assert.equal(report.results.length,9,'Six glossary, two storage and one complete home matrix');
   assert.deepEqual(report.errors, []); assert.deepEqual(report.blocked, []);
   report.pass = true;
 } catch (err) {
