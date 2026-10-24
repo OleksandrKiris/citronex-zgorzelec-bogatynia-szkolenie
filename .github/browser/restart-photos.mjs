@@ -32,7 +32,7 @@ try{
   const initial=lang==='pl'?'en':'pl';ctx=await browser.newContext({viewport:{width,height:900}});ctx.setDefaultTimeout(12000);await ctx.tracing.start({screenshots:true,snapshots:true});
   await ctx.route('**/*',route=>{const r=route.request();if(new URL(r.url()).origin!==origin||!['GET','HEAD'].includes(r.method())){report.blocked.push({url:r.url(),method:r.method()});return route.abort();}return route.continue();});
   page=await ctx.newPage();page.on('pageerror',e=>report.errors.push(e.message));
-  await page.goto(url+`test.html?lang=${initial}&mode=${mode}`);await page.locator('input[name="testAnswer"][value="1"]').check();await page.locator('#testNext').click();const saved=await answers(page);assert(Object.values(saved).some(s=>JSON.parse(s).answers?.some(a=>typeof a==='boolean')));
+  await page.goto(url+`test.html?lang=${lang}&mode=${mode}`);await page.locator('input[name="testAnswer"][value="1"]').check();await page.locator('#testNext').click();const saved=await answers(page);assert(Object.values(saved).some(s=>JSON.parse(s).answers?.some(a=>typeof a==='boolean')));
   await page.goto(url+`reader.html?lang=${initial}&mode=${mode}`);await page.locator('[data-reader-tab="restart"]').click();
   await Promise.all([page.waitForURL(u=>u.searchParams.get('lang')===lang&&u.searchParams.get('mode')===mode&&u.searchParams.get('topic')==='restart'),page.locator('#langSelect').selectOption(lang)]);
   await page.locator('[data-reader-tab="restart"][aria-pressed="true"]').waitFor();assert.equal(await page.locator('#langSelect').inputValue(),lang);assert.equal(await page.locator('html').getAttribute('lang'),lang==='ua'?'uk':lang);assert.deepEqual(await answers(page),saved);
@@ -49,8 +49,16 @@ try{
    photos.push({index,dimensions,heading,translation:text,caption:captionGeometry,sourceFile:report.files[imagePath],screens:{photo:`${stem}-photo-${index}.png`,translation:`${stem}-translation-${index}.png`,caption:`${stem}-caption-${index}.png`}});
   }
   assert.equal(new URL(page.url()).searchParams.get('topic'),'restart');await summary.click();assert.equal(await panel.getAttribute('open'),null);assert.deepEqual(await answers(page),saved);
-  await page.locator('.top-nav-link[href*="test.html"]').click();await page.waitForURL(u=>u.pathname.endsWith('/test.html')&&u.searchParams.get('lang')===lang&&u.searchParams.get('mode')===mode);assert.deepEqual(await answers(page),saved);if(await page.locator('#testResume').count())await page.locator('#testResume').click();assert.match(await page.locator('#testProgressText').innerText(),/2\/30/);assert.deepEqual(await answers(page),saved);
-  report.cases.push({mode,width,lang,actualLanguageNavigation:true,topicPreserved:true,openClose:true,realQuizLinkReturn:true,answersPreserved:true,summary:summaryGeometry,photos,sourceComparison:{photoLastStep:R.imageSteps[6][lang],procedureLastStep:R.steps[6][lang]},controlScreen:`${stem}-control.png`});await writeFile(join(output,'restart-photo-report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({mode,width,lang,photos:2,pass:true}));
+  const hasQuizTile=D.homeModes.find(m=>m.id===mode).pages.includes('test');let returnRoute;
+  if(hasQuizTile){
+   await page.locator('.home-return-cta').click();await page.waitForURL(u=>u.pathname.endsWith('/index.html')&&u.searchParams.get('lang')===lang&&u.searchParams.get('mode')===mode);await page.locator('a.tile[href*="test.html"]').click();returnRoute='actual-home-and-quiz-tile';
+  }else{
+   // First-arrival/Zgorzelec menus intentionally omit the Bogatynia quiz and reader modules.
+   // Exercise real browser history for their standalone URLs, without inventing a menu entry.
+   await page.goBack({waitUntil:'load'});assert.equal(new URL(page.url()).searchParams.get('lang'),initial);assert.equal(new URL(page.url()).searchParams.get('topic'),'restart');await page.goBack({waitUntil:'load'});returnRoute='actual-browser-history';
+  }
+  await page.waitForURL(u=>u.pathname.endsWith('/test.html')&&u.searchParams.get('lang')===lang&&u.searchParams.get('mode')===mode);assert.equal(await page.locator('#langSelect').inputValue(),lang);assert.deepEqual(await answers(page),saved);if(await page.locator('#testResume').count())await page.locator('#testResume').click();assert.match(await page.locator('#testProgressText').innerText(),/2\/30/);assert.deepEqual(await answers(page),saved);
+  report.cases.push({mode,width,lang,actualLanguageNavigation:true,topicPreserved:true,openClose:true,realQuizLinkReturn:true,returnRoute,answersPreserved:true,summary:summaryGeometry,photos,sourceComparison:{photoLastStep:R.imageSteps[6][lang],procedureLastStep:R.steps[6][lang]},controlScreen:`${stem}-control.png`});await writeFile(join(output,'restart-photo-report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({mode,width,lang,photos:2,pass:true}));
   await ctx.tracing.stop({path:join(output,`${stem}-trace.zip`)});await ctx.close();ctx=null;
  }
  assert.equal(report.cases.length,18);assert.deepEqual(report.errors,[]);assert.deepEqual(report.blocked,[]);report.acceptance=true;
