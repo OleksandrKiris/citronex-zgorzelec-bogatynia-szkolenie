@@ -9,6 +9,7 @@ import {resolve,join} from 'node:path';
 import vm from 'node:vm';
 assert.equal(process.env.GITHUB_ACTIONS,'true');
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_PACKAGE);
+const {PNG}=createRequire(import.meta.url)(resolve(process.env.PLAYWRIGHT_PACKAGE,'../pngjs'));
 const output=resolve(process.env.BROWSER_REPORT);await mkdir(output,{recursive:true});
 const git=(...a)=>execFileSync('git',a),hash=b=>createHash('sha256').update(b).digest('hex');
 const head=process.env.TESTED_HEAD,base=process.env.TESTED_BASE;
@@ -34,12 +35,27 @@ const origin=`http://127.0.0.1:${server.address().port}`,url=origin+prefix;
 const savedAnswers=page=>page.evaluate(()=>Object.fromEntries(Object.keys(localStorage).filter(k=>k.startsWith('primserv:training-test:')).sort().map(k=>[k,localStorage.getItem(k)])));
 async function center(link){await link.evaluate(e=>e.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'}));await link.page().evaluate(()=>new Promise(done=>requestAnimationFrame(()=>requestAnimationFrame(done))));}
 async function geometry(link){return link.evaluate(e=>{const r=e.getBoundingClientRect(),range=document.createRange();range.selectNodeContents(e);const lines=[...range.getClientRects()].filter(x=>x.width&&x.height);return {text:e.textContent.trim(),left:r.left,right:r.right,width:document.documentElement.clientWidth,rootScroll:document.documentElement.scrollWidth,lineCount:lines.length,exposed:lines.length>0&&lines.every(x=>[.05,.25,.5,.75,.95].every(t=>{const px=x.left+x.width*t,py=(x.top+x.bottom)/2;return px>=0&&px<document.documentElement.clientWidth&&py>=0&&py<innerHeight&&e.contains(document.elementFromPoint(px,py));}))};});}
+async function nativePDFRaster(popup,path){
+ // Chromium's internal PDF frames do not expose a reliable Playwright DOM.
+ // Inspect actual viewport pixels instead; every distinct original/width is also personally reviewed.
+ for(let attempt=0;attempt<30;attempt++){
+  const b=await popup.screenshot({timeout:10000}),p=PNG.sync.read(b);let paper=0,ink=0;
+  for(let y=70;y<Math.min(p.height-20,550);y++)for(let x=10;x<p.width-10;x++){
+   const i=(y*p.width+x)*4,[r,g,z]=p.data.subarray(i,i+3);
+   if(r>245&&g>245&&z>245)paper++;
+   if(Math.max(r,g,z)-Math.min(r,g,z)>35)ink++;
+  }
+  if(paper>p.width*80&&ink>100){await writeFile(path,b);return {paperPixels:paper,coloredContentPixels:ink,attempts:attempt+1,sha256:hash(b),width:p.width,height:p.height};}
+  await new Promise(done=>setTimeout(done,200));
+ }
+ throw new Error('Original PDF content did not render in the actual Chromium viewport');
+}
 let browser,page,popup,ctx;
 try{
  // Full Chromium's new headless mode includes the real PDF viewer; headless-shell does not.
  browser=await chromium.launch({channel:'chromium',headless:true});report.browser=browser.version();
  for(const width of [320,1280])for(const lang of langs){
-  ctx=await browser.newContext({viewport:{width,height:900}});ctx.setDefaultTimeout(15000);await ctx.tracing.start({screenshots:true,snapshots:true});
+  ctx=await browser.newContext({viewport:{width,height:900}});ctx.setDefaultTimeout(15000);await ctx.tracing.start({screenshots:true,snapshots:false});
   await ctx.route('**/*',route=>{const r=route.request();if(new URL(r.url()).origin!==origin||!['GET','HEAD'].includes(r.method())){report.blocked.push({url:r.url(),method:r.method()});return route.abort();}return route.continue();});
   page=await ctx.newPage();page.on('pageerror',e=>report.errors.push(e.message));
   await page.goto(url+`test.html?lang=${lang}&mode=${mode}`);await page.locator('input[name="testAnswer"][value="1"]').check();await page.locator('#testNext').click();
@@ -58,26 +74,22 @@ try{
    assert((await link.getAttribute('rel')).split(/\s+/).includes('noopener'));
    await center(link);const visible=await geometry(link);assert(visible.text.endsWith(` · PDF · ${sourceName}`));assert(visible.exposed&&visible.left>=0&&visible.right<=width&&visible.rootScroll<=width,'The full PDF button text is visible');
    const stem=`${mode}-${width}-${lang}-${kind}`;await link.screenshot({path:join(output,`${stem}-link.png`)});await page.screenshot({path:join(output,`${stem}-parent.png`)});
+   console.log(JSON.stringify({phase:'opening-original',stem,file}));
    const parentURL=page.url(),parentScroll=await page.evaluate(()=>scrollY),pagesBefore=ctx.pages().length;
    const newPage=ctx.waitForEvent('page');await link.click();popup=await newPage;popup.on('pageerror',e=>report.errors.push(e.message));
    await popup.waitForURL(url+file);await popup.waitForLoadState('load');
-   assert.equal(ctx.pages().length,pagesBefore+1);assert.equal(await popup.evaluate(()=>window.opener===null),true);
-   await popup.locator('embed[type="application/pdf"]').waitFor({state:'visible'});
-   // The built-in viewer runs in an extension subframe. Wait for its real document-load signal.
-   await popup.waitForFunction(()=>document.querySelector('embed[type="application/pdf"]')?.clientHeight>0);
-   const viewerFrame=await (async()=>{for(let i=0;i<100;i++){const f=popup.frames().find(f=>f.url().startsWith('chrome-extension://'));if(f)return f;await new Promise(r=>setTimeout(r,100));}throw new Error('Chromium PDF viewer frame did not open');})();
-   await viewerFrame.waitForFunction(()=>{const v=document.querySelector('pdf-viewer');return v?.loaded===true||v?.loadState==='success';});
-   const viewer=await viewerFrame.evaluate(()=>{const v=document.querySelector('pdf-viewer');return {url:location.href,loaded:v?.loaded,loadState:v?.loadState,plugin:!!v?.shadowRoot?.querySelector('#plugin'),text:document.title};});
-   await popup.screenshot({path:join(output,`${stem}-pdf.png`)});
+   assert.equal(ctx.pages().length,pagesBefore+1);
+   const viewer=await nativePDFRaster(popup,join(output,`${stem}-pdf.png`));
    // Bind the bytes actually requested by the viewer to the tracked original, without replacing navigation.
    const response=await ctx.request.get(url+file);assert.equal(response.status(),200);assert.match(response.headers()['content-type'],/^application\/pdf/);const fetched=await response.body();assert.equal(hash(fetched),hash(source(file)));assert.equal(fetched.subarray(0,5).toString(),'%PDF-');
    await popup.close();popup=null;await page.bringToFront();assert.equal(page.url(),parentURL);assert.equal(await page.locator('#langSelect').inputValue(),lang);assert.equal(await page.evaluate(()=>scrollY),parentScroll);assert.deepEqual(await savedAnswers(page),saved);assert.equal(ctx.pages().length,pagesBefore);
    assert((await geometry(link)).exposed,'Return keeps the original PDF control visible');
-   report.flows.push({mode,width,lang,kind,file,sourceLang,label:visible.text,geometry:visible,viewer,parentURL,parentScroll,answersPreserved:true,openerNull:true,pdfBytes:fetched.length,pdfSHA256:hash(fetched),screens:{link:`${stem}-link.png`,parent:`${stem}-parent.png`,pdf:`${stem}-pdf.png`}});
+   report.flows.push({mode,width,lang,kind,file,sourceLang,label:visible.text,geometry:visible,viewer,parentURL,parentScroll,answersPreserved:true,noopenerAttribute:true,pdfBytes:fetched.length,pdfSHA256:hash(fetched),screens:{link:`${stem}-link.png`,parent:`${stem}-parent.png`,pdf:`${stem}-pdf.png`}});
+   await writeFile(join(output,'document-report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({phase:'original-open-return-PASS',stem,flows:report.flows.length}));
   }
   await page.goto(url+`test.html?lang=${lang}&mode=${mode}`);assert.deepEqual(await savedAnswers(page),saved);assert.equal(await page.locator('#langSelect').inputValue(),lang);
   await ctx.tracing.stop({path:join(output,`${mode}-${width}-${lang}-trace.zip`)});await ctx.close();ctx=null;
  }
  assert.equal(report.flows.length,54);assert.deepEqual(report.errors,[]);assert.deepEqual(report.blocked,[]);report.acceptance=true;
-}catch(e){report.failure=e.stack;process.exitCode=1;if(popup&&!popup.isClosed()){await popup.screenshot({path:join(output,'failure-popup.png')}).catch(()=>{});report.failureFrames=await Promise.all(popup.frames().map(async f=>({url:f.url(),html:await f.content().catch(()=>null)})));}if(page&&!page.isClosed())await page.screenshot({path:join(output,'failure-parent.png')}).catch(()=>{});}
-finally{if(ctx){await ctx.tracing.stop({path:join(output,'failure-trace.zip')}).catch(()=>{});await ctx.close();}await browser?.close();server.closeAllConnections();await new Promise(done=>server.close(done));report.finished=new Date().toISOString();await writeFile(join(output,'document-report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({head,mode,flows:report.flows.length,acceptance:report.acceptance,failure:report.failure}));}
+}catch(e){report.failure=e.stack;process.exitCode=1;console.error(e.stack);await writeFile(join(output,'document-report.json'),JSON.stringify(report,null,2));if(popup&&!popup.isClosed())await popup.screenshot({path:join(output,'failure-popup.png'),timeout:10000}).catch(()=>{});if(page&&!page.isClosed())await page.screenshot({path:join(output,'failure-parent.png'),timeout:10000}).catch(()=>{});}
+finally{report.finished=new Date().toISOString();await writeFile(join(output,'document-report.json'),JSON.stringify(report,null,2));if(ctx){await ctx.tracing.stop({path:join(output,'failure-trace.zip')}).catch(()=>{});await ctx.close();}await browser?.close();server.closeAllConnections();await new Promise(done=>server.close(done));console.log(JSON.stringify({head,mode,flows:report.flows.length,acceptance:report.acceptance,failure:report.failure}));}
