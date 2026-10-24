@@ -25,6 +25,14 @@ function fixture(lang = 'pl', page = 'reader') {
   return {context, before, D: context.window.CX_DATA, node};
 }
 for (const lang of ['pl','en','ua','ru','az','es','fil','id','ne']) {
+  test(`${lang}: both restart photo reminders retain the complete post-restart connection check`, () => {
+    const f = fixture(lang);
+    const restart = f.D.readerTabs.find(tab => tab.id === 'restart');
+    const required = restart.steps[6][lang];
+    assert.equal(restart.imageSteps[6][lang], required);
+    f.context.window.testInstructions.renderReader('restart');
+    assert.equal(f.node.innerHTML.split(required).length - 1, 3, 'Main procedure and both original photo reminders show the complete rule');
+  });
   test(`${lang}: every reader section and tablet procedure renders without network or operational actions`, () => {
     const f = fixture(lang);
     for (const tab of f.D.readerTabs) {
@@ -97,12 +105,12 @@ test('instruction update is loaded after local data and before renderer only on 
     assert.ok(html.indexOf('training-data.js') < html.indexOf('instruction-update.js'));
     if (custom) assert.ok(html.indexOf('location-custom.js') < html.indexOf('instruction-update.js'));
     assert.ok(html.indexOf('instruction-update.js') < html.indexOf('training-app.js'));
-    assert.match(html,/instruction-update.js\?v=20261016-language1/);
+    assert.match(html,/instruction-update.js\?v=20261024-photo-connection1/);
     assert.match(html,/training-app.js\?v=20261018-reader-policy1/);
   }
   assert.ok(!read('index.html').includes('instruction-update.js'));
-  assert.match(read('sw.js'),/instruction-update.js\?v=20261016-language1/);
-  assert.match(read('sw.js'),/CACHE_PREFIX \+ "20261024-tablet-titles1"/);
+  assert.match(read('sw.js'),/instruction-update.js\?v=20261024-photo-connection1/);
+  assert.match(read('sw.js'),/CACHE_PREFIX \+ "20261024-photo-connection1"/);
 });
 
 for (const lang of ['pl','en','ua','ru','az','es','fil','id','ne']) {

@@ -1,8 +1,8 @@
 const CACHE_PREFIX = "citronex-zgorzelec-bogatynia-szkolenie-";
-const CACHE_NAME = CACHE_PREFIX + "20261024-tablet-titles1";
+const CACHE_NAME = CACHE_PREFIX + "20261024-photo-connection1";
 
 const CORE_ASSETS = [
-  "./assets/js/instruction-update.js?v=20261016-language1",
+  "./assets/js/instruction-update.js?v=20261024-photo-connection1",
   "./",
   "./index.html",
   "./mapa.html",

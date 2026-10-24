@@ -58,7 +58,7 @@ jobs:
         run: |
           npm install --prefix "$RUNNER_TEMP/primserv-documents" --no-save --no-package-lock playwright@1.56.1 pngjs@7.0.0
           "$RUNNER_TEMP/primserv-documents/node_modules/.bin/playwright" install --with-deps chromium
-      - name: Original PDF opening and return
+      - name: Original PDF and restart photo acceptance
         env:
           PLAYWRIGHT_PACKAGE: ${{ runner.temp }}/primserv-documents/node_modules/playwright
           BROWSER_REPORT: ${{ runner.temp }}/primserv-documents-report
