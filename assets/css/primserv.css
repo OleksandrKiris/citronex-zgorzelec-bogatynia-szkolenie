@@ -42,3 +42,11 @@
 .test-review-item h4 { margin: 0 0 .5rem; font-size: 1rem; line-height: 1.5; }
 .test-review-item p { line-height: 1.6; }
 #testQuestionTitle:focus-visible, #testResult:focus-visible { outline: 3px solid #b51620; outline-offset: 4px; }
+
+/* Keep tablet titles clear of their disclosure control at narrow widths. */
+body[data-page="tablet"] .tablet-step > summary { padding-inline-end: 56px; }
+body[data-page="tablet"] .tablet-step > summary > span:last-child {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
