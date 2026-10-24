@@ -15,9 +15,12 @@ const head=process.env.TESTED_HEAD,base=process.env.TESTED_BASE;
 assert.equal(git('rev-parse','HEAD').toString().trim(),head);
 const report={head,base,diagnostic:false,acceptance:false,files:{},titles:[],notes:[],startup:[],errors:[],blocked:[],requests:[],limits:['Chromium screens; no physical iPhone or native-speaker approval.','Original operating text, maps, source photos/PDFs and stored answers must remain unchanged.']};
 const tracked=new Set(git('ls-tree','-r','--name-only',head).toString().trim().split('\n'));
-const cache=new Map();
+const cache=new Map();let sourceRef=head;
+const OLD_LAYOUT='5e1bb670da23947a7b9e901a81c9e211deb48729';const OLD_PINS={"tablet.html": "1ed66fe9e70a55e414ee4d81357b16ba870562c6b5a87e3853b1c65419221798", "assets/css/training.css": "262d5ce2b5f03d86239b22de1b6e27d88e2e62a6b836578cc60ec886c7dee0ea", "assets/css/primserv.css": "f9e2c5326bbf33c36e55ea9325bb5f21053234cfc2b6b14fdd1f8a1f2a2e4062", "assets/js/training-app.js": "66514f7d8da8bdb93a65c3a8a79f3bdf0431a383077964bb522b5138faebe40c", "assets/js/training-data.js": "9aca0086b79e9bcad299bfaaba37622ab4a46136283943a7297eebd73dbcea5f", "assets/js/location-custom.js": "ab8668b1e7ee9838c84eae712be07396da35f3d1542ee4ac03faa7cad4a9ef53", "assets/js/instruction-update.js": "2a84024f071f936363ab3dca0e93396711211869450e248fa44d6a2aee6ee36b", "sw.js": "1bb4f5470a9a1ecfa1519053c6874628e59b0e4fec3a6322c6854d5192ade538"};
+report.historicalLayout={ref:OLD_LAYOUT,eventBase:base,files:{},titles:[]};
+for(const [p,digest] of Object.entries(OLD_PINS))assert.equal(hash(git('show',`${OLD_LAYOUT}:${p}`)),digest,`Pinned original layout: ${p}`);
 function source(path){
- assert(tracked.has(path));if(!cache.has(path)){const b=git('show',`${head}:${path}`);cache.set(path,b);report.files[path]={bytes:b.length,sha256:hash(b)};}return cache.get(path);
+ assert(tracked.has(path));const key=`${sourceRef}:${path}`;if(!cache.has(key)){const b=git('show',key);cache.set(key,b);(sourceRef===head?report.files:report.historicalLayout.files)[path]={bytes:b.length,sha256:hash(b)};}return cache.get(key);
 }
 const window={};const dataContext=vm.createContext({window});
 for(const file of ['assets/js/training-data.js','assets/js/location-custom.js','assets/js/instruction-update.js'])vm.runInContext(source(file).toString(),dataContext,{timeout:3000});
@@ -26,7 +29,7 @@ const prefix='/citronex-zgorzelec-bogatynia-szkolenie/';
 const mime={html:'text/html',js:'application/javascript',css:'text/css',svg:'image/svg+xml',jpg:'image/jpeg',jpeg:'image/jpeg',png:'image/png',webmanifest:'application/manifest+json',pdf:'application/pdf'};
 const server=createServer((req,res)=>{
  const url=new URL(req.url,'http://localhost');const file=url.pathname.startsWith(prefix)?decodeURIComponent(url.pathname.slice(prefix.length))||'index.html':'';
- report.requests.push({file,method:req.method});
+ report.requests.push({file,method:req.method,sourceRef});
  if(!['GET','HEAD'].includes(req.method)||!tracked.has(file)||!/^([^/]+\.(html|js|webmanifest)|assets\/)/.test(file)){res.writeHead(404).end();return;}
  const b=source(file);res.writeHead(200,{'Content-Type':mime[file.split('.').pop()]||'application/octet-stream','Content-Length':b.length,'Cache-Control':'no-store'});res.end(req.method==='HEAD'?undefined:b);
 });
@@ -42,6 +45,15 @@ async function textGeometry(el){return el.evaluate(node=>{
 });}
 try{
  browser=await chromium.launch({headless:true});report.browser=browser.version();
+ sourceRef=OLD_LAYOUT;
+ for(const lang of ['en','ru']){
+  const ctx=await browser.newContext({viewport:{width:320,height:900}});contexts.push(ctx);ctx.setDefaultTimeout(12000);await ctx.tracing.start({screenshots:true,snapshots:true});
+  await ctx.route('**/*',route=>{const r=route.request();if(new URL(r.url()).origin!==origin||!['GET','HEAD'].includes(r.method())){report.blocked.push(r.url());return route.abort();}return route.continue();});
+  page=await ctx.newPage();page.on('pageerror',e=>report.errors.push(e.message));await page.goto(url+`tablet.html?lang=${lang}&mode=bogatynia`);await page.locator('#langSelect').waitFor();
+  for(let i=0;i<13;i++){const summary=page.locator('.tablet-step').nth(i).locator('summary'),title=summary.locator('span').nth(1);await center(title);const geometry=await textGeometry(title);const padding=await summary.evaluate(el=>parseFloat(getComputedStyle(el).paddingInlineEnd));report.historicalLayout.titles.push({lang,index:i,geometry,padding,exposed:geometry.lines.length>0&&geometry.lines.every(r=>r.exposed)});await summary.screenshot({path:join(output,`old-layout-320-${lang}-title-${i}.png`)});}
+  await ctx.tracing.stop({path:join(output,`old-layout-${lang}-trace.zip`)});await ctx.close();
+ }
+ assert.equal(report.historicalLayout.titles.length,26);assert(report.historicalLayout.titles.every(r=>r.padding<52),'Original phone styles remove the disclosure reserve');assert(report.historicalLayout.titles.some(r=>r.lang==='ru'&&!r.exposed),'Original Russian title is actually occluded');report.historicalLayout.reproduced=true;sourceRef=head;
  const langs=(process.env.TABLET_LANGS||'pl,en,ua,ru,az,es,fil,id,ne').split(',');report.languages=langs;report.modes=['first','bogatynia','zgorzelec'];
  for(const mode of report.modes)for(const width of [320,1280])for(const lang of langs){
   const ctx=await browser.newContext({viewport:{width,height:900}});contexts.push(ctx);ctx.setDefaultTimeout(12000);await ctx.tracing.start({screenshots:true,snapshots:true});

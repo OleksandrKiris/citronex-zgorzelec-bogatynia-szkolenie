@@ -60,7 +60,7 @@ jobs:
           BROWSER_REPORT: ${{ runner.temp }}/primserv-tablet-report
           TESTED_HEAD: ${{ github.event.pull_request.head.sha }}
           TESTED_BASE: ${{ github.event.pull_request.base.sha }}
-          TABLET_LANGS: en,ru
+          TABLET_LANGS: pl,en,ua,ru,az,es,fil,id,ne
         run: node .github/browser/tablet-layout.mjs
       - uses: actions/upload-artifact@v4
         if: always()
