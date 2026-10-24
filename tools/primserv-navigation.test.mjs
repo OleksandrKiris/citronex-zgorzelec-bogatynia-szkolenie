@@ -346,7 +346,7 @@ test("official logo and every production page use the new worker/UI entry", asyn
     if (html.includes('data-standalone-tool=')) continue;
     assert.ok(html.includes('property="og:site_name"'), file);
     assert.ok(html.includes("assets/js/training-app.js?v=20261018-reader-policy1"), file);
-    assert.ok(html.includes("assets/css/primserv.css?v=20261016-progress1"), file);
+    assert.ok(html.includes("assets/css/primserv.css?v=20261024-tablet-titles1"), file);
     assert.match(html, /assets\/js\/training-data\.js\?v=[^\"\s]+/, file);
   }
   const css = await fs.readFile(new URL("assets/css/primserv.css", root), "utf8");
