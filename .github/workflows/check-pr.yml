@@ -65,7 +65,9 @@ jobs:
           TESTED_HEAD: ${{ github.event.pull_request.head.sha }}
           TESTED_BASE: ${{ github.event.pull_request.base.sha }}
           DOCUMENT_MODE: ${{ matrix.mode }}
-        run: node .github/browser/document-flow.mjs
+        run: |
+          node .github/browser/document-flow.mjs
+          node .github/browser/restart-photos.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
