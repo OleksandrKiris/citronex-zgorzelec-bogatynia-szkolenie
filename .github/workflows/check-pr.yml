@@ -19,7 +19,7 @@ jobs:
       - run: node tools/audit-project.js
       - run: node tools/audit-buttons.js
       - run: node tools/audit-map-links.js
-      - run: node --test tools/primserv-navigation.test.mjs tools/instruction-update.test.mjs tools/quiz-progress.test.mjs
+      - run: node --test tools/primserv-navigation.test.mjs tools/instruction-update.test.mjs tools/quiz-progress.test.mjs tools/source-lineage.test.mjs
       - name: Install pinned acceptance browser (CI only)
         run: |
           npm install --prefix "$RUNNER_TEMP/primserv-browser" --no-save --no-package-lock playwright@1.56.1
@@ -36,4 +36,35 @@ jobs:
         with:
           name: glossary-browser-${{ github.event.pull_request.head.sha }}
           path: ${{ runner.temp }}/primserv-browser-report
+          retention-days: 7
+
+  tablet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node --check .github/browser/tablet-layout.mjs
+      - name: Install pinned tablet acceptance browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/primserv-tablet" --no-save --no-package-lock playwright@1.56.1
+          "$RUNNER_TEMP/primserv-tablet/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Exact-current tablet screen diagnostic
+        env:
+          PLAYWRIGHT_PACKAGE: ${{ runner.temp }}/primserv-tablet/node_modules/playwright
+          BROWSER_REPORT: ${{ runner.temp }}/primserv-tablet-report
+          TESTED_HEAD: ${{ github.event.pull_request.head.sha }}
+          TESTED_BASE: ${{ github.event.pull_request.base.sha }}
+          TABLET_LANGS: en,ru
+        run: node .github/browser/tablet-layout.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tablet-browser-${{ github.event.pull_request.head.sha }}
+          path: ${{ runner.temp }}/primserv-tablet-report
           retention-days: 7

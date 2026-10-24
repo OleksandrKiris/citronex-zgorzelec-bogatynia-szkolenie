@@ -1,5 +1,6 @@
 // User-authorized Actions browser acceptance, never a local browser substitute.
 import assert from 'node:assert/strict';
+import {LEGACY_POLICY,pinnedLegacy,freshTransition} from './source-lineage.mjs';
 import { createRequire } from 'node:module';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
@@ -22,15 +23,13 @@ const report = { head: process.env.TESTED_HEAD, base: process.env.TESTED_BASE,
     'Legacy worker cache name may reappear from in-flight old fetches; exact new shell bytes and offline flows are required.',
     'First installation requires HTTP access; file:// and never-opened-device offline are not promised.'] };
 assert.equal(report.checkout,report.head,'Acceptance must run the exact PR head');
-const current = new Map(), previous = new Map();
-const files = git('ls-tree', '-r', '--name-only', report.head).toString().trim().split('\n').filter(p =>
-  /^(?:[^/]+\.html|sw\.js|manifest\.webmanifest|assets\/(?:js|css)\/[^/]+\.(?:js|css)|assets\/primserv-logo\.svg)$/.test(p));
-for (const file of files) {
-  const bytes = await readFile(file);
-  assert.equal(hash(bytes), hash(git('show', `${report.head}:${file}`)), `Exact head: ${file}`);
-  current.set(file, bytes); previous.set(file, git('show', `${report.base}:${file}`));
-  report.files[file] = { bytes: bytes.length, sha256: hash(bytes) };
-}
+const shellPaths=ref=>git('ls-tree','-r','--name-only',ref).toString().trim().split('\n').filter(p=>/^(?:[^/]+\.html|sw\.js|manifest\.webmanifest|assets\/(?:js|css)\/[^/]+\.(?:js|css)|assets\/primserv-logo\.svg)$/.test(p));
+const current=new Map(),fresh=new Map();
+for(const file of shellPaths(report.head)){const bytes=await readFile(file);assert.equal(hash(bytes),hash(git('show',`${report.head}:${file}`)));current.set(file,bytes);report.files[file]={bytes:bytes.length,sha256:hash(bytes)};}
+for(const file of shellPaths(report.base))fresh.set(file,git('show',`${report.base}:${file}`));
+const previous=pinnedLegacy(LEGACY_POLICY,shellPaths(LEGACY_POLICY),(ref,path)=>git('show',`${ref}:${path}`));
+const hasFreshTransition=freshTransition(current,fresh);report.lineage={historicalPre15:LEGACY_POLICY,eventBase:report.base,freshRuntimeEqual:!hasFreshTransition,pins:{"assets/js/training-app.js": "7a3db71b7f837e9181cac53fdfc05552188a4c1d42de979f4cde321dde38124a", "assets/js/training-data.js": "9aca0086b79e9bcad299bfaaba37622ab4a46136283943a7297eebd73dbcea5f", "assets/js/location-custom.js": "ab8668b1e7ee9838c84eae712be07396da35f3d1542ee4ac03faa7cad4a9ef53", "assets/js/instruction-update.js": "2a84024f071f936363ab3dca0e93396711211869450e248fa44d6a2aee6ee36b", "sw.js": "c3b178cc60efc91094f94b0d02ed17b8437b7e6e81580b319c54753075f7b1f1", "tablet.html": "7f2cb10eac5c1b92124ca846533ef67e517890bbaad3af16ad41f278e93cd4f0", "assets/css/training.css": "262d5ce2b5f03d86239b22de1b6e27d88e2e62a6b836578cc60ec886c7dee0ea", "assets/css/primserv.css": "f9e2c5326bbf33c36e55ea9325bb5f21053234cfc2b6b14fdd1f8a1f2a2e4062"}};
+let sourcePhase='current';
 const workerCacheName = bytes => {
   const text=bytes.toString();
   return text.match(/const CACHE_PREFIX = "([^"]+)"/)[1]+text.match(/const CACHE_NAME = CACHE_PREFIX \+ "([^"]+)"/)[1];
@@ -44,9 +43,9 @@ const prefix = '/citronex-zgorzelec-bogatynia-szkolenie/';
 const types = { html: 'text/html', js: 'application/javascript', css: 'text/css', svg: 'image/svg+xml', webmanifest: 'application/manifest+json' };
 const server = createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost');
-  report.requests.push({ path: url.pathname, method: req.method, version: oldVersion ? 'base' : 'head' });
+  report.requests.push({ path: url.pathname, method: req.method, version: oldVersion ? LEGACY_POLICY : sourcePhase==='fresh' ? report.base : report.head });
   const file = url.pathname.startsWith(prefix) ? url.pathname.slice(prefix.length) || 'index.html' : '';
-  const bytes = (oldVersion ? previous : current).get(file);
+  const bytes = (oldVersion ? previous : sourcePhase==='fresh' ? fresh : current).get(file);
   if (!['GET', 'HEAD'].includes(req.method) || !bytes) { res.writeHead(404).end(); return; }
   res.writeHead(200, { 'Content-Type': types[file.split('.').at(-1)], 'Content-Length': bytes.length, 'Cache-Control': 'no-store' });
   res.end(req.method === 'HEAD' ? undefined : bytes);
@@ -134,8 +133,9 @@ async function quizResume(page) {
   await page.locator('#testQuestionTitle').waitFor({state:'visible'});
 }
 async function exactCachedApp(page) {
-  const expectedFiles=[...current].filter(([file])=>file.endsWith('.html')||file==='assets/js/training-app.js').map(([file,bytes])=>({
-    file,url:file+(file==='assets/js/training-app.js'?'?v='+appVersion:''),bytes:bytes.length,hash:hash(bytes)
+  const css=new Map([...current.get('index.html').toString().matchAll(/href="(assets\/css\/[^"]+)"/g)].map(m=>[m[1].split('?')[0],m[1]]));
+  const expectedFiles=[...current].filter(([file])=>file.endsWith('.html')||file==='assets/js/training-app.js'||css.has(file)).map(([file,bytes])=>({
+    file,url:css.get(file)||file+(file==='assets/js/training-app.js'?'?v='+appVersion:''),bytes:bytes.length,hash:hash(bytes)
   }));
   await page.waitForFunction(async expected=>{
     if(!(await caches.keys()).includes(expected.cache))return false;
@@ -175,7 +175,7 @@ try {
     await page.waitForFunction(()=>Array.from(document.querySelectorAll('[data-glossary-card]')).find(el=>el.querySelector('.glossary-term')?.textContent==='reader')?.querySelector('p')?.innerText.trim().length>0);
     const oldMeaning=await oldReader.locator('p').innerText(),expected=await approvedPolicy(page,mode,'ua');
     assert.equal(oldMeaning,await page.evaluate(()=>window.CX_DATA.glossary.find(item=>item.term==='reader').meaning.ua),'The old rule must actually render on screen');
-    assert.notEqual(oldMeaning,expected,'The current published base exposes the location-policy contradiction');
+    assert.notEqual(oldMeaning,expected,'The pinned pre15 source exposes the historical location-policy contradiction');
     await page.evaluate(async()=>{localStorage.setItem('unrelated','keep');await caches.open('unrelated-cache');});
     oldVersion=false;
     await page.evaluate(async()=>{
@@ -221,7 +221,7 @@ try {
     }
     assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),raw);
     await shot(page,`legacy-${completed?'completed':'partial'}-${width}`);
-    report.migrations.push({mode,width,completed,pass:true,oldMeaning,expected,newAppSHA256:hash(current.get('assets/js/training-app.js')),exactNewShellFiles,legacyCachePresentAfterUpgrade,legacyBytesPreserved:true,other29Preserved:true,offline:true,wrongFeedbackAndRestart:wrongFeedback});
+    report.migrations.push({sourceRef:LEGACY_POLICY,eventBase:report.base,mode,width,completed,pass:true,oldMeaning,expected,newAppSHA256:hash(current.get('assets/js/training-app.js')),exactNewShellFiles,legacyCachePresentAfterUpgrade,legacyBytesPreserved:true,other29Preserved:true,offline:true,wrongFeedbackAndRestart:wrongFeedback});
     await offline(ctx,false);await closeContext(ctx);
   }
   for (const mode of ['first','bogatynia', 'zgorzelec']) for (const width of [1280, 320]) {
@@ -369,8 +369,20 @@ try {
     await closeContext(homeCtx);
   }
   report.results.push({ scenario: 'home: empty selection, keyboard mode selection, primary/More links isolated, nine languages/reload, contacts/Back, real offline, ka fallback, warehouse warning; 1280 and 320', pass: true });
+  report.freshBaseProgress=[];
+  for(const mode of ['first','bogatynia','zgorzelec'])for(const width of [320,1280]){
+    activeMode=mode;oldVersion=false;sourcePhase='fresh';const {ctx,page}=await context(width);
+    await page.goto(`${base}test.html?mode=${mode}&lang=ua`);await quizResume(page);await controlled(page);
+    for(let i=0;i<3;i++){await page.locator('input[name="testAnswer"][value="1"]').check();await page.locator('#testNext').click();}
+    const stored=await page.evaluate(()=>Object.fromEntries(Object.keys(localStorage).filter(k=>k.startsWith('primserv:training-test:')).map(k=>[k,localStorage.getItem(k)])));assert(Object.keys(stored).some(k=>k.includes(':v2:')),'Fresh base uses current v2 answers');
+    sourcePhase='current';if(hasFreshTransition)await page.evaluate(async()=>{const changed=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('No actual fresh-base controllerchange')),12000);navigator.serviceWorker.addEventListener('controllerchange',()=>{clearTimeout(timer);resolve();},{once:true});});const reg=await navigator.serviceWorker.ready;await reg.update();await changed;});
+    const exact=await exactCachedApp(page);await offline(ctx,true);await page.reload();await quizResume(page);
+    assert.deepEqual(await page.evaluate(()=>Object.fromEntries(Object.keys(localStorage).filter(k=>k.startsWith('primserv:training-test:')).map(k=>[k,localStorage.getItem(k)]))),stored,'Current v2 progress is not migrated/reset again');
+    await shot(page,`fresh-base-v2-offline-${width}`);await offline(ctx,false);await closeContext(ctx);report.freshBaseProgress.push({mode,width,sourceRef:report.base,head:report.head,actualWorkerTransition:hasFreshTransition,exactCachedShellFiles:exact,currentV2AnswersPreserved:true,offline:true});
+  }
+  assert.equal(report.freshBaseProgress.length,6);
   assert.equal(report.policyRows.length,54,'All three modes, two widths and nine languages');
-  assert.equal(report.migrations.length,12,'All modes/widths and partial/completed actual-base histories');
+  assert.equal(report.migrations.length,12,'All modes/widths and partial/completed pinned pre15 histories');
   assert.equal(report.migrations.filter(row=>row.wrongFeedbackAndRestart).length,1);
   assert.equal(report.quizStorage.length,4,'Denied, quota, corrupt and future storage');
   assert.equal(report.results.length,9,'Six glossary, two storage and one complete home matrix');

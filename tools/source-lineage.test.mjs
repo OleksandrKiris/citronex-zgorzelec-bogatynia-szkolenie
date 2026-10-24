@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {pinnedLegacy,freshTransition,LEGACY_POLICY} from '../.github/browser/source-lineage.mjs';
+const shell=w=>new Map([['sw.js',Buffer.from(w)],['style.css',Buffer.from('same')]]);
+test('identical runtime installs current shell without an invented controllerchange',()=>assert.equal(freshTransition(shell('same'),shell('same')),false));
+test('a genuine worker transition remains required for changed runtime',()=>assert.equal(freshTransition(shell('new'),shell('old')),true));
+test('changed CSS with an unchanged worker is rejected',()=>{const current=shell('same');current.set('style.css',Buffer.from('changed'));assert.throws(()=>freshTransition(current,shell('same')),/real original worker/);});
+test('a new runtime file cannot be called equivalent',()=>{const current=shell('same');current.set('new.css',Buffer.from('new'));assert.throws(()=>freshTransition(current,shell('same')),/real original worker/);});
+test('missing original workers cannot pass',()=>assert.throws(()=>freshTransition(new Map(),shell('old')),/workers required/i));
+test('the fresh event base cannot stand in for the historical contradiction',()=>assert.throws(()=>pinnedLegacy('5e1bb670da23947a7b9e901a81c9e211deb48729',[],()=>Buffer.from('wrong')),/original pre15/));
+test('historical original bytes are checked before browser startup',()=>assert.throws(()=>pinnedLegacy(LEGACY_POLICY,[],()=>Buffer.from('altered')),/Pinned pre15 bytes/));
