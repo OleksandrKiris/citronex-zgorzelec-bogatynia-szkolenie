@@ -41,6 +41,10 @@ jobs:
   tablet:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [first, bogatynia, zgorzelec]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -61,10 +65,11 @@ jobs:
           TESTED_HEAD: ${{ github.event.pull_request.head.sha }}
           TESTED_BASE: ${{ github.event.pull_request.base.sha }}
           TABLET_LANGS: pl,en,ua,ru,az,es,fil,id,ne
+          TABLET_MODES: ${{ matrix.mode }}
         run: node .github/browser/tablet-layout.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: tablet-browser-${{ github.event.pull_request.head.sha }}
+          name: tablet-browser-${{ github.event.pull_request.head.sha }}-${{ matrix.mode }}
           path: ${{ runner.temp }}/primserv-tablet-report
           retention-days: 7

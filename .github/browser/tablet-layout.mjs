@@ -54,7 +54,7 @@ try{
   await ctx.tracing.stop({path:join(output,`old-layout-${lang}-trace.zip`)});await ctx.close();
  }
  assert.equal(report.historicalLayout.titles.length,26);assert(report.historicalLayout.titles.every(r=>r.padding<52),'Original phone styles remove the disclosure reserve');assert(report.historicalLayout.titles.some(r=>r.lang==='ru'&&!r.exposed),'Original Russian title is actually occluded');report.historicalLayout.reproduced=true;sourceRef=head;
- const langs=(process.env.TABLET_LANGS||'pl,en,ua,ru,az,es,fil,id,ne').split(',');report.languages=langs;report.modes=['first','bogatynia','zgorzelec'];
+ const langs=(process.env.TABLET_LANGS||'pl,en,ua,ru,az,es,fil,id,ne').split(',');report.languages=langs;report.modes=(process.env.TABLET_MODES||'first,bogatynia,zgorzelec').split(',');assert(report.modes.length&&new Set(report.modes).size===report.modes.length&&report.modes.every(m=>['first','bogatynia','zgorzelec'].includes(m)),'Only distinct original modes are allowed');
  for(const mode of report.modes)for(const width of [320,1280])for(const lang of langs){
   const ctx=await browser.newContext({viewport:{width,height:900}});contexts.push(ctx);ctx.setDefaultTimeout(12000);await ctx.tracing.start({screenshots:true,snapshots:true});
   await ctx.route('**/*',route=>{const r=route.request();if(new URL(r.url()).origin!==origin||!['GET','HEAD'].includes(r.method())){report.blocked.push(r.url());return route.abort();}return route.continue();});
