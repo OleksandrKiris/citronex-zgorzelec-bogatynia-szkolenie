@@ -38,6 +38,41 @@ jobs:
           path: ${{ runner.temp }}/primserv-browser-report
           retention-days: 7
 
+  documents:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [first, bogatynia, zgorzelec]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node --check .github/browser/document-flow.mjs
+      - name: Install pinned document acceptance browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/primserv-documents" --no-save --no-package-lock playwright@1.56.1
+          "$RUNNER_TEMP/primserv-documents/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Original PDF opening and return
+        env:
+          PLAYWRIGHT_PACKAGE: ${{ runner.temp }}/primserv-documents/node_modules/playwright
+          BROWSER_REPORT: ${{ runner.temp }}/primserv-documents-report
+          TESTED_HEAD: ${{ github.event.pull_request.head.sha }}
+          TESTED_BASE: ${{ github.event.pull_request.base.sha }}
+          DOCUMENT_MODE: ${{ matrix.mode }}
+        run: node .github/browser/document-flow.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: document-browser-${{ github.event.pull_request.head.sha }}-${{ matrix.mode }}
+          path: ${{ runner.temp }}/primserv-documents-report
+          retention-days: 7
+
   tablet:
     runs-on: ubuntu-latest
     timeout-minutes: 10
